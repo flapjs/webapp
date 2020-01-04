@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{369:function(n,i,o){"use strict";o.r(i);i.default={id:"node",onInitialization:function(n){},onTermination:function(n){}}}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{445:function(n,o,e){"use strict";e.r(o);var r={id:"node",version:"1.0.0",serices:{},renders:{},reducer:function(n,o){throw o.type,new Error("Unsupported action ".concat(o,"."))},load:function(n){},unload:function(n){}};o.default=r}}]);

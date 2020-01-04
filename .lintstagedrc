@@ -1,10 +1,10 @@
 {
-    "*.js|*.jsx": [
+    "src/**/*.js?(x)": [
         "eslint",
         "git add",
         "jest --config \".jest/config.js\" --bail --findRelatedTests"
     ],
-    "*.css": [
+    "src/**/*.css": [
         "stylelint",
         "git add"
     ]
