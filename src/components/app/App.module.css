@@ -7,24 +7,9 @@
     height: 100%;
 }
 
-.appbar {
-    display: flex;
-    flex-direction: row;
-    background: #333641;
+.container nav {
     width: 100%;
     height: APPBAR_HEIGHT;
-    color: white;
-    align-items: center;
-    overflow: auto;
-}
-
-.appbar > * {
-    margin: 0 1rem;
-}
-
-.apptitle {
-    flex: 1;
-    text-align: center;
 }
 
 .divider {

@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Style from '../App.module.css';
+import Style from './AppBar.module.css';
 
 // import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
-import TitleInput from '@flapjs/components/topbar/title/TitleInput.jsx';
+import SessionTitle from '@flapjs/components/topbar/title/SessionTitle.jsx';
+import Logo from '@flapjs/components/topbar/logo/Logo.jsx';
 
 function AppBar(props)
 {
     return (
-        <nav className={Style.appbar + ' ' + (props.className || '')}>
-            <h2>Flap.js</h2>
-            <TitleInput className={Style.apptitle} changeModule={props.changeModule}></TitleInput>
+        <nav className={Style.container + ' ' + (props.className || '')}>
+            <Logo/>
+            <SessionTitle changeModule={props.changeModule}></SessionTitle>
             {props.children}
         </nav>
     );

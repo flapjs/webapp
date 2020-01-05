@@ -1,0 +1,12 @@
+.logo {
+    margin-right: 0;
+}
+
+.version {
+    margin: 0;
+    padding: 0;
+    margin-left: 0.2rem;
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    bottom: 0;
+}

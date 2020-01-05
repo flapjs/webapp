@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Style from './SessionTitleInput.module.css';
+import Style from './SessionTitle.module.css';
 
 import * as FlapJSModules from '@flapjs/FlapJSModules.js';
 import { SessionConsumer } from '@flapjs/session/context/SessionContext.jsx';
@@ -8,7 +8,7 @@ import { SessionConsumer } from '@flapjs/session/context/SessionContext.jsx';
 /**
  * A React component that can do anything you want.
  */
-class TitleInput extends React.Component
+class SessionTitle extends React.Component
 {
     constructor(props)
     {
@@ -56,7 +56,8 @@ class TitleInput extends React.Component
         const props = this.props;
 
         return (
-            <div className={props.className}>
+            <div className={Style.container
+                + (props.className ? ' ' + props.className : '')}>
                 <SessionConsumer>
                     {
                         (session, dispatch) => (
@@ -79,11 +80,11 @@ class TitleInput extends React.Component
     }
 }
 
-TitleInput.propTypes = {
+SessionTitle.propTypes = {
     className: PropTypes.string,
     changeModule: PropTypes.func,
 };
-TitleInput.defaultProps = {
+SessionTitle.defaultProps = {
 };
 
-export default TitleInput;
+export default SessionTitle;
