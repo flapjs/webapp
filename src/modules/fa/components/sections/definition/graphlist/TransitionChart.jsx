@@ -1,11 +1,11 @@
 import React from 'react';
-import Style from './TransitionChartSection.module.css';
+import Style from './TransitionChart.module.css';
 
 import { EMPTY_CHAR } from '@flapjs/modules/fa/graph/elements/FSAEdge.js';
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/FSA.js';
 import MachineService from '@flapjs/services/MachineService.js';
 
-class TransitionChartSection extends React.Component
+class TransitionChart extends React.Component
 {
     constructor(props)
     {
@@ -161,4 +161,4 @@ class TransitionChartSection extends React.Component
     }
 }
 
-export default TransitionChartSection;
+export default TransitionChart;

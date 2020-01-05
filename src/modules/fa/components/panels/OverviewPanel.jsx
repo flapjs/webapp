@@ -6,12 +6,10 @@ import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageContentIcon } from '@flapjs/components/icons/Icons.js';
 
+import DefinitionPane from '@flapjs/modules/fa/components/sections/definition/DefinitionPane.jsx';
+import AnalysisPane from '@flapjs/modules/fa/components/sections/analysis/AnalysisPane.jsx';
 import RenameAlphabetSymbolSection from '@flapjs/modules/fa/components/sections/RenameAlphabetSymbolSection.jsx';
 import ApplyGraphLayoutSection from '@flapjs/modules/fa/components/sections/ApplyGraphLayoutSection.jsx';
-import OverviewStateListSection from '@flapjs/modules/fa/components/sections/OverviewStateListSection.jsx';
-import OverviewAlphabetListSection from '@flapjs/modules/fa/components/sections/OverviewAlphabetListSection.jsx';
-import OverviewTransitionSection from '@flapjs/modules/fa/components/sections/OverviewTransitionSection.jsx';
-import ChangeDeterminismSection from '@flapjs/modules/fa/components/sections/ChangeDeterminismSection.jsx';
 
 class OverviewPanel extends React.Component
 {
@@ -28,12 +26,8 @@ class OverviewPanel extends React.Component
             <header>
                 <h1>Overview</h1>
             </header>
-            <Pane title="Definition">
-                <ChangeDeterminismSection /> 
-                <OverviewStateListSection />
-                <OverviewAlphabetListSection />
-                <OverviewTransitionSection />
-            </Pane>
+            <DefinitionPane editable={true}/>
+            <AnalysisPane />
             <Pane title="Format">
                 <RenameAlphabetSymbolSection/>
                 <ApplyGraphLayoutSection/>

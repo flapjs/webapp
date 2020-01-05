@@ -1,5 +1,5 @@
 import React from 'react';
-import Style from './TransitionTableSection.module.css';
+import Style from './TransitionTable.module.css';
 
 import { EMPTY_CHAR } from '@flapjs/modules/fa/graph/elements/FSAEdge.js';
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/FSA.js';
@@ -9,7 +9,7 @@ import MachineService from '@flapjs/services/MachineService.js';
 const SYMBOL_AXIS = 'symbols';
 const STATE_AXIS = 'states';
 
-class TransitionTableView extends React.Component
+class TransitionTable extends React.Component
 {
     constructor(props)
     {
@@ -201,4 +201,4 @@ class TransitionTableView extends React.Component
     }
 }
 
-export default TransitionTableView;
+export default TransitionTable;
