@@ -8,6 +8,7 @@ export const base = {
 export const node = {
     name: 'Node Graph',
     version: '1.0.0',
+    disabled: true,
     fetch: () => import(/* webpackChunkName: "module_node" */ './modules/node/NodeModule.js')
 };
 
@@ -20,18 +21,21 @@ export const fa = {
 export const re = {
     name: 'Regular Expression',
     version: '1.0.0',
+    disabled: true,
     fetch: () => import(/* webpackChunkName: "module_re" */ './modules/re/RegularExpressionModule.js')
 };
 
 export const pda = {
     name: 'Pushdown Automata',
     version: '1.0.0',
+    disabled: true,
     fetch: () => import(/* webpackChunkName: "module_pda" */ './modules/pda/PushdownAutomataModule.js')
 };
 
 export const cfg = {
     name: 'Context-Free Grammar',
     version: '1.0.0',
+    disabled: true,
     fetch: () => import(/* webpackChunkName: "module_re" */ './modules/re/RegularExpressionModule.js')
 };
 

@@ -35,6 +35,8 @@ class TitleInput extends React.Component
         const result = [];
         for(const moduleID of Object.keys(modules))
         {
+            if (modules[moduleID].disabled) continue;
+
             result.push(
                 <option key={moduleID} value={moduleID}>
                     {modules[moduleID].name}
