@@ -79,7 +79,8 @@ const MODULE = {
             .setMachineValidatorClass(FSAValidator)
             .enableGraphServiceFeatures(session.graphService);
         
-        session.notificationService.notificationManager.pushNotification('Welcome to Flap.js');
+        session.notificationService.notificationManager
+            .pushNotification('flapjs.welcome');
     },
     unload(session)
     {
