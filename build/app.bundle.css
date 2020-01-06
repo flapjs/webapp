@@ -5,29 +5,9 @@
     height: 100%;
 }
 
-.src-components-app-__App-module__appbar--19YHx {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-            flex-direction: row;
-    background: #333641;
+.src-components-app-__App-module__container--JvP_f nav {
     width: 100%;
     height: 3rem;
-    color: white;
-    -webkit-box-align: center;
-            align-items: center;
-    overflow: auto;
-}
-
-.src-components-app-__App-module__appbar--19YHx > * {
-    margin: 0 1rem;
-}
-
-.src-components-app-__App-module__apptitle--2fl_7 {
-    -webkit-box-flex: 1;
-            flex: 1;
-    text-align: center;
 }
 
 .src-components-app-__App-module__divider--2_ouo {
@@ -47,6 +27,44 @@
     --color-viewport-error: red;
     --color-viewport-back-detail: gray;
     --color-background-lite: gray;
+}
+
+.src-components-app-structure-__AppBar-module__container--18XlX {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    background: #333641;
+    color: white;
+    -webkit-box-align: center;
+            align-items: center;
+    overflow: auto;
+
+    /* width and height are set in App.module.css */
+}
+
+.src-components-app-structure-__AppBar-module__container--18XlX > * {
+    margin: 0 1rem;
+}
+
+.src-components-topbar-title-__SessionTitle-module__container--1M1_J {
+    -webkit-box-flex: 1;
+            flex: 1;
+    text-align: center;
+}
+
+.src-components-topbar-logo-__Logo-module__logo--26Oo- {
+    margin-right: 0;
+}
+
+.src-components-topbar-logo-__Logo-module__version--20gy_ {
+    margin: 0;
+    padding: 0;
+    margin-left: 0.2rem;
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    bottom: 0;
 }
 
 .src-components-layout-__FlexibleOrientationLayout-module__container--Y7WgW.resizing * {

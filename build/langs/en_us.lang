@@ -1,3 +1,5 @@
+flapjs.welcome = Welcome to Flap.js!
+
 alert.graph.clear = Any unsaved changes will be lost. Are you sure you want to continue?
 alert.window.exit = Any unsaved changes will be lost. Are you sure you want to leave?
 

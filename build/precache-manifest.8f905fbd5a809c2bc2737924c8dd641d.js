@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b437df3c96d39d5d70ff",
+    "revision": "ad0eb80e42208ab5c895",
     "url": "/app.bundle.css"
   },
   {
-    "revision": "b437df3c96d39d5d70ff",
+    "revision": "ad0eb80e42208ab5c895",
     "url": "/app.bundle.js"
   },
   {
@@ -24,15 +24,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/index.html"
   },
   {
-    "revision": "d0971a8c718b7461d02a0961843aba78",
-    "url": "/langs/en.lang"
-  },
-  {
-    "revision": "42b9fd4e075d5003c49fdd8076b72a15",
+    "revision": "5df036b75b2fcb5adcd364dc87701d8b",
     "url": "/langs/en_us.lang"
   },
   {
-    "revision": "5f7ead98366bcf79d82336bd410a51c3",
+    "revision": "5c874d5a978f368d7b44c57db8a9b80a",
     "url": "/langs/xx_pirate.lang"
   },
   {
@@ -52,43 +48,43 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/manifest.webmanifest"
   },
   {
-    "revision": "5e1cf97dd228113cce52",
+    "revision": "a1dac08b4c7a6bfa38d5",
     "url": "/module_fa.css"
   },
   {
-    "revision": "5e1cf97dd228113cce52",
+    "revision": "a1dac08b4c7a6bfa38d5",
     "url": "/module_fa.js"
   },
   {
-    "revision": "f0fb33dbc8ab7b90f51a",
+    "revision": "081d00aa24a66f81171c",
     "url": "/module_fa~module_pda.css"
   },
   {
-    "revision": "f0fb33dbc8ab7b90f51a",
+    "revision": "081d00aa24a66f81171c",
     "url": "/module_fa~module_pda.js"
   },
   {
-    "revision": "9a2873dbb29881ffe3e8",
+    "revision": "47e83398f953b41fe8e9",
     "url": "/module_fa~module_re.js"
   },
   {
-    "revision": "24a8b762e191fa263bb9",
+    "revision": "66c7ac544561a9ac8512",
     "url": "/module_logic.js"
   },
   {
-    "revision": "b2aa6ec666dd3c720811",
+    "revision": "4351bd675c3657df2e63",
     "url": "/module_node.js"
   },
   {
-    "revision": "49c5d262390825dc0ea0",
+    "revision": "130184988c5da3c64635",
     "url": "/module_pda.js"
   },
   {
-    "revision": "368d46a33828b9512fc1",
+    "revision": "179f2635d610f458b708",
     "url": "/module_re.js"
   },
   {
-    "revision": "4bf94a2cfa172dec3541",
+    "revision": "467e075c962809b40581",
     "url": "/module_tm.js"
   },
   {

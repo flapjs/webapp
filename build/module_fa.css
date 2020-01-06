@@ -1,3 +1,43 @@
+.src-modules-fa-components-sections-definition-graphlist-__OverviewStateListSection-module__stateLabel--SKcoU {
+    margin: 0 0.2rem;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__OverviewStateListSection-module__stateAccept--2Y1UR {
+    text-decoration: underline;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__OverviewStateListSection-module__emptyLabel--YfiiF {
+    text-align: center;
+    width: 100%;
+    opacity: 30%;
+    font-size: 1.5rem;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__GraphElementList-module__container--2W4zt legend {
+    font-size: 1.2rem;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__GraphElementList-module__container--2W4zt ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__GraphElementList-module__container--2W4zt ul > li {
+    display: inline-block;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__OverviewAlphabetListSection-module__alphabetLabel--F56Br {
+    margin: 0 0.2rem;
+}
+
+.src-modules-fa-components-sections-definition-graphlist-__OverviewAlphabetListSection-module__emptyLabel--EORF2 {
+    text-align: center;
+    width: 100%;
+    opacity: 30%;
+    font-size: 1.5rem;
+}
+
 /** Not yet complete */
 
 /** Not yet complete */
@@ -12,14 +52,14 @@
     pointer-events: auto;
 
     /** CSS variables */
-    --color-surface-dark: red;
-    --color-surface-lite: blue;
-    --color-surface-warning-dark: red;
-    --color-surface-warning: red;
-    --color-surface-error-dark: red;
-    --color-surface-error: red;
-    --color-surface-success-dark: red;
-    --color-surface-success: red;
+    --color-surface-dark: gray;
+    --color-surface-lite: lightgray;
+    --color-surface-warning-dark: saddlebrown;
+    --color-surface-warning: yellow;
+    --color-surface-error-dark: darkred;
+    --color-surface-error: salmon;
+    --color-surface-success-dark: green;
+    --color-surface-success: lime;
 }
 
 .src-services-notification-components-__NotificationList-module__container--2Nwao > * {
