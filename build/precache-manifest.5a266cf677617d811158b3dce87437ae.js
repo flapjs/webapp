@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/images/logo.svg"
   },
   {
-    "revision": "86e23e457302c03984eca21681392475",
+    "revision": "43f9136a33e589423e521d7356a35ea6",
     "url": "/index.html"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/libs/react.production.min.js"
   },
   {
-    "revision": "5cae98476b67a28f144db373bd470ccc",
+    "revision": "3cb64e353391a6afb0e8faa829573b76",
     "url": "/manifest.webmanifest"
   },
   {
@@ -100,7 +100,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/scripts/ServiceWorker.md"
   },
   {
-    "revision": "088b832c82b725eed6f7ef4ce806e2a6",
+    "revision": "b190852aa649b9b0bb6c57c4c63270d6",
     "url": "/scripts/ServiceWorkerInstall.js"
   },
   {

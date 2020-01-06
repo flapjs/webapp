@@ -5,7 +5,7 @@ if (NODE_ENV === 'production' && 'serviceWorker' in navigator)
 {
     window.addEventListener('load', function() 
     {
-        navigator.serviceWorker.register('/service-worker.js').then(registration =>
+        navigator.serviceWorker.register('/build/service-worker.js').then(registration =>
         {
             // https://redfin.engineering/service-workers-break-the-browsers-refresh-button-by-default-here-s-why-56f9417694
             // https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68
