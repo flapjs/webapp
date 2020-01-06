@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 
 import { createContextState } from './LocalizationContextState.js';
 
-// These options serves as a fallback if no provider is created...
-const DEFAULT_CONTEXT_VALUE = createContextState(null);
-
 // Behold...the localization context.
-const LocalizationContext = React.createContext(DEFAULT_CONTEXT_VALUE);
+const LocalizationContext = React.createContext();
 
 class LocalizationProvider extends React.Component
 {
@@ -48,9 +45,6 @@ class LocalizationProvider extends React.Component
 LocalizationProvider.propTypes = {
     localeCode: PropTypes.string,
     children: PropTypes.node.isRequired,
-};
-LocalizationProvider.defaultProps = {
-    localeCode: DEFAULT_CONTEXT_VALUE.localeCode,
 };
 
 // ...and it's provider...

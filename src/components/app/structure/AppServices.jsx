@@ -18,7 +18,7 @@ class AppServices extends React.Component
         const props = this.props;
 
         return (
-            <LocalizationProvider localeCode="en">
+            <LocalizationProvider>
                 <ThemeProvider source={() => document.getElementById('root')}>
                     <DrawerProvider>
                         {props.children}

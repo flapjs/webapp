@@ -4,6 +4,8 @@ import LanguageMap from './LanguageMap.js';
 const LOGGER_TAG = 'Localization';
 const BASE_URL = 'langs/';
 
+const LOCAL_STORAGE_KEY = '__localeCode';
+
 /**
  * This stores all locale to language mapppings. This is a module-scoped variable
  * instead of living in a global store because this is all static data. There
@@ -111,9 +113,9 @@ export function getLocaleString(provider, entityName, ...args)
  * Change the current locale.
  * 
  * @param {LocalizationProvider} provider The localization provider to change. Usually this is bound by the context.
- * @param {string} localeCode The locale code to change to.
+ * @param {string} [localeCode] The locale code to change to. If null, it will use the one already stored or the fallback language.
  */
-export function changeLocale(provider, localeCode)
+export function changeLocale(provider, localeCode = undefined)
 {
     // No provider was given, this is probably an error.
     if (!provider)
@@ -122,10 +124,14 @@ export function changeLocale(provider, localeCode)
     }
 
     if (provider.state.localeCode === localeCode) return;
+    if (!localeCode) localeCode = getDefaultLocaleCode();
     
     loadLocale(localeCode).then(result =>
     {
         if (!provider.shouldUpdateAsync) return;
+
+        // Update local storage...
+        localStorage.setItem(LOCAL_STORAGE_KEY, localeCode);
 
         // When it is done, force a re-render...
         if (!result)
@@ -183,6 +189,11 @@ export function loadLocale(localeCode)
     {
         return Promise.resolve(localeCode);
     }
+}
+
+export function getDefaultLocaleCode()
+{
+    return localStorage.getItem(LOCAL_STORAGE_KEY) || FALLBACK_LOCALE_CODE;
 }
 
 export function getLanguageAssetURL(localeCode)

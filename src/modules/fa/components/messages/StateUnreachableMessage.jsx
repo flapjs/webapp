@@ -90,7 +90,7 @@ class StateUnreachableMessage extends React.Component
 }
 StateUnreachableMessage.propTypes = {
     notification: PropTypes.object.isRequired,
-    content: PropTypes.string,
+    content: PropTypes.array,
     onClose: PropTypes.func,
 };
 

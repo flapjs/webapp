@@ -7,6 +7,9 @@ import Logo from '@flapjs/components/topbar/logo/Logo.jsx';
 import { SessionStateConsumer } from '@flapjs/session/context/SessionContext.jsx';
 import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
 
+import LanguageSelector from '@flapjs/util/localization/components/LanguageSelector.jsx';
+import * as FlapJSLanguages from '@flapjs/FlapJSLanguages.js';
+
 function AppBar(props)
 {
     return (
@@ -19,6 +22,8 @@ function AppBar(props)
                         session =>
                         {
                             let children = [];
+
+                            // TODO: When there's a modular way for services to inject renderers like modules...
                             if (session.undoManager)
                             {
                                 children.push(
@@ -33,6 +38,7 @@ function AppBar(props)
                                 );
                             }
 
+                            // TODO: When there's a modular way for services to inject renderers like modules...
                             if (session.importManager)
                             {
                                 children.push(
@@ -56,6 +62,7 @@ function AppBar(props)
                     }
                 </SessionStateConsumer>
             }
+            <LanguageSelector languages={FlapJSLanguages} />
             {props.children}
         </nav>
     );
