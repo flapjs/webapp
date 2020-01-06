@@ -86,7 +86,6 @@ class App extends React.Component
                                     <AppServices>
                                         {/** The navigation bar at the top. */}
                                         <AppBar changeModule={changeModule}>
-                                            {DeprecatedAppHandler.renderAppBar()}
                                             {ModuleServices.renderLayer(currentModule, 'appbar')}
                                         </AppBar>
                                         {/** The entire workspace, including drawers, viewports, playgrounds, etc. */}

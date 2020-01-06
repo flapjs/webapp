@@ -2,16 +2,60 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './AppBar.module.css';
 
-// import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
 import SessionTitle from '@flapjs/components/topbar/title/SessionTitle.jsx';
 import Logo from '@flapjs/components/topbar/logo/Logo.jsx';
+import { SessionStateConsumer } from '@flapjs/session/context/SessionContext.jsx';
+import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
 
 function AppBar(props)
 {
     return (
         <nav className={Style.container + ' ' + (props.className || '')}>
             <Logo/>
-            <SessionTitle changeModule={props.changeModule}></SessionTitle>
+            <SessionTitle changeModule={props.changeModule}/>
+            {
+                <SessionStateConsumer>
+                    {
+                        session =>
+                        {
+                            let children = [];
+                            if (session.undoManager)
+                            {
+                                children.push(
+                                    <button onClick={() => session.undoManager.undo()}>
+                                        <LocaleString entity="action.toolbar.undo"/>
+                                    </button>
+                                );
+                                children.push(
+                                    <button onClick={() => session.undoManager.redo()}>
+                                        <LocaleString entity="action.toolbar.redo"/>
+                                    </button>
+                                );
+                            }
+
+                            if (session.importManager)
+                            {
+                                children.push(
+                                    <input type="file" name="import"
+                                        onChange={e =>
+                                        {
+                                            const files = e.target.files;
+                                            if (files.length > 0)
+                                            {
+                                                session.importManager.tryImportFile(files[0], session);
+                                    
+                                                //Makes sure you can upload the same file again.
+                                                e.target.value = '';
+                                            }
+                                        }}/>
+                                );
+                            }
+
+                            return children;
+                        }
+                    }
+                </SessionStateConsumer>
+            }
             {props.children}
         </nav>
     );
