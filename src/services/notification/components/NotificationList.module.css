@@ -8,14 +8,14 @@
     pointer-events: auto;
 
     /** CSS variables */
-    --color-surface-dark: red;
-    --color-surface-lite: blue;
-    --color-surface-warning-dark: red;
-    --color-surface-warning: red;
-    --color-surface-error-dark: red;
-    --color-surface-error: red;
-    --color-surface-success-dark: red;
-    --color-surface-success: red;
+    --color-surface-dark: gray;
+    --color-surface-lite: lightgray;
+    --color-surface-warning-dark: saddlebrown;
+    --color-surface-warning: yellow;
+    --color-surface-error-dark: darkred;
+    --color-surface-error: salmon;
+    --color-surface-success-dark: green;
+    --color-surface-success: lime;
 }
 
 .container > * {
