@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
 import ErrorMessage from '@flapjs/services/notification/components/messages/ErrorMessage.jsx';
 
 class StateUnreachableMessage extends React.Component
@@ -72,13 +73,16 @@ class StateUnreachableMessage extends React.Component
         return (
             <ErrorMessage
                 notification={props.notification}
+                content="message.warning.unreachable"
                 onClose={props.onClose}>
-                <p>{'message.warning.unreachable' + ': ' + this.targetLabel}</p>
+                <p>
+                    {this.targetLabel}
+                </p>
                 <button value="locate" onClick={this.onClick}>
-                    {'message.action.locate'}
+                    <LocaleString entity="message.action.locate" />
                 </button>
                 <button value="deleteall" onClick={this.onClick}>
-                    {'message.action.deleteall'}
+                    <LocaleString entity="message.action.deleteall" />
                 </button>
             </ErrorMessage>
         );

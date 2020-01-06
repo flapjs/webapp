@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ErrorMessage from '@flapjs/services/notification/components/messages/ErrorMessage.jsx';
+import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
 
 class StateMissingMessage extends React.Component
 {
@@ -63,12 +64,13 @@ class StateMissingMessage extends React.Component
         return (
             <ErrorMessage
                 notification={props.notification}
+                content="message.error.missing"
                 onClose={props.onClose}>
                 <p>
-                    {'message.error.missing' + ': ' + this.targetLabel}
+                    {this.targetLabel}
                 </p>
                 <button value="locate" onClick={this.onClick}>
-                    {'message.action.locate'}
+                    <LocaleString entity="message.action.locate" />
                 </button>
             </ErrorMessage>
         );
