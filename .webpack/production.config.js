@@ -8,7 +8,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = merge.smart(base, {
     mode: 'production',
     output: {
-        /** Wherever urls should start from... */
+        /**
+         * Wherever urls should start from. This is used for production.
+         * 
+         * Be sure to also update `ServiceWorkerInstall.js` service worker
+         * path if this changes.
+         */
         publicPath: '/webapp/build/'
     },
     externals: {

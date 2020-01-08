@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const DefinePlugin = require('webpack').DefinePlugin;
+const { DefinePlugin } = require('webpack');
 const package = require('../package.json');
 
 // This is our custom webpack plugin to handle inlining.
