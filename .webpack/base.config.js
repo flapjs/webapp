@@ -137,6 +137,8 @@ module.exports = {
             // But we have it here anyways since the expected use case is to define
             // it here. So it's really just in case someone references it unknowingly.
             title: HTML_PAGE_TITLE,
+            // NOTE: Other data used only by the template, not the plugin itself (this is allowed).
+            package,
         }),
         /** This NEEDS to be SECOND. Storybook's webpack config file depends on it. */
         new HtmlWebpackInlineSourceOnlyPlugin(HtmlWebpackPlugin),
@@ -165,7 +167,8 @@ module.exports = {
             moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`
         }),
         new DefinePlugin({
-            __VERSION__: `"${package.version}"`
+            '__VERSION__': `"${package.version}"`,
+            '__BUG_REPORT_URL': `"${package.bugs.url}"`,
         }),
     ]
 };

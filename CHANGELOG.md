@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Style linting
 - PostCSS integration
 - Proper testing before commits
+- Bug reporting on loading screen (if it crashes)
+- Helpful prompts if loading too long without content
+- Version on loading screen
 
 ### Changed
 - It's a whole new world! :D

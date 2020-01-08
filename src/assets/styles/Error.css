@@ -17,8 +17,15 @@
 }
 
 #restart {
-    top: 48px;
-    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    top: 80px;
+    transition: opacity 1s ease;
+}
+
+#restart p {
+    margin: 0;
+    margin-bottom: 0.5rem;
 }
 
 #restart button,
