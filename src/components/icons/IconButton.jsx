@@ -28,7 +28,8 @@ IconButton.propTypes = {
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-    iconClass: PropTypes.elementType.isRequired,
+    // TODO: Should be ...isRequired, but PropTypes in production doesn't recognize it.
+    iconClass: PropTypes.elementType,
 };
 
 export default IconButton;

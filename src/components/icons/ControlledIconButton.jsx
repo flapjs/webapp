@@ -31,7 +31,8 @@ ControlledIconButton.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node,
     elementRef: PropTypes.object,
-    iconClass: PropTypes.elementType.isRequired,
+    // TODO: Should be ...isRequired, but PropTypes in production doesn't recognize it.
+    iconClass: PropTypes.elementType,
 };
 
 export default ControlledIconButton;
