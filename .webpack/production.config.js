@@ -7,6 +7,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = merge.smart(base, {
     mode: 'production',
+    output: {
+        /** Wherever urls should start from... */
+        publicPath: '/webapp/build/'
+    },
     externals: {
         /** Add libraries here that are included externally (such as a <script> tag) */
         'react': 'React',
