@@ -8,6 +8,8 @@ import ModuleManager, { EVENT_ON_CHANGE_MODULE } from './session/ModuleManager.j
 import ModuleSaver from './session/ModuleSaver.js';
 import BaseModule from './modules/base/BaseModule.js';
 
+const DEFAULT_MODULE_ID = 'fa';
+
 class FlapJSApplication
 {
     constructor(rootElement)
@@ -45,7 +47,10 @@ class FlapJSApplication
         }
         else
         {
-            await this.moduleManager.changeModule(BaseModule);
+            const defaultModule = DEFAULT_MODULE_ID === 'base'
+                ? BaseModule
+                : await this.loadModuleByID(DEFAULT_MODULE_ID);
+            await this.moduleManager.changeModule(defaultModule);
         }
         
         // Save the module to storage, if it changes...
