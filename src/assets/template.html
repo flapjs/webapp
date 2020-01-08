@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
         <!-- Web Manifest -->
-        <link rel="manifest" href="./manifest.webmanifest">
+        <link rel="manifest" href="<%= webpackConfig.output.publicPath %>manifest.webmanifest">
         
         <!-- Search Metadata (Needs to be short!) -->
         <meta name="description" content="An intuitive web app to help you explore and construct formal languages and automata with real-time analysis and error checking.">
@@ -60,12 +60,12 @@
 <script inline src="./scripts/ExitWarning.js"></script>
 
         <!-- Library Files -->
-        <!-- <script crossorigin... https://unpkg.com/react@16/umd/react.production.min.js -->
-        <script defer src="./libs/react.production.min.js"></script>
-        <!-- <script crossorigin... https://unpkg.com/react-dom@16/umd/react-dom.production.min.js -->
-        <script defer src="./libs/react-dom.production.min.js"></script>
-        <!-- <script crossorigin... https://unpkg.com/prop-types@15.6/prop-types.min.js -->
-        <script defer src="./libs/prop-types.min.js"></script>
+        <!-- <script crossorigin> https://unpkg.com/react@16/umd/react.production.min.js -->
+        <script defer src="<%= webpackConfig.output.publicPath %>libs/react.production.min.js"></script>
+        <!-- <script crossorigin> https://unpkg.com/react-dom@16/umd/react-dom.production.min.js -->
+        <script defer src="<%= webpackConfig.output.publicPath %>libs/react-dom.production.min.js"></script>
+        <!-- <script crossorigin> https://unpkg.com/prop-types@15.6/prop-types.min.js -->
+        <script defer src="<%= webpackConfig.output.publicPath %>libs/prop-types.min.js"></script>
 
     <!-- Bundles -->
     </body>
