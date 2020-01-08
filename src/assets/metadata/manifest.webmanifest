@@ -3,19 +3,19 @@
     "name": "Flap.js",
     "icons": [
         {
-            "src": "webapp/build/images/logo-192.png",
+            "src": "images/logo-192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "webapp/build/images/logo-512.png",
+            "src": "images/logo-512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
     ],
-    "start_url": "/webapp/",
+    "start_url": "/webapp/build/",
     "background_color": "#3367D6",
     "display": "standalone",
-    "scope": "/webapp/",
+    "scope": "/webapp/build/",
     "theme_color": "#3367D6"
 }

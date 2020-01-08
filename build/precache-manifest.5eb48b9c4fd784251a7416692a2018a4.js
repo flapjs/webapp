@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/build/images/logo.svg"
   },
   {
-    "revision": "66268db49d196540561b751b1af1b81e",
+    "revision": "3bf0a4c1973c8e350a454605d8def085",
     "url": "/webapp/build/index.html"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/build/libs/react.production.min.js"
   },
   {
-    "revision": "3cb64e353391a6afb0e8faa829573b76",
+    "revision": "7b7f5605eb7c50167f91c8461a34f850",
     "url": "/webapp/build/manifest.webmanifest"
   },
   {
