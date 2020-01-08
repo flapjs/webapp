@@ -1,0 +1,32 @@
+/** Error styles **/
+#error {
+    z-index: 9999;
+    pointer-events: none;
+}
+
+#error noscript {
+    top: 48px;
+}
+
+#version {
+    z-index: 9999;
+    pointer-events: none;
+    top: -64px;
+    opacity: 30%;
+    font-size: 0.8rem;
+}
+
+#restart {
+    top: 48px;
+    transition: opacity 0.3s ease;
+}
+
+#restart button,
+#restart a {
+    pointer-events: all;
+}
+
+#restart[disabled] {
+    opacity: 0;
+    visibility: hidden;
+}

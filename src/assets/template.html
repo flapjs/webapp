@@ -30,21 +30,50 @@
 <!-- Loading Styles -->
 <link inline rel="stylesheet" href="./styles/Loading.css">
 
+<!-- Error Styles -->
+<link inline rel="stylesheet" href="./styles/Error.css">
+
     <!-- Styles -->
     </head>
 
     <body>
-        <!-- React Root -->
-        <div id="root"></div>
+        <!-- CSS Support -->
+        <div style="display: none;">
+            Please enable CSS to run this app.
+            We don't support no-css yet (please post a feature request).
+        </div>
         
-        <!-- Loading Spinner -->
+        <!-- React Root (must be next to loading spinner) -->
+        <div id="root"></div>
+
+        <!-- Loading Spinner (must be next to React root) -->
         <div class="_center" id="loading">
             <div class="_spinner"><div></div><div></div><div></div></div>
-        </div>
 
-        <!-- JavaScript Support -->
-        <div class="_center" id="error">
-            <noscript>You need to enable JavaScript to run this app.</noscript>
+            <!-- Error Support -->
+            <div id="error">
+                <!-- Version Info -->
+                <p class="_center" id="version">
+                    <%= htmlWebpackPlugin.options.package.description %>
+                    <span>
+                        &nbsp;
+                        v
+                    </span>
+                    <%= htmlWebpackPlugin.options.package.version %>
+                </p>
+                <!-- JavaScript Support -->
+                <noscript class="_center">You need to enable JavaScript to run this app.</noscript>
+                <!-- Refresh Prompt -->
+                <div class="_center" id="restart" disabled>
+                    <p>
+                        Taking too long? Try refreshing (or <a href=<%= htmlWebpackPlugin.options.package.bugs.url %>>report the bug</a>).
+                        &nbsp;
+                        <button id="restartButton">Refresh Now</button>
+                    </p>
+                </div>
+                <!-- Too Long Restart Prompt -->
+                <script inline src="./scripts/TooLongRestartPrompt.js"></script>
+            </div>
         </div>
 
 <!-- Global Variables -->

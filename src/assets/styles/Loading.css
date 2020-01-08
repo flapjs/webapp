@@ -31,10 +31,3 @@
     100% { transform: scale(0); }
     40% { transform: scale(1); }
 }
-
-/** Error styles **/
-#error {
-    z-index: 9999;
-    pointer-events: none;
-    top: 64px;
-}

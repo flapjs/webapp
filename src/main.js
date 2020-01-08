@@ -17,7 +17,15 @@ Logger.out('Main', `Preparing app for ${NODE_ENV} environment...`);
 Logger.out('Main', `Loading app version '${__VERSION__}'...`);
 
 // Initial rendering...
-FlapJSApplication.start();
+try
+{
+    FlapJSApplication.start();
+}
+catch(e)
+{
+    // NOTE: As of right now, this does nothing. Hopefully it catches something though...
+    window.alert(e);
+}
 
 // Debug rendering...
 if (module.hot)
