@@ -90,12 +90,48 @@ body {
     100% { transform: scale(0); }
     40% { transform: scale(1); }
 }
+</style>
 
+<!-- Error Styles -->
+<style>
 /** Error styles **/
 #error {
     z-index: 9999;
     pointer-events: none;
-    top: 64px;
+}
+
+#error noscript {
+    top: 48px;
+}
+
+#version {
+    z-index: 9999;
+    pointer-events: none;
+    top: -64px;
+    opacity: 30%;
+    font-size: 0.8rem;
+}
+
+#restart {
+    display: flex;
+    flex-direction: column;
+    top: 80px;
+    transition: opacity 1s ease;
+}
+
+#restart p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+#restart button,
+#restart a {
+    pointer-events: all;
+}
+
+#restart[disabled] {
+    opacity: 0;
+    visibility: hidden;
 }
 </style>
 
@@ -103,17 +139,79 @@ body {
     <link href="/webapp/build/app.bundle.css" rel="stylesheet"></head>
 
     <body>
-        <!-- React Root -->
-        <div id="root"></div>
+        <!-- CSS Support -->
+        <div style="display: none;">
+            Please enable CSS to run this app.
+            We don't support no-css yet (please post a feature request).
+        </div>
         
-        <!-- Loading Spinner -->
+        <!-- React Root (must be next to loading spinner) -->
+        <div id="root"></div>
+
+        <!-- Loading Spinner (must be next to React root) -->
         <div class="_center" id="loading">
             <div class="_spinner"><div></div><div></div><div></div></div>
-        </div>
 
-        <!-- JavaScript Support -->
-        <div class="_center" id="error">
-            <noscript>You need to enable JavaScript to run this app.</noscript>
+            <!-- Error Support -->
+            <div id="error">
+                <!-- Version Info -->
+                <p class="_center" id="version">
+                    Flap.js Web App
+                    <span>
+                        &nbsp;
+                        v
+                    </span>
+                    0.5.0
+                </p>
+                <!-- JavaScript Support -->
+                <noscript class="_center">You need to enable JavaScript to run this app.</noscript>
+                <!-- Refresh Prompt -->
+                <div class="_center" id="restart" disabled>
+                    <p>
+                        Taking too long?
+                    </p>
+                    <p>
+                        On slower connections, this may take up to a minute or two.
+                    </p>
+                    <p>
+                        Otherwise, try refreshing (or <a href=https://forms.gle/cyQFU9Ckgs5mr8D4A>report the bug</a>).
+                        &nbsp;
+                        <button id="restartButton">Refresh Now</button>
+                    </p>
+                </div>
+                <!-- Too Long Restart Prompt -->
+                <script>
+const TOO_LONG_RESTART_INTERVAL_TIME = 5000;
+document.querySelector('#restartButton').addEventListener('click', onRestartButtonClick);
+setInterval(onTooLongRestartIntervalUpdate, TOO_LONG_RESTART_INTERVAL_TIME);
+
+function onTooLongRestartIntervalUpdate()
+{
+    let nonEmptyRoot = document.querySelector('#root:not(:empty)');
+    if (nonEmptyRoot)
+    {
+        showPrompt(false);
+    }
+    else
+    {
+        showPrompt(true);
+    }
+}
+
+function showPrompt(value)
+{
+    let restartContainer = document.querySelector('#restart');
+    restartContainer.toggleAttribute('disabled', !value);
+    let restartButton = document.querySelector('#restartButton');
+    restartButton.toggleAttribute('disabled', !value);
+}
+
+function onRestartButtonClick()
+{
+    window.location.reload();
+}
+</script>
+            </div>
         </div>
 
 <!-- Global Variables -->
