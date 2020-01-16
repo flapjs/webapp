@@ -48,11 +48,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/build/manifest.webmanifest"
   },
   {
-    "revision": "a1dac08b4c7a6bfa38d5",
+    "revision": "e36771d640a817bc00cd",
     "url": "/webapp/build/module_fa.css"
   },
   {
-    "revision": "a1dac08b4c7a6bfa38d5",
+    "revision": "e36771d640a817bc00cd",
     "url": "/webapp/build/module_fa.js"
   },
   {

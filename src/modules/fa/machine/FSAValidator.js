@@ -1,5 +1,4 @@
 import AbstractMachineValidator from '@flapjs/services/machine/AbstractMachineValidator.js';
-/*
 import SuccessMessage from '@flapjs/services/notification/components/messages/SuccessMessage.jsx';
 
 import * as FSANotifications from '@flapjs/modules/fa/components/messages/FSANotifications.js';
@@ -7,13 +6,15 @@ import * as FSANotifications from '@flapjs/modules/fa/components/messages/FSANot
 import
 {
     ERROR_UNREACHABLE_STATE,
+    /*
+    // FIXME: https://reactjs.org/docs/error-decoder.html?invariant=31&args[]=object%20with%20keys%20%7Btext%2C%20targets%7D&args[]=
     ERROR_DUPLICATE_STATE,
     ERROR_INCOMPLETE_TRANSITION,
     ERROR_DUPLICATE_TRANSITION,
     ERROR_MISSING_TRANSITION,
     ERROR_EMPTY_TRANSITION
+    */
 } from '@flapjs/modules/fa/machine/FSAMachineBuilder.js';
-*/
 
 class FSAValidator extends AbstractMachineValidator
 {
@@ -25,9 +26,6 @@ class FSAValidator extends AbstractMachineValidator
     /** @override */
     validate(machineController)
     {
-        // FIXME: https://reactjs.org/docs/error-decoder.html?invariant=31&args[]=object%20with%20keys%20%7Btext%2C%20targets%7D&args[]=
-        return; 
-        /*
         let machineBuilder = machineController.getMachineBuilder();
         let errors = machineBuilder._errors;
         let warnings = machineBuilder._warnings;
@@ -63,6 +61,8 @@ class FSAValidator extends AbstractMachineValidator
                 }
             }
 
+            /*
+            // FIXME: https://reactjs.org/docs/error-decoder.html?invariant=31&args[]=object%20with%20keys%20%7Btext%2C%20targets%7D&args[]=
             for (const error of errors)
             {
                 switch (error.name)
@@ -134,8 +134,8 @@ class FSAValidator extends AbstractMachineValidator
                         break;
                 }
             }
+                */
         }
-        */
     }
 }
 
