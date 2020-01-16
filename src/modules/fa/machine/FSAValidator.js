@@ -134,7 +134,7 @@ class FSAValidator extends AbstractMachineValidator
                         break;
                 }
             }
-                */
+            */
         }
     }
 }
