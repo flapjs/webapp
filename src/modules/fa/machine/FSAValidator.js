@@ -1,4 +1,5 @@
 import AbstractMachineValidator from '@flapjs/services/machine/AbstractMachineValidator.js';
+/*
 import SuccessMessage from '@flapjs/services/notification/components/messages/SuccessMessage.jsx';
 
 import * as FSANotifications from '@flapjs/modules/fa/components/messages/FSANotifications.js';
@@ -12,7 +13,7 @@ import
     ERROR_MISSING_TRANSITION,
     ERROR_EMPTY_TRANSITION
 } from '@flapjs/modules/fa/machine/FSAMachineBuilder.js';
-
+*/
 
 class FSAValidator extends AbstractMachineValidator
 {
@@ -24,6 +25,9 @@ class FSAValidator extends AbstractMachineValidator
     /** @override */
     validate(machineController)
     {
+        // FIXME: https://reactjs.org/docs/error-decoder.html?invariant=31&args[]=object%20with%20keys%20%7Btext%2C%20targets%7D&args[]=
+        return; 
+        /*
         let machineBuilder = machineController.getMachineBuilder();
         let errors = machineBuilder._errors;
         let warnings = machineBuilder._warnings;
@@ -131,6 +135,7 @@ class FSAValidator extends AbstractMachineValidator
                 }
             }
         }
+        */
     }
 }
 
