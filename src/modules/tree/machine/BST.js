@@ -158,5 +158,37 @@ class BST extends Tree
       }
       recursiveDelete(curNode);
     }
+
+    function isValidBST()
+    {
+      let curNode = this.root;
+      let prev = null;
+      if (curNode.left)
+      {
+        curNode = curNode.left;
+        prev = curNode;
+        if(curNode.data < prev.data)
+        {
+          isValidBST(curNode);
+        }
+        else
+        {
+          return false;
+        }
+      }
+      if (curNode.right)
+      {
+        curNode = curNode.right;
+        prev = curNode;
+        if(curNode.data > prev.data)
+        {
+          isValidBST(curNode);
+        }
+        else
+        {
+          return false;
+        }
+      }
+      return true;
 }
 export default BST;
