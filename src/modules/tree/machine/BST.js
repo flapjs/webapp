@@ -1,3 +1,5 @@
+import Tree from './Tree.js';
+import BSTNode from './BSTNode.js';
 
 class BST extends Tree
 {
@@ -13,19 +15,19 @@ class BST extends Tree
     }
     insert(data)
     {
-        if (!(this.validateData(data)))
-        {
-            //TODO: Throw error for invalid node
-            alert('Invalid data');
-            return;
-        }
+        /*         if (!(this.validateData(data)))
+                {
+                    //TODO: Throw error for invalid node
+                    alert('Invalid data');
+                    return;
+                } */
         if (this.root === null)
         {
-            //this.root = new BSTNode(data);
+            this.root = new BSTNode(this.dataType, data);
             return;
         }
         let curNode = this.root;
-        function recursiveInsert(curNode)
+        function recursiveInsert(curNode, dataType)
         {
             if (curNode.data === data)
             {
@@ -38,29 +40,29 @@ class BST extends Tree
             {
                 if (curNode.left === null)
                 {
-                    //curNode.left = new BSTNode(data);
+                    curNode.left = new BSTNode(dataType, data);
                     curNode.left.parent = curNode;
                     return;
                 }
-                recursiveInsert(curNode.left);
+                recursiveInsert(curNode.left, dataType);
             }
             else
             {
                 if (curNode.right === null)
                 {
-                    //curNode.right = new BSTNode(data);
+                    curNode.right = new BSTNode(dataType, data);
                     curNode.right.parent = curNode;
                     return;
                 }
-                recursiveInsert(curNode.right);
+                recursiveInsert(curNode.right, dataType);
             }
         }
-        recursiveInsert(curNode);
+        recursiveInsert(curNode, this.dataType);
         return;
     }
     validateData(data)
     {
-        return typeof data === this.dataType;
+        return data == this.dataType;
     }
     find(data)
     {
@@ -91,104 +93,204 @@ class BST extends Tree
     }
     delete(data)
     {
-      if (!(this.validateData(data)))
-      {
-          //TODO: Throw error for invalid node
-          alert('Invalid data');
-          return;
-      }
-      let curNode = this.root;
-      function recursiveDelete(curNode)
-      {
-        if(curNode === null)
+        if (!(this.validateData(data)))
         {
-          alert('Attempting to delete nonexistant node');
-        }
-        if(curNode.data === data) {
-          //no children
-          if(curNode.left === null && curNode.right === null)
-          {
-            if (curNode.parent.left.data === data) {
-              curNode.parent.left = null;
-            }
-            else {
-              curNode.parent.right = null;
-            }
+            //TODO: Throw error for invalid node
+            alert('Invalid data');
             return;
-          }
-
-          //2 children
-          else if(curNode.left !== null && curNode.right !== null)
-          {
-            let successor = curNode;
-            successor = successor.right;
-            while(successor.left !== null)
-            {
-              successor = successor.left;
-            }
-            curNode.data = successor.data;
-            recursiveDelete(successor);
-          }
-
-          //1 child
-          else
-          {
-            if(curNode.parent.left.data === data) {
-              if(curNode.left !== null)
-              {
-                curNode.parent.left = curNode.left;
-              }
-              else
-              {
-                curNode.parent.right = curNode.left;
-              }
-            }
-            else {
-              if(curNode.left !== null)
-              {
-                curNode.parent.left = curNode.right;
-              }
-              else
-              {
-                curNode.parent.right = curNode.right;
-              }
-            }
-          }
         }
-      }
-      recursiveDelete(curNode);
+        let curNode = this.root;
+        function recursiveDelete(curNode)
+        {
+            if (curNode === null)
+            {
+                alert('Attempting to delete nonexistant node');
+            }
+            if (curNode.data === data)
+            {
+                //no children
+                if (curNode.left === null && curNode.right === null)
+                {
+                    if (curNode.parent.left.data === data)
+                    {
+                        curNode.parent.left = null;
+                    }
+                    else
+                    {
+                        curNode.parent.right = null;
+                    }
+                    return;
+                }
+
+                //2 children
+                else if (curNode.left !== null && curNode.right !== null)
+                {
+                    let successor = curNode;
+                    successor = successor.right;
+                    while (successor.left !== null)
+                    {
+                        successor = successor.left;
+                    }
+                    curNode.data = successor.data;
+                    recursiveDelete(successor);
+                }
+
+                //1 child
+                else
+                {
+                    if (curNode.parent.left.data === data)
+                    {
+                        if (curNode.left !== null)
+                        {
+                            curNode.parent.left = curNode.left;
+                        }
+                        else
+                        {
+                            curNode.parent.right = curNode.left;
+                        }
+                    }
+                    else
+                    {
+                        if (curNode.left !== null)
+                        {
+                            curNode.parent.left = curNode.right;
+                        }
+                        else
+                        {
+                            curNode.parent.right = curNode.right;
+                        }
+                    }
+                }
+            }
+        }
+        recursiveDelete(curNode);
     }
 
-    function isValidBST()
+    isValidBST() 
     {
-      let curNode = this.root;
-      let prev = null;
-      if (curNode.left)
-      {
-        curNode = curNode.left;
-        prev = curNode;
-        if(curNode.data < prev.data)
+        let curNode = this.root;
+
+        let prev = null;
+
+        function recursiveIsValidBST(curNode)
         {
-          isValidBST(curNode);
+            let rightNode = null;
+            let leftNode = null;
+            if (curNode.left)
+            {
+                leftNode = curNode.left;
+                prev = curNode;
+                if (leftNode.data < prev.data)
+                {
+                    recursiveIsValidBST(leftNode);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (curNode.right)
+            {
+                rightNode = curNode.right;
+                prev = curNode;
+                if (rightNode.data > prev.data)
+                {
+                    recursiveIsValidBST(rightNode);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
         }
-        else
+        return recursiveIsValidBST(curNode);
+    }
+
+    inOrder(traversal, func)
+    {
+        let curNode = this.root;
+
+
+        function recursiveInOrder(curNode, traversal, func)
         {
-          return false;
+            if (!curNode)
+            {
+                return;
+            }
+            if (curNode.left)
+            {
+                recursiveInOrder(curNode.left, traversal, func);
+            }
+            if (func)
+            {
+                func();
+            }
+            traversal.push(curNode.getData());
+            if (curNode.right)
+            {
+                recursiveInOrder(curNode.right, traversal, func);
+            }
         }
-      }
-      if (curNode.right)
-      {
-        curNode = curNode.right;
-        prev = curNode;
-        if(curNode.data > prev.data)
+        recursiveInOrder(curNode, traversal, func);
+    }
+
+    preOrder(traversal, func)
+    {
+        let curNode = this.root;
+
+
+        function recursivePreOrder(curNode, traversal, func)
         {
-          isValidBST(curNode);
+            if (!curNode)
+            {
+                return;
+            }
+            if (func)
+            {
+                func();
+            }
+            traversal.push(curNode.getData());
+
+            if (curNode.left)
+            {
+
+                recursivePreOrder(curNode.left, traversal, func);
+            }
+            if (curNode.right)
+            {
+                recursivePreOrder(curNode.right, traversal, func);
+            }
         }
-        else
+        recursivePreOrder(curNode, traversal, func);
+    }
+
+    postOrder(traversal, func)
+    {
+        let curNode = this.root;
+
+
+        function recursivePostOrder(curNode, traversal, func)
         {
-          return false;
+            if (!curNode)
+            {
+                return;
+            }
+            if (curNode.left)
+            {
+                recursivePostOrder(curNode.left, traversal, func);
+            }
+            if (curNode.right)
+            {
+                recursivePostOrder(curNode.right, traversal, func);
+            }
+            if (func)
+            {
+                func();
+            }
+            traversal.push(curNode.getData());
         }
-      }
-      return true;
+        recursivePostOrder(curNode, traversal, func);
+    }
 }
 export default BST;
