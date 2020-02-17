@@ -16,7 +16,6 @@ function createTestMachine()
     dfa.addTransition(q3, q1, 'b');
     dfa.addTransition(q3, q1, 'a');
     dfa.setFinalState(q2);
-    console.log("hello test");
     return dfa;
 }
 
