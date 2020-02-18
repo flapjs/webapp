@@ -1,4 +1,5 @@
 /* eslint-env node */
+/* global __VERSION__ */
 
 const path = require('path');
 
