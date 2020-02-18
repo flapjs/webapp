@@ -15,12 +15,12 @@ class BST extends Tree
     }
     insert(data)
     {
-        /*if (!(this.validateData(data)))
+        if (!(this.validateData(data)))
         {
             //TODO: Throw error for invalid node
             alert('Invalid data');
             return;
-        }*/
+        }
 
         if (this.root === null)
         {

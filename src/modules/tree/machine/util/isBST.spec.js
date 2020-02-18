@@ -3,7 +3,7 @@ import BSTNode from '../BSTNode.js';
 
 describe('Trying to check if the tree sattisfies BST properties left child is less than parent is less than right child', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bstType = 'bst';
     const bst1 = new BST(intType);
 
@@ -20,7 +20,7 @@ describe('Trying to check if the tree sattisfies BST properties left child is le
 
 describe('Check if single node tree is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
     bst1.insert(1);
 
@@ -32,7 +32,7 @@ describe('Check if single node tree is a valid BST', () =>
 
 describe('Check if full valid tree is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
 
     bst1.root = new BSTNode(intType, 2);
@@ -47,7 +47,7 @@ describe('Check if full valid tree is a valid BST', () =>
 
 describe('Check if full invalid tree is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
     bst1.root = new BSTNode(intType, 1);
     bst1.root.left = new BSTNode(intType, 2);
@@ -61,7 +61,7 @@ describe('Check if full invalid tree is a valid BST', () =>
 
 describe('Check if node with 1 left child is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
     bst1.root = new BSTNode(intType, 4);
     bst1.root.left = new BSTNode(intType, 2);
@@ -74,7 +74,7 @@ describe('Check if node with 1 left child is a valid BST', () =>
 
 describe('Check if node with 1 rigth child is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
     bst1.root = new BSTNode(intType, 4);
     bst1.root.right = new BSTNode(intType, 9);
@@ -87,7 +87,7 @@ describe('Check if node with 1 rigth child is a valid BST', () =>
 
 describe('Check if a valid tree 7 nodes is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
     bst1.root = new BSTNode(intType, 6);
     bst1.root.left = new BSTNode(intType, 3);
@@ -108,7 +108,7 @@ describe('Check if a valid tree 7 nodes is a valid BST', () =>
 
 describe('Check if a tree with duplicate nodes is not valid', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
     bst1.root = new BSTNode(intType, 6);
     bst1.root.left = new BSTNode(intType, 6);

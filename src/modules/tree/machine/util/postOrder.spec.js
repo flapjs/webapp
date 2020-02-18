@@ -2,7 +2,7 @@ import BST from '../BST.js';
 
 describe('Trying to check if the tree postorder traversal is correct', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
     const bst1 = new BST(intType);
 
     test('is a valid empty BST machine', () =>
@@ -18,7 +18,7 @@ describe('Trying to check if the tree postorder traversal is correct', () =>
 
 describe('Check traversal for single node BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
 
     const bst1 = new BST(intType);
     bst1.insert(4);
@@ -33,7 +33,7 @@ describe('Check traversal for single node BST', () =>
 
 describe('Check traversal for full BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
 
     const bst1 = new BST(intType);
     bst1.insert(2);
@@ -52,7 +52,7 @@ describe('Check traversal for full BST', () =>
 
 describe('Check if node with 1 left child is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
 
     const bst1 = new BST(intType);
     bst1.insert(2);
@@ -69,7 +69,7 @@ describe('Check if node with 1 left child is a valid BST', () =>
 
 describe('Check if node with 1 rigth child is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
 
     const bst1 = new BST(intType);
     bst1.insert(2);
@@ -86,7 +86,7 @@ describe('Check if node with 1 rigth child is a valid BST', () =>
 
 describe('Check if a valid tree 7 nodes is a valid BST', () =>
 {
-    const intType = 'int';
+    const intType = 'number';
 
     const bst1 = new BST(intType);
     bst1.insert(6);

@@ -1,4 +1,5 @@
 import BST from '../BST.js';
+import BSTNode from '../BSTNode.js';
 
 function createBST()
 {
@@ -84,5 +85,31 @@ describe('Testing getSuccessor() and getPredecessor() of BSTNode', () =>
         expect(bsTree.root.left.right.left.getPredecessor().data).toBe(5);
         expect(bsTree.root.right.right.getPredecessor().data).toBe(16);
         expect(bsTree.root.right.right.left.getPredecessor().data).toBe(15);
+    });
+});
+
+describe('Testing defaultBSTComparator() and comparator()', () => 
+{
+    test('defaultBSTComparator()', () =>
+    {
+        const node1 = new BSTNode('number', 10);
+        const node2 = new BSTNode('number', 21);
+
+        expect(node1.defaultBSTComparator(node2)).toBe(true);
+        expect(node2.defaultBSTComparator(node1)).toBe(false);
+    });
+
+    test('comparator()', () =>
+    {
+        const node1 = new BSTNode('number', 219);
+        const node2 = new BSTNode('number', 421);
+
+        const custom = function (curr, other)
+        {
+            return curr.data > other.data;
+        };
+
+        expect(node1.comparator(node2, custom)).toBe(false);
+        expect(node2.comparator(node1, custom)).toBe(true);
     });
 });
