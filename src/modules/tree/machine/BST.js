@@ -15,12 +15,13 @@ class BST extends Tree
     }
     insert(data)
     {
-        /*         if (!(this.validateData(data)))
-                {
-                    //TODO: Throw error for invalid node
-                    alert('Invalid data');
-                    return;
-                } */
+        /*if (!(this.validateData(data)))
+        {
+            //TODO: Throw error for invalid node
+            alert('Invalid data');
+            return;
+        }*/
+
         if (this.root === null)
         {
             this.root = new BSTNode(this.dataType, data);
@@ -60,9 +61,10 @@ class BST extends Tree
         recursiveInsert(curNode, this.dataType);
         return;
     }
+
     validateData(data)
     {
-        return data == this.dataType;
+        return typeof data === this.dataType;
     }
 
     find(data)
@@ -95,12 +97,12 @@ class BST extends Tree
 
     delete(data)
     {
-        /*if (!(this.validateData(data)))
+        if (!(this.validateData(data)))
         {
             //TODO: Throw error for invalid node
             alert('Invalid data');
             return;
-        }*/
+        }
         const bst = this;
         let curNode = this.root;
         function recursiveDelete(curNode)
@@ -142,6 +144,11 @@ class BST extends Tree
                         successor = successor.left;
                     }
                     curNode.data = successor.data;
+
+                    /*
+                     * Reset data to remove the successor node after obtaining its 
+                     * data (since recursiveDelete() uses delete's data())
+                     */
                     data = successor.data;
                     recursiveDelete(successor);
                 }
@@ -331,7 +338,7 @@ class BST extends Tree
         recursivePostOrder(curNode, traversal, func);
     }
 
-    levelOrderTraversal(args, actionFunction) //= (args) => console.log(args[args.length - 1].data))
+    levelOrderTraversal(args, actionFunction)
     {
         let nodeQueue = [];
         let levelOrder = [];
@@ -344,17 +351,15 @@ class BST extends Tree
 
         let curr = this.root;
         nodeQueue.push(curr);
-        args.push(curr);
 
         while (!(nodeQueue.length == 0))
         {
             curr = nodeQueue.shift();
-            args[args.length - 1] = curr;
             levelOrder.push(curr);
 
             if (typeof actionFunction !== 'undefined')
             {
-                actionFunction(args);
+                actionFunction(curr, args);
             }
 
             if (curr.left !== null)

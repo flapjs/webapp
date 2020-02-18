@@ -25,7 +25,7 @@ describe('BST Validation - 1', () =>
 
         // The current node in the traversal is always the last
         // element of the args array
-        const sizeFunc = (args) => args[0]++;
+        const sizeFunc = (node, args) => args[0]++;
 
         bsTree.levelOrderTraversal(args, sizeFunc);
         expect(args[0]).toBe(6);
@@ -36,10 +36,8 @@ describe('BST Validation - 1', () =>
         let args = [];
         args.push(true);
 
-        const bstCheckOrder = function (args)
+        const bstCheckOrder = function (node, args)
         {
-            const node = args[args.length - 1];
-
             if (node.left !== null)
             {
                 if (node.left.data >= node.data)
@@ -66,10 +64,8 @@ describe('BST Validation - 1', () =>
         let args = [];
         args.push(true);
 
-        const bstCheckParent = function (args)
+        const bstCheckParent = function (node, args)
         {
-            const node = args[args.length - 1];
-
             if (node.left !== null)
             {
                 if (node.left.parent === null)
@@ -96,10 +92,8 @@ describe('BST Validation - 1', () =>
         let args = [];
         args.push(true);
 
-        const bstCheckRelationship = function (args)
+        const bstCheckRelationship = function (node, args)
         {
-            const node = args[args.length - 1];
-
             if (node.left !== null)
             {
                 if (node.left.parent.data !== node.data)
@@ -126,10 +120,8 @@ describe('BST Validation - 1', () =>
         let args = [];
         args.push(true);
 
-        const bstCheckInputType = function (args)
+        const bstCheckInputType = function (node, args)
         {
-            const node = args[args.length - 1];
-
             if (node.type !== bsTree.dataType)
             {
                 args[0] = false;
