@@ -64,6 +64,7 @@ class BST extends Tree
     {
         return data == this.dataType;
     }
+
     find(data)
     {
         if (!(this.validateData(data)))
@@ -91,14 +92,16 @@ class BST extends Tree
         }
         return recursiveFind(curNode);
     }
+
     delete(data)
     {
-        if (!(this.validateData(data)))
+        /*if (!(this.validateData(data)))
         {
             //TODO: Throw error for invalid node
             alert('Invalid data');
             return;
-        }
+        }*/
+        const bst = this;
         let curNode = this.root;
         function recursiveDelete(curNode)
         {
@@ -106,11 +109,18 @@ class BST extends Tree
             {
                 alert('Attempting to delete nonexistant node');
             }
-            if (curNode.data === data)
+
+            if (curNode.data === data) 
             {
                 //no children
                 if (curNode.left === null && curNode.right === null)
                 {
+                    if (bst.root.data === curNode.data)
+                    {
+                        bst.root = null;
+                        return;
+                    }
+
                     if (curNode.parent.left.data === data)
                     {
                         curNode.parent.left = null;
@@ -132,6 +142,7 @@ class BST extends Tree
                         successor = successor.left;
                     }
                     curNode.data = successor.data;
+                    data = successor.data;
                     recursiveDelete(successor);
                 }
 
@@ -143,30 +154,58 @@ class BST extends Tree
                         if (curNode.left !== null)
                         {
                             curNode.parent.left = curNode.left;
+                            curNode.left.parent = curNode.parent;
                         }
                         else
                         {
-                            curNode.parent.right = curNode.left;
+                            curNode.parent.left = curNode.right;
+                            curNode.right.parent = curNode.parent;
                         }
                     }
                     else
                     {
                         if (curNode.left !== null)
                         {
-                            curNode.parent.left = curNode.right;
+                            curNode.parent.right = curNode.left;
+                            curNode.left.parent = curNode.parent;
                         }
                         else
                         {
                             curNode.parent.right = curNode.right;
+                            curNode.right.parent = curNode.parent;
                         }
                     }
+                    return;
+                }
+            }
+            else if (curNode.data < data)
+            {
+                if (curNode.right !== null) 
+                {
+                    recursiveDelete(curNode.right);
+                }
+                else
+                {
+                    alert('Invalid delete of a non-existent node');
+                }
+            }
+            else
+            {
+                if (curNode.left !== null)
+                {
+                    recursiveDelete(curNode.left);
+                }
+                else
+                {
+                    alert('Invalid delete of a non-existent node');
                 }
             }
         }
+
         recursiveDelete(curNode);
     }
 
-    isValidBST() 
+    isValidBST()
     {
         let curNode = this.root;
 
@@ -210,7 +249,6 @@ class BST extends Tree
     inOrder(traversal, func)
     {
         let curNode = this.root;
-
 
         function recursiveInOrder(curNode, traversal, func)
         {
@@ -291,6 +329,46 @@ class BST extends Tree
             traversal.push(curNode.getData());
         }
         recursivePostOrder(curNode, traversal, func);
+    }
+
+    levelOrderTraversal(args, actionFunction) //= (args) => console.log(args[args.length - 1].data))
+    {
+        let nodeQueue = [];
+        let levelOrder = [];
+
+        if (this.root === null)
+        {
+            alert('No root in tree');
+            return [];
+        }
+
+        let curr = this.root;
+        nodeQueue.push(curr);
+        args.push(curr);
+
+        while (!(nodeQueue.length == 0))
+        {
+            curr = nodeQueue.shift();
+            args[args.length - 1] = curr;
+            levelOrder.push(curr);
+
+            if (typeof actionFunction !== 'undefined')
+            {
+                actionFunction(args);
+            }
+
+            if (curr.left !== null)
+            {
+                nodeQueue.push(curr.left);
+            }
+
+            if (curr.right !== null)
+            {
+                nodeQueue.push(curr.right);
+            }
+        }
+
+        return levelOrder;
     }
 }
 export default BST;
