@@ -5,56 +5,28 @@ exports[`Storyshots App playground 1`] = `
   className="container"
 >
   <nav
-    className="appbar "
+    className="container "
   >
-    <h2>
+    <h2
+      className="logo"
+    >
       Flap.js
     </h2>
+    <p
+      className="version"
+    >
+      v"0.5.0"
+    </p>
     <div
-      className="apptitle"
+      className="container"
     >
       <select
         onBlur={[Function]}
       >
         <option
-          value="base"
-        >
-          Default
-        </option>
-        <option
-          value="node"
-        >
-          Node Graph
-        </option>
-        <option
           value="fa"
         >
           Finite Automata
-        </option>
-        <option
-          value="re"
-        >
-          Regular Expression
-        </option>
-        <option
-          value="pda"
-        >
-          Pushdown Automata
-        </option>
-        <option
-          value="cfg"
-        >
-          Context-Free Grammar
-        </option>
-        <option
-          value="tm"
-        >
-          Turing Machine
-        </option>
-        <option
-          value="logic"
-        >
-          Logic Circuit
         </option>
       </select>
       <input
@@ -62,21 +34,21 @@ exports[`Storyshots App playground 1`] = `
         type="text"
       />
     </div>
-    <button
-      onClick={[Function]}
+    <select
+      defaultValue="en_us"
+      onBlur={[Function]}
     >
-      Undo
-    </button>
-    <button
-      onClick={[Function]}
-    >
-      Redo
-    </button>
-    <input
-      name="import"
-      onChange={[Function]}
-      type="file"
-    />
+      <option
+        value="en_us"
+      >
+        English
+      </option>
+      <option
+        value="xx_pirate"
+      >
+        Pirate Speak
+      </option>
+    </select>
   </nav>
   <div
     className="container"

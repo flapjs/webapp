@@ -8,6 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const package = require('../package.json');
+const globals = require('../.config/globals.js');
 
 // This is our custom webpack plugin to handle inlining.
 const HtmlWebpackInlineSourceOnlyPlugin = require('../tools/html-webpack-inline-source-only-plugin/index.js');
@@ -166,9 +167,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`
         }),
-        new DefinePlugin({
-            '__VERSION__': `"${package.version}"`,
-            '__BUG_REPORT_URL': `"${package.bugs.url}"`,
-        }),
+        new DefinePlugin(globals),
     ]
 };
