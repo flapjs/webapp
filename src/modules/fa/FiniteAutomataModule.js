@@ -25,6 +25,8 @@ import FSAMachineController from '@flapjs/modules/fa/machine/FSAMachineControlle
 // import FSAErrorChecker from '@flapjs/modules/fa/tester/FSAErrorChecker.js';
 import FSAValidator from '@flapjs/modules/fa/machine/FSAValidator.js';
 
+import ExportPanel from '@flapjs/modules/base/ExportPanel.jsx';
+
 const MODULE = {
     id: 'fa',
     version: '1.0.0',
@@ -43,7 +45,8 @@ const MODULE = {
         drawer: [
             OverviewPanel,
             TestingPanel,
-            AnalysisPanel
+            AnalysisPanel,
+            ExportPanel,
         ]
     },
     reducer(state, action)

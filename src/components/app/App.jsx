@@ -10,8 +10,6 @@ import AppPlayground from '@flapjs/components/app/structure/AppPlayground.jsx';
 import AppDrawer from '@flapjs/components/app/structure/AppDrawer.jsx';
 import AppServices from '@flapjs/components/app/structure/AppServices.jsx';
 
-import * as DeprecatedAppHandler from '@flapjs/components/deprecated/DeprecatedAppHandler.jsx';
-
 import ModuleServices from '@flapjs/session/components/ModuleServices.jsx';
 import { SessionProvider, SessionStateConsumer } from '@flapjs/session/context/SessionContext.jsx';
 
@@ -98,14 +96,12 @@ class App extends React.Component
                                             // The viewport over the playground. This is usually the overlays.
                                             renderViewport={props =>
                                                 <AppViewport {...props}>
-                                                    {DeprecatedAppHandler.renderViewport()}
                                                     {ModuleServices.renderLayer(currentModule, 'viewport')}
                                                 </AppViewport>}
                                             // The drawer in the workspace. This is usually the side drawer.
                                             renderDrawer={props =>
                                                 <AppDrawer {...props}>
                                                     {ModuleServices.renderLayer(currentModule, 'drawer')}
-                                                    {DeprecatedAppHandler.renderDrawer()}
                                                 </AppDrawer>}>
                                         </AppWorkspace>
                                     </AppServices>
