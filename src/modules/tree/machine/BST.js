@@ -253,11 +253,12 @@ class BST extends Tree
         return recursiveIsValidBST(curNode);
     }
 
-    inOrder(traversal, func)
+    inOrder(args, actionFunction)
     {
+        let traversal = [];
         let curNode = this.root;
 
-        function recursiveInOrder(curNode, traversal, func)
+        function recursiveInOrder(curNode, traversal)
         {
             if (!curNode)
             {
@@ -265,57 +266,58 @@ class BST extends Tree
             }
             if (curNode.left)
             {
-                recursiveInOrder(curNode.left, traversal, func);
+                recursiveInOrder(curNode.left, traversal);
             }
-            if (func)
+            if (typeof actionFunction !== 'undefined')
             {
-                func();
+                actionFunction(curNode, args);
             }
             traversal.push(curNode.getData());
             if (curNode.right)
             {
-                recursiveInOrder(curNode.right, traversal, func);
+                recursiveInOrder(curNode.right, traversal);
             }
         }
-        recursiveInOrder(curNode, traversal, func);
+        recursiveInOrder(curNode, traversal);
+        return traversal;
     }
 
-    preOrder(traversal, func)
+    preOrder(args, actionFunction)
     {
+        let traversal = [];
         let curNode = this.root;
 
-
-        function recursivePreOrder(curNode, traversal, func)
+        function recursivePreOrder(curNode, traversal)
         {
             if (!curNode)
             {
                 return;
             }
-            if (func)
+            if (typeof actionFunction !== 'undefined')
             {
-                func();
+                actionFunction(curNode, args);
             }
             traversal.push(curNode.getData());
-
             if (curNode.left)
             {
-
-                recursivePreOrder(curNode.left, traversal, func);
+                recursivePreOrder(curNode.left, traversal);
             }
             if (curNode.right)
             {
-                recursivePreOrder(curNode.right, traversal, func);
+                recursivePreOrder(curNode.right, traversal);
             }
         }
-        recursivePreOrder(curNode, traversal, func);
+        recursivePreOrder(curNode, traversal);
+        return traversal;
     }
 
-    postOrder(traversal, func)
+    postOrder(args, actionFunction)
     {
+        let traversal = [];
         let curNode = this.root;
 
 
-        function recursivePostOrder(curNode, traversal, func)
+        function recursivePostOrder(curNode, traversal)
         {
             if (!curNode)
             {
@@ -323,19 +325,20 @@ class BST extends Tree
             }
             if (curNode.left)
             {
-                recursivePostOrder(curNode.left, traversal, func);
+                recursivePostOrder(curNode.left, traversal);
             }
             if (curNode.right)
             {
-                recursivePostOrder(curNode.right, traversal, func);
+                recursivePostOrder(curNode.right, traversal);
             }
-            if (func)
+            if (typeof actionFunction !== 'undefined')
             {
-                func();
+                actionFunction(curNode, args);
             }
             traversal.push(curNode.getData());
         }
-        recursivePostOrder(curNode, traversal, func);
+        recursivePostOrder(curNode, traversal);
+        return traversal;
     }
 
     levelOrderTraversal(args, actionFunction)
