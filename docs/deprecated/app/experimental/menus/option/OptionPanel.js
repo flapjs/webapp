@@ -1,3 +1,4 @@
+/* global __VERSION__ */
 import React from 'react';
 import Style from './OptionPanel.css';
 

@@ -1,5 +1,53 @@
-# Why Redux, dude?
+# Why Do I Exist?
+So future people can have SOME inclination on what all these tools we use actually do.
+Hopefully this helps (even if only a little bit.)
 
+# Why Not Web Components?
+Don't get me wrong, I think Web Components are the future. It's compatible everywhere, by every browser. It is, afterall, a web STANDARD. But this entire code base is written with React and therefore, due to legacy, must remain in the React ecosystem.
+
+However, this does not mean we can't slowly migrate to web components for the newer implementations. If we've designed this correctly, the modules can be platform agnostic. They should be able to use React, Vue, Angular, Lit-Html, or anything they want. Of course, they would be forcing the user to download TWO SEPARATE UI libraries, but hey, if it is absolutely necessary.
+
+So to bridge the gap between the app itself and the module system... we need a system that facilitates data passing between React and the other library.
+
+... external event handler?
+
+Flap.EVENTS.on('change', (ref, ...state) =>
+{
+    // update self?
+});
+
+https://www.robinwieruch.de/react-web-components
+https://codeburst.io/integrate-custom-elements-into-react-app-ef38eba12905
+https://coryrylan.com/blog/using-web-components-in-react
+
+# Why remake JFLAP?
+JFLAP was uncomfortable to use and not intuitive to understand. It was also lacking in
+accessibility and customizable features.
+
+# VS Code vs Atom?
+VS Code has better support currently. I used to be an avid Atom fan, but VS Code has
+temporarily won me over.
+
+# Agile vs Waterfall?
+We actually used Waterfall for our first couple quarters of development. After jumpstarting what
+is our core codebase, we've moved on to Agile, which I think fits our feedback-centered development cycle.
+
+# Why React?
+Legacy code. But it is still nice to work with (React is really all about the DevEx)...
+
+# Why Jest?
+It works well with React without extra other buy-in's.
+
+# Why Storybook?
+It documents, tests, AND provides an isolated dev environment for components. There is
+really nothing that can replace it currently.
+
+# Why Webpack?
+Webpack is designed specifically for large single page applications, such as this one, that
+manage a lot of assets and plugins. If we were building a library, I would have suggested
+Rollup due to its lighter weight.
+
+# Why Redux, dude?
 So state is getting complicated. I've implemented a few subsystems, each managing their part of the application in their own way. There is currently is no way to debug the data flow efficiently without brute force tracing the program. So, for maintainability sake, this is an issue.
 
 Now I have heard many people use Redux for this. Of course, we must be skeptical but open-minded. Especially when considering new tools. Just because something is popular, doesn't mean it is right.
@@ -7,7 +55,6 @@ Now I have heard many people use Redux for this. Of course, we must be skeptical
 Through my research, I have come down to these four things:
 
 ## Redux, Flux, React Context, and MVC
-
 Now MVC and Flux are both design patterns, whereas Redux and React Context are actual code. Some may argue that Redux is an implementation of Flux, but there are differences from choosing one and not the other. For starters, using Redux gains not only its usability, but also its complexities. Flux on the other hand is much more compact. Also, Flux is designed for multiple stores, whereas Redux is designed for a single global store.
 
 Some may also argue that Flux is just a better MVC for web development. I would partially agree with that statement. Flux is a solution to a specific type of MVC structure: where there are multiple view-controller relationships that go both ways. MVC only assumes one. So unless you have a complex network of view-controllers talking to each other, you should just stick with good ol' MVC for clarity's and simplicity's sake.
@@ -21,7 +68,6 @@ But the core ideals behind all these designs lie in the division between Present
 This allows a separation of the presentation and data. This not only facilitates better division of responsibility, but also maintainability, since we can simply change out the presentation and keep the data logic and vice versa.
 
 ## My Solution
-
 Anyways, from the current project structure, I've come up with what I think we need to implement a state manager for:
 
 - Arbitrary module session data
@@ -86,13 +132,18 @@ Graph should use REDUX
     - How would you implement position action states? (enhancers)
 
 ## Conclusion
-We will be using Redux. But only for ALL GRAPHING/GRAMMAR functionality. Most component states will still be local or in some sort of manager. Redux is usful only if it is actually beneficial. There is no point to manage the state of the entire app, since the rest of the app don't really interact with each other much. If complexity rises elsewhere, this system would be already in-place to correct it (unless you find a better alternative). Hopefully this helps.
+~~We will be using Redux.~~ We will be using our own Redux-esque system.
+But only for ALL GRAPHING/GRAMMAR functionality. Most component states will
+still be local or in some sort of manager. Redux is usful only if it is
+actually beneficial. There is no point to manage the state of the entire app,
+since the rest of the app don't really interact with each other much. If complexity
+rises elsewhere, this system would be already in-place to correct it (unless you
+find a better alternative). Hopefully this helps.
 
 ## Resources
 // THESE ARE GOOD ONES:
 - https://learn.co/lessons/react-stores 
 - https://www.freecodecamp.org/news/where-do-i-belong-a-guide-to-saving-react-component-data-in-state-store-static-and-this-c49b335e2a00/
-
 
 // THESE ARE OKAY:
 - https://stackoverflow.com/questions/32461229/why-use-redux-over-facebook-flux
@@ -104,7 +155,6 @@ We will be using Redux. But only for ALL GRAPHING/GRAMMAR functionality. Most co
 - https://redux.js.org/recipes/implementing-undo-history
 - https://reactjs.org/docs/context.html
 - https://redux-docs.netlify.com/basics/usage-with-react
-
 
 // YOU'LL NEED THESE TO IMPLEMENT:
 - https://react-redux.js.org/introduction/quick-start
