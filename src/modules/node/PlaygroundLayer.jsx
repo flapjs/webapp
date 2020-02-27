@@ -1,24 +1,27 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-import NewGraphArea from './NewGraphArea.jsx';
+import { GraphProvider, GraphConsumer } from './GraphContext.jsx';
+import GraphLayer from './GraphLayer.jsx';
 
-class PlaygroundLayer extends React.Component
+export default function PlaygroundLayer(props)
 {
-    constructor(props)
-    {
-        super(props);
-    }
-
-    /** @override */
-    render()
-    {
-        return (
-            <>
-                <NewGraphArea>
-                </NewGraphArea>
-            </>
-        );
-    }
+    return (
+        <>
+        <GraphProvider>
+            <GraphConsumer>
+                {(state, dispatch) =>
+                {
+                    return (
+                        <>
+                        <GraphLayer>
+                        </GraphLayer>
+                        <button style={{zIndex: 1000, position: 'absolute'}} onClick={() => dispatch({ type: 'clearAll' })}>Boom</button>
+                        </>
+                    );
+                }}
+            </GraphConsumer>
+        </GraphProvider>
+        </>
+    );
 }
-
-export default PlaygroundLayer;
