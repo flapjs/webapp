@@ -1,7 +1,7 @@
 import { getDirectionalVector, getMidPoint } from '@flapjs/util/MathHelper.js';
 
 export const DEFAULT_OPTS = {
-    placeholderLength: 10,
+    placeholderLength: 15,
     forceLine: false,
     margin: 0,
     quad: {
@@ -13,6 +13,8 @@ export const DEFAULT_OPTS = {
 
 const FOURTH_PI = Math.PI / 4;
 const HALF_PI = Math.PI / 2;
+
+const SELF_LOOP_OFFSET_RADIANS = -HALF_PI;
 
 export function getStartPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0, y: 0 })
 {
@@ -32,10 +34,23 @@ export function getStartPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0
     // Get start point for straight edges (or forced lines)...
     if (opts.forceLine || !isQuadratic(from, to, opts))
     {
-        getDirectionalVector(from.x, from.y, to.x, to.y, computeMargin(opts.margin, from), 0, dst);
-        dst.x += from.x;
-        dst.y += from.y;
-        return dst;
+        // If it is self loop (a linear self loop...go figure)...
+        if (isSelfLoop(from, to, opts))
+        {
+            // Make sure it still bends correctly.
+            getDirectionalVector(from.x, from.y, to.x, to.y, computeMargin(opts.margin, from), FOURTH_PI + SELF_LOOP_OFFSET_RADIANS, dst);
+            dst.x += from.x;
+            dst.y += from.y;
+            return dst;
+        }
+        else
+        {
+            // It's just a normal line...
+            getDirectionalVector(from.x, from.y, to.x, to.y, computeMargin(opts.margin, from), 0, dst);
+            dst.x += from.x;
+            dst.y += from.y;
+            return dst;
+        }
     }
     // Get start point for quadratics...
     else
@@ -60,8 +75,19 @@ export function getCenterPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 
 
     if (opts.forceLine || !isQuadratic(from, to, opts))
     {
-        dst.x = from.x + (to.x - from.x) / 2;
-        dst.y = from.y + (to.y - from.y) / 2;
+        // NOTE: If it is self loop (a linear self loop...go figure), then make sure it is offset correctly.
+        if (isSelfLoop(from, to, opts))
+        {
+            // Make sure it still bends correctly.
+            getDirectionalVector(from.x, from.y, to.x, to.y, computeMargin(opts.margin, from) + opts.placeholderLength, SELF_LOOP_OFFSET_RADIANS, dst);
+            dst.x += from.x;
+            dst.y += from.y;
+        }
+        else
+        {
+            dst.x = from.x + (to.x - from.x) / 2;
+            dst.y = from.y + (to.y - from.y) / 2;
+        }
     }
     else
     {
@@ -87,9 +113,20 @@ export function getEndPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0, 
     // Get end point for straight edges...
     else if (!isQuadratic(from, to, opts))
     {
-        getDirectionalVector(to.x, to.y, from.x, from.y, computeMargin(opts.margin, to), 0, dst);
-        dst.x += to.x;
-        dst.y += to.y;
+        // If it is self loop (a linear self loop...go figure)...
+        if (isSelfLoop(from, to, opts))
+        {
+            // Make sure it still bends correctly.
+            getDirectionalVector(to.x, to.y, from.x, from.y, computeMargin(opts.margin, to), -FOURTH_PI + SELF_LOOP_OFFSET_RADIANS, dst);
+            dst.x += to.x;
+            dst.y += to.y;
+        }
+        else
+        {
+            getDirectionalVector(to.x, to.y, from.x, from.y, computeMargin(opts.margin, to), 0, dst);
+            dst.x += to.x;
+            dst.y += to.y;
+        }
         return dst;
     }
     // Get end point for quadratics...
@@ -272,7 +309,7 @@ export function changeEndPoint(point, from, to, opts, dst = opts.quad)
 {
     if (!point)
     {
-        setQuadraticByCoords(to.x, to.y, from, to, opts, dst);
+        setQuadraticByCoords(to.x, to.y, from, null, opts, dst);
     }
     else if (point === from)
     {
@@ -284,6 +321,26 @@ export function changeEndPoint(point, from, to, opts, dst = opts.quad)
 export function changeCenterPoint(point, from, to, opts, dst = opts.quad)
 {
     setQuadraticByCoords(point.x, point.y, from, to, opts, dst);
+}
+
+/**
+ * This is an artifact of re-using "quads" as the placeholder direction AND the
+ * curve of the edge itself. We have to manually reset it when we leave placeholder
+ * mode so the edge gain a weird "curve" when reconnected.
+ *
+ * @param {string} fromId The edge's from target.
+ * @param {string} toId The edge's to target.
+ * @param {object} opts The edge's options.
+ * @param {object} dst The destination for all the changes. Defaults to opts.quad.
+ */
+export function resetQuadsIfPlaceholder(fromId, toId, opts, dst = opts.quad)
+{
+    if (!toId)
+    {
+        // This will deactivate "isQuadratic" and therefore "flush" out
+        // all changes made by the placeholder.
+        dst.length = 0;
+    }
 }
 
 function computeMargin(margin, target)

@@ -23,8 +23,8 @@ export default function EdgeElementComponent(props)
     const forceUpdate = useForceUpdate();
     const [ edge ] = useGraphElement(elementType, elementId, forceUpdate);
     const [ from ] = useGraphElement(NodeElement, edge.fromId, forceUpdate);
-    let [ to ] = useGraphElement(NodeElement, edge.toId, forceUpdate);
-    if (!to) to = edge.proxyTo;
+    const [ sourceTo ] = useGraphElement(NodeElement, edge.toId, forceUpdate);
+    const to = sourceTo || edge.proxyTo;
 
     const graphState = useContext(GraphStateContext);
 
@@ -64,6 +64,26 @@ export default function EdgeElementComponent(props)
                 edge.forceLine = true;
 
                 edge.markDirty();
+            }
+        },
+        {
+            onDragBegin: () =>
+            {
+                QuadraticEdgeHelper.resetQuadsIfPlaceholder(edge.fromId, edge.toId, edge);
+                edge.markDirty();
+            },
+            onDragEnd: () =>
+            {
+                // NOTE: This allows the edge to revert to placeholder form if the
+                // "current" edge is using a proxy as its endpoint. This is because "proxyTo"
+                // doesn't get updated until AFTER the render has occured. So we are just
+                // doing it earlier so it looks right.
+                if (edge.proxyTo)
+                {
+                    QuadraticEdgeHelper.changeEndPoint(null, from, edge.proxyTo, edge);
+                    edge.proxyTo = null;
+                    edge.markDirty();
+                }
             }
         });
 

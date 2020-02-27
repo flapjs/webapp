@@ -17,7 +17,10 @@ export default function ProxyEdgeArea(props)
         <ProxyEdgeContext.Provider value={{ update, target, active }}>
             {props.children}
         </ProxyEdgeContext.Provider>
-        {proxyEdgeProps.from && <ControlledEdgeElementComponent {...proxyEdgeProps}/>}
+        {proxyEdgeProps.from && <ControlledEdgeElementComponent {...proxyEdgeProps} opts={{
+            forceLine: false,
+            placeholderLength: 15,
+        }}/>}
         </>
     );
 }
@@ -45,7 +48,9 @@ export function useProxyEdgeStartBehavior(elementRef, graphElement)
         update(graphElement, value);
     },
     {
+        // We create edges only using the right button.
         useButton: 2,
+        // Make sure to tell the proxy edge that we are no longer using it.
         onDragEnd: () => update(null),
     });
 }
@@ -107,7 +112,7 @@ function useProxyEdge(factoryCallback)
 {
     const [ proxyEdgeActive, setProxyEdgeActive ] = useState(false);
     const [ proxyEdgeTarget, setProxyEdgeTarget ] = useState(null);
-    const [ proxyEdgeProps, setProxyEdgeProps ] = useState({ from: null, to: null, opts: {}});
+    const [ proxyEdgeProps, setProxyEdgeProps ] = useState({ from: null, to: null });
 
     useEffect(() =>
     {
@@ -120,7 +125,7 @@ function useProxyEdge(factoryCallback)
                     factoryCallback({ ...proxyEdgeProps, to: proxyEdgeTarget });
                 }
                 // Reset to default. The render depends on it to make the proxy edge disappear.
-                setProxyEdgeProps({ from: null, to: null, opts: {} });
+                setProxyEdgeProps({ from: null, to: null });
                 setProxyEdgeTarget(null);
             }
         }
@@ -147,7 +152,7 @@ function updateProxyEdge(setProxyEdgeActive, setProxyEdgeProps, graphElement, po
     if (graphElement)
     {
         setProxyEdgeActive(true);
-        setProxyEdgeProps({ from: graphElement, to: position, opts: { forceLine: false }});
+        setProxyEdgeProps({ from: graphElement, to: position });
     }
     else
     {

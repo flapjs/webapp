@@ -17,7 +17,7 @@ export default class EdgeElement extends GraphElement
         // These are options expected by QuadraticEdgeHelper functions...
 
         // The length of the edge if it is a placeholder
-        this.placeholderLength = 10,
+        this.placeholderLength = 15,
         // Whether to force draw as a line (not a quadratic)
         this.forceLine = false,
         // The margins at the endpoints
