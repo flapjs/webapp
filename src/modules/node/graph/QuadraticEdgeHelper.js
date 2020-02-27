@@ -1,12 +1,9 @@
 import { getDirectionalVector, getMidPoint } from '@flapjs/util/MathHelper.js';
 
-const DEFAULT_OPTS = {
+export const DEFAULT_OPTS = {
     placeholderLength: 10,
     forceLine: false,
-    margin: {
-        from: 10,
-        to: 10,
-    },
+    margin: 0,
     quad: {
         radians: 0,
         length: 0,
@@ -22,11 +19,11 @@ export function getStartPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0
     if (!from) throw new Error('Source of edge cannot be null.');
     if (!to)
     {
-        //Make sure to use quad for placeholder direction
-        const radians = opts.quad.radians;
+        // Make sure to use quad for placeholder direction
+        const radians = opts.quad ? opts.quad.radians : 0;
         const px = Math.cos(radians);
         const py = Math.sin(radians);
-        const margin = opts.margin.from;
+        const margin = computeMargin(opts.margin, from);
         dst.x = from.x + px * margin;
         dst.y = from.y + py * margin;
         return dst;
@@ -35,7 +32,7 @@ export function getStartPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0
     // Get start point for straight edges (or forced lines)...
     if (opts.forceLine || !isQuadratic(from, to, opts))
     {
-        getDirectionalVector(from.x, from.y, to.x, to.y, opts.margin.from, 0, dst);
+        getDirectionalVector(from.x, from.y, to.x, to.y, computeMargin(opts.margin, from), 0, dst);
         dst.x += from.x;
         dst.y += from.y;
         return dst;
@@ -47,7 +44,7 @@ export function getStartPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0
         const qcoords = getQuadraticAsCoords(from, to, opts);
         const qx = dst.x + qcoords.x;
         const qy = dst.y + qcoords.y;
-        getDirectionalVector(from.x, from.y, qx, qy, opts.margin.from, isSelfLoop(from, to, opts) ? FOURTH_PI : 0, dst);
+        getDirectionalVector(from.x, from.y, qx, qy, computeMargin(opts.margin, from), isSelfLoop(from, to, opts) ? FOURTH_PI : 0, dst);
         dst.x += from.x;
         dst.y += from.y;
         return dst;
@@ -57,7 +54,7 @@ export function getStartPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0
 export function getCenterPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0, y: 0 })
 {
     if (!from) throw new Error('Source of edge cannot be null.');
-    if (!to) return getPlaceholderEndPoint(from, opts.placeholderLength / 2, opts, dst);
+    if (!to) return getPlaceholderEndPoint(from, (opts.placeholderLength || 0) / 2, opts, dst);
 
     getMidPoint(from.x, from.y, to.x, to.y, dst);
 
@@ -78,7 +75,7 @@ export function getCenterPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 
 export function getEndPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0, y: 0 })
 {
     if (!from) throw new Error('Source of edge cannot be null.');
-    if (!to) return getPlaceholderEndPoint(from, opts.placeholderLength, opts, dst);
+    if (!to) return getPlaceholderEndPoint(from, opts.placeholderLength || 0, opts, dst);
 
     // Get end point for forced lines...
     if (opts.forceLine)
@@ -90,7 +87,7 @@ export function getEndPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0, 
     // Get end point for straight edges...
     else if (!isQuadratic(from, to, opts))
     {
-        getDirectionalVector(to.x, to.y, from.x, from.y, opts.margin.to, 0, dst);
+        getDirectionalVector(to.x, to.y, from.x, from.y, computeMargin(opts.margin, to), 0, dst);
         dst.x += to.x;
         dst.y += to.y;
         return dst;
@@ -102,7 +99,7 @@ export function getEndPoint(from, to = null, opts = DEFAULT_OPTS, dst = { x: 0, 
         const qcoords = getQuadraticAsCoords(from, to, opts);
         const qx = dst.x + qcoords.x;
         const qy = dst.y + qcoords.y;
-        getDirectionalVector(to.x, to.y, qx, qy, opts.margin.to, isSelfLoop(from, to, opts) ? -FOURTH_PI : 0, dst);
+        getDirectionalVector(to.x, to.y, qx, qy, computeMargin(opts.margin, to), isSelfLoop(from, to, opts) ? -FOURTH_PI : 0, dst);
         dst.x += to.x;
         dst.y += to.y;
         return dst;
@@ -145,10 +142,10 @@ export function getNormalDirection(from, to = null, opts = DEFAULT_OPTS)
 function getPlaceholderEndPoint(from, length, opts, dst = { x: 0, y: 0 })
 {
     // Make sure to use opts.quad.coords for placeholder direction (not magnitude)
-    const radians = opts.quad.radians;
+    const radians = opts.quad ? opts.quad.radians : 0;
     const px = Math.cos(radians);
     const py = Math.sin(radians);
-    const placeholderLength = opts.margin.from + length;
+    const placeholderLength = computeMargin(opts.margin, from) + length;
     dst.x = from.x + px * placeholderLength;
     dst.y = from.y + py * placeholderLength;
     return dst;
@@ -169,7 +166,7 @@ function isSelfLoop(from, to, opts)
     return from === to;
 }
 
-function getQuadraticAsCoords(from, to, opts, dst = opts.quad.coords)
+function getQuadraticAsCoords(from, to, opts, dst = opts.quad ? opts.quad.coords : { x: 0, y: 0 })
 {
     if (from === null || to === null)
     {
@@ -178,7 +175,7 @@ function getQuadraticAsCoords(from, to, opts, dst = opts.quad.coords)
     }
     else
     {
-        getDirectionalVector(from.x, from.y, to.x, to.y, opts.quad.length, opts.quad.radians, dst);
+        getDirectionalVector(from.x, from.y, to.x, to.y, opts.quad ? opts.quad.length : 0, opts.quad ? opts.quad.radians : 0, dst);
     }
     return dst;
 }
@@ -279,7 +276,7 @@ export function changeEndPoint(point, from, to, opts, dst = opts.quad)
     }
     else if (point === from)
     {
-        dst.length = opts.margin.from + opts.placeholderLength;
+        dst.length = computeMargin(opts.margin, to) + (opts.placeholderLength || 0);
     }
     return point;
 }
@@ -287,4 +284,9 @@ export function changeEndPoint(point, from, to, opts, dst = opts.quad)
 export function changeCenterPoint(point, from, to, opts, dst = opts.quad)
 {
     setQuadraticByCoords(point.x, point.y, from, to, opts, dst);
+}
+
+function computeMargin(margin, target)
+{
+    return (margin || 0) + ((target && target.radius) || 0);
 }

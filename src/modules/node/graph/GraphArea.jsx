@@ -17,6 +17,8 @@ import EdgeElement from './EdgeElement.js';
 import NodeElementComponent from './NodeElementComponent.jsx';
 import EdgeElementComponent from './EdgeElementComponent.jsx';
 
+import ProxyEdgeArea from './ProxyEdgeArea.jsx';
+
 export default function GraphArea(props)
 {
     const graphDispatch = useContext(GraphDispatchContext);
@@ -30,7 +32,7 @@ export default function GraphArea(props)
     useDoubleTapBehavior(svgRef, dragging, e =>
     {
         const [x, y] = transformScreenToView(svgRef.current, e.clientX, e.clientY);
-        graphDispatch({ type: 'add', elementType: NodeElement, opts: { x, y }});
+        graphDispatch({ type: 'add', elementType: NodeElement, opts: { x: x - pos.x, y: y - pos.y }});
     });
 
     return (
@@ -38,12 +40,14 @@ export default function GraphArea(props)
             offsetX={pos.x} offsetY={pos.y} scale={scale}
             childProps={{ref: svgRef}}>
             <rect x="-5" y="-5" width="10" height="10" fill="blue"/>
-            <GraphElementLayer
-                elementType={NodeElement}
-                renderElement={(elementType, elementId) =>
-                    <NodeElementComponent key={elementId}
-                        elementType={elementType}
-                        elementId={elementId}/>}/>
+            <ProxyEdgeArea>
+                <GraphElementLayer
+                    elementType={NodeElement}
+                    renderElement={(elementType, elementId) =>
+                        <NodeElementComponent key={elementId}
+                            elementType={elementType}
+                            elementId={elementId}/>}/>
+            </ProxyEdgeArea>
             <GraphElementLayer
                 elementType={EdgeElement}
                 renderElement={(elementType, elementId) =>

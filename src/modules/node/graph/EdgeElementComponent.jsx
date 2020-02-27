@@ -11,9 +11,10 @@ import EdgeQuadraticRenderer from '../renderer/edge/EdgeQuadraticRenderer.jsx';
 import EdgeEndpointArrowRenderer from '../renderer/edge/endpoint/EdgeEndpointArrowRenderer.jsx';
 import EdgeEndpointNoneRenderer from '../renderer/edge/endpoint/EdgeEndpointNoneRenderer.jsx';
 
-import * as QuadraticEdge from './QuadraticEdge.js';
-import { GraphStateContext, computeElementsKey } from './GraphContext.jsx';
-import { distanceSquared } from '@flapjs/util/MathHelper.js';
+import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
+
+import { GraphStateContext } from './GraphContext.jsx';
+import { findGraphElementWithinPosition } from './GraphElementHelper.js';
 
 export default function EdgeElementComponent(props)
 {
@@ -27,37 +28,39 @@ export default function EdgeElementComponent(props)
 
     const graphState = useContext(GraphStateContext);
 
-    let start = QuadraticEdge.getStartPoint(from, to, edge);
-    let end = QuadraticEdge.getEndPoint(from, to, edge);
-    let center = QuadraticEdge.getCenterPoint(from, to, edge);
-    let normal = QuadraticEdge.getNormalDirection(from, to, edge);
+    let start = QuadraticEdgeHelper.getStartPoint(from, to, edge);
+    let end = QuadraticEdgeHelper.getEndPoint(from, to, edge);
+    let center = QuadraticEdgeHelper.getCenterPoint(from, to, edge);
+    let normal = QuadraticEdgeHelper.getNormalDirection(from, to, edge);
     
     const elementRef = useRef(null);
     useDragBehavior(elementRef, center,
         value =>
         {
-            QuadraticEdge.changeCenterPoint(value, from, to, edge);
+            QuadraticEdgeHelper.changeCenterPoint(value, from, to, edge);
             edge.markDirty();
         });
     const forwardEndpointRef = useRef(null);
     useDragBehavior(forwardEndpointRef, end,
         value =>
         {
-            let nearestNode = getNearestNode(graphState, value.x, value.y, edge.margin.to);
+            let nearestNode = findGraphElementWithinPosition(graphState, NodeElement, value.x, value.y, NodeElement.RADIUS);
             if (nearestNode)
             {
-                QuadraticEdge.changeEndPoint(nearestNode, from, to, edge);
+                QuadraticEdgeHelper.changeEndPoint(nearestNode, from, to, edge);
                 edge.toId = nearestNode.id;
                 edge.proxyTo = null;
+
                 edge.forceLine = false;
 
                 edge.markDirty();
             }
             else
             {
-                QuadraticEdge.changeEndPoint(value, from, to, edge);
+                QuadraticEdgeHelper.changeEndPoint(value, from, to, edge);
                 edge.toId = null;
                 edge.proxyTo = value;
+                
                 edge.forceLine = true;
 
                 edge.markDirty();
@@ -94,14 +97,3 @@ EdgeElementComponent.propTypes = {
     elementId: PropTypes.string.isRequired,
     elementType: PropTypes.elementType.isRequired,
 };
-
-function getNearestNode(graphState, x, y, radius)
-{
-    let radiusSquared = radius * radius;
-    for(let node of Object.values(graphState[computeElementsKey(NodeElement)]))
-    {
-        let dist = distanceSquared(x, y, node.x, node.y);
-        if (dist <= radiusSquared) return node;
-    }
-    return null;
-}

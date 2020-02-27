@@ -1,37 +1,32 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { useForceUpdate } from '../ForceUpdateHook.jsx';
-import { useDragBehavior, setDragTarget } from '../DragBehaviorHook.jsx';
+import { useDragBehavior } from '../DragBehaviorHook.jsx';
 import { useGraphElement } from './GraphElementHooks.jsx';
-
-import { GraphDispatchContext } from './GraphContext.jsx';
+import { useProxyEdgeStartBehavior } from './ProxyEdgeStartBehaviorHook.jsx';
 
 import NodeCircleRenderer from '../renderer/node/NodeCircleRenderer.jsx';
-import EdgeElement from './EdgeElement.js';
 
 export default function NodeElementComponent(props)
 {
     const { elementType, elementId } = props;
 
+    // Reference to the rendered element.
     const elementRef = useRef(null);
     const forceUpdate = useForceUpdate();
-    const graphDispatch = useContext(GraphDispatchContext);
     const [ node ] = useGraphElement(elementType, elementId, forceUpdate);
-    const updateNode = ({ x, y }) =>
+
+    // Left drag to move node...
+    useDragBehavior(elementRef, node, ({ x, y }) =>
     {
         node.x = x;
         node.y = y;
         node.markDirty();
-    };
-    useDragBehavior(elementRef, node, updateNode, { useButton: 0 });
-    useDragBehavior(elementRef, node, value =>
-    {
-        setDragTarget(null);
-
-        graphDispatch({ type: 'add', elementType: EdgeElement, opts: { from: elementId, proxyTo: value } });
-    },
-    { useButton: 2 });
+    }, { useButton: 0 });
+    
+    // Right drag to start proxy edge creation plan...
+    useProxyEdgeStartBehavior(elementRef, node);
 
     return (
         <NodeCircleRenderer key={elementId}

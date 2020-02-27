@@ -9,5 +9,7 @@ export default class NodeElement extends GraphElement
         this.x = opts.x || 0;
         this.y = opts.y || 0;
         this.label = opts.label || '';
+        this.radius = opts.radius || NodeElement.RADIUS;
     }
 }
+NodeElement.RADIUS = 10;

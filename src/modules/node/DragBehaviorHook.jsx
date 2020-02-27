@@ -10,7 +10,10 @@ const DEFAULT_OPTS = {
     /** Whether to preserve the initial offset or just snap into place. */
     preserveOffset: false,
     /** -1 for any button; 0 for left button; 2 for right button; 1 for middle click. */
-    useButton: -1
+    useButton: -1,
+    /** Callbacks for when drag does something. */
+    onDragBegin: null,
+    onDragEnd: null,
 };
 export function useDragBehavior(elementRef, pos, setPos, opts = {})
 {
@@ -26,6 +29,7 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
     const DOMEventListeners = useMemo(() =>
     {
         return {
+            // NOTE: Disables context menu for right mouse button drags.
             onContextMenu: function(e)
             {
                 e.preventDefault();
@@ -62,6 +66,16 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
                         CURRENT_DRAG_TARGET.initialOffsetX = transformedPoint[0] - pos.x;
                         CURRENT_DRAG_TARGET.initialOffsetY = transformedPoint[1] - pos.y;
                     }
+
+                    if (opts.onDragBegin)
+                    {
+                        CURRENT_DRAG_TARGET.beginCallback = opts.onDragBegin;
+                    }
+
+                    if (opts.onDragEnd)
+                    {
+                        CURRENT_DRAG_TARGET.endCallback = opts.onDragEnd;
+                    }
     
                     return false;
                 }
@@ -76,7 +90,10 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
         setDragging,
         setPos,
         elementRef,
-        opts,
+        opts.startBufferRadius,
+        opts.preserveOffset,
+        opts.onDragBegin,
+        opts.onDragEnd,
     ]);
 
     useEventListeners(elementRef, DOMEventListeners);
@@ -86,12 +103,7 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
 
 let CURRENT_DRAG_TARGET = null;
 
-export function getDragTarget()
-{
-    return CURRENT_DRAG_TARGET;
-}
-
-export function setDragTarget(element, clientX, clientY, callback = () => {})
+function setDragTarget(element, clientX, clientY, callback = () => {})
 {
     if (CURRENT_DRAG_TARGET)
     {
@@ -124,6 +136,9 @@ export function setDragTarget(element, clientX, clientY, callback = () => {})
             onAnimationFrame: null,
             onMouseMove: null,
             onMouseUp: null,
+            // Additional callback for the drag lifecycle. Set a callback here to listen for the corresponding events.
+            beginCallback: null,
+            endCallback: null,
         };
         CURRENT_DRAG_TARGET.onAnimationFrame = onAnimationFrame.bind(CURRENT_DRAG_TARGET);
         CURRENT_DRAG_TARGET.onMouseMove = onMouseMove.bind(CURRENT_DRAG_TARGET);
@@ -157,6 +172,7 @@ function onAnimationFrame(now)
     {
         this.started = true;
         this.callback(undefined, undefined, true);
+        if (this.beginCallback) this.beginCallback.call();
     }
 }
 
@@ -176,6 +192,7 @@ function onMouseUp(e)
         e.stopPropagation();
     
         this.callback(undefined, undefined, false);
+        if (this.endCallback) this.endCallback.call();
         
         return false;
     }

@@ -133,6 +133,11 @@ export function GraphConsumer(props)
 }
 GraphConsumer.propTypes = { children: PropTypes.func.isRequired };
 
+export function getGraphElements(graphState, elementType)
+{
+    return graphState[computeElementsKey(elementType)];
+}
+
 export function computeElementsKey(elementType)
 {
     return elementType.name;
