@@ -1,0 +1,18 @@
+svg circle {
+    fill: white;
+    stroke: black;
+}
+
+svg path {
+    stroke: black;
+}
+
+.decorative {
+    pointer-events: none;
+    user-select: none;
+}
+
+.mask {
+    fill: transparent;
+    stroke: blue;/* transparent */
+}

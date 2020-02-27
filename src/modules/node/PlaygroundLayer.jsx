@@ -1,5 +1,7 @@
 import React from 'react';
 
+import NewGraphArea from './NewGraphArea.jsx';
+
 class PlaygroundLayer extends React.Component
 {
     constructor(props)
@@ -12,16 +14,8 @@ class PlaygroundLayer extends React.Component
     {
         return (
             <>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
+                <NewGraphArea>
+                </NewGraphArea>
             </>
         );
     }
