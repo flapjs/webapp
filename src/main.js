@@ -1,5 +1,5 @@
 /* global module */
-/* global NODE_ENV */
+/* global __NODE_ENV__ */
 /* global __VERSION__ */
 
 // NOTE: This is for polyfill
@@ -11,8 +11,8 @@ import 'regenerator-runtime/runtime';
 import Logger from './util/Logger.js';
 import FlapJSApplication from './FlapJSApplication.js';
 
-// NOTE: NODE_ENV is defined in `template.html` as a global.
-Logger.out('Main', `Preparing app for ${NODE_ENV} environment...`);
+// NOTE: __NODE_ENV__ is defined in `template.html` as a global.
+Logger.out('Main', `Preparing app for ${__NODE_ENV__} environment...`);
 // NOTE: __VERSION__ is defined by Webpack with the DefinePlugin.
 Logger.out('Main', `Loading app version '${__VERSION__}'...`);
 

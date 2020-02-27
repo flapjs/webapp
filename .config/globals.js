@@ -7,5 +7,5 @@ const package = require('../package.json');
 // NOTE: If this is required anywhere else, please update the above!
 module.exports = {
     '__VERSION__': `"${package.version}"`,
-    '__BUG_REPORT_URL': `"${package.bugs.url}"`,
+    '__BUG_REPORT_URL__': `"${package.bugs.url}"`,
 };
