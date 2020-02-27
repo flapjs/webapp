@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useForceUpdate } from '../ForceUpdateHook.jsx';
 import { useDragBehavior } from '../DragBehaviorHook.jsx';
 import { useGraphElement } from './GraphElementHooks.jsx';
-import { useProxyEdgeStartBehavior } from './ProxyEdgeStartBehaviorHook.jsx';
+import { useProxyEdgeStartBehavior, useProxyEdgeEndBehavior } from './ProxyEdgeArea.jsx';
 
 import NodeCircleRenderer from '../renderer/node/NodeCircleRenderer.jsx';
 
@@ -23,10 +23,13 @@ export default function NodeElementComponent(props)
         node.x = x;
         node.y = y;
         node.markDirty();
-    }, { useButton: 0 });
+    },
+    { useButton: 0 });
     
     // Right drag to start proxy edge creation plan...
     useProxyEdgeStartBehavior(elementRef, node);
+    // ... and also to end the creation plan...
+    useProxyEdgeEndBehavior(elementRef, node);
 
     return (
         <NodeCircleRenderer key={elementId}

@@ -1,72 +1,161 @@
-import React, { useContext, useState, useLayoutEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { GraphStateContext, GraphDispatchContext } from './GraphContext.jsx';
+import { useDragBehavior } from '../DragBehaviorHook.jsx';
+
 import ControlledEdgeElementComponent from './ControlledEdgeElementComponent.jsx';
 
-import { findGraphElementWithinPosition } from './GraphElementHelper.js';
-import NodeElement from './NodeElement.js';
-import EdgeElement from './EdgeElement.js';
+/** This is used to pass the proxy edge's update function to all ProxyEdgeArea's children. */
+const ProxyEdgeContext = React.createContext();
 
 export default function ProxyEdgeArea(props)
 {
-    const [ proxyEdgeProps, updateProxyEdge ] = useProxyEdge();
+    const { onCreate } = props;
+    const [ proxyEdgeProps, active, update, target ] = useProxyEdge(onCreate);
     return (
         <>
-        <ProxyEdgeContext.Provider value={updateProxyEdge}>
+        <ProxyEdgeContext.Provider value={{ update, target, active }}>
             {props.children}
         </ProxyEdgeContext.Provider>
-        {proxyEdgeProps.to && <ControlledEdgeElementComponent {...proxyEdgeProps}/>}
+        {proxyEdgeProps.from && <ControlledEdgeElementComponent {...proxyEdgeProps}/>}
         </>
     );
 }
 ProxyEdgeArea.propTypes = {
     children: PropTypes.node,
+    onCreate: PropTypes.func,
+};
+ProxyEdgeArea.defaultProps = {
+    onCreate: () => {},
 };
 
-/** This is used to pass the proxy edge's update function to all ProxyEdgeArea's children. */
-export const ProxyEdgeContext = React.createContext();
-
-function useProxyEdge()
+/**
+ * Can only be used by children of <ProxyEdgeArea>. This effectively is a drag behavior
+ * that updates the proxy edge's to position instead.
+ * 
+ * @param {React.Ref} elementRef The reference to the element to drag a proxy edge out of.
+ * @param {object} graphElement The graph element the proxy edge is from.
+ */
+export function useProxyEdgeStartBehavior(elementRef, graphElement)
 {
-    const graphState = useContext(GraphStateContext);
-    const graphDispatch = useContext(GraphDispatchContext);
+    const { update } = useContext(ProxyEdgeContext);
+
+    useDragBehavior(elementRef, graphElement, value =>
+    {
+        update(graphElement, value);
+    },
+    {
+        useButton: 2,
+        onDragEnd: () => update(null),
+    });
+}
+
+/**
+ * Can only be used by children of <ProxyEdgeArea>. This updates the "to" target of the proxy
+ * edge when it is "over" this element, allowing it to be targeted by the proxy as its "to".
+ * 
+ * @param {React.Ref} elementRef The reference to the element to drag a proxy edge to.
+ * @param {object} graphElement The graph element the proxy edge will be to.
+ */
+export function useProxyEdgeEndBehavior(elementRef, graphElement)
+{
+    const { target, active } = useContext(ProxyEdgeContext);
+
+    useEffect(() =>
+    {
+        function onMouseOver()
+        {
+            target(graphElement);
+        }
+
+        function onMouseOut()
+        {
+            // NOTE:
+            // You may wonder: "what if you enter another targetable graph element?
+            // Wouldn't that erase the previously set target?"
+            // Answer: Actually, no. The DOM will cal the onMouseOver() only AFTER
+            // onMouseOut() therefore the target will always be correct.
+            target(null);
+        }
+
+        if (active)
+        {
+            elementRef.current.addEventListener('mouseover', onMouseOver);
+            elementRef.current.addEventListener('mouseout', onMouseOut);
+            return () =>
+            {
+                elementRef.current.removeEventListener('mouseover', onMouseOver);
+                elementRef.current.addEventListener('mouseout', onMouseOut);
+            };
+        }
+    },
+    [
+        graphElement, active
+    ]);
+}
+
+/**
+ * Sets up the proxy edge environment.
+ * 
+ * @param {Function} factoryCallback Creates the finalized edge given the proxy edge's own props.
+ * @returns {[object, boolean, Function, Function]} The props for the proxy edge component
+ * (including "from" and "to"), whether the proxy edge is actively used, a function to update
+ * the edge's "to" position, and a function to update the target to a valid "to" graph element
+ * for the proxy edge (and eventually the created element).
+ */
+function useProxyEdge(factoryCallback)
+{
     const [ proxyEdgeActive, setProxyEdgeActive ] = useState(false);
+    const [ proxyEdgeTarget, setProxyEdgeTarget ] = useState(null);
     const [ proxyEdgeProps, setProxyEdgeProps ] = useState({ from: null, to: null, opts: {}});
-    useLayoutEffect(() =>
+
+    useEffect(() =>
     {
         if (!proxyEdgeActive)
         {
             if (proxyEdgeProps.from || proxyEdgeProps.to)
             {
-                if (proxyEdgeProps.to instanceof NodeElement)
+                if (proxyEdgeTarget)
                 {
-                    graphDispatch({ type: 'add', elementType: EdgeElement, opts: {
-                        fromId: proxyEdgeProps.from.id,
-                        toId: proxyEdgeProps.to.id
-                    }});
+                    factoryCallback({ ...proxyEdgeProps, to: proxyEdgeTarget });
                 }
                 // Reset to default. The render depends on it to make the proxy edge disappear.
                 setProxyEdgeProps({ from: null, to: null, opts: {} });
+                setProxyEdgeTarget(null);
             }
         }
     },
     /* Although this is also dependent on proxyEdgeProps, we only care about when proxyEdgeActive changes. */
-    [ proxyEdgeActive ]);
+    [ proxyEdgeActive, factoryCallback ]);
 
-    function updateProxyEdge(dragging, node, position)
+    const update = updateProxyEdge.bind(undefined, setProxyEdgeActive, setProxyEdgeProps);
+    const target = targetProxyEdge.bind(undefined, setProxyEdgeTarget);
+
+    // NOTE: This must be deterministic and happen every render. Otherwise, use setProxyEdgeProps().
+    if (proxyEdgeTarget) { proxyEdgeProps.to = proxyEdgeTarget; }
+
+    return [
+        proxyEdgeProps,
+        proxyEdgeActive,
+        update,
+        target,
+    ];
+}
+
+function updateProxyEdge(setProxyEdgeActive, setProxyEdgeProps, graphElement, position)
+{
+    if (graphElement)
     {
-        if (dragging)
-        {
-            setProxyEdgeActive(true);
-            let target = findGraphElementWithinPosition(graphState, NodeElement, position.x, position.y, NodeElement.RADIUS);
-            setProxyEdgeProps({ from: node, to: target || position, opts: { forceLine: !target }});
-        }
-        else
-        {
-            setProxyEdgeActive(false);
-        }
+        setProxyEdgeActive(true);
+        setProxyEdgeProps({ from: graphElement, to: position, opts: { forceLine: false }});
     }
+    else
+    {
+        setProxyEdgeActive(false);
+    }
+}
 
-    return [ proxyEdgeProps, updateProxyEdge ];
+function targetProxyEdge(setProxyEdgeTarget, graphElement)
+{
+    setProxyEdgeTarget(graphElement);
 }
