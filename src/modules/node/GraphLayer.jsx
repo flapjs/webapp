@@ -9,50 +9,32 @@ import { useDoubleTapBehavior } from './DoubleTapBehavior.js';
 
 import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
 
-// import { useDragBehavior } from './DragBehavior.js';
 import { useTapBehavior } from './TapBehavior.js';
 import { useForceUpdate } from './ForceUpdateHooks.js';
 
 import GraphElementLayer from './GraphElementLayer.jsx';
-import { GraphDispatchContext } from './GraphContext.jsx';
+import { GraphDispatchContext, useGraphElement } from './GraphContext.jsx';
 
-class GraphElement
-{
-    static get elementsKey() { return 'nodes'; }
-
-    constructor(id, opts)
-    {
-        this.id = id;
-        this.x = opts.x || 0;
-        this.y = opts.y || 0;
-    }
-
-    static render(id, element, elementDispatch)
-    {
-        return <NodeElement
-            key={id}
-            element={element}
-            deleteNode={() => elementDispatch({ type: 'delete', elementId: id })}/>;
-    }
-}
+import GraphElement from './GraphElement.js';
 
 function NodeElement(props)
 {
-    const { element, deleteNode } = props;
+    const { elementType, elementId, deleteNode } = props;
 
+    const elementRef = useRef(null);
     const forceUpdate = useForceUpdate();
 
-    let elementRef = useRef(null);
-    const [dragging] = useDragBehavior(elementRef, element, ({x, y}) =>
+    const [ element ] = useGraphElement(elementType, elementId, forceUpdate);
+    const [ dragging ] = useDragBehavior(elementRef, element, ({x, y}) =>
     {
         element.x = x;
         element.y = y;
-        forceUpdate();
+        element.markDirty();
     });
 
     useTapBehavior(elementRef, dragging, e =>
     {
-        deleteNode(element);
+        deleteNode();
     });
 
     return (
@@ -81,7 +63,13 @@ export default function GraphLayer(props)
             offsetX={pos.x} offsetY={pos.y} scale={scale}
             childProps={{ref: svgRef}}>
             <rect x="-5" y="-5" width="10" height="10" fill="blue"/>
-            <GraphElementLayer elementType={GraphElement} renderElement={GraphElement.render}/>
+            <GraphElementLayer
+                elementType={GraphElement}
+                renderElement={(elementType, elementId, elementsDispatch) =>
+                    <NodeElement key={elementId}
+                        elementType={elementType}
+                        elementId={elementId}
+                        deleteNode={() => elementsDispatch({ type: 'delete', elementId })}/>}/>
             {props.children}
         </SVGViewArea>
     );

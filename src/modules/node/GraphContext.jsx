@@ -1,6 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import { uuid } from '@flapjs/util/MathHelper.js';
+import { addElementListener, removeElementListener, getElementListeners } from './GraphElement.js';
 
 const DEFAULT_GRAPH_STATE = {
 };
@@ -15,7 +17,7 @@ export function GraphReducer(prev, action)
     {
         case 'add':
             {
-                let key = action.elementType.elementsKey;
+                let key = computeElementsKey(action.elementType);
                 let nextElements = key in next ? {...next[key]} : {};
                 let id = action.elementId || uuid();
                 let element = new (action.elementType)(id, action.opts);
@@ -25,18 +27,20 @@ export function GraphReducer(prev, action)
             break;
         case 'delete':
             {
-                let key = action.elementType.elementsKey;
+                let key = computeElementsKey(action.elementType);
                 if (key in next)
                 {
                     let nextElements = {...next[key]};
+                    let element = nextElements[action.elementId];
                     delete nextElements[action.elementId];
                     next[key] = nextElements;
+                    element.destroy();
                 }
             }
             break;
         case 'clear':
             {
-                let key = action.elementType.elementsKey;
+                let key = computeElementsKey(action.elementType);
                 if (key in next)
                 {
                     next[key] = {};
@@ -59,6 +63,36 @@ export function GraphProvider(props)
     const { value } = props;
     const [state, setState] = useState(value);
     function dispatch(action) { setState(GraphReducer(state, action)); }
+
+    useEffect(() =>
+    {
+        let animationFrameHandle = requestAnimationFrame(onAnimationFrame);
+        function onAnimationFrame(now)
+        {
+            animationFrameHandle = requestAnimationFrame(onAnimationFrame);
+            for(let elementByIds of Object.values(state))
+            {
+                for(let element of Object.values(elementByIds))
+                {
+                    if (element.isDirty())
+                    {
+                        element.markDirty(false);
+                        element.update();
+                        for(let listener of getElementListeners(element))
+                        {
+                            listener.call(undefined, element);
+                        }
+                    }
+                }
+            }
+        }
+        return () =>
+        {
+            cancelAnimationFrame(animationFrameHandle);
+        };
+    },
+    [ state ]);
+
     return (
         <GraphStateContext.Provider value={state}>
             <GraphDispatchContext.Provider value={dispatch}>
@@ -91,16 +125,42 @@ export function GraphConsumer(props)
 }
 GraphConsumer.propTypes = { children: PropTypes.func.isRequired };
 
-export function useGraphElements(elementType)
+export function useGraphElementIds(elementType)
 {
     let graphState = useContext(GraphStateContext);
     let graphDispatch = useContext(GraphDispatchContext);
-    let elements = Object.values(graphState[elementType.elementsKey] || {});
+    let elementIds = Object.keys(graphState[computeElementsKey(elementType)] || {});
     let elementsDispatch = action => graphDispatch({elementType, ...action});
-    return [ elements, elementsDispatch ];
+    return [ elementIds, elementsDispatch ];
 }
 
-export function useGraphElement(elementId)
+export function useGraphElement(elementType, elementId, onChange)
 {
+    let graphState = useContext(GraphStateContext);
 
+    let elements = graphState[computeElementsKey(elementType)] || {};
+    let element = elements[elementId] || null;
+
+    useEffect(() =>
+    {
+        if (element) addElementListener(element, onChange);
+
+        return () =>
+        {
+            if (element) removeElementListener(element, onChange);
+        };
+    },
+    [
+        graphState,
+        element,
+        elementId,
+        onChange,
+    ]);
+
+    return [ element ];
+}
+
+export function computeElementsKey(elementType)
+{
+    return elementType.name;
 }

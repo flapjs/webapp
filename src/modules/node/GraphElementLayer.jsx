@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { useGraphElements } from './GraphContext.jsx';
+import { useGraphElementIds } from './GraphContext.jsx';
 
 export default function GraphElementLayer(props)
 {
     const { elementType, renderElement } = props;
-    const [ elements, elementsDispatch ] = useGraphElements(elementType);
+    const [ elementIds, elementsDispatch ] = useGraphElementIds(elementType);
     return (
         <>
-        {elements.map(element => renderElement(element.id, element, elementsDispatch))}
+        {elementIds.map(elementId => renderElement(elementType, elementId, elementsDispatch))}
         </>
     );
 }
