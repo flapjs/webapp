@@ -45,4 +45,4 @@ What about undo/redo?
     - If it has, save it. Otherwise, throw it away.
 
 What about initialization/loading/exporting?
-- 
+- Just do it.

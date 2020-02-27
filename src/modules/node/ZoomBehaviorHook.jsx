@@ -1,4 +1,4 @@
-import { useEventListeners } from './EventListenerHooks.js';
+import { useEventListeners } from './EventListenerHook.jsx';
 
 const MAX_WHEEL_RANGE = 100;
 const DEFAULT_MIN_SCALE = 0.1;

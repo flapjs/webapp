@@ -1,4 +1,4 @@
-import { useEventListeners } from './EventListenerHooks.js';
+import { useEventListeners } from './EventListenerHook.jsx';
 
 export function useTapBehavior(elementRef, disabled, callback, opts = {})
 {

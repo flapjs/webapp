@@ -1,10 +1,17 @@
 import { useState, useMemo } from 'react';
-import { useEventListeners } from './EventListenerHooks.js';
+import { useEventListeners } from './EventListenerHook.jsx';
 
 import { distance } from '@flapjs/util/MathHelper.js';
 import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
 
-const DEFAULT_OPTS = { startBufferRadius: 10, preserveOffset: false };
+const DEFAULT_OPTS = {
+    /** The distance to drag before starting (useful against touch jittering). */
+    startBufferRadius: 10,
+    /** Whether to preserve the initial offset or just snap into place. */
+    preserveOffset: false,
+    /** -1 for any button; 0 for left button; 2 for right button; 1 for middle click. */
+    useButton: -1
+};
 export function useDragBehavior(elementRef, pos, setPos, opts = {})
 {
     // NOTE: Merge with default so overriding opts won't completely remove ALL defaults.
@@ -13,38 +20,51 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
     if (!elementRef) throw new Error('Requires ref of target element to drag.');
 
     const [ dragging, setDragging ] = useState(false);
+
+    // NOTE: Since this is a memo func, be sure to add any dependencies to the array at the end!
+    // Otherwise, it won't know to refresh the function.
     const DOMEventListeners = useMemo(() =>
     {
         return {
-            onMouseDown: function(e)
+            onContextMenu: function(e)
             {
                 e.preventDefault();
                 e.stopPropagation();
-
-                let element = elementRef.current;
-                setDragTarget(element, e.clientX, e.clientY, pos.x, pos.y, (x, y, dragging) =>
-                {
-                    if (typeof x !== 'undefined' || typeof y !== 'undefined') setPos({ x, y });
-                    if (typeof dragging !== 'undefined') setDragging(dragging);
-                });
-
-                // Whether to wait for the user to drag some before consuming the input.
-                if (opts.startBufferRadius)
-                {
-                    CURRENT_DRAG_TARGET.startRadius = opts.startBufferRadius;
-                }
-
-                // Whether to keep the initial offset. This is so when you start "dragging",
-                // the object doesn't just "snap" to the cursor; it maintains the initial offset
-                // from the first drag. Otherwise, it would reset the target position to the
-                // "true" drag position.
-                if (!opts.preserveOffset)
-                {
-                    CURRENT_DRAG_TARGET.initialOffsetX = 0;
-                    CURRENT_DRAG_TARGET.initialOffsetY = 0;
-                }
-
                 return false;
+            },
+            onMouseDown: function(e)
+            {
+                if (opts.useButton < 0 || e.button === opts.useButton)
+                {
+                    e.preventDefault();
+                    e.stopPropagation();
+    
+                    let element = elementRef.current;
+                    setDragTarget(element, e.clientX, e.clientY, (x, y, dragging) =>
+                    {
+                        if (typeof x !== 'undefined' || typeof y !== 'undefined') setPos({ x, y });
+                        if (typeof dragging !== 'undefined') setDragging(dragging);
+                    });
+    
+                    // Whether to wait for the user to drag some before consuming the input.
+                    if (opts.startBufferRadius)
+                    {
+                        CURRENT_DRAG_TARGET.startRadius = opts.startBufferRadius;
+                    }
+    
+                    // Whether to keep the initial offset. This is so when you start "dragging",
+                    // the object doesn't just "snap" to the cursor; it maintains the initial offset
+                    // from the first drag. Otherwise, it would reset the target position to the
+                    // "true" drag position.
+                    if (opts.preserveOffset)
+                    {
+                        let transformedPoint = transformScreenToView(element, e.clientX, e.clientY);
+                        CURRENT_DRAG_TARGET.initialOffsetX = transformedPoint[0] - pos.x;
+                        CURRENT_DRAG_TARGET.initialOffsetY = transformedPoint[1] - pos.y;
+                    }
+    
+                    return false;
+                }
             }
         };
     },
@@ -56,11 +76,12 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
         setDragging,
         setPos,
         elementRef,
+        opts,
     ]);
 
     useEventListeners(elementRef, DOMEventListeners);
 
-    return [dragging];
+    return dragging;
 }
 
 let CURRENT_DRAG_TARGET = null;
@@ -70,7 +91,7 @@ export function getDragTarget()
     return CURRENT_DRAG_TARGET;
 }
 
-export function setDragTarget(element, clientX, clientY, initialX, initialY, callback = () => {})
+export function setDragTarget(element, clientX, clientY, callback = () => {})
 {
     if (CURRENT_DRAG_TARGET)
     {
@@ -82,14 +103,13 @@ export function setDragTarget(element, clientX, clientY, initialX, initialY, cal
 
     if (element)
     {
-        let transformedPoint = transformScreenToView(element, clientX, clientY);
         CURRENT_DRAG_TARGET = {
             element,
             // Used to set the state.
             callback,
             // The initial offset while dragging from point (so it doesn't just SNAP the origin to pointer).
-            initialOffsetX: transformedPoint[0] - initialX,
-            initialOffsetY: transformedPoint[1] - initialY,
+            initialOffsetX: 0,
+            initialOffsetY: 0,
             // The previous cursor position that was used in updating the value (NOT for whenever the cursor moves).
             prevX: clientX,
             prevY: clientY,

@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { uuid } from '@flapjs/util/MathHelper.js';
-import { addElementListener, removeElementListener, getElementListeners } from './GraphElement.js';
+import { getElementListeners } from './GraphElement.js';
 
-const DEFAULT_GRAPH_STATE = {
-};
+const DEFAULT_GRAPH_STATE = {};
 
 export const GraphStateContext = React.createContext();
 export const GraphDispatchContext = React.createContext();
@@ -13,6 +12,7 @@ export const GraphDispatchContext = React.createContext();
 export function GraphReducer(prev, action)
 {
     let next = {...prev};
+    let result = next;
     switch(action.type)
     {
         case 'add':
@@ -20,9 +20,10 @@ export function GraphReducer(prev, action)
                 let key = computeElementsKey(action.elementType);
                 let nextElements = key in next ? {...next[key]} : {};
                 let id = action.elementId || uuid();
-                let element = new (action.elementType)(id, action.opts);
+                let element = new (action.elementType)(id, action.opts || {});
                 nextElements[id] = element;
                 next[key] = nextElements;
+                result = id;
             }
             break;
         case 'delete':
@@ -55,15 +56,21 @@ export function GraphReducer(prev, action)
         default:
             throw new Error(`Unsupported action type '${action.type}'`);
     }
-    return next;
+    return [ next, result ];
 }
 
 export function GraphProvider(props)
 {
     const { value } = props;
-    const [state, setState] = useState(value);
-    function dispatch(action) { setState(GraphReducer(state, action)); }
+    const [ state, setState ] = useState(value);
+    async function dispatch(action)
+    {
+        let [ nextState, result ] = GraphReducer(state, action);
+        setState(nextState);
+        return result;
+    }
 
+    // NOTE: Manages the graph element dirty/update cycle.
     useEffect(() =>
     {
         let animationFrameHandle = requestAnimationFrame(onAnimationFrame);
@@ -74,6 +81,7 @@ export function GraphProvider(props)
             {
                 for(let element of Object.values(elementByIds))
                 {
+                    // This is where all elements are washed (updated) if they are dirty :P
                     if (element.isDirty())
                     {
                         element.markDirty(false);
@@ -124,41 +132,6 @@ export function GraphConsumer(props)
     );
 }
 GraphConsumer.propTypes = { children: PropTypes.func.isRequired };
-
-export function useGraphElementIds(elementType)
-{
-    let graphState = useContext(GraphStateContext);
-    let graphDispatch = useContext(GraphDispatchContext);
-    let elementIds = Object.keys(graphState[computeElementsKey(elementType)] || {});
-    let elementsDispatch = action => graphDispatch({elementType, ...action});
-    return [ elementIds, elementsDispatch ];
-}
-
-export function useGraphElement(elementType, elementId, onChange)
-{
-    let graphState = useContext(GraphStateContext);
-
-    let elements = graphState[computeElementsKey(elementType)] || {};
-    let element = elements[elementId] || null;
-
-    useEffect(() =>
-    {
-        if (element) addElementListener(element, onChange);
-
-        return () =>
-        {
-            if (element) removeElementListener(element, onChange);
-        };
-    },
-    [
-        graphState,
-        element,
-        elementId,
-        onChange,
-    ]);
-
-    return [ element ];
-}
 
 export function computeElementsKey(elementType)
 {
