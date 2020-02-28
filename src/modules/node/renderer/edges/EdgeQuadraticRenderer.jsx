@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import RendererStyle from '../Renderer.module.css';
 
 import EdgeDirectionalLabelRenderer from './EdgeDirectionalLabelRenderer.jsx';
-import EdgeEndpointNoneRenderer from './endpoint/EdgeEndpointNoneRenderer.jsx';
-import EdgeEndpointArrowRenderer from './endpoint/EdgeEndpointArrowRenderer.jsx';
+import EdgeEndpointNoneRenderer from './endpoints/EdgeEndpointNoneRenderer.jsx';
+import EdgeEndpointArrowRenderer from './endpoints/EdgeEndpointArrowRenderer.jsx';
 
 export const ENDPOINT_DIRECTION_FORWARD = 'forward';
 export const ENDPOINT_DIRECTION_BACKWARD = 'backward';

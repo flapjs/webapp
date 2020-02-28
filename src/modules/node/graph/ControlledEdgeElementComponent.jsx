@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import EdgeQuadraticRenderer from '../renderer/edge/EdgeQuadraticRenderer.jsx';
-import EdgeEndpointArrowRenderer from '../renderer/edge/endpoint/EdgeEndpointArrowRenderer.jsx';
-import EdgeEndpointNoneRenderer from '../renderer/edge/endpoint/EdgeEndpointNoneRenderer.jsx';
+import EdgeQuadraticRenderer from '../renderer/edges/EdgeQuadraticRenderer.jsx';
+import EdgeEndpointArrowRenderer from '../renderer/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
+import EdgeEndpointNoneRenderer from '../renderer/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
 
 import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 

@@ -6,7 +6,7 @@ import { useDragBehavior } from '../DragBehaviorHook.jsx';
 import { useGraphElement } from './GraphElementHooks.jsx';
 import { useProxyEdgeStartBehavior, useProxyEdgeEndBehavior } from './ProxyEdgeArea.jsx';
 
-import NodeCircleRenderer from '../renderer/node/NodeCircleRenderer.jsx';
+import NodeCircleRenderer from '../renderer/nodes/NodeCircleRenderer.jsx';
 
 export default function NodeElementComponent(props)
 {
