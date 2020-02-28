@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import SVGViewArea from '../SVGViewArea.jsx';
@@ -18,6 +18,7 @@ import NodeElementComponent from './NodeElementComponent.jsx';
 import EdgeElementComponent from './EdgeElementComponent.jsx';
 
 import ProxyEdgeArea from './ProxyEdgeArea.jsx';
+import StartMarker from './StartMarker.jsx';
 
 export default function GraphArea(props)
 {
@@ -34,12 +35,13 @@ export default function GraphArea(props)
      * 
      * @param {object} opts Node options.
      */
-    function createNode(opts)
+    const createNode = useCallback(async function(opts)
     {
-        graphDispatch({ type: 'add', elementType: NodeElement, opts: {
+        return await graphDispatch({ type: 'add', elementType: NodeElement, opts: {
             x: opts.x, y: opts.y
         }});
-    }
+    },
+    [ graphDispatch ]);
 
     /**
      * Creates an edge by dispatching to the graph context.
@@ -48,12 +50,13 @@ export default function GraphArea(props)
      * 
      * @param {object} opts Edge options.
      */
-    function createEdge(opts)
+    const createEdge = useCallback(async function(opts)
     {
-        graphDispatch({ type: 'add', elementType: EdgeElement, opts: {
+        return await graphDispatch({ type: 'add', elementType: EdgeElement, opts: {
             fromId: opts.from.id, toId: opts.to.id
         }});
-    }
+    },
+    [ graphDispatch ]);
 
     const dragging = useDragBehavior(svgRef, pos, setPos, { preserveOffset: true });
     useZoomBehavior(svgRef, scale, setScale);
@@ -82,6 +85,7 @@ export default function GraphArea(props)
                     <EdgeElementComponent key={elementId}
                         elementType={elementType}
                         elementId={elementId}/>}/>
+            <StartMarker/>
             {props.children}
         </SVGViewArea>
     );

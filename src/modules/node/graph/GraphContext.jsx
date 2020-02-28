@@ -53,6 +53,9 @@ export function GraphReducer(prev, action)
                 next = {};
             }
             break;
+        case 'update':
+            // Do nothing. It's a forceUpdate().
+            break;
         default:
             throw new Error(`Unsupported action type '${action.type}'`);
     }
@@ -133,7 +136,7 @@ export function GraphConsumer(props)
 }
 GraphConsumer.propTypes = { children: PropTypes.func.isRequired };
 
-export function getGraphElements(graphState, elementType)
+export function UNSAFE_getGraphElements(graphState, elementType)
 {
     return graphState[computeElementsKey(elementType)];
 }

@@ -1,4 +1,4 @@
-import { getGraphElements } from './GraphContext.jsx';
+import { UNSAFE_getGraphElements } from './GraphContext.jsx';
 import { distanceSquared } from '@flapjs/util/MathHelper.js';
 
 /**
@@ -14,7 +14,7 @@ import { distanceSquared } from '@flapjs/util/MathHelper.js';
  */
 export function findGraphElementWithinPosition(graphState, elementType, x, y, radius)
 {
-    let elements = getGraphElements(graphState, elementType);
+    let elements = UNSAFE_getGraphElements(graphState, elementType);
     if (elements)
     {
         let radiusSquared = radius * radius;
