@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import { GraphProvider, GraphConsumer } from './graph/GraphContext.jsx';
-import GraphArea from './graph/GraphArea.jsx';
+import { GraphProvider, GraphConsumer } from '@flapjs/services/graph2/GraphContext.jsx';
+import GraphArea from '@flapjs/services/graph2/GraphArea.jsx';
 
 export default function PlaygroundLayer(props)
 {
