@@ -1,7 +1,7 @@
 # Flap.js
 *Formal Languages and Automata Package*
 
-[![Build Status](https://travis-ci.org/flapjs/FLAPJS-WebApp.svg?branch=master)](https://travis-ci.org/flapjs/FLAPJS-WebApp)
+[![Build Status](https://travis-ci.org/flapjs/webapp.svg?branch=master)](https://travis-ci.org/flapjs/webapp)
 
 > By the students. For the students.
 
