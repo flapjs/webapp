@@ -24,6 +24,11 @@ exports[`Storyshots App playground 1`] = `
         onBlur={[Function]}
       >
         <option
+          value="node"
+        >
+          Node Graph
+        </option>
+        <option
           value="fa"
         >
           Finite Automata
@@ -88,14 +93,6 @@ exports[`Storyshots App playground 1`] = `
                   className="icon"
                 />
               </button>
-              <button
-                className="container "
-                onClick={[Function]}
-              >
-                <span
-                  className="icon"
-                />
-              </button>
             </div>
           </div>
           <div
@@ -125,20 +122,7 @@ exports[`Storyshots App playground 1`] = `
                 />
                 <div
                   className="content"
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "unset",
-                      }
-                    }
-                  >
-                    <h2>
-                      Exporting
-                    </h2>
-                    <ul />
-                  </div>
-                </div>
+                />
               </div>
               <div
                 className="viewport"
