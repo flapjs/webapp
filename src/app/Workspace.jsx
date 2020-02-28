@@ -8,7 +8,7 @@ import Drawer from './Drawer.jsx';
 
 export default function Workspace(props)
 {
-    const { renderPlayground, renderViewport } = props;
+    const { renderPlayground, renderViewport, drawerPanels } = props;
 
     return (
         <FlexibleOrientationLayout>
@@ -23,7 +23,9 @@ export default function Workspace(props)
                         renderForeground={() => (
                             <Drawer side={side}
                                 direction={direction}
-                                renderViewport={renderViewport}/>
+                                renderViewport={renderViewport}>
+                                {drawerPanels}
+                            </Drawer>
                         )}>
                         {props.children}
                     </WorkspaceLayout>
@@ -36,4 +38,8 @@ Workspace.propTypes = {
     children: PropTypes.node,
     renderViewport: PropTypes.func,
     renderPlayground: PropTypes.func,
+    drawerPanels: PropTypes.array,
+};
+Workspace.defaultProps = {
+    drawerPanels: ['Welcome to Flap.js'],
 };

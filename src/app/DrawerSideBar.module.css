@@ -1,5 +1,7 @@
 .sidetab {
     display: flex;
+    color: white;
+    text-align: center;
 }
 
 .sidetab > * {

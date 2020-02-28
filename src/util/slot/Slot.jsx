@@ -298,7 +298,6 @@ function Consumer(props)
     );
 }
 Consumer.propTypes = {
-    children: PropTypes.oneOf([undefined]),
     component: PropTypes.elementType.isRequired,
     props: PropTypes.object,
     slot: PropTypes.string,

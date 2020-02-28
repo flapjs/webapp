@@ -10,6 +10,8 @@ import Logo from './Logo.jsx';
 import Workspace from './Workspace.jsx';
 import Viewport from './Viewport.jsx';
 
+import Slot from '@flapjs/util/slot/Slot.jsx';
+
 export default function App(props)
 {
     const { app } = props;
@@ -17,20 +19,31 @@ export default function App(props)
     return (
         <div className={Style.container}>
             <DrawerProvider>
-                <header>
-                    <AppBar>
-                        <Logo title="Flap.js" version={app.version}/>
-                    </AppBar>
-                </header>
-                <main>
-                    <Workspace
-                        renderPlayground={() => <Viewport></Viewport>}
-                        renderViewport={() => <Viewport></Viewport>}>
-                    </Workspace>
-                </main>
-                <footer>
-                    {/* Nothing yet. Perhaps credits? */}
-                </footer>
+                <Slot.Provider name='app'>
+                    <header>
+                        <AppBar>
+                            <Logo title="Flap.js" version={app.version}/>
+                            <Slot name="appbar"/>
+                        </AppBar>
+                    </header>
+                    <main>
+                        <Workspace
+                            renderPlayground={() => (
+                                <Viewport>
+                                    <Slot name="playground"/>
+                                </Viewport>
+                            )}
+                            renderViewport={() => (
+                                <Viewport>
+                                    <Slot name="viewport"/>
+                                </Viewport>
+                            )}>
+                        </Workspace>
+                    </main>
+                    <footer>
+                        {/* Nothing yet. Perhaps ice cream? */}
+                    </footer>
+                </Slot.Provider>
             </DrawerProvider>
         </div>
     );

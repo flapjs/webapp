@@ -1,8 +1,10 @@
 // This is a registry of all the icons used by this project, in alphabetical order.
+// https://material.io/resources/icons
 export { default as AddIcon } from '@flapjs/assets/icons/add.svg';
 export { default as ArrowDownIcon } from '@flapjs/assets/icons/arrow-down.svg';
 export { default as BarChartIcon } from '@flapjs/assets/icons/bar-chart.svg';
 export { default as BoxAddIcon } from '@flapjs/assets/icons/box-add.svg';
+export { default as BoxEmptyIcon } from '@flapjs/assets/icons/box-empty.svg';
 export { default as BugIcon } from '@flapjs/assets/icons/bug.svg';
 export { default as CircleCheckIcon } from '@flapjs/assets/icons/circle-check.svg';
 export { default as CircleCrossIcon } from '@flapjs/assets/icons/circle-cross.svg';
