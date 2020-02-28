@@ -5,7 +5,7 @@ import SideBarLayout from '@flapjs/components/sidebar/layout/SideBarLayout.jsx';
 import DrawerLayout from '@flapjs/components/drawer/layout/DrawerLayout.jsx';
 import { DrawerConsumer } from '@flapjs/components/drawer/context/DrawerContext.jsx';
 
-import SideBar from './SideBar.jsx';
+import DrawerSideBar from './DrawerSideBar.jsx';
 
 export default function Drawer(props)
 {
@@ -25,9 +25,9 @@ export default function Drawer(props)
                         <SideBarLayout
                             side={side}
                             renderSideBar = {() => (
-                                <SideBar direction={direction}>
+                                <DrawerSideBar direction={direction}>
                                     {tabs}
-                                </SideBar>
+                                </DrawerSideBar>
                             )}>
                             <DrawerLayout
                                 side={side}

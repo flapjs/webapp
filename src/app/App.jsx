@@ -8,6 +8,7 @@ import AppBar from './AppBar.jsx';
 import Logo from './Logo.jsx';
 
 import Workspace from './Workspace.jsx';
+import Viewport from './Viewport.jsx';
 
 export default function App(props)
 {
@@ -22,7 +23,9 @@ export default function App(props)
                     </AppBar>
                 </header>
                 <main>
-                    <Workspace>
+                    <Workspace
+                        renderPlayground={() => <Viewport></Viewport>}
+                        renderViewport={() => <Viewport></Viewport>}>
                     </Workspace>
                 </main>
                 <footer>
