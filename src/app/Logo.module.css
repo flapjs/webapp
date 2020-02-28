@@ -1,0 +1,20 @@
+.container {
+    margin-left: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.version {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    margin-left: 0.2rem;
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    bottom: 0;
+}

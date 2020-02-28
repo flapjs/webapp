@@ -12,7 +12,7 @@
     height: 100%;
     z-index: 2000;
     background: #333641;
-    padding: 0.3rem;
+    padding: 0 0.3rem;
 
     /**
      * HACK: Overrides the 'none' for workspace foreground input events.
