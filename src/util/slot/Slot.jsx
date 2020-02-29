@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+
+import { SlotContext, SlotProviderNameContext, markDirty, SLOT_MANAGERS, DIRTY_KEY } from './SlotContext.jsx';
+import { isSameContent } from './SlotManagerHelper.js';
 
 const DEFAULT_SLOT_NAME = '__DEFAULT__';
 const DEFAULT_CONTENT_KEY = '__DEFAULT__';
-
-const SLOT_MANAGERS = new Map();
-const DIRTY_KEY = Symbol('dirty');
-
-const SlotProviderNameContext = React.createContext();
-const SlotContext = React.createContext();
 
 /**
  * This class represents the slot-like behavior of web component's own <slot> tag. To
@@ -96,7 +93,7 @@ export default class Slot extends React.Component
         }
 
         contents[contentKey] = {
-            Component: componentClass,
+            component: componentClass,
             props: componentProps,
             [DIRTY_KEY]: true,
         };
@@ -239,16 +236,18 @@ export default class Slot extends React.Component
                         slots[name][DIRTY_KEY] = false;
                         return (
                             <>
-                            {mode === 'wrapped'
-                                ? Object.values(slots[name]).reduceRight((prev, { Component, props }) =>
-                                {
-                                    return ( <Component {...props}> {prev} </Component> );
-                                },
-                                props.children)
-                                : Object.entries(slots[name]).map(([key, { Component, props }]) =>
-                                {
-                                    return ( <Component key={key} {...props}/> );
-                                })}
+                            {mode === 'consumer'
+                                ? props.children.call(undefined, Object.values(slots[name]))
+                                : mode === 'wrapped'
+                                    ? Object.values(slots[name]).reduceRight((prev, { component: Component, props }) =>
+                                    {
+                                        return ( <Component {...props}> {prev} </Component> );
+                                    },
+                                    props.children)
+                                    : Object.entries(slots[name]).map(([key, { component: Component, props }]) =>
+                                    {
+                                        return ( <Component key={key} {...props}/> );
+                                    })}
                             </>
                         );
                     }
@@ -266,9 +265,10 @@ export default class Slot extends React.Component
     }
 }
 Slot.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     name: PropTypes.string,
     mode: PropTypes.oneOf([
+        'consumer',
         'wrapped',
         'nested',
     ]),
@@ -277,8 +277,8 @@ Slot.defaultProps = {
     name: DEFAULT_SLOT_NAME,
 };
 
-Slot.Consumer = Consumer;
-function Consumer(props)
+Slot.Fill = Fill;
+function Fill(props)
 {
     const { slot, contentKey, component, props: componentProps } = props;
     const providerName = useContext(SlotProviderNameContext);
@@ -297,147 +297,14 @@ function Consumer(props)
         <></>
     );
 }
-Consumer.propTypes = {
+Fill.propTypes = {
     component: PropTypes.elementType.isRequired,
     props: PropTypes.object,
     slot: PropTypes.string,
     contentKey: PropTypes.string,
 };
-Consumer.defaultProps = {
+Fill.defaultProps = {
     slot: DEFAULT_SLOT_NAME,
     contentKey: DEFAULT_CONTENT_KEY,
     props: {},
 };
-
-Slot.Provider = Provider;
-function Provider(props)
-{
-    const { name } = props;
-    return (
-        <SlotProviderNameContext.Provider value={name}>
-            <SlotContextProvider providerName={name}>
-                {props.children}
-            </SlotContextProvider>
-        </SlotProviderNameContext.Provider>
-    );
-}
-Provider.propTypes = {
-    children: PropTypes.node,
-    name: PropTypes.string.isRequired,
-};
-
-function SlotContextProvider(props)
-{
-    const { providerName } = props;
-
-    let slotManager;
-    if (!SLOT_MANAGERS.has(providerName))
-    {
-        SLOT_MANAGERS.set(providerName, {
-            name: providerName,
-            slots: {},
-            [DIRTY_KEY]: true,
-        });
-    }
-    slotManager = SLOT_MANAGERS.get(providerName);
-
-    const [ state, setState ] = useState(slotManager);
-
-    useEffect(() =>
-    {
-        let animationFrameHandle = requestAnimationFrame(onAnimationFrame);
-        function onAnimationFrame(now)
-        {
-            animationFrameHandle = requestAnimationFrame(onAnimationFrame);
-            let slotManager = SLOT_MANAGERS.get(providerName);
-            if (updateDirty(slotManager))
-            {
-                setState({ ...slotManager });
-            }
-        }
-        return () =>
-        {
-            cancelAnimationFrame(animationFrameHandle);
-        };
-    });
-    return (
-        <SlotContext.Provider value={state}>
-            {props.children}
-        </SlotContext.Provider>
-    );
-}
-SlotContextProvider.propTypes = {
-    children: PropTypes.node,
-    providerName: PropTypes.string.isRequired,
-};
-
-function isSameContent(componentClass, componentProps, otherContent)
-{
-    const { Component, props } = otherContent;
-    if (Object.is(componentClass, Component))
-    {
-        if (isSameProps(componentProps, props))
-        {
-            return true;
-        }
-    }
-}
-
-function isSameProps(props, other)
-{
-    let otherEntries = Object.entries(other);
-    let propEntries = Object.entries(props);
-    if (otherEntries.length === propEntries.length)
-    {
-        const length = otherEntries.length;
-        for(let i = 0; i < length; ++i)
-        {
-            let otherEntry = otherEntries[i];
-            let propEntry = propEntries[i];
-            if (Object.is(otherEntry[0], propEntry[0])
-                && Object.is(otherEntry[1], propEntry[1]))
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-function updateDirty(slotManager)
-{
-    // NOTE: We use a symbol as the property because it is, by default, not enumerable.
-    if (slotManager[DIRTY_KEY])
-    {
-        /*
-        // NOTE: We do not update dirty for the individual slots; they will manage their own in their render method.
-        for(let slotContents of Object.values(slotManager.slots))
-        {
-            if (slotContents[DIRTY_KEY])
-            {
-                for(let slotContent of Object.values(slotContents))
-                {
-                    if (slotContent[DIRTY_KEY])
-                    {
-                        slotContent[DIRTY_KEY] = false;
-                    }
-                }
-                slotContents[DIRTY_KEY] = false;
-            }
-        }
-        */
-        slotManager[DIRTY_KEY] = false;
-        return true;
-    }
-    return false;
-}
-
-function markDirty(slotManager, slotName = undefined, contentKey = undefined)
-{
-    slotManager[DIRTY_KEY] = true;
-    if (slotName) slotManager.slots[slotName][DIRTY_KEY] = true;
-
-    // NOTE: This dirty flag is unused, since if any slot content is dirty,
-    // we re-render the entire slot.
-    // if (contentKey) slotManager.slots[slotName][contentKey][DIRTY_KEY] = true;
-}
