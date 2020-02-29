@@ -12,6 +12,7 @@
     outline: none;
     border-radius: 0.5rem;
     cursor: pointer;
+    color: white;
 }
 
 .sidetab > *:focus {

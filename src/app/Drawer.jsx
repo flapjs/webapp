@@ -12,28 +12,27 @@ import DrawerSideBar from './DrawerSideBar.jsx';
 
 export default function Drawer(props)
 {
-    const { renderViewport, side, direction, children } = props;
+    const { renderViewport, side, direction, panels, tabs } = props;
     return (
         <DrawerConsumer>
             {
                 (state, dispatch) =>
                 {
                     const tabIndex = state.tabIndex;
-                    const panels = renderPanels(children, tabIndex);
-                    const tabs = renderTabs(children, tabIndex => dispatch({ type: 'change-tab', value: tabIndex }), tabIndex);
-                    
                     return (
                         <SideBarLayout
                             side={side}
                             renderSideBar = {() => (
                                 <DrawerSideBar direction={direction}>
-                                    {tabs}
+                                    {renderTabs(tabs, tabIndex => dispatch({ type: 'change-tab', value: tabIndex }), tabIndex)}
                                 </DrawerSideBar>
                             )}>
                             <DrawerLayout
                                 side={side}
                                 open={state.open}
-                                renderDrawer = {() => panels}>
+                                renderDrawer = {() => (
+                                    renderPanels(panels, tabIndex)
+                                )}>
                                 {renderViewport()}
                             </DrawerLayout>
                         </SideBarLayout>
@@ -44,8 +43,9 @@ export default function Drawer(props)
     );
 }
 Drawer.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.elementType),
     renderViewport: PropTypes.func.isRequired,
+    panels: PropTypes.array,
+    tabs: PropTypes.array,
     side: PropTypes.oneOf([
         'top',
         'left',
@@ -62,63 +62,87 @@ Drawer.propTypes = {
     ]),
 };
 Drawer.defaultProps = {
-    tabbedPanels: [],
+    panels: [],
+    tabs: [],
     side: 'right',
     direction: 'horizontal',
     orientation: 'row',
     renderViewport: () => '==View.______==',
 };
 
-function renderPanels(children, tabIndex = 0)
+function renderPanels(panels, tabIndex = 0)
 {
-    if (!Array.isArray(children)) return 'No drawers found -- Sorry :(';
-    return children.map((e, i) =>
+    return panels.map((panel, index) =>
     {
-        if (typeof e === 'function')
+        let key;
+        let component;
+        let props;
+
+        if (typeof panel === 'function')
         {
-            return (
-                <div key={i + ':' + (e.name)} style={{ display: tabIndex === i ? 'unset' : 'none'}}>
-                    {React.createElement(e)}
-                </div>
-            );
+            component = panel;
+            key = panel.name;
+        }
+        else if (typeof panel === 'object')
+        {
+            component = panel.component;
+            key = panel.component.name;
+            props = panel.props;
         }
         else
         {
             return (
-                <div key={i + ':' + e}>
-                    {e}
+                <div key={index + ':' + key} style={{ display: tabIndex === index ? 'unset' : 'none'}}>
+                    {panel}
                 </div>
             );
         }
+        
+        if (!component) return null;
+        return (
+            <div key={index + ':' + key} style={{ display: tabIndex === index ? 'unset' : 'none'}}>
+                {React.createElement(component, props)}
+            </div>
+        );
     });
 }
 
-function renderTabs(children, tabCallback, tabIndex = 0)
+function renderTabs(tabs, tabCallback, tabIndex = 0)
 {
-    if (!Array.isArray(children)) return null;
-    return children.map((child, index) =>
+    return tabs.map((tab, index) =>
     {
-        // Use custom component...
-        if (typeof child === 'function' && 'Tab' in child)
-        {
-            // Only if tab is not null...
-            if (!child.Tab) return null;
+        let key;
+        let component;
+        let props;
 
-            const callback = tabCallback.bind(undefined, index);
-            return React.createElement(child.Tab, {
-                key: index + ':' + child.name,
-                onClick: callback
-            });
+        if (typeof tab === 'function')
+        {
+            component = tab;
+            key = tab.name;
+            props = {};
         }
-        // Use default tab renderer...
+        else if (typeof tab === 'object')
+        {
+            component = tab.component;
+            key = tab.component.name;
+            props = tab.props;
+        }
         else
         {
-            const callback = tabCallback.bind(null, index);
-            return React.createElement(IconButton, {
-                key: index + ':' + child.name,
-                onClick: callback,
-                iconClass: BoxEmptyIcon,
-            });
+            const callback = tabCallback.bind(undefined, index);
+            return (
+                <IconButton key={index + ':' + tab}
+                    onClick={callback}
+                    iconClass={BoxEmptyIcon}/>
+            );
         }
+
+        if (!component) return null;
+        const callback = tabCallback.bind(undefined, index);
+        return React.createElement(component, {
+            key: index + ':' + key,
+            onClick: callback,
+            ...props
+        });
     });
 }

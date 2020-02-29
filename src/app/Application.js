@@ -30,7 +30,7 @@ export function startUp()
     }
     catch(e)
     {
-        window.alert('[Application] Uh oh! Please report me!\n\n== APP ==\n' + JSON.stringify(APP_STATE) + '\n== ERROR ==\n' + ((e && e.message) || e) + '\n\n:(');
+        window.alert('[Application] Uh oh! Please report me!\n\n== APP ==\n' + JSON.stringify(APP_STATE) + '\n== ERROR ==\n' + ((e && e.stack) || e) + '\n\n:(');
     }
 }
 

@@ -18,6 +18,6 @@
     height: 100%;
 }
 
-.container footer {
+.container footer:empty {
     display: none;
 }

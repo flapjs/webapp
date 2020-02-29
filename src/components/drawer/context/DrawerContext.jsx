@@ -44,12 +44,6 @@ class DrawerProvider extends React.Component
     }
 
     /** @override */
-    componentDidMount()
-    {
-
-    }
-
-    /** @override */
     componentWillUnmount()
     {
         // Don't update this component anymore, cause IT'S DEAD!

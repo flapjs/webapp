@@ -5,11 +5,11 @@ import FlexibleOrientationLayout from '@flapjs/components/layout/FlexibleOrienta
 import WorkspaceLayout from './WorkspaceLayout.jsx';
 
 import Drawer from './Drawer.jsx';
+import { getPanelFromPanelClass, getTabFromPanelClass } from './DrawerPanelHelper.js';
 
 export default function Workspace(props)
 {
-    const { renderPlayground, renderViewport, drawerPanels } = props;
-
+    const { renderPlayground, renderViewport, panels } = props;
     return (
         <FlexibleOrientationLayout>
             {orientation =>
@@ -23,9 +23,9 @@ export default function Workspace(props)
                         renderForeground={() => (
                             <Drawer side={side}
                                 direction={direction}
-                                renderViewport={renderViewport}>
-                                {drawerPanels}
-                            </Drawer>
+                                panels={panels.map(panel => getPanelFromPanelClass(panel))}
+                                tabs={panels.map(panel => getTabFromPanelClass(panel))}
+                                renderViewport={renderViewport}/>
                         )}>
                         {props.children}
                     </WorkspaceLayout>
@@ -38,8 +38,8 @@ Workspace.propTypes = {
     children: PropTypes.node,
     renderViewport: PropTypes.func,
     renderPlayground: PropTypes.func,
-    drawerPanels: PropTypes.array,
+    panels: PropTypes.array,
 };
 Workspace.defaultProps = {
-    drawerPanels: ['Welcome to Flap.js'],
+    panels: ['Welcome to Flap.js'],
 };
