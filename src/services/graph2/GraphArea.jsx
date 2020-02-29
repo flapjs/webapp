@@ -68,7 +68,7 @@ export default function GraphArea(props)
     });
 
     return (
-        <SVGViewArea
+        <SVGViewArea className="viewport"
             offsetX={pos.x} offsetY={pos.y} scale={scale}
             childProps={{ref: svgRef}}>
             <rect x="-5" y="-5" width="10" height="10" fill="blue"/>

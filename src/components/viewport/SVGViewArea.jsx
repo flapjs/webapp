@@ -13,7 +13,7 @@ export default function SVGViewArea(props)
     let viewBox = `${-halfViewBoxScale} ${-halfViewBoxScale} ${fullViewBoxScale} ${fullViewBoxScale}`;
 
     return (
-        <svg className={Style.viewport} viewBox={viewBox} {...childProps}>
+        <svg className={Style.view + ' viewarea ' + props.className} viewBox={viewBox} {...childProps}>
             <g transform={`translate(${offsetX} ${offsetY})`}>
                 {props.children}
             </g>
@@ -22,6 +22,7 @@ export default function SVGViewArea(props)
 }
 SVGViewArea.propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     offsetX: PropTypes.number,
     offsetY: PropTypes.number,
     scale: PropTypes.number,

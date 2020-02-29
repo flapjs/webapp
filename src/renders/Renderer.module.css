@@ -1,18 +1,20 @@
-svg circle {
+/** Currently used by SVGViewArea as default style */
+svg:global(.viewarea) circle {
     fill: white;
     stroke: black;
 }
 
-svg path {
+svg:global(.viewarea) path {
     stroke: black;
 }
 
-.decorative {
+/** Must at least match the specificity of default styles^^^ */
+svg:global(.viewarea) .decorative {
     pointer-events: none;
     user-select: none;
 }
 
-.mask {
+svg:global(.viewarea) .mask {
     fill: transparent;
-    stroke: blue;/* transparent */
+    stroke: blue/* transparent!important */;
 }

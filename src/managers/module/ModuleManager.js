@@ -2,7 +2,7 @@ import Logger from '@flapjs/util/Logger.js';
 import * as URLHelper from '@flapjs/util/URLHelper.js';
 
 import { tryMount, tryStillMounted, tryUnmount, isManagerMounted } from '../ManagerLoader.js';
-import { loadModuleById } from './ModuleLoader.js';
+import { fetchModuleClassById, loadModuleByClass } from './ModuleLoader.js';
 
 import SessionManager from '../session/SessionManager.js';
 
@@ -25,25 +25,38 @@ export default class ModuleManager
 
         Logger.out('ModuleManager', `Loading module '${nextModuleId}'...`);
 
-        let nextModule;
+        let nextModuleClass;
         try
         {
-            nextModule = await loadModuleById(nextModuleId);
+            nextModuleClass = await fetchModuleClassById(nextModuleId);
         }
         catch(e)
         {
             if (!tryStillMounted(ModuleManager)) return;
 
-            Logger.error('ModuleManager', `Unable to load module '${nextModuleId}', trying to load module '${FALLBACK_MODULE_ID}' instead...`, e);
+            Logger.error('ModuleManager', `Unable to fetch module '${nextModuleId}', trying to fetch module '${FALLBACK_MODULE_ID}' instead...`, e);
             try
             {
-                nextModule = await loadModuleById(FALLBACK_MODULE_ID);
+                nextModuleClass = await fetchModuleClassById(FALLBACK_MODULE_ID);
             }
             catch(e)
             {
-                Logger.error('ModuleManager', 'Failed to load any module. Please forgive me.', e);
-                throw e;
+                Logger.error('ModuleManager', 'There was nothing I could do, dude.', e);
+                throw new Error(`Failed to fetch module '${nextModuleId}'.`);
             }
+        }
+
+        if (!tryStillMounted(ModuleManager)) return;
+
+        let nextModule;
+        try
+        {
+            nextModule = await loadModuleByClass(nextModuleClass);
+        }
+        catch(e)
+        {
+            Logger.error('ModuleManager', `Failed to load module for id '${nextModuleId}'. I'm sorry`, e);
+            throw e;
         }
 
         if (!tryStillMounted(ModuleManager)) return;
@@ -61,6 +74,7 @@ export default class ModuleManager
         let prevModule = CURRENT_MODULE;
         CURRENT_MODULE = null;
         if (prevModule.unmount) prevModule.unmount();
+        if (prevModule.destroy) prevModule.destroy();
         return prevModule;
     }
 }

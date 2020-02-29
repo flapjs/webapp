@@ -1,10 +1,16 @@
-export function getTabFromPanelClass(panelClass)
+export function transformPanelToDrawerTab(panel)
 {
-    if (typeof panelClass !== 'function') return 'Tab?';
-    return 'Tab' in panelClass ? panelClass.Tab : 'Tab?';
+    // May need to reach into the panel class slot object to find the tab...
+    if (typeof panel === 'object' && 'component' in panel)
+    {
+        panel = panel.component;
+    }
+    
+    if (typeof panel !== 'function') return 'Tab?';
+    return 'Tab' in panel ? panel.Tab : 'Tab?';
 }
 
-export function getPanelFromPanelClass(panelClass)
+export function transformPanelToDrawerPanel(panel)
 {
-    return panelClass;
+    return panel;
 }

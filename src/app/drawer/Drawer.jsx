@@ -5,7 +5,7 @@ import SideBarLayout from '@flapjs/components/sidebar/layout/SideBarLayout.jsx';
 import DrawerLayout from '@flapjs/components/drawer/layout/DrawerLayout.jsx';
 import { DrawerConsumer } from './DrawerContext.jsx';
 import DrawerSideBar from './DrawerSideBar.jsx';
-import { getPanelFromPanelClass, getTabFromPanelClass, } from './DrawerHelper.js';
+import { transformPanelToDrawerPanel, transformPanelToDrawerTab, } from './DrawerHelper.js';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
@@ -13,8 +13,8 @@ import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
 export default function Drawer(props)
 {
     const { renderViewport, side, direction, panels } = props;
-    const panelEntries = panels.map(panel => getPanelFromPanelClass(panel));
-    const tabEntries = panels.map(panel => getTabFromPanelClass(panel));
+    const panelEntries = panels.map(panel => transformPanelToDrawerPanel(panel));
+    const tabEntries = panels.map(panel => transformPanelToDrawerTab(panel));
     return (
         <DrawerConsumer>
             {

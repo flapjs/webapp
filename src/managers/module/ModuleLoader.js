@@ -2,7 +2,7 @@ import SemanticVersion from '@flapjs/util/SemanticVersion.js';
 import * as ModuleRegistry from './ModuleRegistry.js';
 import Slot from '@flapjs/util/slot/Slot.jsx';
 
-export async function loadModuleById(moduleId, moduleVersion)
+export async function fetchModuleClassById(moduleId, expectedModuleVersion)
 {
     if (moduleId in ModuleRegistry)
     {
@@ -11,6 +11,10 @@ export async function loadModuleById(moduleId, moduleVersion)
         let nextModule = await nextModuleInfo.fetch();
 
         if (!nextModule) throw new Error('Unable to load module.');
+
+        // Prioritize the default export as the module class.
+        let nextModuleDefault = nextModule.default;
+        if (nextModuleDefault) nextModule = nextModuleDefault;
         
         if (nextModule.moduleId !== moduleId)
         {
@@ -19,24 +23,26 @@ export async function loadModuleById(moduleId, moduleVersion)
                 + ' "' + nextModule.moduleId + '" does not equal "' + moduleId + '".');
         }
 
-        if (moduleVersion && !SemanticVersion.parse(nextModule.moduleVersion).canSupportVersion(SemanticVersion.parse(moduleVersion)))
+        if (expectedModuleVersion && !SemanticVersion.parse(nextModule.moduleVersion).canSupportVersion(SemanticVersion.parse(expectedModuleVersion)))
         {
             throw new Error('Outdated module version!');
         }
 
-        return await loadModuleByClass(nextModule);
+        return nextModule;
     }
-    return null;
+    else
+    {
+        throw new Error(`Module id '${moduleId}' not found in registry.`);
+    }
 }
 
 export async function loadModuleByClass(moduleClass)
 {
-    Slot.clearAll();
-
-    const slotProviderName = moduleClass.moduleId;
-    await loadModuleServices(slotProviderName, moduleClass, moduleClass.services);
-    loadModuleProviders(slotProviderName, moduleClass, moduleClass.providers);
-    loadModuleRenders(slotProviderName, moduleClass, moduleClass.renders);
+    const slotProviderName = 'app';
+    Slot.clearAll(slotProviderName);
+    if ('services' in moduleClass) await loadModuleServices(slotProviderName, moduleClass, moduleClass.services);
+    if ('providers' in moduleClass) loadModuleProviders(slotProviderName, moduleClass, moduleClass.providers);
+    if ('renders' in moduleClass) loadModuleRenders(slotProviderName, moduleClass, moduleClass.renders);
 
     let currentModule = new (moduleClass)();
     return currentModule;
