@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 
 import SideBarLayout from '@flapjs/components/sidebar/layout/SideBarLayout.jsx';
 import DrawerLayout from '@flapjs/components/drawer/layout/DrawerLayout.jsx';
-import { DrawerConsumer } from '@flapjs/components/drawer/context/DrawerContext.jsx';
+import { DrawerConsumer } from './DrawerContext.jsx';
+import DrawerSideBar from './DrawerSideBar.jsx';
+import { getPanelFromPanelClass, getTabFromPanelClass, } from './DrawerHelper.js';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
-
-import DrawerSideBar from './DrawerSideBar.jsx';
-import { getPanelFromPanelClass, getTabFromPanelClass, } from './DrawerHelper.js';
 
 export default function Drawer(props)
 {

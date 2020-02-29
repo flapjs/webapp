@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import Slot from '@flapjs/util/slot/Slot.jsx';
 
-import AppBar from './AppBar.jsx';
-import Logo from './Logo.jsx';
+import AppBar from './appbar/AppBar.jsx';
+import Workspace from './workspace/Workspace.jsx';
+import Viewport from './viewport/Viewport.jsx';
 
-import Workspace from './Workspace.jsx';
-import Viewport from './Viewport.jsx';
+import Logo from './Logo.jsx';
 
 export default function AppLayout(props)
 {

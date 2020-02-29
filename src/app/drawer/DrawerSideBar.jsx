@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './DrawerSideBar.module.css';
 
-import DrawerExpander from '@flapjs/components/drawer/expander/DrawerExpander.jsx';
+import DrawerExpander from './DrawerExpander.jsx';
+
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { TinyDownIcon } from '@flapjs/components/icons/Icons.js';
 
