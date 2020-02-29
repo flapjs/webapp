@@ -14,24 +14,24 @@ export async function doMountManagers(managers)
 {
     Logger.out('ManagerLoader', '...mounting managers...');
     let result = false;
-    try
+
+    // This is basically an async reduce()...
+    let prev = null;
+    for(let manager of managers)
     {
-        // This is basically an async reduce()...
-        let prev = null;
-        for(let manager of managers)
+        try
         {
             prev = await manager.mount(prev);
             result = true;
         }
-        Logger.out('ManagerLoader', '...succeeded in mounting all managers.');
-        return result;
+        catch(e)
+        {
+            // Mounting has halted because someone threw an error...
+            Logger.error('ManagerLoader', `...failed to mount '${manager.name || manager}' and maybe other managers.`, e);
+            return result;
+        }
     }
-    catch(e)
-    {
-        // Mounting has halted because someone threw an error...
-        Logger.error('ManagerLoader', '...failed to mount all managers.', e);
-        return result;
-    }
+    return result;
 }
 
 /**
