@@ -5,7 +5,6 @@ import FlexibleOrientationLayout from '@flapjs/components/layout/FlexibleOrienta
 import WorkspaceLayout from './WorkspaceLayout.jsx';
 
 import Drawer from './Drawer.jsx';
-import { getPanelFromPanelClass, getTabFromPanelClass } from './DrawerPanelHelper.js';
 
 export default function Workspace(props)
 {
@@ -23,8 +22,7 @@ export default function Workspace(props)
                         renderForeground={() => (
                             <Drawer side={side}
                                 direction={direction}
-                                panels={panels.map(panel => getPanelFromPanelClass(panel))}
-                                tabs={panels.map(panel => getTabFromPanelClass(panel))}
+                                panels={panels}
                                 renderViewport={renderViewport}/>
                         )}>
                         {props.children}

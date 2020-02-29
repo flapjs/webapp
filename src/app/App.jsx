@@ -7,16 +7,24 @@ import { DrawerProvider } from '@flapjs/components/drawer/context/DrawerContext.
 
 import AppLayout from './AppLayout.jsx';
 
+import { useManagers } from '@flapjs/managers/ManagerHooks.jsx';
+import ModuleManager from '@flapjs/managers/module/ModuleManager.js';
+import SessionManager from '@flapjs/managers/session/SessionManager';
+
 export default function App(props)
 {
     const { app } = props;
+
+    useManagers([
+        SessionManager,
+        ModuleManager,
+    ]);
 
     return (
         <div className={Style.container}>
             <SlotProvider name="app">
                 <DrawerProvider>
-                    <AppLayout app={app}>
-                    </AppLayout>
+                    <AppLayout app={app}/>
                 </DrawerProvider>
             </SlotProvider>
         </div>

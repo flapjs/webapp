@@ -9,10 +9,13 @@ import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
 
 import DrawerSideBar from './DrawerSideBar.jsx';
+import { getPanelFromPanelClass, getTabFromPanelClass, } from './DrawerHelper.js';
 
 export default function Drawer(props)
 {
-    const { renderViewport, side, direction, panels, tabs } = props;
+    const { renderViewport, side, direction, panels } = props;
+    const panelEntries = panels.map(panel => getPanelFromPanelClass(panel));
+    const tabEntries = panels.map(panel => getTabFromPanelClass(panel));
     return (
         <DrawerConsumer>
             {
@@ -24,14 +27,14 @@ export default function Drawer(props)
                             side={side}
                             renderSideBar = {() => (
                                 <DrawerSideBar direction={direction}>
-                                    {renderTabs(tabs, tabIndex => dispatch({ type: 'change-tab', value: tabIndex }), tabIndex)}
+                                    {renderTabs(tabEntries, tabIndex => dispatch({ type: 'change-tab', value: tabIndex }), tabIndex)}
                                 </DrawerSideBar>
                             )}>
                             <DrawerLayout
                                 side={side}
                                 open={state.open}
                                 renderDrawer = {() => (
-                                    renderPanels(panels, tabIndex)
+                                    renderPanels(panelEntries, tabIndex)
                                 )}>
                                 {renderViewport()}
                             </DrawerLayout>
@@ -45,7 +48,6 @@ export default function Drawer(props)
 Drawer.propTypes = {
     renderViewport: PropTypes.func.isRequired,
     panels: PropTypes.array,
-    tabs: PropTypes.array,
     side: PropTypes.oneOf([
         'top',
         'left',
@@ -63,7 +65,6 @@ Drawer.propTypes = {
 };
 Drawer.defaultProps = {
     panels: [],
-    tabs: [],
     side: 'right',
     direction: 'horizontal',
     orientation: 'row',

@@ -15,49 +15,41 @@ export default function AppLayout(props)
 
     return (
         <>
-        <header>
-            <AppBar>
-                <Logo title="Flap.js" version={app.version}/>
-                <Slot name="appbar"></Slot>
-            </AppBar>
-        </header>
-        <main>
-            <Slot mode="consumer" name="drawer">
-                {slots => (
-                    <Workspace
-                        renderPlayground={() => (
-                            <Viewport>
-                                <Slot name="playground"></Slot>
-                            </Viewport>
-                        )}
-                        renderViewport={() => (
-                            <Viewport>
-                                <Slot name="viewport"></Slot>
-                            </Viewport>
-                        )}
-                        panels={slots}>
-                        <Slot name="workspace"></Slot>
-                    </Workspace>
-                )}
-            </Slot>
-        </main>
-        <footer>
-            {/* Nothing yet. Perhaps ice cream? */}
-            <Slot name="footer"></Slot>
-            <Slot.Fill slot="drawer" component={Panel}/>
-        </footer>
+        <Slot mode="wrapped" name="provider">
+            <header>
+                <AppBar>
+                    <Logo title="Flap.js" version={app.version}/>
+                    <Slot name="appbar"></Slot>
+                </AppBar>
+            </header>
+            <main>
+                <Slot mode="consumer" name="drawer">
+                    {slots => (
+                        <Workspace
+                            renderPlayground={() => (
+                                <Viewport>
+                                    <Slot name="playground"></Slot>
+                                </Viewport>
+                            )}
+                            renderViewport={() => (
+                                <Viewport>
+                                    <Slot name="viewport"></Slot>
+                                </Viewport>
+                            )}
+                            panels={slots}>
+                            <Slot name="workspace"></Slot>
+                        </Workspace>
+                    )}
+                </Slot>
+            </main>
+            <footer>
+                {/* Nothing yet. Perhaps ice cream? */}
+                <Slot name="footer"></Slot>
+            </footer>
+        </Slot>
         </>
     );
 }
 AppLayout.propTypes = {
     app: PropTypes.object,
 };
-
-function Panel(props)
-{
-    return (
-        <>
-        hi
-        </>
-    );
-}
