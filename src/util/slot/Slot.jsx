@@ -255,7 +255,9 @@ export default class Slot extends React.Component
                     {
                         return (
                             <>
-                            {props.children || ''}
+                            {mode === 'consumer'
+                                ? props.children.call(undefined, [])
+                                : props.children || ''}
                             </>
                         );
                     }

@@ -10,6 +10,25 @@ export const SlotContext = React.createContext();
 export function SlotProvider(props)
 {
     const { name } = props;
+    useEffect(() =>
+    {
+        return () =>
+        {
+            if (SLOT_MANAGERS.has(name))
+            {
+                // Clean-up time!
+                
+                // NOTE: We clean up here instead of in SlotContextProvider because that
+                // context could re-render due to state change. However, this component
+                // only handles the "name" of the provider. Which, if it changes, could
+                // be assumed as a delete or clear (because all provider names are assumed
+                // globally unique and are tied to that state).
+                let slotManager = SLOT_MANAGERS.get(name);
+                slotManager[DIRTY_KEY] = true;
+                slotManager.slots = {};
+            }
+        };
+    });
     return (
         <SlotProviderNameContext.Provider value={name}>
             <SlotContextProvider providerName={name}>
