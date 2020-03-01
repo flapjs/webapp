@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import { createConnector } from '@flapjs/hooks/behaviors/ConnectBehavior.jsx';
 
-import MarkerTriangleRenderer from '@flapjs/renders/markers/MarkerTriangleRenderer.jsx';
+import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
 import { useGraphElementIds, useGraphElement } from '../GraphElementHooks.jsx';
 import NodeElement from '../elements/node/NodeElement.js';
 

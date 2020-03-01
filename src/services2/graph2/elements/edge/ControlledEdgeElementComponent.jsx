@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import EdgeQuadraticRenderer from '@flapjs/renders/edges/EdgeQuadraticRenderer.jsx';
-import EdgeEndpointArrowRenderer from '@flapjs/renders/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
-import EdgeEndpointNoneRenderer from '@flapjs/renders/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
+import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer.jsx';
+import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
+import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
 
 import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 

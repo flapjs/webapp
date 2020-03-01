@@ -7,7 +7,7 @@ import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 import { useGraphElement } from '../../GraphElementHooks.jsx';
 import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '../../components/ProxyEdgeContext.jsx';
 
-import NodeCircleRenderer from '@flapjs/renders/nodes/NodeCircleRenderer.jsx';
+import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 
 export default function NodeElementComponent(props)
 {

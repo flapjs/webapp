@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RendererStyle from '@flapjs/renders/Renderer.module.css';
+import RendererStyle from '@flapjs/renderers/Renderer.module.css';
 
 const HALF_PI = Math.PI / 2;
 
