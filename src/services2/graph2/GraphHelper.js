@@ -1,5 +1,19 @@
 import { distanceSquared } from '@flapjs/util/MathHelper.js';
-import { UNSAFE_getGraphElements } from '../GraphContext.jsx';
+
+export function computeElementsKey(elementType)
+{
+    return elementType.name;
+}
+
+export function UNSAFE_getGraphElements(graphState, elementType)
+{
+    return graphState[computeElementsKey(elementType)];
+}
+
+export function UNSAFE_getGraphElement(graphState, elementType, elementId)
+{
+    return graphState[computeElementsKey(elementType)][elementId];
+}
 
 /**
  * Finds a graph element of the given type within the radius of the position.
@@ -12,7 +26,7 @@ import { UNSAFE_getGraphElements } from '../GraphContext.jsx';
  * @param {number} radius The distance from the position to consider.
  * @returns {GraphElement} The graph element within the radius of the position. Null if not found.
  */
-export function findGraphElementWithinPosition(graphState, elementType, x, y, radius)
+export function UNSAFE_findGraphElementWithinPosition(graphState, elementType, x, y, radius)
 {
     let elements = UNSAFE_getGraphElements(graphState, elementType);
     if (elements)

@@ -34,6 +34,7 @@ export default function MarkerTriangleRenderer(props)
     );
 }
 MarkerTriangleRenderer.propTypes = {
+    style: PropTypes.object,
     x: PropTypes.number,
     y: PropTypes.number,
     size: PropTypes.number,

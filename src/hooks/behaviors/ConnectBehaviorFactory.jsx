@@ -35,7 +35,7 @@ export function createConnector(renderConnector)
     {
         const { updateSource } = useContext(ConnectorContext);
     
-        useDragBehavior(elementRef, fromTarget, value =>
+        return useDragBehavior(elementRef, fromTarget, value =>
         {
             updateSource(fromTarget, value);
         },

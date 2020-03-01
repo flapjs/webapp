@@ -1,4 +1,3 @@
-
 export const Factory = {
     elements: [
         // { element: NodeElement, renderer: NodeElementComponent },

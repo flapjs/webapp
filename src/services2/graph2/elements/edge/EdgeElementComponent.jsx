@@ -14,7 +14,7 @@ import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndp
 import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 
 import { GraphStateContext } from '../../GraphContext.jsx';
-import { findGraphElementWithinPosition } from '../GraphElementHelper.js';
+import { UNSAFE_findGraphElementWithinPosition } from '../../GraphHelper.js';
 
 export default function EdgeElementComponent(props)
 {
@@ -44,7 +44,7 @@ export default function EdgeElementComponent(props)
     useDragBehavior(forwardEndpointRef, end,
         value =>
         {
-            let nearestNode = findGraphElementWithinPosition(graphState, NodeElement, value.x, value.y, NodeElement.RADIUS);
+            let nearestNode = UNSAFE_findGraphElementWithinPosition(graphState, NodeElement, value.x, value.y, NodeElement.RADIUS);
             if (nearestNode)
             {
                 QuadraticEdgeHelper.changeEndPoint(nearestNode, from, to, edge);
@@ -71,6 +71,7 @@ export default function EdgeElementComponent(props)
             {
                 QuadraticEdgeHelper.resetQuadsIfPlaceholder(edge.fromId, edge.toId, edge);
                 edge.markDirty();
+                return true;
             },
             onDragEnd: () =>
             {

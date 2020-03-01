@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createConnector } from '@flapjs/hooks/behaviors/ConnectBehavior.jsx';
+import { createConnector } from '@flapjs/hooks/behaviors/ConnectBehaviorFactory.jsx';
 
 import ControlledEdgeElementComponent from '../elements/edge/ControlledEdgeElementComponent.jsx';
 

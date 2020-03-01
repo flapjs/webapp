@@ -19,6 +19,7 @@ import NodeElementComponent from './elements/node/NodeElementComponent.jsx';
 import EdgeElementComponent from './elements/edge/EdgeElementComponent.jsx';
 
 import { ProxyEdgeProvider } from './components/ProxyEdgeContext.jsx';
+import { StartMarkerProvider } from './components/StartMarkerContext.jsx';
 
 export default function GraphArea(props)
 {
@@ -59,6 +60,12 @@ export default function GraphArea(props)
     },
     [ graphDispatch ]);
 
+    const swapInitial = useCallback(async function(from, to)
+    {
+        return await graphDispatch({ type: 'swapProperty', elementType: NodeElement, elementId: from.id, targetId: to.id, property: 'initial' });
+    },
+    [ graphDispatch ]);
+
     const dragging = useDragBehavior(svgRef, pos, setPos, { preserveOffset: true });
     useZoomBehavior(svgRef, scale, setScale);
     useDoubleTapBehavior(svgRef, dragging, e =>
@@ -72,15 +79,17 @@ export default function GraphArea(props)
             offsetX={pos.x} offsetY={pos.y} scale={scale}
             childProps={{ref: svgRef}}>
             <rect x="-5" y="-5" width="10" height="10" fill="blue"/>
-            
-            <ProxyEdgeProvider onConnect={createEdge}>
-                <GraphElementLayer
-                    elementType={NodeElement}
-                    renderElement={(elementType, elementId) =>
-                        <NodeElementComponent key={elementId}
-                            elementType={elementType}
-                            elementId={elementId}/>}/>
-            </ProxyEdgeProvider>
+
+            <StartMarkerProvider onConnect={swapInitial}>
+                <ProxyEdgeProvider onConnect={createEdge}>
+                    <GraphElementLayer
+                        elementType={NodeElement}
+                        renderElement={(elementType, elementId) =>
+                            <NodeElementComponent key={elementId}
+                                elementType={elementType}
+                                elementId={elementId}/>}/>
+                </ProxyEdgeProvider>
+            </StartMarkerProvider>
         
             <GraphElementLayer
                 elementType={EdgeElement}

@@ -170,9 +170,13 @@ function onAnimationFrame(now)
     }
     else if (distance(this.prevX, this.prevY, this.nextX, this.nextY) > this.startRadius)
     {
+        if (this.beginCallback)
+        {
+            let result = this.beginCallback.call();
+            if (!result) return;
+        }
         this.started = true;
         this.callback(undefined, undefined, true);
-        if (this.beginCallback) this.beginCallback.call();
     }
 }
 
