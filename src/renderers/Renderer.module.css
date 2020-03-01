@@ -1,4 +1,4 @@
-/** Currently used by SVGViewArea as default style */
+/** Currently used by SVGPlayground as default style */
 svg:global(.viewarea) circle {
     fill: white;
     stroke: black;

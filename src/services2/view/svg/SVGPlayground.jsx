@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Style from './SVGViewArea.module.css';
+import Style from './SVGPlayground.module.css';
 
 const DEFAULT_VIEWBOX_SIZE = 300;
 
-export default function SVGViewArea(props)
+export default function SVGPlayground(props)
 {
     const { offsetX, offsetY, scale, childProps } = props;
     
@@ -20,7 +20,7 @@ export default function SVGViewArea(props)
         </svg>
     );
 }
-SVGViewArea.propTypes = {
+SVGPlayground.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     offsetX: PropTypes.number,
@@ -28,7 +28,7 @@ SVGViewArea.propTypes = {
     scale: PropTypes.number,
     childProps: PropTypes.object,
 };
-SVGViewArea.defaultProps = {
+SVGPlayground.defaultProps = {
     offsetX: 0,
     offsetY: 0,
     scale: 1,
