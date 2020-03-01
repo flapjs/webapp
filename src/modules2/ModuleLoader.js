@@ -3,8 +3,7 @@ import SemanticVersion from '@flapjs/util/SemanticVersion.js';
 import Slot from '@flapjs/util/slot/Slot.jsx';
 import { topoSort } from '@flapjs/util/TopologicalSort.js';
 
-import * as ModuleRegistry from '../../modules2/ModuleRegistry.js';
-import ModuleService from './ModuleService.js';
+import * as ModuleRegistry from './ModuleRegistry.js';
 
 export async function fetchModuleClassById(moduleId, expectedModuleVersion = undefined)
 {
@@ -63,7 +62,7 @@ export async function fetchModuleClassById(moduleId, expectedModuleVersion = und
  * @param {Class} moduleClass The module class.
  * @returns {object} Instance of the loaded module class.
  */
-export async function loadModuleByClass(moduleClass)
+export function loadModule(moduleClass)
 {
     Logger.out('ModuleLoader', `...loading module class '${moduleClass.name}'...`);
 
@@ -79,7 +78,7 @@ export async function loadModuleByClass(moduleClass)
         get providers() { return [...this.slotComponents.providers]; },
         get renders() { let result = {...this.slotComponents}; delete result.providers; return result; },
     };
-    let services = [ ModuleService ];
+    let services = [];
     if ('services' in moduleClass) services.push(...moduleClass.services);
 
     Logger.out('ModuleLoader', `...found ${services.length} service(s)...`);
@@ -97,6 +96,7 @@ export async function loadModuleByClass(moduleClass)
         // ...merge final contributions...
         mergeContributionsToSlotComponents(loader.slotComponents, contribs);
         totalContributions += countContributions(contribs);
+
         loader.serviceContexts.set(serviceClass, context);
     }
 
@@ -108,11 +108,6 @@ export async function loadModuleByClass(moduleClass)
     // ...merge final contributions...
     mergeContributionsToSlotComponents(loader.slotComponents, moduleContribs);
     totalContributions += countContributions(moduleContribs);
-
-    // --!!! Inject The Spectacular Special Concoction of Module Identification !!!--
-    // NOTE: This is the only time we should invert dependencies. Otherwise, you should follow the rules.
-    // ADDITIONAL NOTE: Look at ModuleService for more info on why this is magical. Maybe you too can be a wizard Harry.
-    loader.currentModule = currentModule;
 
     Logger.out('ModuleLoader', `...injecting ${totalContributions} slot component(s)...`);
     // Now, inject the components...

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const ModuleStateContext = React.createContext();
 export const ModuleDispatchContext = React.createContext();
 
-export function ModuleReducer(prev, action)
+export function ModuleSessionReducer(prev, action)
 {
     let nextState;
     let result;
@@ -24,13 +24,13 @@ export function ModuleReducer(prev, action)
     return [nextState, result];
 }
 
-export function ModuleProvider(props)
+export function ModuleSessionProvider(props)
 {
     const { moduleId, currentModule, loader } = props;
     const [state, setState] = useState({});
     async function dispatch(action)
     {
-        const [nextState, result] = ModuleReducer(state, action);
+        const [nextState, result] = ModuleSessionReducer(state, action);
         setState(nextState);
         return result;
     }
@@ -43,14 +43,14 @@ export function ModuleProvider(props)
         </ModuleStateContext.Provider>
     );
 }
-ModuleProvider.propTypes = {
+ModuleSessionProvider.propTypes = {
     children: PropTypes.node,
     moduleId: PropTypes.string,
     currentModule: PropTypes.object,
     loader: PropTypes.object,
 };
 
-export function ModuleConsumer(props)
+export function ModuleSessionConsumer(props)
 {
     return (
         <ModuleStateContext.Consumer>
@@ -64,6 +64,6 @@ export function ModuleConsumer(props)
         </ModuleStateContext.Consumer>
     );
 }
-ModuleConsumer.propTypes = {
+ModuleSessionConsumer.propTypes = {
     children: PropTypes.func.isRequired,
 };
