@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RendererStyle from '@flapjs/renderers/Renderer.module.css';
 
 const HALF_PI = Math.PI / 2;
+const MASK_OFFSET_RATIO = 0.7;
 
 export default function EdgeEndpointNoneRenderer(props)
 {
@@ -10,8 +11,8 @@ export default function EdgeEndpointNoneRenderer(props)
     return (
         <>
         <circle className={RendererStyle.mask}
-            cx={x - (length * Math.cos(-angle + HALF_PI))}
-            cy={y - (length * Math.sin(-angle + HALF_PI))}
+            cx={x - (length * Math.cos(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
+            cy={y - (length * Math.sin(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
             r={length}
             {...maskProps} />
         </>

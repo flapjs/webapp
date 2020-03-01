@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RendererStyle from '@flapjs/renderers/Renderer.module.css';
 
 const MASK_RADIUS_OFFSET = 4;
+const SIZE_RATIO = 1.2;
 
 export default function MarkerTriangleRenderer(props)
 {
@@ -16,14 +17,14 @@ export default function MarkerTriangleRenderer(props)
 
     // TODO: this does not work for ALL arbitrary angles...
     const radiusX = dx * size;
-    const diameterX = radiusX * 2;
+    const diameterX = radiusX * SIZE_RATIO;
     
     return (
         <>
         <path className={RendererStyle.decorative}
             d={`M${x} ${y}`
-                + ` L${x + diameterX} ${y + Math.sin(angle + Math.PI / 2) * size * 2}`
-                + ` L${x + diameterX} ${y - Math.sin(angle + Math.PI / 2) * size * 2}`
+                + ` L${x + diameterX} ${y + Math.sin(angle + Math.PI / 2) * size * SIZE_RATIO}`
+                + ` L${x + diameterX} ${y - Math.sin(angle + Math.PI / 2) * size * SIZE_RATIO}`
                 + ' Z'}
             fill="transparent"
             {...childProps}/>

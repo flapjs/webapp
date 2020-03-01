@@ -18,3 +18,7 @@ svg:global(.viewarea) .mask {
     fill: transparent;
     stroke: transparent;
 }
+
+svg *:hover {
+    outline: 1px solid gold;
+}

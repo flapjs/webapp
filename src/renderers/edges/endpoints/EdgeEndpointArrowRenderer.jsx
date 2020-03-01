@@ -4,6 +4,7 @@ import RendererStyle from '@flapjs/renderers/Renderer.module.css';
 
 const SIXTH_PI = Math.PI / 6;
 const HALF_PI = Math.PI / 2;
+const MASK_OFFSET_RATIO = 0.7;
 
 export default function EdgeEndpointArrowRenderer(props)
 {
@@ -19,8 +20,8 @@ export default function EdgeEndpointArrowRenderer(props)
             fill="none"
             {...childProps} />
         <circle className={RendererStyle.mask}
-            cx={x - (length * Math.cos(-angle + HALF_PI))}
-            cy={y - (length * Math.sin(-angle + HALF_PI))}
+            cx={x - (length * Math.cos(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
+            cy={y - (length * Math.sin(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
             r={length}
             {...maskProps} />
         </>
