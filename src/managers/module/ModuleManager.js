@@ -2,28 +2,26 @@ import Logger from '@flapjs/util/Logger.js';
 import * as URLHelper from '@flapjs/util/URLHelper.js';
 
 import { tryMount, tryStillMounted, tryUnmount, isManagerMounted } from '../ManagerLoader.js';
-import { fetchModuleClassById, loadModuleByClass } from './ModuleLoader.js';
+import { fetchModuleClassById, loadModuleByClass, unloadModule } from './ModuleLoader.js';
 
 import SessionManager from '../session/SessionManager.js';
 
 const FALLBACK_MODULE_ID = 'node';
 
-let CURRENT_MODULE = null;
-
 /** Must be mounted AFTER SessionManager. */
 export default class ModuleManager
 {
     /** @override */
-    static async mount()
+    static async mount(mounter)
     {
-        if (!tryMount(ModuleManager)) return;
-        if (!isManagerMounted(SessionManager)) throw new Error('Requires SessionManager to be mounted before this!');
+        if (!tryMount(mounter, ModuleManager)) return;
+        if (!isManagerMounted(mounter, SessionManager)) throw new Error('Requires SessionManager to be mounted before this!');
 
         let nextModuleId = await getNextModuleId();
         
-        if (!tryStillMounted(ModuleManager)) return;
+        if (!tryStillMounted(mounter, ModuleManager)) return;
 
-        Logger.out('ModuleManager', `Loading module '${nextModuleId}'...`);
+        Logger.out('ModuleManager', `Preparing for module '${nextModuleId}'...`);
 
         let nextModuleClass;
         try
@@ -32,7 +30,7 @@ export default class ModuleManager
         }
         catch(e)
         {
-            if (!tryStillMounted(ModuleManager)) return;
+            if (!tryStillMounted(mounter, ModuleManager)) return;
 
             Logger.error('ModuleManager', `Unable to fetch module '${nextModuleId}', trying to fetch module '${FALLBACK_MODULE_ID}' instead...`, e);
             try
@@ -46,36 +44,42 @@ export default class ModuleManager
             }
         }
 
-        if (!tryStillMounted(ModuleManager)) return;
+        if (!tryStillMounted(mounter, ModuleManager)) return;
 
         let nextModule;
+        let nextLoader;
         try
         {
-            nextModule = await loadModuleByClass(nextModuleClass);
+            [ nextModule, nextLoader ] = await loadModuleByClass(nextModuleClass);
         }
         catch(e)
         {
-            Logger.error('ModuleManager', `Failed to load module for id '${nextModuleId}'. I'm sorry`, e);
+            Logger.error('ModuleManager', `Failed to load module '${nextModuleId}'. I'm sorry.`, e);
             throw e;
         }
 
-        if (!tryStillMounted(ModuleManager)) return;
-        
-        CURRENT_MODULE = nextModule;
-        if (CURRENT_MODULE.mount) CURRENT_MODULE.mount();
-        return CURRENT_MODULE;
+        mounter.currentModule = nextModule;
+        mounter.currentLoader = nextLoader;
     }
 
     /** @override */
-    static unmount()
+    static unmount(mounter)
     {
-        if (!tryUnmount(ModuleManager)) return;
+        if (!tryUnmount(mounter, ModuleManager)) return;
 
-        let prevModule = CURRENT_MODULE;
-        CURRENT_MODULE = null;
-        if (prevModule.unmount) prevModule.unmount();
-        if (prevModule.destroy) prevModule.destroy();
-        return prevModule;
+        let prevModule = mounter.currentModule;
+        let prevLoader = mounter.currentLoader;
+        delete mounter.currentModule;
+        delete mounter.currentLoader;
+
+        try
+        {
+            unloadModule(prevModule, prevLoader);
+        }
+        catch(e)
+        {
+            Logger.error('ModuleManager', `Failed to unload module '${prevModule.constructor.moduleId}'. No can do.`, e);
+        }
     }
 }
 

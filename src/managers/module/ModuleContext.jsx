@@ -26,7 +26,7 @@ export function ModuleReducer(prev, action)
 
 export function ModuleProvider(props)
 {
-    const { moduleId, currentModule } = props;
+    const { moduleId, currentModule, loader } = props;
     const [state, setState] = useState({});
     async function dispatch(action)
     {
@@ -36,7 +36,7 @@ export function ModuleProvider(props)
     }
 
     return (
-        <ModuleStateContext.Provider value={{ ...state, moduleId, currentModule }}>
+        <ModuleStateContext.Provider value={{ ...state, moduleId, currentModule, loader }}>
             <ModuleDispatchContext.Provider value={dispatch}>
                 {props.children}
             </ModuleDispatchContext.Provider>
@@ -47,6 +47,7 @@ ModuleProvider.propTypes = {
     children: PropTypes.node,
     moduleId: PropTypes.string,
     currentModule: PropTypes.object,
+    loader: PropTypes.object,
 };
 
 export function ModuleConsumer(props)

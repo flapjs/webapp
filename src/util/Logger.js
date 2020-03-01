@@ -51,7 +51,7 @@ class Logger
      */
     static error(tag, message, err = null)
     {
-        const result = '[' + tag + '] ' + (err ? err.message + ' : ' : '') + message;
+        const result = '[' + tag + '] ' + message + (err ? '\n\n' + err.stack : '');
         print('error', result);
     }
 }

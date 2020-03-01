@@ -15,7 +15,7 @@ export default function AppLayout(props)
 
     return (
         <>
-        <Slot mode="wrapped" name="provider">
+        <Slot mode="wrapped" name="providers">
             <header>
                 <AppBar>
                     <Logo title="Flap.js" version={app.version}/>

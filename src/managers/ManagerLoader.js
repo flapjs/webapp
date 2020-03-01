@@ -1,65 +1,61 @@
 import Logger from '@flapjs/util/Logger.js';
 
-/** It's the dreaded singleton... */
-const MOUNTED_MANAGERS = new Set();
-
 /**
  * Used by ManagerHooks. It helps handle the flow of mounting of managers
  * (cause they can throw errors).
  * 
  * @param {Array} managers An ordered array of managers. It will mount in the order listed.
- * @returns {boolean} Whether ANY managers have been successfully mounted (so unmount must be called).
+ * @returns {object} Whether ANY managers have been successfully mounted (so unmount must be called), then
+ * the mount context result will be returned. Otherwise, null.
  */
 export async function doMountManagers(managers)
 {
     Logger.out('ManagerLoader', '...mounting managers...');
-    let result = false;
 
-    // This is basically an async reduce()...
-    let prev = null;
+    let flag = false;
+    let result = {
+        managers: new Set(),
+    };
     for(let manager of managers)
     {
         try
         {
-            prev = await manager.mount(prev);
-            result = true;
+            await manager.mount(result);
+            flag = true;
         }
         catch(e)
         {
             // Mounting has halted because someone threw an error...
             Logger.error('ManagerLoader', `...failed to mount '${manager.name || manager}' and maybe other managers.`, e);
-            return result;
+            break;
         }
     }
-    return result;
+    return flag ? result : null;
 }
 
 /**
  * Used by ManagerHooks. It helps handle the flow of unmounting of managers
  * (cause they can throw errors and the order should be maintained).
  * 
+ * @param {object} mountResult The mount context result from doMountManagers(). Also known as the "mounter".
  * @returns {boolean} Whether all managers have been successfully unmounted (at least tried to).
  */
-export function doUnmountManagers()
+export function doUnmountManagers(mountResult)
 {
     Logger.out('ManagerLoader', '...unmounting managers...');
 
-    let managers = Array.from(MOUNTED_MANAGERS);
-
-    // This is basically a reversed reduce()...
-    managers.reduceRight((prev, manager) =>
+    let managers = Array.from(mountResult.managers).reverse();
+    for(let manager of managers)
     {
         try
         {
-            return manager.unmount(prev);
+            manager.unmount(mountResult);
         }
         catch(e)
         {
             Logger.error('ManagerLoader', `...unable to unmount manager '${manager.name || manager}'...`, e);
-            return null;
         }
-    },
-    null);
+    }
 
     // We will always try to unmount all we can and call it a success.
     return true;
@@ -74,15 +70,16 @@ export function doUnmountManagers()
  * If you must continue mounting after a tryMount(), either use isMounted() only nested
  * under a tryMount(), or it's time to use another manager.
  * 
+ * @param {object} mounter The current mount context.
  * @param {Class|object} manager The manager object containing mount() and unmount().
  * @param {boolean} [silent] Whether to reject silently instead of an error.
  * @returns {boolean} Whether to execute mount code for the manager.
  */
-export function tryMount(manager, silent = false)
+export function tryMount(mounter, manager, silent = false)
 {
-    if (!MOUNTED_MANAGERS.has(manager))
+    if (!mounter.managers.has(manager))
     {
-        MOUNTED_MANAGERS.add(manager);
+        mounter.managers.add(manager);
         return true;
     }
     else if (silent)
@@ -103,13 +100,14 @@ export function tryMount(manager, silent = false)
  * return false. This is for mountManagers() to stop continuing to mount future managers
  * since managers can depend on one another.
  * 
+ * @param {object} mounter The current mount context.
  * @param {Class|object} manager The manager object containing mount() and unmount().
  * @param {boolean} [silent] Whether to reject silently instead of an error.
  * @returns {boolean} Whether the manager has been mounted.
  */
-export function tryStillMounted(manager, silent = false)
+export function tryStillMounted(mounter, manager, silent = false)
 {
-    if (MOUNTED_MANAGERS.has(manager))
+    if (mounter.managers.has(manager))
     {
         return true;
     }
@@ -126,14 +124,15 @@ export function tryStillMounted(manager, silent = false)
  * a mount() has occured, and only once. This time, it will not try to throw an error
  * if it fails. Unmounting something already unmounted is ok.
  * 
+ * @param {object} mounter The current mount context.
  * @param {Class|object} manager The manager object containing mount() and unmount().
  * @returns {boolean} Whether to execute unmount code for the manager.
  */
-export function tryUnmount(manager)
+export function tryUnmount(mounter, manager)
 {
-    if (MOUNTED_MANAGERS.has(manager))
+    if (mounter.managers.has(manager))
     {
-        MOUNTED_MANAGERS.delete(manager);
+        mounter.managers.delete(manager);
         return true;
     }
     else
@@ -147,10 +146,11 @@ export function tryUnmount(manager)
  * whether dependencies have been mounted. This should not govern mounting/unmounting
  * procedures.
  * 
+ * @param {object} mounter The current mount context.
  * @param {Class|object} manager The manager object containing mount() and unmount().
  * @returns {boolean} Whether the manager is mounted.
  */
-export function isManagerMounted(manager)
+export function isManagerMounted(mounter, manager)
 {
-    return MOUNTED_MANAGERS.has(manager);
+    return mounter.managers.has(manager);
 }

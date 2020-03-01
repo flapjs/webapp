@@ -5,10 +5,10 @@ import { tryMount, tryStillMounted, tryUnmount } from '../ManagerLoader.js';
 export default class SessionManager
 {
     /** @override */
-    static async mount()
+    static async mount(mounter)
     {
         // NOTE: Always call this at the top.
-        if (!tryMount(SessionManager)) return;
+        if (!tryMount(mounter, SessionManager)) return;
 
         let sessionKey;
 
@@ -24,7 +24,7 @@ export default class SessionManager
                 {
                     // NOTE: This needs to immediately happen so we can secure this session key before someone else takes it.
                     // Otherwise, it would be best to wait until the end to tryStillMounted().
-                    if (!tryStillMounted(SessionManager)) return;
+                    if (!tryStillMounted(mounter, SessionManager)) return;
 
                     localStorage.setItem(key, 'true');
                     sessionKey = key.substring('session#'.length, key.length - '.active'.length);
@@ -37,7 +37,7 @@ export default class SessionManager
         sessionKey = uuid();
 
         // NOTE: This should usually be called before you make any changes and generally at the bottom.
-        if (!tryStillMounted(SessionManager)) return;
+        if (!tryStillMounted(mounter, SessionManager)) return;
 
         sessionStorage.setItem('sessionKey', sessionKey);
         localStorage.setItem('session#' + sessionKey + '.active', 'true');
@@ -45,12 +45,12 @@ export default class SessionManager
     }
 
     /** @override */
-    static unmount()
+    static unmount(mounter)
     {
         // NOTE: Always call this at the top. And feel free to do anything afterwards,
         // any unmount effort is appreciated but if unable to, errors will be ignored
         // and consided a success anyways. :P
-        if (!tryUnmount(SessionManager)) return;
+        if (!tryUnmount(mounter, SessionManager)) return;
 
         const sessionKey = this.getCurrentSessionKey();
         localStorage.setItem('session#' + sessionKey + '.active', 'false');
