@@ -19,6 +19,12 @@ svg:global(.viewarea) .mask {
     stroke: transparent;
 }
 
-svg *:hover {
-    outline: 1px solid gold;
+/** Debug styles */
+:global(#root.debug) svg:global(.viewarea) .mask {
+    stroke: yellowgreen;
+    opacity: 0.5;
+}
+
+:global(#root.debug) svg *:hover {
+    outline: 1px dashed rgba(0, 0, 0, 0.3);
 }
