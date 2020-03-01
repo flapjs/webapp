@@ -1,4 +1,4 @@
-export default class BaseModule
+export default class BaseService
 {
     /** @abstract */
     static get services() { return []; }
@@ -7,12 +7,10 @@ export default class BaseModule
     /** @abstract */
     static get renders() { return {}; }
     /** @abstract */
-    static get moduleId() { throw new Error('Must be overriden.'); }
-    /** @abstract */
-    static get moduleVersion() { return '0.0.0'; }
+    static get serviceVersion() { return '0.0.0'; }
 
     /**
-     * Prepare your module here.
+     * Prepare your service here.
      * 
      * @param {object} loader The current load context. Refer to ModuleLoader for the implementation.
      * @param {object} contribs Your contributions to the load context. Any changes made to this object will be applied.

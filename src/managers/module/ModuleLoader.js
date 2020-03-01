@@ -43,6 +43,11 @@ export async function fetchModuleClassById(moduleId, expectedModuleVersion = und
 }
 
 /**
+ * Loads the module class into the system. This affects and depends on <Slot> and
+ * managers to operate correctly. That means the app must define <SlotProvider name="app">
+ * and initialize managers first. to help you, there is already a ModuleManager to
+ * handle that logic.
+ * 
  * A module's lifecycle:
  * - First, fetch the module class by id.
  * - Compute dependency order of module's services.
