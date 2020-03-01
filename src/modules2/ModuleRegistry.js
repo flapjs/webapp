@@ -14,5 +14,5 @@ export const node = {
     version: '1.0.0',
     description: 'And so it begins.',
     disabled: false,
-    fetch: () => import(/* webpackChunkName: "module_node" */ '../../modules2/node/NodeModule.js'),
+    fetch: () => import(/* webpackChunkName: "module_node" */ './node/NodeModule.js'),
 };

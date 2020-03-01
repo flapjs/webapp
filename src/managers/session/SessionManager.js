@@ -9,7 +9,7 @@ export default class SessionManager
     {
         // NOTE: Always call this at the top.
         if (!tryMount(mounter, SessionManager)) return;
-
+        
         let sessionKey;
 
         // Try to adopt an inactive session...

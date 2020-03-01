@@ -8,29 +8,29 @@ import Logger from '@flapjs/util/Logger.js';
  * @returns {object} Whether ANY managers have been successfully mounted (so unmount must be called), then
  * the mount context result will be returned. Otherwise, null.
  */
-export async function doMountManagers(managers)
+export function doMountManagers(managers)
 {
     Logger.out('ManagerLoader', '...mounting managers...');
 
-    let flag = false;
     let result = {
         managers: new Set(),
     };
+    let promise = Promise.resolve(result);
     for(let manager of managers)
     {
-        try
-        {
-            await manager.mount(result);
-            flag = true;
-        }
-        catch(e)
-        {
-            // Mounting has halted because someone threw an error...
-            Logger.error('ManagerLoader', `...failed to mount '${manager.name || manager}' and maybe other managers.`, e);
-            break;
-        }
+        promise = promise
+            .then(result =>
+            {
+                return manager.mount(result).then(() => result);
+            })
+            .catch(e =>
+            {
+                // Mounting has halted because someone threw an error...
+                Logger.error('ManagerLoader', `...failed to mount '${manager.name || manager}'.`, e);
+                throw new Error('Could not continue mounting due to error.');
+            });
     }
-    return flag ? result : null;
+    return result;
 }
 
 /**

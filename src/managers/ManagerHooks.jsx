@@ -5,14 +5,10 @@ export function useManagers(managers)
 {
     useEffect(() =>
     {
-        let result = null;
-        doMountManagers(managers).then(value => result = value);
+        let result = doMountManagers(managers);
         return () =>
         {
-            if (result)
-            {
-                doUnmountManagers(result);
-            }
+            doUnmountManagers(result);
         };
     });
 }

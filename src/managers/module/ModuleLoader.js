@@ -3,7 +3,7 @@ import SemanticVersion from '@flapjs/util/SemanticVersion.js';
 import Slot from '@flapjs/util/slot/Slot.jsx';
 import { topoSort } from '@flapjs/util/TopologicalSort.js';
 
-import * as ModuleRegistry from './ModuleRegistry.js';
+import * as ModuleRegistry from '../../modules2/ModuleRegistry.js';
 import ModuleService from './ModuleService.js';
 
 export async function fetchModuleClassById(moduleId, expectedModuleVersion = undefined)
