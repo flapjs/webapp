@@ -16,6 +16,8 @@ import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 import { GraphStateContext } from '../../GraphContext.jsx';
 import { UNSAFE_findGraphElementWithinPosition } from '../../GraphHelper.js';
 
+import { useGraphElementEditorBehavior } from '@flapjs/services2/graph2/components/GraphElementEditorBehaviorHook.jsx';
+
 export default function EdgeElementComponent(props)
 {
     const { elementType, elementId } = props;
@@ -32,8 +34,21 @@ export default function EdgeElementComponent(props)
     let end = QuadraticEdgeHelper.getEndPoint(from, to, edge);
     let center = QuadraticEdgeHelper.getCenterPoint(from, to, edge);
     let normal = QuadraticEdgeHelper.getNormalDirection(from, to, edge);
+
+    // NOTE: This is the only place that the position should be set. It
+    // is updated to match the output of QuadraticEdgeHelper. In other
+    // words, it keeps the edge's position updated! Some things do depend on it...
+    if (edge.x !== center.x || edge.y !== center.y)
+    {
+        edge._x = center.x;
+        edge._y = center.y;
+        edge.markDirty();
+    }
     
     const elementRef = useRef(null);
+
+    useGraphElementEditorBehavior(elementRef, edge);
+
     useDragBehavior(elementRef, center,
         value =>
         {

@@ -10,6 +10,11 @@ import GraphService from '@flapjs/services2/graph2/GraphService.js';
 export default class NodeModule extends BaseModule
 {
     /** @override */
+    static get moduleId() { return 'node'; }
+    /** @override */
+    static get moduleVersion() { return '1.0.0'; }
+
+    /** @override */
     static get services()
     {
         return [
@@ -31,13 +36,8 @@ export default class NodeModule extends BaseModule
     static get renders()
     {
         return {
-            drawer: [ ExportPanel, ExportPanel ],
+            drawer: [ ExportPanel ],
             playground: [],
         };
     }
-
-    /** @override */
-    static get moduleId() { return 'node'; }
-    /** @override */
-    static get moduleVersion() { return '1.0.0'; }
 }

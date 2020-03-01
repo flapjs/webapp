@@ -14,6 +14,10 @@ export default class EdgeElement extends GraphElement
         // Used to move the endpoint to a custom position (like a cursor)
         this.proxyTo = opts.proxyTo || null;
 
+        // NOTE: DO NOT MANUALLY EDIT THIS! Refer to EdgeElementComponent for more info.
+        this._x = 0;
+        this._y = 0;
+
         // These are options expected by QuadraticEdgeHelper functions...
 
         // The length of the edge if it is a placeholder
@@ -29,4 +33,7 @@ export default class EdgeElement extends GraphElement
             coords: { x: 0, y: 0 },
         };
     }
+
+    get x() { return this._x; }
+    get y() { return this._y; }
 }

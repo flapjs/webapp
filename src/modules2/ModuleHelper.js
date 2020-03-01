@@ -1,4 +1,3 @@
-
 export function withConstructor(serviceClass, constructorCallback, destructorCallback = () => {})
 {
     return class extends serviceClass
