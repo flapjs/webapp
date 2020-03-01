@@ -19,6 +19,7 @@ export default class GraphElement
         this[ELEMENT_LISTENERS] = [];
     }
 
+    get type() { return this.constructor; }
     get id() { return this._id; }
 
     /** @abstract */

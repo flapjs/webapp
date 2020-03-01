@@ -8,7 +8,7 @@ import Drawer from '../drawer/Drawer.jsx';
 
 export default function Workspace(props)
 {
-    const { renderPlayground, renderViewport, panels } = props;
+    const { renderBackground, renderForeground, panels } = props;
     return (
         <FlexibleOrientationLayout>
             {orientation =>
@@ -18,12 +18,13 @@ export default function Workspace(props)
 
                 return (
                     <WorkspaceLayout
-                        renderBackground={renderPlayground}
+                        renderBackground={renderBackground}
                         renderForeground={() => (
                             <Drawer side={side}
                                 direction={direction}
-                                panels={panels}
-                                renderViewport={renderViewport}/>
+                                panels={panels}>
+                                {renderForeground()}
+                            </Drawer>
                         )}>
                         {props.children}
                     </WorkspaceLayout>
@@ -34,8 +35,8 @@ export default function Workspace(props)
 }
 Workspace.propTypes = {
     children: PropTypes.node,
-    renderViewport: PropTypes.func,
-    renderPlayground: PropTypes.func,
+    renderForeground: PropTypes.func,
+    renderBackground: PropTypes.func,
     panels: PropTypes.array,
 };
 Workspace.defaultProps = {

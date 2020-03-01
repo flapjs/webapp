@@ -1,7 +1,10 @@
 import BaseService from '@flapjs/services2/base/BaseService.js';
-import { ViewProvider, ViewArea } from './ViewContext.jsx';
+import { ViewProvider } from './ViewContext.jsx';
+import ViewArea from './ViewArea.jsx';
+import PlayArea from './PlayArea.jsx';
 import { withChildSlot } from '@flapjs/util/slot/SlotHelper.js';
 
+// NOTE: Maybe this should be called PlaygroundService?
 export default class ViewService extends BaseService
 {
     /** @override */
@@ -10,7 +13,8 @@ export default class ViewService extends BaseService
     static get renders()
     {
         return {
-            playground: [ withChildSlot('viewarea', ViewArea) ],
+            background: [ withChildSlot('playarea', PlayArea) ],
+            foreground: [ withChildSlot('viewarea', ViewArea) ],
         };
     }
     /** @override */

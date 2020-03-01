@@ -26,14 +26,14 @@ export default function AppLayout(props)
                 <Slot mode="consumer" name="drawer">
                     {slots => (
                         <Workspace
-                            renderPlayground={() => (
+                            renderBackground={() => (
                                 <Viewport>
-                                    <Slot name="playground"></Slot>
+                                    <Slot name="background"></Slot>
                                 </Viewport>
                             )}
-                            renderViewport={() => (
+                            renderForeground={() => (
                                 <Viewport>
-                                    <Slot name="viewport"></Slot>
+                                    <Slot name="foreground"></Slot>
                                 </Viewport>
                             )}
                             panels={slots}>

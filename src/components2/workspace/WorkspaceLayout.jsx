@@ -5,7 +5,7 @@ import Style from './WorkspaceLayout.module.css';
 /**
  * A React component that separates into 2 layers: foreground and background.
  * This is usally used with other layouts to provide an overlay over a
- * background, which will usually contain the editor playground.
+ * background; together they form the playground.
  */
 export default class WorkspaceLayout extends React.PureComponent
 {

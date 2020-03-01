@@ -7,12 +7,24 @@ import { useZoomBehavior } from '@flapjs/hooks/behaviors/ZoomBehaviorHook.jsx';
 import { useDoubleTapBehavior } from '@flapjs/hooks/behaviors/DoubleTapBehaviorHook.jsx';
 
 import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
+import { useEventListeners } from '@flapjs/hooks/EventListenerHook.jsx';
 
 export function useViewBehavior(createCallback)
 {
     const { svgRef, pos, setPos, scale, setScale } = useContext(ViewContext);
+
+    // NOTE: This makes sure that the svg area will obtain focus. Otherwise,
+    // clicking "empty" space will not blur() focused elements (like the
+    // label editor).
+    useEventListeners(svgRef, {
+        onMouseDown(e) { e.target.focus(); }
+    });
+
+    // View manipulation...
     const dragging = useDragBehavior(svgRef, pos, setPos, { preserveOffset: true });
     useZoomBehavior(svgRef, scale, setScale);
+
+    // A default behavior to create things...
     useDoubleTapBehavior(svgRef, dragging, e =>
     {
         if (createCallback)

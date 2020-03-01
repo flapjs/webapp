@@ -9,8 +9,8 @@ const DEFAULT_OPTS = {
     startBufferRadius: 10,
     /** Whether to preserve the initial offset or just snap into place. */
     preserveOffset: false,
-    /** -1 for any button; 0 for left button; 2 for right button; 1 for middle click. */
-    useButton: -1,
+    /** undefined for any button; 0 for left button; 2 for right button; 1 for middle click. */
+    useButton: undefined,
     /** Callbacks for when drag does something. */
     onDragBegin: null,
     onDragEnd: null,
@@ -38,10 +38,11 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
             },
             onMouseDown: function(e)
             {
-                if (opts.useButton < 0 || e.button === opts.useButton)
+                if (CURRENT_DRAG_TARGET) return;
+                if (typeof opts.useButton === 'undefined' || e.button === opts.useButton)
                 {
-                    e.preventDefault();
-                    e.stopPropagation();
+                    // e.preventDefault();
+                    // e.stopPropagation();
     
                     let element = elementRef.current;
                     setDragTarget(element, e.clientX, e.clientY, (x, y, dragging) =>
@@ -76,8 +77,6 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
                     {
                         CURRENT_DRAG_TARGET.endCallback = opts.onDragEnd;
                     }
-    
-                    return false;
                 }
             }
         };

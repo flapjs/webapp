@@ -21,9 +21,9 @@ export default function EdgeElementComponent(props)
     const { elementType, elementId } = props;
 
     const forceUpdate = useForceUpdate();
-    const [ edge ] = useGraphElement(elementType, elementId, forceUpdate);
-    const [ from ] = useGraphElement(NodeElement, edge.fromId, forceUpdate);
-    const [ sourceTo ] = useGraphElement(NodeElement, edge.toId, forceUpdate);
+    const edge = useGraphElement(elementType, elementId, forceUpdate);
+    const from = useGraphElement(NodeElement, edge.fromId, forceUpdate);
+    const sourceTo = useGraphElement(NodeElement, edge.toId, forceUpdate);
     const to = sourceTo || edge.proxyTo;
 
     const graphState = useContext(GraphStateContext);

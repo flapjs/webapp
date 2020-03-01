@@ -10,6 +10,7 @@ import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '../../componen
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
 import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '../../components/StartMarkerContext.jsx';
+import { useGraphElementEditorBehavior } from '../../components/GraphElementEditorBehaviorHook.jsx';
 
 export default function NodeElementComponent(props)
 {
@@ -18,9 +19,11 @@ export default function NodeElementComponent(props)
     // Reference to the rendered element.
     const elementRef = useRef(null);
     const forceUpdate = useForceUpdate();
-    const [ node ] = useGraphElement(elementType, elementId, forceUpdate);
+    const node = useGraphElement(elementType, elementId, forceUpdate);
 
     const startMarkerRef = useRef(null);
+
+    useGraphElementEditorBehavior(elementRef, node);
 
     // Left drag to move node...
     useDragBehavior(elementRef, node, ({ x, y }) =>
@@ -43,6 +46,7 @@ export default function NodeElementComponent(props)
     });
     // ... and also to end the target here...
     useStartMarkerToBehavior(elementRef, node);
+    const isStart = node.initial && !draggingStartMarker;
 
     return (
         <>
@@ -53,8 +57,8 @@ export default function NodeElementComponent(props)
         <MarkerTriangleRenderer key={elementId + '.key'}
             x={node.x} y={node.y}
             offset={node.radius}
-            childProps={{style: {visibility: node.initial && !draggingStartMarker ? 'unset' : 'hidden'}}}
-            maskProps={{ref: startMarkerRef}}/>
+            childProps={{style: {visibility: isStart ? 'unset' : 'hidden'}}}
+            maskProps={{ref: startMarkerRef, pointerEvents: isStart ? 'auto' : 'none'}}/>
         </>
     );
 }

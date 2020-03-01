@@ -12,7 +12,7 @@ import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
 
 export default function Drawer(props)
 {
-    const { renderViewport, side, direction, panels } = props;
+    const { side, direction, panels } = props;
     const panelEntries = panels.map(panel => transformPanelToDrawerPanel(panel));
     const tabEntries = panels.map(panel => transformPanelToDrawerTab(panel));
     return (
@@ -35,7 +35,7 @@ export default function Drawer(props)
                                 renderDrawer = {() => (
                                     renderPanels(panelEntries, tabIndex)
                                 )}>
-                                {renderViewport()}
+                                {props.children}
                             </DrawerLayout>
                         </SideBarLayout>
                     );
@@ -45,7 +45,7 @@ export default function Drawer(props)
     );
 }
 Drawer.propTypes = {
-    renderViewport: PropTypes.func.isRequired,
+    children: PropTypes.node,
     panels: PropTypes.array,
     side: PropTypes.oneOf([
         'top',

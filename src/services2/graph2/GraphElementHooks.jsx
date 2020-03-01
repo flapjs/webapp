@@ -36,5 +36,5 @@ export function useGraphElement(elementType, elementId, onChange)
         onChange,
     ]);
 
-    return [ element ];
+    return element;
 }

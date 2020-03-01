@@ -2,7 +2,7 @@ import { distanceSquared } from '@flapjs/util/MathHelper.js';
 
 export function computeElementsKey(elementType)
 {
-    return elementType.name;
+    return elementType && elementType.name;
 }
 
 export function UNSAFE_getGraphElements(graphState, elementType)
