@@ -69,16 +69,17 @@ export function createConnector(renderConnector)
     
             if (isActive)
             {
-                elementRef.current.addEventListener('mouseover', onMouseOver);
-                elementRef.current.addEventListener('mouseout', onMouseOut);
+                let element = elementRef.current;
+                element.addEventListener('mouseover', onMouseOver);
+                element.addEventListener('mouseout', onMouseOut);
                 return () =>
                 {
-                    elementRef.current.removeEventListener('mouseover', onMouseOver);
-                    elementRef.current.addEventListener('mouseout', onMouseOut);
+                    element.removeEventListener('mouseover', onMouseOver);
+                    element.removeEventListener('mouseout', onMouseOut);
                 };
             }
         },
-        [ toTarget, isActive ]);
+        [ elementRef, toTarget, setTarget, isActive ]);
     }
 
     function useConnector(connectCallback)
@@ -104,7 +105,8 @@ export function createConnector(renderConnector)
                 }
             }
         },
-        /* Although this is also dependent on "targets", we only care about when "isActive" changes. */
+        /* Although this is also dependent on "target", we only care about when "isActive" changes. */
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [ isActive, connectCallback ]);
 
         const updateSource = useCallback((fromTarget, cursorPosition) =>

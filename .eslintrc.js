@@ -31,7 +31,8 @@ module.exports = {
         'react',
         'import',
         'jsx-a11y',
-        'jsdoc'
+        'jsdoc',
+        'react-hooks',
     ],
     'settings': {
         'react': { 'version': 'detect' },
@@ -120,7 +121,7 @@ module.exports = {
         /** Enforces all imports to have file extensions... */
         'import/extensions': ['error', 'ignorePackages'],
         'import/no-unassigned-import': ['error', {
-            // NOTE: If there is every a resource that you need
+            // NOTE: If there is ever a resource that you need
             // to import with no name, like global css files,
             // add it here.
             // NOTE: There is a caveat here where it should enforce
@@ -135,11 +136,14 @@ module.exports = {
         // NOTE: This makes sure that dynamic imports are properly configured for webpack...
         'import/dynamic-import-chunkname': 'error',
         /** JSDoc */
-        'jsdoc/require-description-complete-sentence': 1,
+        // 'jsdoc/require-description-complete-sentence': 1,
         // NOTE: There is an issue with custom-defined classes that would be helpful to use as a type.
         'jsdoc/no-undefined-types': 0,
         // NOTE: We really don't want to document every .jsx component function/class in the propTypes AND in jsdocs.
         'jsdoc/require-jsdoc': 0,
+        /** React Hooks */
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn'
     },
     'overrides': [
         {

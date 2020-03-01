@@ -1,13 +1,7 @@
-import React, { useState, useRef, useContext, useCallback } from 'react';
+import React, { useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import SVGViewArea from '@flapjs/components/viewport/SVGViewArea.jsx';
-
-import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
-import { useZoomBehavior } from '@flapjs/hooks/behaviors/ZoomBehaviorHook.jsx';
-import { useDoubleTapBehavior } from '@flapjs/hooks/behaviors/DoubleTapBehaviorHook.jsx';
-
-import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
+import { useViewBehavior } from '@flapjs/services2/view/ViewBehaviorHook.jsx';
 
 import GraphElementLayer from './components/GraphElementLayer.jsx';
 import { GraphDispatchContext } from './GraphContext.jsx';
@@ -24,10 +18,6 @@ import { StartMarkerProvider } from './components/StartMarkerContext.jsx';
 export default function GraphArea(props)
 {
     const graphDispatch = useContext(GraphDispatchContext);
-
-    const svgRef = useRef(null);
-    const [ pos, setPos ] = useState({ x: 0, y: 0 });
-    const [ scale, setScale ] = useState(1);
 
     /**
      * Creates a node by dispatching to the node context.
@@ -66,39 +56,31 @@ export default function GraphArea(props)
     },
     [ graphDispatch ]);
 
-    const dragging = useDragBehavior(svgRef, pos, setPos, { preserveOffset: true });
-    useZoomBehavior(svgRef, scale, setScale);
-    useDoubleTapBehavior(svgRef, dragging, e =>
-    {
-        const [x, y] = transformScreenToView(svgRef.current, e.clientX, e.clientY);
-        createNode({ x: x - pos.x, y: y - pos.y });
-    });
+    useViewBehavior((x, y) => createNode({ x, y }));
 
     return (
-        <SVGViewArea className="viewport"
-            offsetX={pos.x} offsetY={pos.y} scale={scale}
-            childProps={{ref: svgRef}}>
-            <rect x="-5" y="-5" width="10" height="10" fill="blue"/>
+        <>
+        <rect x="-5" y="-5" width="10" height="10" fill="blue"/>
 
-            <StartMarkerProvider onConnect={swapInitial}>
-                <ProxyEdgeProvider onConnect={createEdge}>
-                    <GraphElementLayer
-                        elementType={NodeElement}
-                        renderElement={(elementType, elementId) =>
-                            <NodeElementComponent key={elementId}
-                                elementType={elementType}
-                                elementId={elementId}/>}/>
-                </ProxyEdgeProvider>
-            </StartMarkerProvider>
-        
-            <GraphElementLayer
-                elementType={EdgeElement}
-                renderElement={(elementType, elementId) =>
-                    <EdgeElementComponent key={elementId}
-                        elementType={elementType}
-                        elementId={elementId}/>}/>
-            {props.children}
-        </SVGViewArea>
+        <StartMarkerProvider onConnect={swapInitial}>
+            <ProxyEdgeProvider onConnect={createEdge}>
+                <GraphElementLayer
+                    elementType={NodeElement}
+                    renderElement={(elementType, elementId) =>
+                        <NodeElementComponent key={elementId}
+                            elementType={elementType}
+                            elementId={elementId}/>}/>
+            </ProxyEdgeProvider>
+        </StartMarkerProvider>
+    
+        <GraphElementLayer
+            elementType={EdgeElement}
+            renderElement={(elementType, elementId) =>
+                <EdgeElementComponent key={elementId}
+                    elementType={elementType}
+                    elementId={elementId}/>}/>
+        {props.children}
+        </>
     );
 }
 GraphArea.propTypes = {

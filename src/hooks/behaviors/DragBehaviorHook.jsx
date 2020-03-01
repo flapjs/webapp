@@ -82,6 +82,7 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
             }
         };
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
         /* NOTE: Although onMouseDown() depends on x and y for the initial offset,
         it only really matters when you start dragging. Therefore, we depend on "dragging"
@@ -90,6 +91,7 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
         setDragging,
         setPos,
         elementRef,
+        opts.useButton,
         opts.startBufferRadius,
         opts.preserveOffset,
         opts.onDragBegin,

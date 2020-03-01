@@ -189,7 +189,11 @@ function getSlotComponentsFromClass(moduleOrServiceClass, dst = {})
     if ('providers' in moduleOrServiceClass)
     {
         if (!('providers' in dst)) dst.providers = [];
-        dst.providers.push(...moduleOrServiceClass.providers);
+        let providerList = dst.providers;
+        for(let provider of moduleOrServiceClass.providers)
+        {
+            providerList.push(transformToSlotComponentObject(provider));
+        }
     }
     // Get module/service renders...
     if ('renders' in moduleOrServiceClass)
@@ -197,10 +201,30 @@ function getSlotComponentsFromClass(moduleOrServiceClass, dst = {})
         for(let [slotName, renderList] of Object.entries(moduleOrServiceClass.renders))
         {
             if (!(slotName in dst)) dst[slotName] = [];
-            dst[slotName].push(...renderList);
+            let slotList = dst[slotName];
+            for(let render of renderList)
+            {
+                slotList.push(transformToSlotComponentObject(render));
+            }
         }
     }
     return dst;
+}
+
+function transformToSlotComponentObject(slotComponent)
+{
+    if (Array.isArray(slotComponent))
+    {
+        return { component: slotComponent[0], props: slotComponent[1] };
+    }
+    else if (typeof slotComponent === 'object')
+    {
+        return slotComponent;
+    }
+    else
+    {
+        return { component: slotComponent, props: {} };
+    }
 }
 
 function injectSlotComponents(slotProviderName, slotComponents)
@@ -210,14 +234,8 @@ function injectSlotComponents(slotProviderName, slotComponents)
     {
         for(let slotComponent of slotComponents[slotName])
         {
-            if (typeof slotComponent === 'object')
-            {
-                Slot.inject(slotProviderName, slotComponent.component, slotComponent.props, slotName, i++);
-            }
-            else
-            {
-                Slot.inject(slotProviderName, slotComponent, {}, slotName, i++);
-            }
+            if (typeof slotComponent !== 'object') throw new Error(`Expected slot component object in the form of { component, props }, but found ${slotComponent}.`);
+            Slot.inject(slotProviderName, slotComponent.component, slotComponent.props, slotName, i++);
         }
     }
 }
