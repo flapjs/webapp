@@ -16,5 +16,5 @@ svg:global(.viewarea) .decorative {
 
 svg:global(.viewarea) .mask {
     fill: transparent;
-    stroke: blue/* transparent!important */;
+    stroke: transparent;
 }

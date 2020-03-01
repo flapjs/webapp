@@ -58,7 +58,7 @@ export default function EdgeQuadraticRenderer(props)
                 d={pathData} fill="none"
                 {...childProps}/>
             <path className={RendererStyle.mask}
-                d={pathData} fill="none"
+                d={pathData} style={{ fill: 'none' /* For some reason, only this will override default styles. */ }}
                 strokeWidth={`${MASK_WIDTH_OFFSET}px`}
                 {...maskProps}/>
             {renderEndpoint
