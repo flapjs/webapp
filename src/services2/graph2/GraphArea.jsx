@@ -18,8 +18,7 @@ import EdgeElement from './elements/edge/EdgeElement.js';
 import NodeElementComponent from './elements/node/NodeElementComponent.jsx';
 import EdgeElementComponent from './elements/edge/EdgeElementComponent.jsx';
 
-import ProxyEdgeArea from './components/ProxyEdgeArea.jsx';
-import StartMarker from './components/StartMarker.jsx';
+import { ProxyEdgeProvider } from './components/ProxyEdgeContext.jsx';
 
 export default function GraphArea(props)
 {
@@ -49,12 +48,13 @@ export default function GraphArea(props)
      * Assumes that "from" and "to" are defined and valid in opts as targets
      * for the edge.
      * 
-     * @param {object} opts Edge options.
+     * @param {object} from The from target of the connection.
+     * @param {object} to The to target of the connection.
      */
-    const createEdge = useCallback(async function(opts)
+    const createEdge = useCallback(async function(from, to)
     {
         return await graphDispatch({ type: 'add', elementType: EdgeElement, opts: {
-            fromId: opts.from.id, toId: opts.to.id
+            fromId: from.id, toId: to.id
         }});
     },
     [ graphDispatch ]);
@@ -72,21 +72,22 @@ export default function GraphArea(props)
             offsetX={pos.x} offsetY={pos.y} scale={scale}
             childProps={{ref: svgRef}}>
             <rect x="-5" y="-5" width="10" height="10" fill="blue"/>
-            <ProxyEdgeArea onCreate={createEdge}>
+            
+            <ProxyEdgeProvider onConnect={createEdge}>
                 <GraphElementLayer
                     elementType={NodeElement}
                     renderElement={(elementType, elementId) =>
                         <NodeElementComponent key={elementId}
                             elementType={elementType}
                             elementId={elementId}/>}/>
-            </ProxyEdgeArea>
+            </ProxyEdgeProvider>
+        
             <GraphElementLayer
                 elementType={EdgeElement}
                 renderElement={(elementType, elementId) =>
                     <EdgeElementComponent key={elementId}
                         elementType={elementType}
                         elementId={elementId}/>}/>
-            <StartMarker/>
             {props.children}
         </SVGViewArea>
     );

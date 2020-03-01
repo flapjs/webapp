@@ -5,7 +5,7 @@ import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 
 import { useGraphElement } from '../../GraphElementHooks.jsx';
-import { useProxyEdgeStartBehavior, useProxyEdgeEndBehavior } from '../../components/ProxyEdgeArea.jsx';
+import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '../../components/ProxyEdgeContext.jsx';
 
 import NodeCircleRenderer from '@flapjs/renders/nodes/NodeCircleRenderer.jsx';
 
@@ -28,9 +28,9 @@ export default function NodeElementComponent(props)
     { useButton: 0 });
     
     // Right drag to start proxy edge creation plan...
-    useProxyEdgeStartBehavior(elementRef, node);
+    useProxyEdgeFromBehavior(elementRef, node, { useButton: 2 });
     // ... and also to end the creation plan...
-    useProxyEdgeEndBehavior(elementRef, node);
+    useProxyEdgeToBehavior(elementRef, node);
 
     return (
         <NodeCircleRenderer key={elementId}
