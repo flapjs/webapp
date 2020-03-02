@@ -32,7 +32,6 @@ export default class NodeModule extends BaseModule
     {
         return {
             drawer: [ ExportPanel ],
-            playground: [],
         };
     }
 }

@@ -1,9 +1,9 @@
 import { computeElementsKey } from './GraphHelper.js';
 
-export function serialize(graphInfo, graphState)
+export function serialize(graphType, graphState)
 {
     let data = {};
-    for(let elementType of graphInfo.elementTypes)
+    for(let elementType of graphType.elementTypes)
     {
         const key = computeElementsKey(elementType);
         if (key in graphState)
@@ -19,10 +19,10 @@ export function serialize(graphInfo, graphState)
     return data;
 }
 
-export function deserialize(graphInfo, data)
+export function deserialize(graphType, data)
 {
     let graphState = {};
-    for(let elementType of graphInfo.elementTypes)
+    for(let elementType of graphType.elementTypes)
     {
         const key = computeElementsKey(elementType);
         if (key in data)

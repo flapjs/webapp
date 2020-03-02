@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createConnector } from '@flapjs/hooks/behaviors/ConnectBehaviorFactory.jsx';
 
-import ControlledEdgeElementComponent from '../elements/edge/ControlledEdgeElementComponent.jsx';
+import ControlledEdgeElementComponent from '../components/ControlledEdgeElementComponent.jsx';
 
 const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector(opts =>
     <>

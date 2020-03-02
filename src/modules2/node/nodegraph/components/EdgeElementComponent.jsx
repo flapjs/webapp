@@ -13,9 +13,9 @@ import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndp
 import { GraphStateContext } from '@flapjs/services2/graph/GraphContext.jsx';
 import { UNSAFE_findGraphElementWithinPosition } from '@flapjs/services2/graph/GraphHelper.js';
 
-import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
-import NodeElement from '../node/NodeElement.js';
-import EdgeElement from './EdgeElement.js';
+import * as QuadraticEdgeHelper from '../elements/edge/QuadraticEdgeHelper.js';
+import NodeElement from '../elements/node/NodeElement.js';
+import EdgeElement from '../elements/edge/EdgeElement.js';
 
 export default function EdgeElementComponent(props)
 {

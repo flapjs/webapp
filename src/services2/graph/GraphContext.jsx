@@ -15,7 +15,7 @@ export const GraphDispatchContext = React.createContext();
 
 /**
  * To use this, you need 1 thing:
- * - the GraphType
+ * - the GraphType (aka BaseGraph)
  * 
  * The GraphType is simply an object (or a class with static properties)
  * that has an array of used "elementTypes" and an async "reducer" function.
