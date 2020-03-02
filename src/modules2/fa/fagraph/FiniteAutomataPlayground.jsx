@@ -9,8 +9,8 @@ import EdgeElement from '@flapjs/services2/graph/elements/edge/EdgeElement.js';
 import NodeElementComponent from '@flapjs/services2/graph/elements/node/NodeElementComponent.jsx';
 import EdgeElementComponent from '@flapjs/services2/graph/elements/edge/EdgeElementComponent.jsx';
 
-import { ProxyEdgeProvider } from '@flapjs/services2/graph/components/ProxyEdgeContext.jsx';
-import { StartMarkerProvider } from '@flapjs/services2/graph/components/StartMarkerContext.jsx';
+import { ProxyEdgeProvider } from '@flapjs/services2/graph/widgets/ProxyEdgeContext.jsx';
+import { StartMarkerProvider } from '@flapjs/services2/graph/widgets/StartMarkerContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
 
