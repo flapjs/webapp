@@ -57,6 +57,7 @@ export default class GraphElement
      */
     static serialize(instance, data = {})
     {
+        let warnings = [];
         for(let key of Object.keys(instance))
         {
             // Don't serialize something already serialized.
@@ -70,13 +71,19 @@ export default class GraphElement
             // ...maybe objects...
             if (typeof value === 'object')
             {
-                // eslint-disable-next-line no-console
-                console.warn('Be careful trying to serialize a graph element with nested objects!'
-                    + ' You should perhaps implement your own serializer to handle this case.');
+                warnings.push(key);
                 value = '__OBJECT__' + JSON.stringify(value);
             }
 
             data[key] = value;
+        }
+
+        if (warnings.length > 0)
+        {
+            // eslint-disable-next-line no-console
+            console.warn('Be careful trying to serialize a graph element with nested objects!'
+                + ' You should perhaps implement your own serializer to handle these properties: '
+                + `${warnings.join(', ')}.`);
         }
         return data;
     }
@@ -98,6 +105,10 @@ export default class GraphElement
             if (typeof value === 'string' && value.startsWith('__OBJECT__'))
             {
                 value = JSON.parse(value.substring('__OBJECT__'.length));
+            }
+            else if (typeof value === 'object')
+            {
+                value = {...value};
             }
 
             instance[key] = value;

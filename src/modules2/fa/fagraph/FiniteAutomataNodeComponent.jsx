@@ -1,7 +1,10 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
+
+import { useGraphElement } from '@flapjs/services2/graph2/elements/GraphElementHooks.jsx';
 import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '@flapjs/services2/graph2/components/ProxyEdgeContext.jsx';
 import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '@flapjs/services2/graph2/components/StartMarkerContext.jsx';
 import { useGraphElementEditorBehavior } from '@flapjs/services2/graph2/components/GraphElementEditorBehaviorHook.jsx';
@@ -9,13 +12,16 @@ import { useGraphElementEditorBehavior } from '@flapjs/services2/graph2/componen
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
 
-export default function NodeElementComponent(props)
+export default function FiniteAutomataNodeComponent(props)
 {
-    const { element: node } = props;
+    const { elementType, elementId } = props;
+
+    const forceUpdate = useForceUpdate();
 
     // Reference to the rendered element.
     const elementRef = useRef(null);
     const startMarkerRef = useRef(null);
+    const node = useGraphElement(elementType, elementId, forceUpdate);
 
     // Lets you open the editor...
     useGraphElementEditorBehavior(elementRef, node);
@@ -45,11 +51,11 @@ export default function NodeElementComponent(props)
 
     return (
         <>
-        <NodeCircleRenderer
+        <NodeCircleRenderer key={elementId}
             x={node.x} y={node.y}
             label={node.label}
             maskProps={{ref: elementRef}}/>
-        <MarkerTriangleRenderer
+        <MarkerTriangleRenderer key={elementId + '.key'}
             x={node.x} y={node.y}
             offset={node.radius}
             childProps={{style: {visibility: isStart ? 'unset' : 'hidden'}}}
@@ -58,7 +64,8 @@ export default function NodeElementComponent(props)
         </>
     );
 }
-NodeElementComponent.propTypes = {
+FiniteAutomataNodeComponent.propTypes = {
     children: PropTypes.node,
-    element: PropTypes.object.isRequired,
+    elementId: PropTypes.string.isRequired,
+    elementType: PropTypes.elementType.isRequired,
 };

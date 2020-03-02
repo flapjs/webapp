@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GraphElementLayer from '../components/GraphElementLayer.jsx';
+import GraphElementComponentLayer from '@flapjs/services2/graph2/components/GraphElementComponentLayer.jsx';
 
-import NodeElement from '../elements/node/NodeElement.js';
-import EdgeElement from '../elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/services2/graph2/elements/node/NodeElement.js';
+import EdgeElement from '@flapjs/services2/graph2/elements/edge/EdgeElement.js';
 
-import NodeElementComponent from '../elements/node/NodeElementComponent.jsx';
-import EdgeElementComponent from '../elements/edge/EdgeElementComponent.jsx';
+import NodeElementComponent from '@flapjs/services2/graph2/elements/node/NodeElementComponent.jsx';
+import EdgeElementComponent from '@flapjs/services2/graph2/elements/edge/EdgeElementComponent.jsx';
 
-import { ProxyEdgeProvider } from '../components/ProxyEdgeContext.jsx';
-import { StartMarkerProvider } from '../components/StartMarkerContext.jsx';
+import { ProxyEdgeProvider } from '@flapjs/services2/graph2/components/ProxyEdgeContext.jsx';
+import { StartMarkerProvider } from '@flapjs/services2/graph2/components/StartMarkerContext.jsx';
 
-import { useGraphElementIds } from '../elements/GraphElementHooks.jsx';
-import { useNodeGraphActions } from './NodeGraphHooks.jsx';
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
+
+import { useNodeGraphActions } from './NodeGraphHooks.jsx';
 
 export default function NodeGraphPlayground(props)
 {
@@ -23,34 +23,19 @@ export default function NodeGraphPlayground(props)
     useViewNavigationBehavior();
     useViewDoubleTapBehavior((x, y) => createNode({ x, y }));
 
-    const [ nodes ] = useGraphElementIds(NodeElement);
-    const [ edges ] = useGraphElementIds(EdgeElement);
-
     return (
         <>
         <StartMarkerProvider onConnect={swapInitial}>
             <ProxyEdgeProvider onConnect={createEdge}>
-                <GraphElementLayer
-                    elementType={NodeElement}
-                    elementIds={nodes}>
-                    {(elementType, elementId) => (
-                        <NodeElementComponent key={elementId}
-                            elementType={elementType}
-                            elementId={elementId}/>
-                    )}
-                </GraphElementLayer>
+                <GraphElementComponentLayer elementType={NodeElement}>
+                    {element => <NodeElementComponent element={element}/>}
+                </GraphElementComponentLayer>
             </ProxyEdgeProvider>
         </StartMarkerProvider>
     
-        <GraphElementLayer
-            elementType={EdgeElement}
-            elementIds={edges}>
-            {(elementType, elementId) => (
-                <EdgeElementComponent key={elementId}
-                    elementType={elementType}
-                    elementId={elementId}/>
-            )}
-        </GraphElementLayer>
+        <GraphElementComponentLayer elementType={EdgeElement}>
+            {element => <EdgeElementComponent element={element}/>}
+        </GraphElementComponentLayer>
 
         {props.children}
         </>

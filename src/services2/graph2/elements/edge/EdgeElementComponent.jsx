@@ -13,15 +13,15 @@ import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndp
 import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 
 import NodeElement from '../node/NodeElement.js';
+import EdgeElement from './EdgeElement.js';
 import { GraphStateContext } from '../../GraphContext.jsx';
 import { UNSAFE_findGraphElementWithinPosition } from '../../GraphHelper.js';
 
 export default function EdgeElementComponent(props)
 {
-    const { elementType, elementId } = props;
+    const { element: edge } = props;
 
     const forceUpdate = useForceUpdate();
-    const edge = useGraphElement(elementType, elementId, forceUpdate);
     const from = useGraphElement(NodeElement, edge.fromId, forceUpdate);
     const sourceTo = useGraphElement(NodeElement, edge.toId, forceUpdate);
     const to = sourceTo || edge.proxyTo;
@@ -38,8 +38,7 @@ export default function EdgeElementComponent(props)
     // words, it keeps the edge's position updated! Some things do depend on it...
     if (edge.x !== center.x || edge.y !== center.y)
     {
-        edge._x = center.x;
-        edge._y = center.y;
+        EdgeElement.updatePosition(edge, center.x, center.y);
         edge.markDirty();
     }
     
@@ -102,6 +101,7 @@ export default function EdgeElementComponent(props)
         });
 
     return (
+        <>
         <EdgeQuadraticRenderer
             start={start}
             end={end}
@@ -125,9 +125,11 @@ export default function EdgeElementComponent(props)
                         maskProps={{style: {pointerEvents: 'none'}}}/>;
                 }
             }}/>
+        {props.children}
+        </>
     );
 }
 EdgeElementComponent.propTypes = {
-    elementId: PropTypes.string.isRequired,
-    elementType: PropTypes.elementType.isRequired,
+    children: PropTypes.node,
+    element: PropTypes.object.isRequired,
 };
