@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
-import { addElementListener, removeElementListener } from './elements/GraphElement.js';
+import { addElementListener, removeElementListener } from './GraphElementListener.js';
 
-import { GraphStateContext, GraphDispatchContext } from './GraphContext.jsx';
-import { UNSAFE_getGraphElements } from './GraphHelper.js';
+import { GraphStateContext, GraphDispatchContext } from '../GraphContext.jsx';
+import { UNSAFE_getGraphElements } from '../GraphHelper.js';
 
 export function useGraphElementIds(elementType)
 {

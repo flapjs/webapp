@@ -1,65 +1,107 @@
 const DIRTY = Symbol('dirty');
-const ELEMENT_LISTENERS = Symbol('elementListeners');
+const ID = Symbol('elementId');
 
 /**
  * This class represents the data for the interactive elements of a graph, such as the nodes or edges.
  * This serves as the data model for the graph and will be used by renderers. Any changes made to this
- * object's properties that should propagate to other listeners should markDirty(). That way, the graph
- * itself will know to notify everyone else.
+ * object's properties, that should propagate to other listeners, should markDirty(). That way, the graph
+ * itself will know to notify everyone else. This feature is managed by GraphContext, GraphHooks, and
+ * GraphElementHooks.
+ * 
+ * It can also serialize and deserialize itself :) Because of this functionality, EVERY graph element
+ * must be able to be instantiated with only an "id" argument. Any additional args will not be provided
+ * nor stored by the serializer. Additional arguments will only be used when instantiating during active
+ * app use. This feature is mainly used by GraphLoader to load/save graphs.
  * 
  * Also, the class name MUST BE UNIQUE. It is used as the key to access its instances.
+ * Refer to GraphHelper.computeElementsKey() for more information.
  */
 export default class GraphElement
 {
     constructor(id, opts = {})
     {
-        this._id = id;
-
+        this[ID] = id;
         this[DIRTY] = true;
-        this[ELEMENT_LISTENERS] = [];
     }
 
     get type() { return this.constructor; }
-    get id() { return this._id; }
+    get id() { return this[ID]; }
 
-    /** @abstract */
+    /**
+     * This will be called when this object is reconciled with the rendered component,
+     * thereby "updating" to the correct state.
+     * 
+     * Basically when it changes from dirty to clean.
+     * 
+     * @abstract
+     */
     update() {}
-    /** @abstract */
+
+    /**
+     * Called when this element is removed from the graph.
+     * 
+     * @abstract
+     */
     destroy() {}
 
     markDirty(force = true) { this[DIRTY] = force; }
     isDirty() { return this[DIRTY]; }
-}
+    
+    /**
+     * Attempts to serialize this element. Any function properties will be skipped.
+     * Any object properties will be serialized by JSON.stringify().
+     *
+     * @param {GraphElement} instance The graph element to serialize.
+     * @param {object} data The data object to serialize to.
+     * @returns {object} The serialized data object.
+     */
+    static serialize(instance, data = {})
+    {
+        for(let key of Object.keys(instance))
+        {
+            // Don't serialize something already serialized.
+            if (key in data) continue;
 
-/**
- * Adds a listener for changes (from markDirty()) in the graph element.
- * 
- * @param {GraphElement} graphElement The graph element to listen for changes.
- * @param {Function} listener The callback to be called if any changes occur.
- */
-export function addElementListener(graphElement, listener)
-{
-    graphElement[ELEMENT_LISTENERS].push(listener);
-}
+            let value = instance[key];
 
-/**
- * Stops a listener from handling any more changes (from markDirty()) in the graph element.
- * 
- * @param {GraphElement} graphElement The graph element to stop listening to.
- * @param {Function} listener The listening callback to be removed.
- */
-export function removeElementListener(graphElement, listener)
-{
-    graphElement[ELEMENT_LISTENERS].splice(graphElement[ELEMENT_LISTENERS].indexOf(listener), 1);
-}
+            // We won't be serializing functions, thank you.
+            if (typeof value === 'function') continue;
 
-/**
- * Gets an array of active listeners for the graph element.
- * 
- * @param {GraphElement} graphElement The graph element.
- * @returns {Array<Function>} An array of listeners.
- */
-export function getElementListeners(graphElement)
-{
-    return graphElement[ELEMENT_LISTENERS];
+            // ...maybe objects...
+            if (typeof value === 'object')
+            {
+                // eslint-disable-next-line no-console
+                console.warn('Be careful trying to serialize a graph element with nested objects!'
+                    + ' You should perhaps implement your own serializer to handle this case.');
+                value = '__OBJECT__' + JSON.stringify(value);
+            }
+
+            data[key] = value;
+        }
+        return data;
+    }
+
+    /**
+     * Attempts to deserialize the data into the instance of this class.
+     *
+     * @param {GraphElement} instance A new instance to be deserialized into.
+     * @param {object} data The data object to deserialize from.
+     * @returns {GraphElement} The deserialized instance.
+     */
+    static deserialize(instance, data = {})
+    {
+        for(let key of Object.keys(data))
+        {
+            let value = data[key];
+
+            // Could be our previous attempt at serializing nested objects...
+            if (typeof value === 'string' && value.startsWith('__OBJECT__'))
+            {
+                value = JSON.parse(value.substring('__OBJECT__'.length));
+            }
+
+            instance[key] = value;
+        }
+        return instance;
+    }
 }

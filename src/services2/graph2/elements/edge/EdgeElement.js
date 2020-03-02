@@ -2,7 +2,7 @@ import GraphElement from '../GraphElement.js';
 
 export default class EdgeElement extends GraphElement
 {
-    constructor(id, opts)
+    constructor(id, opts = {})
     {
         super(id, opts);
 

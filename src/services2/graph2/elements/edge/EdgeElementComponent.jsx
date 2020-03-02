@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
-import { useGraphElement } from '../../GraphElementHooks.jsx';
+import { useGraphElement } from '../GraphElementHooks.jsx';
 
 import NodeElement from '../node/NodeElement.js';
 

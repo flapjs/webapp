@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getElementListeners } from './elements/GraphElement.js';
+import { getElementListeners } from './elements/GraphElementListener.js';
 
 export function useGraphUpdateCycle(state)
 {

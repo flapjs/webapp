@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { useGraphElementIds } from '../GraphElementHooks.jsx';
+import { useGraphElementIds } from '../elements/GraphElementHooks.jsx';
 
 export default function GraphElementLayer(props)
 {

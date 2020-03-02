@@ -5,10 +5,8 @@ import { ViewContext } from '@flapjs/services2/view/ViewContext.jsx';
 
 import { transformViewToScreen } from '@flapjs/util/ViewHelper.js';
 import { GraphElementEditorContext } from './GraphElementEditorContext.jsx';
-import { useGraphElement } from '../GraphElementHooks.jsx';
+import { useGraphElement } from '../elements/GraphElementHooks.jsx';
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
-// import { useGraphElementIds } from '../GraphElementHooks.jsx';
-// import EdgeElement from '../elements/edge/EdgeElement.js';
 
 export default function GraphElementEditor(props)
 {

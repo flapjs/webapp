@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 
-import { useGraphElement } from '../../GraphElementHooks.jsx';
+import { useGraphElement } from '../GraphElementHooks.jsx';
 import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '../../components/ProxyEdgeContext.jsx';
 
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';

@@ -5,6 +5,9 @@ import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { useGraphUpdateCycle } from './GraphHooks.jsx';
 
 import GraphReducer from './GraphReducer.js';
+import { serialize } from './GraphLoader.js';
+import NodeElement from './elements/node/NodeElement.js';
+import EdgeElement from './elements/edge/EdgeElement.js';
 
 const DEFAULT_GRAPH_STATE = {};
 const DEFAULT_GRAPH_REDUCER = GraphReducer;
@@ -18,6 +21,15 @@ export function GraphProvider(props)
     const [ currentState, dispatch, setStateImmediately ] = useAsyncReducer(reducer, state);
 
     useGraphUpdateCycle(currentState);
+
+    useEffect(() =>
+    {
+        let graphInfo = {
+            elementTypes: [ NodeElement, EdgeElement ],
+        };
+        let data = serialize(graphInfo, currentState);
+        localStorage.setItem('graphData', JSON.stringify(data));
+    });
 
     // If the props changes at all, we need to reset the graph.
     useEffect(() => setStateImmediately(state), [state, setStateImmediately]);

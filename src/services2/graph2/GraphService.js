@@ -5,6 +5,11 @@ import GraphArea from './GraphArea.jsx';
 import { GraphElementEditorProvider } from './components/GraphElementEditorContext.jsx';
 import GraphElementEditor from './components/GraphElementEditor.jsx';
 
+import { deserialize } from './GraphLoader.js';
+
+import NodeElement from './elements/node/NodeElement.js';
+import EdgeElement from './elements/edge/EdgeElement.js';
+
 export default class GraphService extends BaseService
 {
     /** @override */
@@ -26,8 +31,20 @@ export default class GraphService extends BaseService
     {
         super(loader, contribs);
 
+        let graphInfo = {
+            elementTypes: [ NodeElement, EdgeElement ],
+        };
+
+        // Load from localStorage.
+        let data = localStorage.getItem('graphData');
+        let graphState = {};
+        if (data)
+        {
+            graphState = deserialize(graphInfo, JSON.parse(data));
+        }
+
         // GraphProvider
-        contribs.providers[0].props.state = {};
+        contribs.providers[0].props.state = graphState;
     }
 }
 
