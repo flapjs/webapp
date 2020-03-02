@@ -2,11 +2,12 @@ import React, { useContext, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewContext } from '@flapjs/services2/view/ViewContext.jsx';
+import { GraphElementEditorContext } from './GraphElementEditorContext.jsx';
+
+import { useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
+import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { transformViewToScreen } from '@flapjs/util/ViewHelper.js';
-import { GraphElementEditorContext } from './GraphElementEditorContext.jsx';
-import { useGraphElement } from '../elements/GraphElementHooks.jsx';
-import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 export default function GraphElementEditor(props)
 {

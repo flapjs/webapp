@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '@flapjs/services2/graph/widgets/ProxyEdgeContext.jsx';
 import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '@flapjs/services2/graph/widgets/StartMarkerContext.jsx';
-import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/editor/GraphElementEditorBehaviorHook.jsx';
+import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehaviorHook.jsx';
 
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';

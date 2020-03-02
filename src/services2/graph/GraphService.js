@@ -1,8 +1,8 @@
 import BaseService from '../base/BaseService.js';
 import { GraphProvider } from './GraphContext.jsx';
 import ViewService from '../view/ViewService.js';
-import { GraphElementEditorProvider } from './editor/GraphElementEditorContext.jsx';
-import GraphElementEditor from './editor/GraphElementEditor.jsx';
+import { GraphElementEditorProvider } from './widgets/editor/GraphElementEditorContext.jsx';
+import GraphElementEditor from './widgets/editor/GraphElementEditor.jsx';
 
 import { deserialize } from './GraphLoader.js';
 
