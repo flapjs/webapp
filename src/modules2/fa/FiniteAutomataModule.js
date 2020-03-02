@@ -1,5 +1,5 @@
 import BaseModule from '../base/BaseModule.js';
-import GraphService from '@flapjs/services2/graph2/GraphService.js';
+import GraphService from '@flapjs/services2/graph/GraphService.js';
 
 import FiniteAutomataForeground from './FiniteAutomataForeground.jsx';
 

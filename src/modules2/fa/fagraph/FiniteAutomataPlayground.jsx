@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GraphElementLayer from '@flapjs/services2/graph2/components/GraphElementLayer.jsx';
+import GraphElementLayer from '@flapjs/services2/graph/components/GraphElementLayer.jsx';
 
-import NodeElement from '@flapjs/services2/graph2/elements/node/NodeElement.js';
-import EdgeElement from '@flapjs/services2/graph2/elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/services2/graph/elements/node/NodeElement.js';
+import EdgeElement from '@flapjs/services2/graph/elements/edge/EdgeElement.js';
 
-import NodeElementComponent from '@flapjs/services2/graph2/elements/node/NodeElementComponent.jsx';
-import EdgeElementComponent from '@flapjs/services2/graph2/elements/edge/EdgeElementComponent.jsx';
+import NodeElementComponent from '@flapjs/services2/graph/elements/node/NodeElementComponent.jsx';
+import EdgeElementComponent from '@flapjs/services2/graph/elements/edge/EdgeElementComponent.jsx';
 
-import { ProxyEdgeProvider } from '@flapjs/services2/graph2/components/ProxyEdgeContext.jsx';
-import { StartMarkerProvider } from '@flapjs/services2/graph2/components/StartMarkerContext.jsx';
+import { ProxyEdgeProvider } from '@flapjs/services2/graph/components/ProxyEdgeContext.jsx';
+import { StartMarkerProvider } from '@flapjs/services2/graph/components/StartMarkerContext.jsx';
 
-import { useGraphElementIds } from '@flapjs/services2/graph2/elements/GraphElementHooks.jsx';
+import { useGraphElementIds } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
 
-import { useNodeGraphActions } from '@flapjs/services2/graph2/nodegraph/NodeGraphHooks.jsx';
+import { useNodeGraphActions } from '@flapjs/services2/graph/nodegraph/NodeGraphHooks.jsx';
 
 export default function FiniteAutomataPlayground(props)
 {

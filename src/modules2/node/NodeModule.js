@@ -2,7 +2,7 @@ import BaseModule from '../base/BaseModule.js';
 
 import ExportPanel from './ExportPanel.jsx';
 
-import GraphService from '@flapjs/services2/graph2/GraphService.js';
+import GraphService from '@flapjs/services2/graph/GraphService.js';
 
 export default class NodeModule extends BaseModule
 {

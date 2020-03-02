@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
-import { useGraphElementIds, useGraphElement } from '@flapjs/services2/graph2/elements/GraphElementHooks.jsx';
+import { useGraphElementIds, useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
 
 import GraphElementLayer from './GraphElementLayer.jsx';
 

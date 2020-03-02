@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GraphElementComponentLayer from '@flapjs/services2/graph2/components/GraphElementComponentLayer.jsx';
+import GraphElementComponentLayer from '@flapjs/services2/graph/components/GraphElementComponentLayer.jsx';
 
-import NodeElement from '@flapjs/services2/graph2/elements/node/NodeElement.js';
-import EdgeElement from '@flapjs/services2/graph2/elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/services2/graph/elements/node/NodeElement.js';
+import EdgeElement from '@flapjs/services2/graph/elements/edge/EdgeElement.js';
 
-import NodeElementComponent from '@flapjs/services2/graph2/elements/node/NodeElementComponent.jsx';
-import EdgeElementComponent from '@flapjs/services2/graph2/elements/edge/EdgeElementComponent.jsx';
+import NodeElementComponent from '@flapjs/services2/graph/elements/node/NodeElementComponent.jsx';
+import EdgeElementComponent from '@flapjs/services2/graph/elements/edge/EdgeElementComponent.jsx';
 
-import { ProxyEdgeProvider } from '@flapjs/services2/graph2/components/ProxyEdgeContext.jsx';
-import { StartMarkerProvider } from '@flapjs/services2/graph2/components/StartMarkerContext.jsx';
+import { ProxyEdgeProvider } from '@flapjs/services2/graph/components/ProxyEdgeContext.jsx';
+import { StartMarkerProvider } from '@flapjs/services2/graph/components/StartMarkerContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
 

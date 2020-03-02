@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
-import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '@flapjs/services2/graph2/components/ProxyEdgeContext.jsx';
-import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '@flapjs/services2/graph2/components/StartMarkerContext.jsx';
-import { useGraphElementEditorBehavior } from '@flapjs/services2/graph2/components/GraphElementEditorBehaviorHook.jsx';
+import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '@flapjs/services2/graph/components/ProxyEdgeContext.jsx';
+import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '@flapjs/services2/graph/components/StartMarkerContext.jsx';
+import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/components/GraphElementEditorBehaviorHook.jsx';
 
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
