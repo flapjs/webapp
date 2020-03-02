@@ -1,9 +1,9 @@
-import NodeGraphReducer from '../graph2/NodeGraphReducer.js';
-import NodeElement from '../graph2/elements/node/NodeElement.js';
+import NodeGraphReducer from '@flapjs/services2/graph2/nodegraph/NodeGraphReducer.js';
+import NodeElement from '@flapjs/services2/graph2/elements/node/NodeElement.js';
 
-import { computeElementsKey, UNSAFE_getGraphElement } from '../graph2/GraphHelper.js';
+import { computeElementsKey, UNSAFE_getGraphElement } from '@flapjs/services2/graph2/GraphHelper.js';
 
-export default function FAGraphReducer(prev, action)
+export default function FiniteAutomataGraphReducer(prev, action)
 {
     switch(action.type)
     {

@@ -32,6 +32,8 @@ export default class BaseService
      * using this callback since it usually signifies that you are
      * not utilizing React correctly. But it is here if you need it...
      * 
+     * This is called after everything has been set up.
+     * 
      * @abstract
      */
     mount() {}
@@ -41,6 +43,8 @@ export default class BaseService
      * into the app's componentWillUnmount() phase. Be careful when
      * using this callback since it usually signifies that you are
      * not utilizing React correctly. But it is here if you need it...
+     * 
+     * This is called before everything will de torn down.
      * 
      * @abstract
      */

@@ -6,11 +6,11 @@ import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 
 import { useGraphElement } from '../GraphElementHooks.jsx';
 import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '../../components/ProxyEdgeContext.jsx';
+import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '../../components/StartMarkerContext.jsx';
+import { useGraphElementEditorBehavior } from '../../components/GraphElementEditorBehaviorHook.jsx';
 
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
-import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '../../components/StartMarkerContext.jsx';
-import { useGraphElementEditorBehavior } from '../../components/GraphElementEditorBehaviorHook.jsx';
 
 export default function NodeElementComponent(props)
 {

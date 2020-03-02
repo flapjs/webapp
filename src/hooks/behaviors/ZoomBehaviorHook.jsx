@@ -27,6 +27,4 @@ export function useZoomBehavior(elementRef, scale, setScale, opts = {})
     };
 
     useEventListeners(elementRef, DOMEventListeners);
-
-    return [];
 }

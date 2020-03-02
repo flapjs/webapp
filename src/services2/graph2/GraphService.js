@@ -1,13 +1,13 @@
 import BaseService from '../base/BaseService.js';
 import { GraphProvider } from './GraphContext.jsx';
 import ViewService from '../view/ViewService.js';
-import NodeGraphArea from './NodeGraphArea.jsx';
 import { GraphElementEditorProvider } from './components/GraphElementEditorContext.jsx';
 import GraphElementEditor from './components/GraphElementEditor.jsx';
 
 import { deserialize } from './GraphLoader.js';
 
-import NodeGraph from './NodeGraph.js';
+import NodeGraph from './nodegraph/NodeGraph.js';
+import NodeGraphPlayground from './nodegraph/NodeGraphPlayground.jsx';
 
 export default class GraphService extends BaseService
 {
@@ -25,7 +25,7 @@ export default class GraphService extends BaseService
     static get renders()
     {
         return {
-            playarea: [ NodeGraphArea ],
+            playarea: [ NodeGraphPlayground ],
             viewarea: [ GraphElementEditor ]
         };
     }
@@ -53,9 +53,10 @@ export default class GraphService extends BaseService
  * Creates another GraphService with the given graph type.
  *
  * @param {Class<NodeGraph>} graphType The chosen graph type.
+ * @param {Class<NodeGraphPlayground>} [graphPlayground] The complementary playground.
  * @returns {Class<GraphService>} The new GraphService with reducer function.
  */
-GraphService.withGraphType = graphType =>
+GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
 {
     return class extends GraphService
     {
@@ -65,6 +66,12 @@ GraphService.withGraphType = graphType =>
 
             // GraphProvider
             contribs.providers[0].props.graphType = graphType;
+
+            // "playarea" render slot
+            if (graphPlayground)
+            {
+                contribs.playarea[0] = { component: graphPlayground };
+            }
         }
     };
 };

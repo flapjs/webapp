@@ -1,5 +1,5 @@
 import { uuid } from '@flapjs/util/MathHelper.js';
-import { computeElementsKey, UNSAFE_getGraphElement } from './GraphHelper.js';
+import { computeElementsKey, UNSAFE_getGraphElement } from '../GraphHelper.js';
 
 export default function GraphReducer(prev, action)
 {

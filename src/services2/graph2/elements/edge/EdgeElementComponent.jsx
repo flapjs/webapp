@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 import { useGraphElement } from '../GraphElementHooks.jsx';
-
-import NodeElement from '../node/NodeElement.js';
+import { useGraphElementEditorBehavior } from '../../components/GraphElementEditorBehaviorHook.jsx';
 
 import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer.jsx';
 import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
@@ -13,10 +12,9 @@ import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndp
 
 import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 
+import NodeElement from '../node/NodeElement.js';
 import { GraphStateContext } from '../../GraphContext.jsx';
 import { UNSAFE_findGraphElementWithinPosition } from '../../GraphHelper.js';
-
-import { useGraphElementEditorBehavior } from '@flapjs/services2/graph2/components/GraphElementEditorBehaviorHook.jsx';
 
 export default function EdgeElementComponent(props)
 {

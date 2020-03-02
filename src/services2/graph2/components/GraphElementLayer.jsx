@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { useGraphElementIds } from '../elements/GraphElementHooks.jsx';
-
 export default function GraphElementLayer(props)
 {
-    const { elementType, renderElement } = props;
-    const [ elementIds ] = useGraphElementIds(elementType);
+    const { elementType, elementIds } = props;
     return (
         <>
-        {elementIds.map(elementId => renderElement(elementType, elementId))}
+        {elementIds.map(elementId => props.children(elementType, elementId))}
         </>
     );
 }
 GraphElementLayer.propTypes = {
+    children: PropTypes.func.isRequired,
     elementType: PropTypes.elementType.isRequired,
-    renderElement: PropTypes.func.isRequired,
+    elementIds: PropTypes.array,
+};
+GraphElementLayer.defaultProps = {
+    elementIds: [],
 };

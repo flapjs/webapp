@@ -4,12 +4,35 @@ import { ViewContext } from './ViewContext.jsx';
 
 import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
 import { useZoomBehavior } from '@flapjs/hooks/behaviors/ZoomBehaviorHook.jsx';
+import { useEventListeners } from '@flapjs/hooks/EventListenerHook.jsx';
 import { useDoubleTapBehavior } from '@flapjs/hooks/behaviors/DoubleTapBehaviorHook.jsx';
+import { useTapBehavior } from '@flapjs/hooks/behaviors/TapBehaviorHook.jsx';
 
 import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
-import { useEventListeners } from '@flapjs/hooks/EventListenerHook.jsx';
 
-export function useViewBehavior(createCallback)
+export function useViewTapBehavior(callback)
+{
+    const { svgRef, pos } = useContext(ViewContext);
+    
+    useTapBehavior(svgRef, false, e =>
+    {
+        const [x, y] = transformScreenToView(svgRef.current, e.clientX, e.clientY);
+        callback(x - pos.x, y - pos.y);
+    });
+}
+
+export function useViewDoubleTapBehavior(callback)
+{
+    const { svgRef, pos } = useContext(ViewContext);
+    
+    useDoubleTapBehavior(svgRef, false, e =>
+    {
+        const [x, y] = transformScreenToView(svgRef.current, e.clientX, e.clientY);
+        callback(x - pos.x, y - pos.y);
+    });
+}
+
+export function useViewNavigationBehavior()
 {
     const { svgRef, pos, setPos, scale, setScale } = useContext(ViewContext);
 
@@ -24,13 +47,5 @@ export function useViewBehavior(createCallback)
     const dragging = useDragBehavior(svgRef, pos, setPos, { preserveOffset: true });
     useZoomBehavior(svgRef, scale, setScale);
 
-    // A default behavior to create things...
-    useDoubleTapBehavior(svgRef, dragging, e =>
-    {
-        if (createCallback)
-        {
-            const [x, y] = transformScreenToView(svgRef.current, e.clientX, e.clientY);
-            createCallback(x - pos.x, y - pos.y);
-        }
-    });
+    return dragging;
 }

@@ -3,7 +3,7 @@ import GraphService from '@flapjs/services2/graph2/GraphService.js';
 
 import FiniteAutomataForeground from './FiniteAutomataForeground.jsx';
 
-import FiniteAutomataGraph from './FiniteAutomataGraph.js';
+import FiniteAutomataGraph from './fagraph/FiniteAutomataGraph.js';
 
 export default class FiniteAutomataModule extends BaseModule
 {
