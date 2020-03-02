@@ -1,9 +1,9 @@
 import { useContext, useCallback } from 'react';
 
-import { GraphDispatchContext } from '../GraphContext.jsx';
+import { GraphDispatchContext } from '@flapjs/services2/graph/GraphContext.jsx';
 
-import NodeElement from '../elements/node/NodeElement.js';
-import EdgeElement from '../elements/edge/EdgeElement.js';
+import NodeElement from './elements/node/NodeElement.js';
+import EdgeElement from './elements/edge/EdgeElement.js';
 
 export function useNodeGraphActions()
 {

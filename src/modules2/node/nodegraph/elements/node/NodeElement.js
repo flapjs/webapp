@@ -1,4 +1,4 @@
-import GraphElement from '../GraphElement.js';
+import GraphElement from '@flapjs/services2/graph/elements/GraphElement.js';
 
 export default class NodeElement extends GraphElement
 {

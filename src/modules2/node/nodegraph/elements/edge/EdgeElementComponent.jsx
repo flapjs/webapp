@@ -10,12 +10,12 @@ import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer
 import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
 import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
 
-import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
+import { GraphStateContext } from '@flapjs/services2/graph/GraphContext.jsx';
+import { UNSAFE_findGraphElementWithinPosition } from '@flapjs/services2/graph/GraphHelper.js';
 
+import * as QuadraticEdgeHelper from './QuadraticEdgeHelper.js';
 import NodeElement from '../node/NodeElement.js';
 import EdgeElement from './EdgeElement.js';
-import { GraphStateContext } from '../../GraphContext.jsx';
-import { UNSAFE_findGraphElementWithinPosition } from '../../GraphHelper.js';
 
 export default function EdgeElementComponent(props)
 {

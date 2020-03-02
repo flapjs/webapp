@@ -1,4 +1,4 @@
-import GraphElement from '../GraphElement.js';
+import GraphElement from '@flapjs/services2/graph/elements/GraphElement.js';
 
 // NOTE: Since the default serializer depends on enumerable properties,
 // this will make sure the value is not "discoverable" and won't be

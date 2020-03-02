@@ -1,4 +1,4 @@
-import NodeGraph from '@flapjs/services2/graph/nodegraph/NodeGraph.js';
+import NodeGraph from '@flapjs/modules2/node/nodegraph/NodeGraph.js';
 import FiniteAutomataGraphReducer from './FiniteAutomataGraphReducer.js';
 
 export default class FiniteAutomataGraph extends NodeGraph

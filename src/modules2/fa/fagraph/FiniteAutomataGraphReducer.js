@@ -1,5 +1,5 @@
-import NodeGraphReducer from '@flapjs/services2/graph/nodegraph/NodeGraphReducer.js';
-import NodeElement from '@flapjs/services2/graph/elements/node/NodeElement.js';
+import NodeGraphReducer from '@flapjs/modules2/node/nodegraph/NodeGraphReducer.js';
+import NodeElement from '@flapjs/modules2/node/nodegraph/elements/node/NodeElement.js';
 
 import { computeElementsKey, UNSAFE_getGraphElement } from '@flapjs/services2/graph/GraphHelper.js';
 

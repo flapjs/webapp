@@ -1,13 +1,13 @@
 import BaseService from '../base/BaseService.js';
-import { GraphProvider } from './GraphContext.jsx';
 import ViewService from '../view/ViewService.js';
+
+import { GraphProvider } from './GraphContext.jsx';
 import { GraphElementEditorProvider } from './widgets/editor/GraphElementEditorContext.jsx';
-import GraphElementEditor from './widgets/editor/GraphElementEditor.jsx';
+
+import BaseGraph from './BaseGraph.js';
 
 import { deserialize } from './GraphLoader.js';
-
-import NodeGraph from './nodegraph/NodeGraph.js';
-import NodeGraphPlayground from './nodegraph/NodeGraphPlayground.jsx';
+import GraphElementEditor from './widgets/editor/GraphElementEditor.jsx';
 
 export default class GraphService extends BaseService
 {
@@ -17,7 +17,7 @@ export default class GraphService extends BaseService
     static get providers()
     {
         return [
-            { component: GraphProvider, props: { graphType: NodeGraph } },
+            { component: GraphProvider, props: { graphType: BaseGraph } },
             GraphElementEditorProvider
         ];
     }
@@ -25,7 +25,7 @@ export default class GraphService extends BaseService
     static get renders()
     {
         return {
-            playarea: [ NodeGraphPlayground ],
+            playarea: [],
             viewarea: [ GraphElementEditor ]
         };
     }
@@ -35,17 +35,6 @@ export default class GraphService extends BaseService
     constructor(loader, contribs)
     {
         super(loader, contribs);
-
-        // Load from localStorage.
-        let data = localStorage.getItem('graphData');
-        let graphState = {};
-        if (data)
-        {
-            graphState = deserialize(NodeGraph, JSON.parse(data));
-        }
-
-        // GraphProvider
-        contribs.providers[0].props.graphState = graphState;
     }
 }
 
@@ -72,6 +61,18 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
             {
                 contribs.playarea[0] = { component: graphPlayground };
             }
+
+            // TODO: This should be somewhere else.
+            // Load from localStorage.
+            let data = localStorage.getItem('graphData');
+            let graphState = {};
+            if (data)
+            {
+                graphState = deserialize(graphType, JSON.parse(data));
+            }
+
+            // GraphProvider
+            contribs.providers[0].props.graphState = graphState;
         }
     };
 };
