@@ -4,7 +4,7 @@ import GraphService from '@flapjs/services2/graph/GraphService.js';
 import FiniteAutomataForeground from './FiniteAutomataForeground.jsx';
 
 import FiniteAutomataGraph from './fagraph/FiniteAutomataGraph.js';
-import FiniteAutomataPlayground from './fagraph/FiniteAutomataPlayground.jsx';
+import FiniteAutomataGraphPlayground from './fagraph/FiniteAutomataGraphPlayground.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -25,7 +25,7 @@ export default class FiniteAutomataModule extends BaseModule
     static get services()
     {
         return [
-            GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataPlayground),
+            GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground),
         ];
     }
 }
