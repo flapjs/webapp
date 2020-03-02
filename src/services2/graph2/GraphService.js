@@ -1,26 +1,31 @@
 import BaseService from '../base/BaseService.js';
 import { GraphProvider } from './GraphContext.jsx';
 import ViewService from '../view/ViewService.js';
-import GraphArea from './GraphArea.jsx';
+import NodeGraphArea from './NodeGraphArea.jsx';
 import { GraphElementEditorProvider } from './components/GraphElementEditorContext.jsx';
 import GraphElementEditor from './components/GraphElementEditor.jsx';
 
 import { deserialize } from './GraphLoader.js';
 
-import NodeElement from './elements/node/NodeElement.js';
-import EdgeElement from './elements/edge/EdgeElement.js';
+import NodeGraph from './NodeGraph.js';
 
 export default class GraphService extends BaseService
 {
     /** @override */
     static get services() { return [ ViewService ]; }
     /** @override */
-    static get providers() { return [ GraphProvider, GraphElementEditorProvider ]; }
+    static get providers()
+    {
+        return [
+            { component: GraphProvider, props: { graphType: NodeGraph } },
+            GraphElementEditorProvider
+        ];
+    }
     /** @override */
     static get renders()
     {
         return {
-            playarea: [ GraphArea ],
+            playarea: [ NodeGraphArea ],
             viewarea: [ GraphElementEditor ]
         };
     }
@@ -31,30 +36,26 @@ export default class GraphService extends BaseService
     {
         super(loader, contribs);
 
-        let graphInfo = {
-            elementTypes: [ NodeElement, EdgeElement ],
-        };
-
         // Load from localStorage.
         let data = localStorage.getItem('graphData');
         let graphState = {};
         if (data)
         {
-            graphState = deserialize(graphInfo, JSON.parse(data));
+            graphState = deserialize(NodeGraph, JSON.parse(data));
         }
 
         // GraphProvider
-        contribs.providers[0].props.state = graphState;
+        contribs.providers[0].props.graphState = graphState;
     }
 }
 
 /**
- * Creates another GraphService with the given reducer.
+ * Creates another GraphService with the given graph type.
  *
- * @param {Function} reducer The reducer function for the GraphService.
+ * @param {Class<NodeGraph>} graphType The chosen graph type.
  * @returns {Class<GraphService>} The new GraphService with reducer function.
  */
-GraphService.withReducer = reducer =>
+GraphService.withGraphType = graphType =>
 {
     return class extends GraphService
     {
@@ -63,7 +64,7 @@ GraphService.withReducer = reducer =>
             super(loader, contribs);
 
             // GraphProvider
-            contribs.providers[0].props.reducer = reducer;
+            contribs.providers[0].props.graphType = graphType;
         }
     };
 };

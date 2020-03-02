@@ -15,7 +15,7 @@ import EdgeElementComponent from './elements/edge/EdgeElementComponent.jsx';
 import { ProxyEdgeProvider } from './components/ProxyEdgeContext.jsx';
 import { StartMarkerProvider } from './components/StartMarkerContext.jsx';
 
-export default function GraphArea(props)
+export default function NodeGraphArea(props)
 {
     const graphDispatch = useContext(GraphDispatchContext);
 
@@ -83,8 +83,8 @@ export default function GraphArea(props)
         </>
     );
 }
-GraphArea.propTypes = {
+NodeGraphArea.propTypes = {
     children: PropTypes.node,
 };
-GraphArea.defaultProps = {
+NodeGraphArea.defaultProps = {
 };

@@ -1,30 +1,19 @@
-export const Factory = {
-    elements: [
-        // { element: NodeElement, renderer: NodeElementComponent },
-        // { element: EdgeElement, renderer: EdgeElementComponent },
-    ],
-    behaviorHooks: [],
-    create()
+import NodeElement from './elements/node/NodeElement.js';
+import EdgeElement from './elements/edge/EdgeElement.js';
+import NodeGraphReducer from './NodeGraphReducer.js';
+
+export default class NodeGraph
+{
+    static get elementTypes()
     {
-        return {
-            StartNode: null,
-            NodeElement: {},
-            EdgeElement: {},
-        };
+        return [
+            NodeElement,
+            EdgeElement,
+        ];
     }
-};
 
-export function add(prev, opts)
-{
-    
-}
-
-export function clear(prev, opts)
-{
-
-}
-
-export function clearAll(prev, opts)
-{
-
+    static reducer(state, action)
+    {
+        return NodeGraphReducer(state, action);
+    }
 }

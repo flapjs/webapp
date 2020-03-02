@@ -1,38 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { useGraphUpdateCycle } from './GraphHooks.jsx';
 
-import GraphReducer from './GraphReducer.js';
 import { serialize } from './GraphLoader.js';
-import NodeElement from './elements/node/NodeElement.js';
-import EdgeElement from './elements/edge/EdgeElement.js';
 
 const DEFAULT_GRAPH_STATE = {};
-const DEFAULT_GRAPH_REDUCER = GraphReducer;
+
+export const GraphTypeContext = React.createContext();
 
 export const GraphStateContext = React.createContext();
 export const GraphDispatchContext = React.createContext();
 
 export function GraphProvider(props)
 {
-    const { state, reducer } = props;
-    const [ currentState, dispatch, setStateImmediately ] = useAsyncReducer(reducer, state);
+    const { graphType, graphState } = props;
+
+    return (
+        <GraphTypeContext.Provider value={graphType}>
+            <GraphStateProvider initialState={graphState}>
+                {props.children}
+            </GraphStateProvider>
+        </GraphTypeContext.Provider>
+    );
+}
+GraphProvider.propTypes = {
+    children: PropTypes.node,
+    graphType: PropTypes.elementType.isRequired,
+    graphState: PropTypes.object,
+};
+GraphProvider.defaultProps = {
+    graphState: DEFAULT_GRAPH_STATE,
+};
+
+function GraphStateProvider(props)
+{
+    const { initialState } = props;
+    const graphType = useContext(GraphTypeContext);
+    const [ currentState, dispatch, setStateImmediately ] = useAsyncReducer(graphType.reducer, initialState);
 
     useGraphUpdateCycle(currentState);
 
     useEffect(() =>
     {
-        let graphInfo = {
-            elementTypes: [ NodeElement, EdgeElement ],
-        };
-        let data = serialize(graphInfo, currentState);
+        let data = serialize(graphType, currentState);
         localStorage.setItem('graphData', JSON.stringify(data));
     });
 
-    // If the props changes at all, we need to reset the graph.
-    useEffect(() => setStateImmediately(state), [state, setStateImmediately]);
+    // If the props (or graph type) changes at all, we need to reset the graph.
+    useEffect(() => setStateImmediately(initialState), [graphType, initialState, setStateImmediately]);
 
     return (
         <GraphStateContext.Provider value={currentState}>
@@ -42,14 +59,12 @@ export function GraphProvider(props)
         </GraphStateContext.Provider>
     );
 }
-GraphProvider.propTypes = {
+GraphStateProvider.propTypes = {
     children: PropTypes.node,
-    state: PropTypes.object,
-    reducer: PropTypes.func,
+    initialState: PropTypes.object,
 };
-GraphProvider.defaultProps = {
-    state: DEFAULT_GRAPH_STATE,
-    reducer: DEFAULT_GRAPH_REDUCER,
+GraphStateProvider.defaultProps = {
+    initialState: {},
 };
 
 export function GraphConsumer(props)

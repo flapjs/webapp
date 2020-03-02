@@ -1,7 +1,6 @@
 import BaseModule from '../base/BaseModule.js';
 
 import ExportPanel from './ExportPanel.jsx';
-import FAGraphReducer from '@flapjs/services2/faGraph/FAGraphReducer.js';
 
 import GraphService from '@flapjs/services2/graph2/GraphService.js';
 
@@ -16,7 +15,7 @@ export default class NodeModule extends BaseModule
     static get services()
     {
         return [
-            GraphService.withReducer(FAGraphReducer)
+            GraphService
         ];
     }
 

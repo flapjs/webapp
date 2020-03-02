@@ -1,6 +1,9 @@
 import BaseModule from '../base/BaseModule.js';
 import GraphService from '@flapjs/services2/graph2/GraphService.js';
-import FAGraphReducer from '@flapjs/services2/faGraph/FAGraphReducer.js';
+
+import FiniteAutomataForeground from './FiniteAutomataForeground.jsx';
+
+import FiniteAutomataGraph from './FiniteAutomataGraph.js';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -10,10 +13,18 @@ export default class FiniteAutomataModule extends BaseModule
     static get moduleVersion() { return '1.0.0'; }
 
     /** @override */
+    static get renders()
+    {
+        return {
+            viewarea: [ FiniteAutomataForeground ]
+        };
+    }
+
+    /** @override */
     static get services()
     {
         return [
-            GraphService.withReducer(FAGraphReducer)
+            GraphService.withGraphType(FiniteAutomataGraph),
         ];
     }
 }
