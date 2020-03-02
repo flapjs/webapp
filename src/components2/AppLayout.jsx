@@ -8,6 +8,7 @@ import Workspace from './workspace/Workspace.jsx';
 import Viewport from './viewport/Viewport.jsx';
 
 import Logo from './Logo.jsx';
+import ModuleSelector from './ModuleSelector.jsx';
 
 export default function AppLayout(props)
 {
@@ -19,6 +20,7 @@ export default function AppLayout(props)
             <header>
                 <AppBar>
                     <Logo title="Flap.js" version={app.version}/>
+                    <ModuleSelector/>
                     <Slot name="appbar"></Slot>
                 </AppBar>
             </header>

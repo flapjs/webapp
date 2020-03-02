@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
@@ -15,9 +15,12 @@ export const GraphDispatchContext = React.createContext();
 export function GraphProvider(props)
 {
     const { state, reducer } = props;
-    const [ currentState, dispatch ] = useAsyncReducer(reducer, state);
+    const [ currentState, dispatch, setStateImmediately ] = useAsyncReducer(reducer, state);
 
     useGraphUpdateCycle(currentState);
+
+    // If the props changes at all, we need to reset the graph.
+    useEffect(() => setStateImmediately(state), [state, setStateImmediately]);
 
     return (
         <GraphStateContext.Provider value={currentState}>

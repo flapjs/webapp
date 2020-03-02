@@ -1,6 +1,18 @@
 .container {
+    display: inline-block;
     margin-left: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    padding: 0 0.3rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+
+.logo:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .title {

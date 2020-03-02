@@ -11,19 +11,20 @@ export function ModuleProvider(props)
 {
     const [moduleId, setModuleId] = useState(() => getDefaultModuleId());
     const [moduleClass, setModuleClass] = useState(null);
-    const shouldAsyncUpdate = useRef(true);
+    const shouldAsyncUpdate = useRef(null);
     const moduleInstanceRef = useRef(null);
 
     // Load module class...
     useEffect(() =>
     {
-        if (moduleId)
+        if (shouldAsyncUpdate.current !== moduleId)
         {
+            shouldAsyncUpdate.current = moduleId;
             Logger.out('ModuleProvider', `Preparing for module '${moduleId}'...`);
             ModuleLoader.fetchModuleClassById(moduleId)
                 .then(result =>
                 {
-                    if (shouldAsyncUpdate.current)
+                    if (shouldAsyncUpdate.current === moduleId)
                     {
                         // NOTE: Because the "setState" function expects a value OR a function,
                         // our class needs to be wrapped as a function, so it can be unwrapped
@@ -37,7 +38,7 @@ export function ModuleProvider(props)
                 });
             return () =>
             {
-                shouldAsyncUpdate.current = false;
+                shouldAsyncUpdate.current = null;
             };
         }
     },

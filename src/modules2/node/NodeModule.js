@@ -3,8 +3,6 @@ import BaseModule from '../base/BaseModule.js';
 import ExportPanel from './ExportPanel.jsx';
 import FAGraphReducer from '@flapjs/services2/faGraph/FAGraphReducer.js';
 
-import { withConstructor } from '@flapjs/modules2/ModuleHelper.js';
-
 import GraphService from '@flapjs/services2/graph2/GraphService.js';
 
 export default class NodeModule extends BaseModule
@@ -18,11 +16,7 @@ export default class NodeModule extends BaseModule
     static get services()
     {
         return [
-            withConstructor(GraphService, (loader, contribs) =>
-            {
-                // Sets the graph reducer to our own.
-                contribs.providers[0].props.reducer = FAGraphReducer;
-            })
+            GraphService.withReducer(FAGraphReducer)
         ];
     }
 

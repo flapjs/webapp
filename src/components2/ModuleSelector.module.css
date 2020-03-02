@@ -1,0 +1,34 @@
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+.launcher {
+    width: 5rem;
+    opacity: 1;
+    transition: width 0.2s ease, opacity 0.4s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.launcher:disabled {
+    width: 0;
+    opacity: 0;
+}
+
+.cancel {
+    width: 5rem;
+    opacity: 1;
+    transition: width 0.2s ease, opacity 0.4s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.cancel:disabled {
+    width: 0;
+    opacity: 0;
+}
+
+.selector {
+    margin: 0 0.5rem;
+}

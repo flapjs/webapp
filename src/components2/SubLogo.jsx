@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './Logo.module.css';
 
-export default function Logo(props)
+export default function SubLogo(props)
 {
     const { title, version } = props;
     return (
         <div className={Style.container}>
-            <span className={Style.logo}>
-                <h2 className={Style.title}>{title}</h2>
+            <span className={Style.sublogo}>
+                <h3 className={Style.title}>{title}</h3>
                 <p className={Style.version}>{version}</p>
             </span>
         </div>
     );
 }
-Logo.propTypes = {
+SubLogo.propTypes = {
     title: PropTypes.string,
     version: PropTypes.string,
 };
-Logo.defaultProps = {
+SubLogo.defaultProps = {
     title: 'App',
     version: 'dev',
 };

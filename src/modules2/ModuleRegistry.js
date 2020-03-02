@@ -6,7 +6,7 @@ export const fa = {
     version: '1.0.0',
     description: 'Back to our roots.',
     disabled: false,
-    fetch: () => { return Promise.resolve({}); },
+    fetch: () => import(/* webpackChunkName: "module_fa" */ './fa/FiniteAutomataModule.js'),
 };
 
 export const node = {
