@@ -13,9 +13,7 @@ import NodeElement from '@flapjs/modules2/node/nodegraph/elements/node/NodeEleme
 import EdgeElement from '@flapjs/modules2/node/nodegraph/elements/edge/EdgeElement.js';
 
 import EdgeElementComponent from '@flapjs/modules2/node/nodegraph/components/EdgeElementComponent.jsx';
-import NodeElementComponent from '@flapjs/modules2/node/nodegraph/components/NodeElementComponent.jsx';
-
-// import FiniteAutomataNodeElementComponent from './components/FiniteAutomataNodeElementComponent.jsx';
+import FiniteAutomataNodeElementComponent from './components/FiniteAutomataNodeElementComponent.jsx';
 
 export default function FiniteAutomataGraphPlayground(props)
 {
@@ -29,7 +27,7 @@ export default function FiniteAutomataGraphPlayground(props)
         <StartMarkerProvider onConnect={swapInitial}>
             <ProxyEdgeProvider onConnect={createEdge}>
                 <GraphElementComponentLayer elementType={NodeElement}>
-                    {element => <NodeElementComponent element={element}/>}
+                    {element => <FiniteAutomataNodeElementComponent element={element}/>}
                 </GraphElementComponentLayer>
             </ProxyEdgeProvider>
         </StartMarkerProvider>

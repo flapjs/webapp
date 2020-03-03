@@ -9,7 +9,6 @@ import EdgeElement from '@flapjs/modules2/node/nodegraph/elements/edge/EdgeEleme
 import NodeElementComponent from '@flapjs/modules2/node/nodegraph/components/NodeElementComponent.jsx';
 import EdgeElementComponent from '@flapjs/modules2/node/nodegraph/components/EdgeElementComponent.jsx';
 
-import { StartMarkerProvider } from '@flapjs/services2/graph/widgets/StartMarkerContext.jsx';
 import { ProxyEdgeProvider } from './widgets/ProxyEdgeContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
@@ -17,20 +16,18 @@ import { useNodeGraphActions } from './NodeGraphHooks.jsx';
 
 export default function NodeGraphPlayground(props)
 {
-    const { createNode, createEdge, swapInitial } = useNodeGraphActions();
+    const { createNode, createEdge } = useNodeGraphActions();
 
     useViewNavigationBehavior();
     useViewDoubleTapBehavior((x, y) => createNode({ x, y }));
 
     return (
         <>
-        <StartMarkerProvider onConnect={swapInitial}>
-            <ProxyEdgeProvider onConnect={createEdge}>
-                <GraphElementComponentLayer elementType={NodeElement}>
-                    {element => <NodeElementComponent element={element}/>}
-                </GraphElementComponentLayer>
-            </ProxyEdgeProvider>
-        </StartMarkerProvider>
+        <ProxyEdgeProvider onConnect={createEdge}>
+            <GraphElementComponentLayer elementType={NodeElement}>
+                {element => <NodeElementComponent element={element}/>}
+            </GraphElementComponentLayer>
+        </ProxyEdgeProvider>
     
         <GraphElementComponentLayer elementType={EdgeElement}>
             {element => <EdgeElementComponent element={element}/>}
