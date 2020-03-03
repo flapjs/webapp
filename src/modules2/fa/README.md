@@ -12,7 +12,7 @@
     - Save
 - Services
     - ~~Autosave~~ POSTPONED!
-    - Load from Saves
+    - ~~Load from Saves~~ COMPLETE!
     - Export to Images
     - Session-specific Storage
     - Lanuage Select
