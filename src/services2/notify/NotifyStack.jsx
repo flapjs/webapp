@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+
 import { NotifyStateContext } from './NotifyContext.jsx';
+
+import DefaultNotifyComponent from './DefaultNotifyComponent.jsx';
 
 /**
  * Renders the notify message stack. For the rendered components for each
@@ -11,6 +15,8 @@ import { NotifyStateContext } from './NotifyContext.jsx';
  */
 export default function NotifyStack(props)
 {
+    const { defaultComponent } = props;
+
     const notifyState = useContext(NotifyStateContext);
 
     let messages = [];
@@ -29,7 +35,9 @@ export default function NotifyStack(props)
         <>
         {messages.map(messageObject =>
         {
-            const { component: Component, props, message, messageId, messageType } = messageObject;
+            const { component, props, message, messageId, messageType } = messageObject;
+            
+            const Component = component || defaultComponent;
             return (
                 <Component key={messageId}
                     {...props}
@@ -41,3 +49,9 @@ export default function NotifyStack(props)
         </>
     );
 }
+NotifyStack.propTypes = {
+    defaultComponent: PropTypes.elementType,
+};
+NotifyStack.defaultProps = {
+    defaultComponent: DefaultNotifyComponent,
+};

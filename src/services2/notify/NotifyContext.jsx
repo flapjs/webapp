@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { stringHash, uuid } from '@flapjs/util/MathHelper.js';
+
+import { UNSAFE_findMessagesWithConjunctiveTags } from './NotifyHelper.js';
 
 export const NotifyStateContext = React.createContext();
 export const NotifyDispatchContext = React.createContext();
@@ -67,7 +69,7 @@ function NotifyReducer(state, action)
             const { message, tags, component, props, replace } = action;
             let notifyTags = tags || [ component.name ] || [ JSON.stringify(message) ];
             let notifyMessageId = replace ? stringHash(notifyTags.sort().join('.')) : uuid();
-            let notifyComponent = component || DefaultNotify;
+            let notifyComponent = component || null;
             let notifyProps = props || {};
             let notifyObject = { component: notifyComponent, props: notifyProps, message: message || '', messageId: notifyMessageId, messageTags: notifyTags };
             
@@ -126,68 +128,3 @@ function NotifyReducer(state, action)
         }
     }
 }
-
-export function UNSAFE_findMessagesWithConjunctiveTags(notifyState, tags)
-{
-    if (tags.length <= 0) return [];
-
-    let [ firstTag, ...otherTags ] = tags;
-
-    if (!(firstTag in notifyState.tags)) return [];
-
-    let result = new Set(Object.keys(notifyState.tags[firstTag].messages));
-    for(let tag of otherTags)
-    {
-        if (!(tag in notifyState.tags)) return [];
-
-        for(let messageId of Object.keys(notifyState.tags[tag]))
-        {
-            if (!result.has(messageId)) result.delete(messageId);
-        }
-    }
-    return Array.from(result);
-}
-
-export function UNSAFE_findMessagesWithDisjunctiveTags(notifyState, tags)
-{
-    if (tags.length <= 0) return [];
-
-    let result = new Set();
-    for(let tag of tags)
-    {
-        if (tag in notifyState.tags)
-        {
-            for(let messageId of Object.keys(notifyState.tags[tag]))
-            {
-                result.add(messageId);
-            }
-        }
-    }
-    return Array.from(result);
-}
-
-function DefaultNotify(props)
-{
-    const { message, messageId } = props;
-    const notifyDispatch = useContext(NotifyDispatchContext);
-
-    return (
-        <>
-        <p>
-            {message}
-        </p>
-        <fieldset>
-            <button onClick={() => notifyDispatch({ type: 'dismiss', messageId })}>
-                Dismiss
-            </button>
-        </fieldset>
-        </>
-    );
-}
-DefaultNotify.propTypes = {
-    messageId: PropTypes.string.isRequired,
-    message: PropTypes.string,
-};
-DefaultNotify.defaultProps = {
-    message: ''
-};
