@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * @param {Function} reducer The function used to "reduce" the state by the given action.
  * @param {object} [initialState] The state it will start with.
+ * @param {boolean} [shouldReset] Whether the state should reset if initialState changes.
  * @returns {[object, Function, Function]} An array containing the current state, the dispatch() function, and a setStateImmediately() function.
  */
-export function useAsyncReducer(reducer, initialState = {})
+export function useAsyncReducer(reducer, initialState = {}, shouldReset = false)
 {
     const [ state, setStateImmediately ] = useState(initialState);
+
+    // If the props changes at all, we should reset the state.
+    useEffect(() =>
+    {
+        if (shouldReset) setStateImmediately(initialState);
+    },
+    [ shouldReset, initialState, setStateImmediately ]);
+    
+    // Our dispatch function.
     async function dispatch(action)
     {
         // If attempting to dispatch a string, this will assume they are
@@ -31,5 +41,6 @@ export function useAsyncReducer(reducer, initialState = {})
             return result[1];
         }
     }
+    
     return [ state, dispatch, setStateImmediately ];
 }

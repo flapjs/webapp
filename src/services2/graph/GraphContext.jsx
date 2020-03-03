@@ -55,7 +55,7 @@ function GraphStateProvider(props)
 {
     const { initialState } = props;
     const graphType = useContext(GraphTypeContext);
-    const [ currentState, dispatch, setStateImmediately ] = useAsyncReducer(graphType.reducer, initialState);
+    const [ currentState, dispatch ] = useAsyncReducer(graphType.reducer, initialState, true);
 
     useGraphUpdateCycle(currentState);
 
@@ -64,9 +64,6 @@ function GraphStateProvider(props)
         let data = serialize(graphType, currentState);
         localStorage.setItem('graphData', JSON.stringify(data));
     });
-
-    // If the props (or graph type) changes at all, we need to reset the graph.
-    useEffect(() => setStateImmediately(initialState), [graphType, initialState, setStateImmediately]);
 
     return (
         <GraphStateContext.Provider value={currentState}>
