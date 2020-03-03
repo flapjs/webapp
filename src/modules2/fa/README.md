@@ -11,12 +11,12 @@
     - Import
     - Save
 - Services
-    - Autosave
+    - ~~Autosave~~ POSTPONED!
     - Load from Saves
     - Export to Images
     - Session-specific Storage
     - Lanuage Select
-    - Notifications
+    - ~~Notifications~~ COMPLETE!
     - Undo / Redo
     - Real-time Analysis
     - Localization

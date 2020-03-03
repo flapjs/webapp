@@ -59,10 +59,11 @@ function GraphStateProvider(props)
 
     useGraphUpdateCycle(currentState);
 
+    // TODO: This should not be here.
     useEffect(() =>
     {
         let data = serialize(graphType, currentState);
-        localStorage.setItem('graphData', JSON.stringify(data));
+        localStorage.setItem(graphType.name + '.graphData', JSON.stringify(data));
     });
 
     return (

@@ -12,10 +12,15 @@ export default class BaseService
     /**
      * Prepare your service here.
      * 
-     * @param {object} loader The current load context. Refer to ModuleLoader for the implementation.
+     * @param {object} loader The current load context. Refer to ModuleLoader for the implementation. This is saved just in case
+     * you need it in mount(), unmount(), or destroy().
      * @param {object} contribs Your contributions to the load context. Any changes made to this object will be applied.
+     * This should NEVER be stored or used after this constructor.
      */
-    constructor(loader, contribs) {}
+    constructor(loader, contribs)
+    {
+        this.loader = loader;
+    }
 
     /**
      * Any setup you've done in the constructor should be un-done here. You are

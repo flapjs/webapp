@@ -64,11 +64,12 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
 
             // TODO: This should be somewhere else.
             // Load from localStorage.
-            let data = localStorage.getItem('graphData');
+            let data = localStorage.getItem(graphType.name + '.graphData');
             let graphState = {};
             if (data)
             {
-                graphState = deserialize(graphType, JSON.parse(data));
+                let objectData = JSON.parse(data);
+                graphState = deserialize(graphType, objectData);
             }
 
             // GraphProvider
