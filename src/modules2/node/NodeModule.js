@@ -6,6 +6,7 @@ import ExportPanel from './ExportPanel.jsx';
 
 import NodeGraph from './nodegraph/NodeGraph.js';
 import NodeGraphPlayground from './nodegraph/NodeGraphPlayground.jsx';
+import NodeToolbar from './NodeToolbar.jsx';
 
 export default class NodeModule extends BaseModule
 {
@@ -33,6 +34,7 @@ export default class NodeModule extends BaseModule
     static get renders()
     {
         return {
+            appbar: [ NodeToolbar ],
             drawer: [ ExportPanel ],
         };
     }
