@@ -6,6 +6,7 @@ import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '@flapjs/module
 import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehavior.jsx';
 
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
+import { useSelectableBehavior } from '@flapjs/services2/graph/widgets/selection/SelectionBoxBehavior.jsx';
 
 export default function NodeElementComponent(props)
 {
@@ -31,11 +32,17 @@ export default function NodeElementComponent(props)
     // ... and also to end the creation plan...
     useProxyEdgeToBehavior(elementRef, node);
 
+    // Allows you to select it.
+    const selected = useSelectableBehavior(elementRef, node.id, { useButton: 0 });
+
     return (
         <>
         <NodeCircleRenderer
             x={node.x} y={node.y}
             label={node.label}
+            childProps={{
+                style: { outline: selected ? '0.1rem dashed gray' : 'none' }
+            }}
             maskProps={{ref: elementRef}}/>
         {props.children}
         </>

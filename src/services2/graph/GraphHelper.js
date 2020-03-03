@@ -40,3 +40,37 @@ export function UNSAFE_findGraphElementWithinPosition(graphState, elementType, x
     }
     return null;
 }
+
+/**
+ * Finds a graph element of the given type within the radius of the position.
+ * Assumes the given element type has "x" and "y" as properties describing their position.
+ * 
+ * @param {object} graphState The graph state containing the list of current elements.
+ * @param {Class<GraphElement>} elementType The element type to look for.
+ * @param {number} fromX The top left x position.
+ * @param {number} fromY The top left y position.
+ * @param {number} toX The bottom right x position.
+ * @param {number} toY The bottom right y position.
+ * @returns {Array<GraphElement>} The graph elements within the box. Empty array if not found.
+ */
+export function UNSAFE_findGraphElementsWithinBox(graphState, elementType, fromX, fromY, toX, toY)
+{
+    // Swap them if from is NOT less than to (and the same for both dimensions).
+    if (fromX > toX) { let x = toX; toX = fromX; fromX = x; }
+    if (fromY > toY) { let y = toY; toY = fromY; fromY = y; }
+
+    let dst = [];
+    let elements = UNSAFE_getGraphElements(graphState, elementType);
+    if (elements)
+    {
+        for(let element of Object.values(elements))
+        {
+            let { x, y } = element;
+            if (fromX <= x && x <= toX && fromY <= y && y <= toY)
+            {
+                dst.push(element);
+            }
+        }
+    }
+    return dst;
+}

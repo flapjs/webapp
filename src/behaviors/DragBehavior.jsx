@@ -13,6 +13,7 @@ const DEFAULT_OPTS = {
     useButton: undefined,
     /** Callbacks for when drag does something. */
     onDragBegin: null,
+    onDragMove: null,
     onDragEnd: null,
 };
 export function useDragBehavior(elementRef, pos, setPos, opts = {})
@@ -73,6 +74,11 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
                         CURRENT_DRAG_TARGET.beginCallback = opts.onDragBegin;
                     }
 
+                    if (opts.onDragMove)
+                    {
+                        CURRENT_DRAG_TARGET.moveCallback = opts.onDragMove;
+                    }
+
                     if (opts.onDragEnd)
                     {
                         CURRENT_DRAG_TARGET.endCallback = opts.onDragEnd;
@@ -94,6 +100,7 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
         opts.startBufferRadius,
         opts.preserveOffset,
         opts.onDragBegin,
+        opts.onDragMove,
         opts.onDragEnd,
     ]);
 
@@ -139,6 +146,7 @@ function setDragTarget(element, clientX, clientY, callback = () => {})
             onMouseUp: null,
             // Additional callback for the drag lifecycle. Set a callback here to listen for the corresponding events.
             beginCallback: null,
+            moveCallback: null,
             endCallback: null,
         };
         CURRENT_DRAG_TARGET.onAnimationFrame = onAnimationFrame.bind(CURRENT_DRAG_TARGET);
@@ -167,13 +175,29 @@ function onAnimationFrame(now)
         this.prevY = this.nextY;
 
         let point = transformScreenToView(this.element, this.nextX, this.nextY);
-        this.callback(point[0] - this.initialOffsetX, point[1] - this.initialOffsetY);
+        let x = point[0] - this.initialOffsetX;
+        let y = point[1] - this.initialOffsetY;
+
+        if (this.moveCallback)
+        {
+            let result = this.moveCallback.call(undefined, x, y);
+            if (Array.isArray(result))
+            {
+                x = result[0];
+                y = result[1];
+            }
+        }
+
+        this.callback(x, y);
     }
     else if (distance(this.prevX, this.prevY, this.nextX, this.nextY) > this.startRadius)
     {
         if (this.beginCallback)
         {
-            let result = this.beginCallback.call();
+            let point = transformScreenToView(this.element, this.nextX, this.nextY);
+            let x = point[0] - this.initialOffsetX;
+            let y = point[1] - this.initialOffsetY;
+            let result = this.beginCallback.call(undefined, x, y);
             if (!result) return;
         }
         this.started = true;
@@ -197,7 +221,11 @@ function onMouseUp(e)
         e.stopPropagation();
     
         this.callback(undefined, undefined, false);
-        if (this.endCallback) this.endCallback.call();
+        if (this.endCallback)
+        {
+            let point = transformScreenToView(this.element, this.nextX, this.nextY);
+            this.endCallback.call(undefined, point[0] - this.initialOffsetX, point[1] - this.initialOffsetY);
+        }
         
         return false;
     }

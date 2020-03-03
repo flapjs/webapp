@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 
+/**
+ * @param {Function} renderConnector A function to render the connector. It takes a from, to, and current cursor position objects.
+ * @returns {React.ReactNode} The rendered node.
+ */
 export function createConnector(renderConnector)
 {
     const connectorName = renderConnector.name;
@@ -17,7 +21,7 @@ export function createConnector(renderConnector)
             <>
             <ConnectorContext.Provider value={{ updateSource, setTarget, isActive }}>
                 {props.children}
-                {renderConnector(opts)}
+                {renderConnector(opts.from, opts.to, opts.cursor)}
             </ConnectorContext.Provider>
             </>
         );
@@ -27,11 +31,11 @@ export function createConnector(renderConnector)
         onConnect: PropTypes.func,
     };
     ConnectorProvider.defaultProps = {
-        onConnect: () => {},
+        onConnect: (from, to, cursor) => {},
     };
     ConnectorProvider.displayName = connectorName + '.ConnectorProvider';
 
-    function useConnectorFromBehavior(elementRef, fromTarget, dragBehaviorOpts = {})
+    function useConnectorFromBehavior(elementRef, fromTarget = null, dragBehaviorOpts = {})
     {
         const { updateSource } = useContext(ConnectorContext);
     
@@ -121,6 +125,8 @@ export function createConnector(renderConnector)
                 setActive(false);
             }
         },
+        // NOTE: We only care about updateCallback if active or from changes.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [ setActive, setFrom ]);
     
         const setTarget = useCallback((toTarget) =>

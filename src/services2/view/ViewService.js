@@ -1,8 +1,9 @@
 import BaseService from '@flapjs/services2/base/BaseService.js';
-import { ViewProvider } from './ViewContext.jsx';
-import ViewArea from './ViewArea.jsx';
-import PlayArea from './PlayArea.jsx';
 import { withChildSlot } from '@flapjs/util/slot/SlotHelper.js';
+
+import { ViewProvider } from './ViewContext.jsx';
+import ViewArea from './components/ViewArea.jsx';
+import PlayArea from './components/PlayArea.jsx';
 
 // NOTE: Maybe this should be called PlaygroundService?
 export default class ViewService extends BaseService

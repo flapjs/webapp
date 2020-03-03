@@ -4,10 +4,10 @@ import { createConnector } from '@flapjs/behaviors/ConnectBehaviorFactory.jsx';
 
 import ControlledEdgeElementComponent from '../components/ControlledEdgeElementComponent.jsx';
 
-const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector(opts =>
+const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector((from, to, cursor) =>
     <>
-    {opts.from &&
-    <ControlledEdgeElementComponent from={opts.from} to={opts.to || opts.cursor} opts={{
+    {from &&
+    <ControlledEdgeElementComponent from={from} to={to || cursor} opts={{
         forceLine: false,
         placeholderLength: 15,
     }}/>}

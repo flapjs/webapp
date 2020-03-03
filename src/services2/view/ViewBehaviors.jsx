@@ -33,7 +33,7 @@ export function useViewDoubleTapBehavior(callback)
     });
 }
 
-export function useViewNavigationBehavior()
+export function useViewNavigationBehavior(dragOpts = {})
 {
     const { svgRef, pos, setPos, scale, setScale } = useContext(ViewContext);
 
@@ -45,7 +45,7 @@ export function useViewNavigationBehavior()
     });
 
     // View manipulation...
-    const dragging = useDragBehavior(svgRef, pos, setPos, { preserveOffset: true });
+    const dragging = useDragBehavior(svgRef, pos, setPos, { ...dragOpts, preserveOffset: true });
     useZoomBehavior(svgRef, scale, setScale);
 
     return dragging;

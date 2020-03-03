@@ -4,9 +4,9 @@ import { createConnector } from '@flapjs/behaviors/ConnectBehaviorFactory.jsx';
 
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
 
-const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector(opts =>
+const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector((from, to, cursor) =>
 {
-    const target = opts.to || opts.cursor || null;
+    const target = to || cursor || null;
     return (
         <>
         {target &&

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { ViewContext } from './ViewContext.jsx';
+import { ViewContext } from '../ViewContext.jsx';
 
-import SVGPlayground from './svg/SVGPlayground.jsx';
+import SVGPlayground from '../svg/SVGPlayground.jsx';
 
 export default function PlayArea(props)
 {

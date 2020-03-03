@@ -10,6 +10,7 @@ import NodeElementComponent from '@flapjs/modules2/node/nodegraph/components/Nod
 import EdgeElementComponent from '@flapjs/modules2/node/nodegraph/components/EdgeElementComponent.jsx';
 
 import { ProxyEdgeProvider } from './widgets/ProxyEdgeContext.jsx';
+import { SelectionBoxProvider } from '@flapjs/services2/graph/widgets/selection/SelectionBoxContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviors.jsx';
 import { useNodeGraphActions } from './NodeGraphHooks.jsx';
@@ -18,16 +19,18 @@ export default function NodeGraphPlayground(props)
 {
     const { createNode, createEdge } = useNodeGraphActions();
 
-    useViewNavigationBehavior();
+    useViewNavigationBehavior({ useButton: 0 });
     useViewDoubleTapBehavior((x, y) => createNode({ x, y }));
 
     return (
         <>
-        <ProxyEdgeProvider onConnect={createEdge}>
-            <GraphElementComponentLayer elementType={NodeElement}>
-                {element => <NodeElementComponent element={element}/>}
-            </GraphElementComponentLayer>
-        </ProxyEdgeProvider>
+        <SelectionBoxProvider>
+            <ProxyEdgeProvider onConnect={createEdge}>
+                <GraphElementComponentLayer elementType={NodeElement}>
+                    {element => <NodeElementComponent element={element}/>}
+                </GraphElementComponentLayer>
+            </ProxyEdgeProvider>
+        </SelectionBoxProvider>
     
         <GraphElementComponentLayer elementType={EdgeElement}>
             {element => <EdgeElementComponent element={element}/>}

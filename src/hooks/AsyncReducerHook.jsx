@@ -1,5 +1,10 @@
 import { useState } from 'react';
 
+/**
+ * @param {Function} reducer The function used to "reduce" the state by the given action.
+ * @param {object} [initialState] The state it will start with.
+ * @returns {[object, Function, Function]} An array containing the current state, the dispatch() function, and a setStateImmediately() function.
+ */
 export function useAsyncReducer(reducer, initialState = {})
 {
     const [ state, setStateImmediately ] = useState(initialState);
