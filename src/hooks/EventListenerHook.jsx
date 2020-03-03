@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Logger from '@flapjs/util/Logger';
 
 /**
  * Adds and removes event listeners for the element.
@@ -15,6 +16,15 @@ export function useEventListeners(elementRef, eventListenerMap = {})
     useEffect(() =>
     {
         let element = elementRef.current;
+        if (!element)
+        {
+            // eslint-disable-next-line no-console
+            Logger.warn('EventListenerHook', 'Found null element from ref for listened events: '
+                + Object.keys(eventListenerMap).join(', ')
+                + '. There must be some mistake with the ref setup.');
+            return;
+        }
+
         for(let [key, listener] of Object.entries(eventListenerMap))
         {
             element.addEventListener(key.substring(2).toLowerCase(), listener);

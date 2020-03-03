@@ -76,7 +76,7 @@ export default function EdgeQuadraticRenderer(props)
                 label={label}
                 textDirection={labelDirection}
                 invertText={invertLabel}
-                childProps={labelProps}/>
+                maskProps={labelProps}/>
         </g>
     );
 }

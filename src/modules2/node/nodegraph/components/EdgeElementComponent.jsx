@@ -54,7 +54,6 @@ export default function EdgeElementComponent(props)
             QuadraticEdgeHelper.changeCenterPoint(value, from, to, edge);
             edge.markDirty();
         });
-        
     useDragBehavior(forwardEndpointRef, end,
         value =>
         {

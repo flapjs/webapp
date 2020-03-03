@@ -90,7 +90,7 @@ export default function GraphElementEditor(props)
     
     return (
         <dialog ref={editorRef} style={{ margin: 0 }} open={isOpen}>
-            <input ref={inputRef} type="text" value={input} onChange={e => setInput(e.target.value)}/>
+            <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
             <button onClick={() =>
             {
                 element.label = input;
