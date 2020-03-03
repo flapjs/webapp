@@ -1,8 +1,9 @@
 import BaseModule from '../base/BaseModule.js';
+import GraphService from '@flapjs/services2/graph/GraphService.js';
+import NotifyService from '@flapjs/services2/notify/NotifyService.js';
 
 import ExportPanel from './ExportPanel.jsx';
 
-import GraphService from '@flapjs/services2/graph/GraphService.js';
 import NodeGraph from './nodegraph/NodeGraph.js';
 import NodeGraphPlayground from './nodegraph/NodeGraphPlayground.jsx';
 
@@ -17,6 +18,7 @@ export default class NodeModule extends BaseModule
     static get services()
     {
         return [
+            NotifyService.withInitialMessages([ 'Welcome to Node Module!', 'I hope you have a wonderful time.', 'I really do.', 'Seriously.' ]),
             GraphService.withGraphType(NodeGraph, NodeGraphPlayground)
         ];
     }

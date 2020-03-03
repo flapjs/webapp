@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
-import { stringHash, uuid } from '@flapjs/util/MathHelper.js';
 
-import { UNSAFE_findMessagesWithConjunctiveTags } from './NotifyHelper.js';
+import { UNSAFE_findMessagesWithConjunctiveTags, UNSAFE_addNotifyMessageToState, UNSAFE_createNotifyMessage } from './NotifyHelper.js';
 
 export const NotifyStateContext = React.createContext();
 export const NotifyDispatchContext = React.createContext();
@@ -65,29 +64,16 @@ function NotifyReducer(state, action)
         case 'send':
         {
             let nextState = { ...state };
-
-            const { message, tags, component, props, replace } = action;
-            let notifyTags = tags || [ component.name ] || [ JSON.stringify(message) ];
-            let notifyMessageId = replace ? stringHash(notifyTags.sort().join('.')) : uuid();
-            let notifyComponent = component || null;
-            let notifyProps = props || {};
-            let notifyObject = { component: notifyComponent, props: notifyProps, message: message || '', messageId: notifyMessageId, messageTags: notifyTags };
-            
             if (!nextState.messages)
             {
                 nextState.messages = {};
                 nextState.tags = {};
             }
 
-            for(let tag of notifyTags)
-            {
-                let tagInfo;
-                if (!(tag in nextState.tags)) nextState.tags[tag] = { messages: {} };
-                tagInfo = nextState.tags[tag];
-                tagInfo.messages[notifyMessageId] = notifyObject;
-            }
+            const { message, component, props, tags, replace } = action;
+            const notifyMessage = UNSAFE_createNotifyMessage(message, component, props, tags, replace);
+            UNSAFE_addNotifyMessageToState(notifyMessage, nextState);
 
-            nextState.messages[notifyMessageId] = notifyObject;
             return nextState;
         }
         case 'dismiss':
