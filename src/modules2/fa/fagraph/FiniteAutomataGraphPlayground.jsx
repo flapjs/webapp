@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import GraphElementComponentLayer from '@flapjs/services2/graph/components/GraphElementComponentLayer.jsx';
 
 import { ProxyEdgeProvider } from '@flapjs/modules2/node/nodegraph/widgets/ProxyEdgeContext.jsx';
-import { StartMarkerProvider } from '@flapjs/services2/graph/widgets/StartMarkerContext.jsx';
+import { StartMarkerProvider } from './widgets/StartMarkerContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
 import { useNodeGraphActions } from '@flapjs/modules2/node/nodegraph/NodeGraphHooks.jsx';
