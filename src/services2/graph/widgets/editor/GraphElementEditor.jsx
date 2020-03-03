@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewContext } from '@flapjs/services2/view/ViewContext.jsx';
@@ -8,6 +8,7 @@ import { useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHo
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { transformViewToScreen } from '@flapjs/util/ViewHelper.js';
+import { useLayoutEffect } from 'react';
 
 export default function GraphElementEditor(props)
 {
@@ -65,11 +66,44 @@ export default function GraphElementEditor(props)
             }
         }
     });
+
+    const inputRef = useRef(null);
+    const [ wasOpen, setWasOpen ] = useState(false);
+    const [ input, setInput ] = useState('');
+
+    useLayoutEffect(() =>
+    {
+        if (isOpen !== wasOpen)
+        {
+            setWasOpen(isOpen);
+            if (isOpen)
+            {
+                inputRef.current.focus();
+                setInput(element.label || '');
+            }
+        }
+    },
+    // NOTE: Although this depends on "element.label" we only care when open changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ isOpen, wasOpen ]);
     
     return (
         <dialog ref={editorRef} style={{ margin: 0 }} open={isOpen}>
-            <input type="text"/>
-            <button onClick={() => closeEditor()}>Submit</button>
+            <input ref={inputRef} type="text" value={input} onChange={e => setInput(e.target.value)}/>
+            <button onClick={() =>
+            {
+                element.label = input;
+                element.markDirty();
+                closeEditor();
+            }}>
+                Submit
+            </button>
+            <button onClick={() =>
+            {
+                closeEditor();
+            }}>
+                Cancel
+            </button>
         </dialog>
     );
 }

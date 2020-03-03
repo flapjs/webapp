@@ -10,5 +10,5 @@ export function useGraphElementEditorBehavior(elementRef, graphElement, disabled
     {
         openEditor(graphElement.type, graphElement.id);
     },
-    { useButton: 2, ...tapOpts });
+    { ...tapOpts });
 }

@@ -2,6 +2,8 @@
 
 Cause graphs are hard.
 
+## My Graph Design Thought Process
+
 What if I want to access a graph element's state in render()?
 > For example: `<... disabled={state.active}/>`
 - You'll need to re-render if it changes.
@@ -38,7 +40,6 @@ Example: When click on button, clear all node elements.
 - `const [nodes, updateNodes] = useGraphElements(NodeType)`
 Example: When click on button, rearrange all nodes to a certain layout.
 - `const [nodes, updateNodes] = useGraphElements(NodeType)`
-
 
 What about undo/redo?
 - Every few seconds serialize the entire graph and check if it has changed.

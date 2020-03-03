@@ -18,7 +18,7 @@ export default function NodeElementComponent(props)
     const startMarkerRef = useRef(null);
 
     // Lets you open the editor...
-    useGraphElementEditorBehavior(elementRef, node);
+    useGraphElementEditorBehavior(elementRef, node, false, { useButton: 2 });
 
     // Left drag to move node...
     useDragBehavior(elementRef, node, ({ x, y }) =>

@@ -17,7 +17,7 @@ export default function EdgeQuadraticRenderer(props)
 {
     const { start, end, center,
         label, labelDirection, labelKeepUp,
-        childProps, maskProps,
+        childProps, maskProps, labelProps,
         renderEndpoint } = props;
 
     let fromPoint = start;
@@ -75,7 +75,8 @@ export default function EdgeQuadraticRenderer(props)
                 x={centerPoint.x} y={centerPoint.y}
                 label={label}
                 textDirection={labelDirection}
-                invertText={invertLabel}/>
+                invertText={invertLabel}
+                childProps={labelProps}/>
         </g>
     );
 }
@@ -102,6 +103,7 @@ EdgeQuadraticRenderer.propTypes = {
     labelKeepUp: PropTypes.bool,
     childProps: PropTypes.object,
     maskProps: PropTypes.object,
+    labelProps: PropTypes.object,
     /**
      * @param {object} point The position of the endpoint.
      * @param {number} angle The angle of the endpoint (towards the "end" from "center").
@@ -117,4 +119,5 @@ EdgeQuadraticRenderer.defaultProps = {
     labelKeepUp: false,
     childProps: {},
     maskProps: {},
+    labelProps: {},
 };

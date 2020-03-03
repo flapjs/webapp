@@ -20,13 +20,16 @@ import EdgeElement from '../elements/edge/EdgeElement.js';
 export default function EdgeElementComponent(props)
 {
     const { element: edge } = props;
+    
+    const graphState = useContext(GraphStateContext);
+    const elementRef = useRef(null);
+    const labelRef = useRef(null);
+    const forwardEndpointRef = useRef(null);
 
     const forceUpdate = useForceUpdate();
     const from = useGraphElement(NodeElement, edge.fromId, forceUpdate);
     const sourceTo = useGraphElement(NodeElement, edge.toId, forceUpdate);
     const to = sourceTo || edge.proxyTo;
-
-    const graphState = useContext(GraphStateContext);
 
     let start = QuadraticEdgeHelper.getStartPoint(from, to, edge);
     let end = QuadraticEdgeHelper.getEndPoint(from, to, edge);
@@ -41,10 +44,8 @@ export default function EdgeElementComponent(props)
         EdgeElement.updatePosition(edge, center.x, center.y);
         edge.markDirty();
     }
-    
-    const elementRef = useRef(null);
 
-    useGraphElementEditorBehavior(elementRef, edge);
+    useGraphElementEditorBehavior(labelRef, edge);
 
     useDragBehavior(elementRef, center,
         value =>
@@ -52,7 +53,7 @@ export default function EdgeElementComponent(props)
             QuadraticEdgeHelper.changeCenterPoint(value, from, to, edge);
             edge.markDirty();
         });
-    const forwardEndpointRef = useRef(null);
+        
     useDragBehavior(forwardEndpointRef, end,
         value =>
         {
@@ -109,7 +110,8 @@ export default function EdgeElementComponent(props)
             label={edge.label}
             labelDirection={normal}
             labelKeepUp={true}
-            maskProps={{ref: elementRef}}
+            maskProps={{ ref: elementRef }}
+            labelProps={{ ref: labelRef }}
             renderEndpoint={(point, angle, direction) =>
             {
                 if (direction === 'forward')
