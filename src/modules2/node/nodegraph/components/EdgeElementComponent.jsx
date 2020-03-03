@@ -45,6 +45,7 @@ export default function EdgeElementComponent(props)
         edge.markDirty();
     }
 
+    useGraphElementEditorBehavior(elementRef, edge, false, { useButton: 2 });
     useGraphElementEditorBehavior(labelRef, edge);
 
     useDragBehavior(elementRef, center,

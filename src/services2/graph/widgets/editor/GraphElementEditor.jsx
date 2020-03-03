@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from 'react';
+import React, { useContext, useRef, useEffect, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewContext } from '@flapjs/services2/view/ViewContext.jsx';
@@ -8,12 +8,13 @@ import { useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHo
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { transformViewToScreen } from '@flapjs/util/ViewHelper.js';
-import { useLayoutEffect } from 'react';
+import { GraphDispatchContext } from '../../GraphContext.jsx';
 
 export default function GraphElementEditor(props)
 {
     const { offset } = props;
     const { elementType, elementId, isOpen, closeEditor } = useContext(GraphElementEditorContext);
+    const graphDispatch = useContext(GraphDispatchContext);
 
     const forceUpdate = useForceUpdate();
     const element = useGraphElement(elementType, elementId, forceUpdate);
@@ -103,6 +104,13 @@ export default function GraphElementEditor(props)
                 closeEditor();
             }}>
                 Cancel
+            </button>
+            <button onClick={() =>
+            {
+                graphDispatch({ type: 'delete', elementType, elementId });
+                closeEditor();
+            }}>
+                Delete This
             </button>
         </dialog>
     );

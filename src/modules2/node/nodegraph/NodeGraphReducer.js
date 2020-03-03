@@ -26,7 +26,7 @@ export default function GraphReducer(prev, action)
                 let element = nextElements[action.elementId];
                 delete nextElements[action.elementId];
                 next[key] = nextElements;
-                element.destroy();
+                element.onDestroy();
             }
             return next;
         }

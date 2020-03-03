@@ -18,7 +18,7 @@ export function useGraphUpdateCycle(state)
                     if (element.isDirty())
                     {
                         element.markDirty(false);
-                        element.update();
+                        element.onUpdate();
                         for(let listener of getElementListeners(element))
                         {
                             listener.call(undefined, element);

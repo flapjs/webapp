@@ -35,14 +35,14 @@ export default class GraphElement
      * 
      * @abstract
      */
-    update() {}
+    onUpdate() {}
 
     /**
      * Called when this element is removed from the graph.
      * 
      * @abstract
      */
-    destroy() {}
+    onDestroy() {}
 
     markDirty(force = true) { this[DIRTY] = force; }
     isDirty() { return this[DIRTY]; }
