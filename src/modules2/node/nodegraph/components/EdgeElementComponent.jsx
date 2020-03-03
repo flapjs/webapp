@@ -2,7 +2,7 @@ import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
-import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehavior.jsx';
+import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 import { useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
 import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehavior.jsx';
 

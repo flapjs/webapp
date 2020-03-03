@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createConnector } from '@flapjs/hooks/behaviors/ConnectBehaviorFactory.jsx';
+import { createConnector } from '@flapjs/behaviors/ConnectBehaviorFactory.jsx';
 
 import MarkerTriangleRenderer from '@flapjs/renderers/markers/MarkerTriangleRenderer.jsx';
 

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useTapBehavior } from '@flapjs/hooks/behaviors/TapBehavior.jsx';
+import { useTapBehavior } from '@flapjs/behaviors/TapBehavior.jsx';
 
 import { GraphElementEditorContext } from './GraphElementEditorContext.jsx';
 

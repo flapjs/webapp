@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehavior.jsx';
+import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 import { useProxyEdgeFromBehavior, useProxyEdgeToBehavior } from '@flapjs/modules2/node/nodegraph/widgets/ProxyEdgeContext.jsx';
 import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehavior.jsx';
 import { useStartMarkerFromBehavior, useStartMarkerToBehavior } from '../widgets/StartMarkerContext.jsx';

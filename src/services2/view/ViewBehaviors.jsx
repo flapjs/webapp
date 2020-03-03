@@ -2,11 +2,12 @@ import { useContext } from 'react';
 
 import { ViewContext } from './ViewContext.jsx';
 
-import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehavior.jsx';
-import { useZoomBehavior } from '@flapjs/hooks/behaviors/ZoomBehavior.jsx';
 import { useEventListeners } from '@flapjs/hooks/EventListenerHook.jsx';
-import { useDoubleTapBehavior } from '@flapjs/hooks/behaviors/DoubleTapBehavior.jsx';
-import { useTapBehavior } from '@flapjs/hooks/behaviors/TapBehavior.jsx';
+
+import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
+import { useZoomBehavior } from '@flapjs/behaviors/ZoomBehavior.jsx';
+import { useDoubleTapBehavior } from '@flapjs/behaviors/DoubleTapBehavior.jsx';
+import { useTapBehavior } from '@flapjs/behaviors/TapBehavior.jsx';
 
 import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
 

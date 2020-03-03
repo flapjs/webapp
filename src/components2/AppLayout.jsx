@@ -7,7 +7,7 @@ import AppBar from './appbar/AppBar.jsx';
 import Workspace from './workspace/Workspace.jsx';
 import Viewport from './viewport/Viewport.jsx';
 
-import Logo from './Logo.jsx';
+import Logo from './logo/Logo.jsx';
 import ModuleSelector from './ModuleSelector.jsx';
 
 export default function AppLayout(props)
