@@ -6,7 +6,7 @@ import GraphElementComponentLayer from '@flapjs/services2/graph/components/Graph
 import { ProxyEdgeProvider } from '@flapjs/modules2/node/nodegraph/widgets/ProxyEdgeContext.jsx';
 import { StartMarkerProvider } from './widgets/StartMarkerContext.jsx';
 
-import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
+import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviors.jsx';
 import { useNodeGraphActions } from '@flapjs/modules2/node/nodegraph/NodeGraphHooks.jsx';
 
 import NodeElement from '@flapjs/modules2/node/nodegraph/elements/node/NodeElement.js';

@@ -5,7 +5,7 @@ export default function ViewArea(props)
 {
     return (
         <>
-            {props.children}
+        {props.children}
         </>
     );
 }

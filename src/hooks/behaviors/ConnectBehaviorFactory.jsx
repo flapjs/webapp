@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
+import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehavior.jsx';
 
 export function createConnector(renderConnector)
 {

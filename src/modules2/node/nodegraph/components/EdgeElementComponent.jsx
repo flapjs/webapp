@@ -2,9 +2,9 @@ import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
-import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehaviorHook.jsx';
+import { useDragBehavior } from '@flapjs/hooks/behaviors/DragBehavior.jsx';
 import { useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
-import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehaviorHook.jsx';
+import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehavior.jsx';
 
 import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer.jsx';
 import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';

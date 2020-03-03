@@ -11,7 +11,7 @@ import EdgeElementComponent from '@flapjs/modules2/node/nodegraph/components/Edg
 
 import { ProxyEdgeProvider } from './widgets/ProxyEdgeContext.jsx';
 
-import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviorHooks.jsx';
+import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services2/view/ViewBehaviors.jsx';
 import { useNodeGraphActions } from './NodeGraphHooks.jsx';
 
 export default function NodeGraphPlayground(props)
