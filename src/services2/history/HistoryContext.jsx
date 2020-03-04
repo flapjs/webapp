@@ -44,29 +44,43 @@ function HistoryReducer(state, action)
     {
         case 'undo':
         {
-            let nextState = { ...state };
-            if (nextState.historyIndex <= 1)
+            if (state.historyIndex <= 0)
             {
-                nextState.historyIndex = 0;
+                return state;
             }
             else
             {
-                nextState.historyIndex -= 1;
+                let nextState = { ...state };
+                if (nextState.historyIndex <= 1)
+                {
+                    nextState.historyIndex = 0;
+                }
+                else
+                {
+                    nextState.historyIndex -= 1;
+                }
+                return nextState;
             }
-            return nextState;
         }
         case 'redo':
         {
-            let nextState = { ...state };
-            if (nextState.historyIndex >= nextState.history.length - 2)
+            if (state.historyIndex >= state.history.length - 1)
             {
-                nextState.historyIndex = nextState.history.length - 1;
+                return state;
             }
             else
             {
-                nextState.historyIndex += 1;
+                let nextState = { ...state };
+                if (nextState.historyIndex >= nextState.history.length - 2)
+                {
+                    nextState.historyIndex = nextState.history.length - 1;
+                }
+                else
+                {
+                    nextState.historyIndex += 1;
+                }
+                return nextState;
             }
-            return nextState;
         }
         case 'commit':
         {
@@ -88,10 +102,17 @@ function HistoryReducer(state, action)
         }
         case 'clear':
         {
-            let nextState = { ...state };
-            nextState.history.length = 0;
-            nextState.historyIndex = 0;
-            return nextState;
+            if (state.history.length <= 0)
+            {
+                return state;
+            }
+            else
+            {
+                let nextState = { ...state };
+                nextState.history.length = 0;
+                nextState.historyIndex = 0;
+                return nextState;
+            }
         }
     }
 }
