@@ -1,5 +1,4 @@
 export const FILE_TYPE_PNG = 'png';
-export const FILE_TYPE_JPG = 'jpg';
 export const FILE_TYPE_SVG = 'svg';
 
 export function downloadText(filename, textData)
@@ -13,7 +12,6 @@ export function downloadImageFromSVG(filename, filetype, svg, width, height)
     switch (filetype)
     {
         case FILE_TYPE_PNG:
-        case FILE_TYPE_JPG:
             {
                 const url = URL.createObjectURL(blob);
 
@@ -33,7 +31,7 @@ export function downloadImageFromSVG(filename, filetype, svg, width, height)
                     URL.revokeObjectURL(url);
 
                     const imageURI = canvas.toDataURL('image/' + filetype).replace('image/' + filetype, 'image/octet-stream');
-                    downloadURL(filename + '.' + filetype, imageURI);
+                    downloadURL(filename, imageURI);
                 };
                 image.src = url;
             }
@@ -43,7 +41,7 @@ export function downloadImageFromSVG(filename, filetype, svg, width, height)
                 const reader = new FileReader();
                 reader.onload = () => 
                 {
-                    downloadURL(filename + '.' + filetype, reader.result);
+                    downloadURL(filename, reader.result);
                 };
                 reader.readAsDataURL(blob);
             }
@@ -70,10 +68,43 @@ export function downloadURL(filename, url)
 
 function createBlobFromSVG(svg)
 {
+    const styledSVG = computeSVGStyles(svg);
     const serializer = new XMLSerializer();
-    const svgString = serializer.serializeToString(svg);
+    const svgString = serializer.serializeToString(styledSVG);
     const blob = new Blob([svgString], { type: 'image/svg+xml' });
     return blob;
+}
+
+// SOURCE: https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser/44769098#44769098
+const SVG_CONTAINERS = ['svg', 'g'];
+function computeSVGStyles(svg, dst = svg.cloneNode(true))
+{
+    let sourceChildren = svg.childNodes;
+    let children = dst.childNodes;
+
+    for (var index = 0; index < children.length; index++)
+    {
+        let child = children[index];
+        let tagName = child.tagName;
+        if (SVG_CONTAINERS.indexOf(tagName) != -1)
+        {
+            computeSVGStyles(sourceChildren[index], child);
+        }
+        else if (sourceChildren[index] instanceof Element)
+        {
+            const computedStyle = window.getComputedStyle(sourceChildren[index]);
+
+            let styleAttributes = [];
+            for(let styleName of Object.keys(computedStyle))
+            {
+                styleAttributes.push(`${styleName}:${computedStyle.getPropertyValue(styleName)};`);
+            }
+
+            child.setAttribute('style', styleAttributes.join(''));
+        }
+    }
+
+    return dst;
 }
 
 function getTextDataURI(data)

@@ -7,7 +7,7 @@ const MASK_RADIUS_OFFSET = 4;
 export default function NodeCircleRenderer(props)
 {
     const { x, y, radius, inner, label, childProps, maskProps } = props;
-    
+
     let labels = label && label.split('\n');
     return (
         <>
