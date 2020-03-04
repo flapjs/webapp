@@ -15,10 +15,23 @@ export default function NodeToolbar(props)
     const { svgRef } = useContext(ViewContext);
 
     return (
+        <>
+        <fieldset>
+            <button onClick={() => {}}>Undo</button>
+            <button>Redo</button>
+        </fieldset>
         <fieldset>
             <button onClick={() => graphDispatch('clearAll')}>
                 Clear Graph
             </button>
+            <button onClick={() =>
+            {
+                Downloader.downloadImageFromSVG('Untitled.png', Downloader.FILE_TYPE_PNG, svgRef.current, 640, 480);
+            }}>
+                Export Image
+            </button>
+        </fieldset>
+        <fieldset>
             <button onClick={() =>
             {
                 let data = serialize(graphType, graphState);
@@ -33,12 +46,7 @@ export default function NodeToolbar(props)
                     deserialize(graphType, data);
                 });
             }}/>
-            <button onClick={() =>
-            {
-                Downloader.downloadImageFromSVG('Untitled.png', Downloader.FILE_TYPE_PNG, svgRef.current, 640, 480);
-            }}>
-                Export As Image
-            </button>
         </fieldset>
+        </>
     );
 }

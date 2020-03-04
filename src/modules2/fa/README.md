@@ -14,9 +14,9 @@
     - ~~Autosave~~ POSTPONED!
     - ~~Load from Saves~~ COMPLETE!
     - ~~Export to Images~~ COMPLETE!
+    - ~~Notifications~~ COMPLETE!
     - Session-specific Storage
     - Lanuage Select
-    - ~~Notifications~~ COMPLETE!
     - Undo / Redo
     - Real-time Analysis
     - Localization

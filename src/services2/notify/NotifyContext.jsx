@@ -27,13 +27,11 @@ export const NotifyDispatchContext = React.createContext();
  */
 export function NotifyProvider(props)
 {
-    const { notifyState } = props;
-
-    const [ state, dispatch ] = useAsyncReducer(NotifyReducer, notifyState, true);
+    const [ notifyState, notifyDispatch ] = useAsyncReducer(NotifyReducer, props.notifyState, true);
 
     return (
-        <NotifyStateContext.Provider value={state}>
-            <NotifyDispatchContext.Provider value={dispatch}>
+        <NotifyStateContext.Provider value={notifyState}>
+            <NotifyDispatchContext.Provider value={notifyDispatch}>
                 {props.children}
             </NotifyDispatchContext.Provider>
         </NotifyStateContext.Provider>
