@@ -61,6 +61,8 @@ function NotifyReducer(state, action)
     {
         case 'send':
         {
+            const { message, component, props, tags, replace } = action;
+
             let nextState = { ...state };
             if (!nextState.messages)
             {
@@ -68,7 +70,6 @@ function NotifyReducer(state, action)
                 nextState.tags = {};
             }
 
-            const { message, component, props, tags, replace } = action;
             const notifyMessage = UNSAFE_createNotifyMessage(message, component, props, tags, replace);
             UNSAFE_addNotifyMessageToState(notifyMessage, nextState);
 
@@ -76,10 +77,11 @@ function NotifyReducer(state, action)
         }
         case 'dismiss':
         {
+            const { messageId, tags } = action;
+
             let nextState = { ...state };
             if (!nextState.messages) return nextState;
 
-            const { messageId, tags } = action;
             if (messageId)
             {
                 if (messageId in nextState.messages)
