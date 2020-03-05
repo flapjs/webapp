@@ -11,10 +11,10 @@ import FiniteAutomataGraphPlayground from './fagraph/FiniteAutomataGraphPlaygrou
 import AutoInit from './AutoInit.jsx';
 import AutoSave from './AutoSave.jsx';
 
-import OverviewPanel from './drawer/OverviewPanel.jsx';
-import AnalysisPanel from './drawer/AnalysisPanel.jsx';
-import TestingPanel from './drawer/TestingPanel.jsx';
-import ExportPanel from './drawer/ExportPanel.jsx';
+import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
+import AnalysisPanel from './drawer/analysis/AnalysisPanel.jsx';
+import TestingPanel from './drawer/testing/TestingPanel.jsx';
+import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {

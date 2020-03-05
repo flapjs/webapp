@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createTabWithIcon } from './DrawerHelper.js';
+import { createTabWithIcon } from '@flapjs/components2/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 
 export default function OverviewPanel(props)
@@ -10,6 +10,9 @@ export default function OverviewPanel(props)
         <header>
             <h2>Overview</h2>
         </header>
+        <section>
+            Hello
+        </section>
         </>
     );
 }
