@@ -92,18 +92,32 @@ function HistoryReducer(state, action)
             if (sourceState.history.length > 0
                 && sourceState.history[sourceState.historyIndex].hash === sourceHash) return;
             
-            // Cycle it.
-            if (sourceState.history.length >= MAX_HISTORY_LENGTH)
-            {
-                sourceState.history.shift();
-            }
-            // Makes sure the historyIndex is updated.
-            else if (sourceState.historyIndex === sourceState.history.length - 1)
-            {
-                sourceState.historyIndex += 1;
-            }
-            sourceState.history.push({ data, hash: sourceHash });
+            let { historyIndex, history } = sourceState;
+            let historyLength = history.length;
 
+            // Cycle it.
+            if (historyLength >= MAX_HISTORY_LENGTH)
+            {
+                if (historyIndex >= MAX_HISTORY_LENGTH - 1) historyIndex = MAX_HISTORY_LENGTH - 2;
+                history.shift();
+            }
+            // Push it at current index.
+            else
+            {
+                if (historyIndex >= historyLength - 1)
+                {
+                    historyIndex = historyLength;
+                }
+                else
+                {
+                    history.length = historyIndex + 1;
+                    historyIndex += 1;
+                }
+            }
+
+            history.push({ data, hash: sourceHash });
+            sourceState.historyIndex = historyIndex;
+            
             return { ...state };
         }
         case 'clear':

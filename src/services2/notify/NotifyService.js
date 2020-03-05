@@ -19,6 +19,7 @@ export default class NotifyService extends BaseService
     /** @override */
     static get serviceVersion() { return '1.0.0'; }
 }
+
 NotifyService.withInitialMessages = (initialMessages, defaultMessageComponent = undefined) =>
 {
     return class extends NotifyService

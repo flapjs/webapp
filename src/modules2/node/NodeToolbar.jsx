@@ -60,7 +60,8 @@ export default function NodeToolbar(props)
             </button>
             <Upload onUpload={fileBlob =>
             {
-                transformFileBlobToText(fileBlob).then(data => GraphStateDeserializer(graphType, data));
+                let graphState = transformFileBlobToText(fileBlob).then(data => GraphStateDeserializer(graphType, data));
+                graphDispatch({ type: 'resetState', state: graphState });
             }}/>
         </fieldset>
         </>

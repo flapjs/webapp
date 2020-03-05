@@ -7,7 +7,6 @@ import { GraphElementEditorProvider } from './widgets/editor/GraphElementEditorC
 import BaseGraph from './BaseGraph.js';
 
 import GraphElementEditor from './widgets/editor/GraphElementEditor.jsx';
-import GraphStateDeserializer from './GraphStateDeserializer.js';
 
 export default class GraphService extends BaseService
 {
@@ -31,11 +30,6 @@ export default class GraphService extends BaseService
     }
     /** @override */
     static get serviceVersion() { return '1.0.0'; }
-
-    constructor(loader, contribs)
-    {
-        super(loader, contribs);
-    }
 }
 
 /**
@@ -61,18 +55,6 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
             {
                 contribs.playarea[0] = { component: graphPlayground };
             }
-
-            // TODO: This should be somewhere else.
-            // Load from localStorage.
-            let data = localStorage.getItem(graphType.name + '.graphData');
-            let graphState = {};
-            if (data)
-            {
-                graphState = GraphStateDeserializer(graphType, data);
-            }
-
-            // GraphProvider
-            contribs.providers[0].props.graphState = graphState;
         }
     };
 };
