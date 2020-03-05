@@ -1,8 +1,8 @@
 import { computeElementsKey } from './GraphHelper';
 
-export default function GraphStateDeserializer(graphType, data)
+export default function GraphStateDeserializer(graphType, graphData)
 {
-    const dataObject = JSON.parse(data);
+    const dataObject = JSON.parse(graphData);
 
     let graphState = {};
 

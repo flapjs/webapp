@@ -134,5 +134,10 @@ function HistoryReducer(state, action)
 
             return { ...state };
         }
+        case 'resetState':
+        {
+            const { state } = action;
+            return state;
+        }
     }
 }

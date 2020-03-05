@@ -13,9 +13,8 @@ export default function AutoInit()
         if (!init)
         {
             // Load from localStorage.
-            const dataKey = graphType.name + '.graphData';
-            const data = localStorage.getItem(dataKey);
-            let graphState = GraphStateDeserializer(graphType, data);
+            const graphData = localStorage.getItem(graphType.name + '.graphData');
+            let graphState = GraphStateDeserializer(graphType, graphData);
             graphDispatch({ type: 'resetState', state: graphState });
     
             // End init.
