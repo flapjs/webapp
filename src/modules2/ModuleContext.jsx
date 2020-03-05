@@ -5,7 +5,7 @@ import Logger from '@flapjs/util/Logger.js';
 import * as URLHelper from '@flapjs/util/URLHelper.js';
 import * as ModuleLoader from './ModuleLoader.js';
 
-const FALLBACK_MODULE_ID = 'node';
+const FALLBACK_MODULE_ID = null;
 
 export const ModuleContext = React.createContext();
 

@@ -5,7 +5,7 @@ import * as ModuleRegistry from '@flapjs/modules2/ModuleRegistry.js';
 
 export default function ModuleSelector(props)
 {
-    const { moduleId, /* setModuleId */ } = useContext(ModuleContext);
+    const { moduleId, setModuleId } = useContext(ModuleContext);
     const [ nextModuleId, setNextModuleId ] = useState(moduleId);
 
     const moduleIds = Object.keys(ModuleRegistry);
@@ -16,7 +16,7 @@ export default function ModuleSelector(props)
                 onClick={() => setNextModuleId(moduleId)}>
                 {'Not Now.'}
             </button>
-            <select className={Style.selector} value={nextModuleId}
+            <select className={Style.selector} value={nextModuleId || ''}
                 onChange={e => e.target.blur() /* Force a change to commit. */}
                 onBlur={e => setNextModuleId(e.target.value)}>
                 {moduleIds.map(moduleId => (
@@ -28,6 +28,8 @@ export default function ModuleSelector(props)
                 disabled={!nextModuleId || moduleId === nextModuleId}
                 onClick={() =>
                 {
+                    /*
+                    // To switch by forcing the url...
                     let string = window.location.href;
                     let index = string.lastIndexOf('?');
                     if (index)
@@ -38,9 +40,10 @@ export default function ModuleSelector(props)
                     {
                         window.location = string + '?module=' + nextModuleId;
                     }
+                    */
 
                     // Or to silently switch modules...
-                    // setModuleId(nextModuleId);
+                    setModuleId(nextModuleId);
                 }}>
                 {'Let\'s Go!'}
             </button>
