@@ -8,7 +8,7 @@ export default function Logo(props)
     return (
         <div className={Style.container}>
             <span className={Style.logo}>
-                <h2 className={Style.title}>{title}</h2>
+                <h1 className={Style.title}>{title}</h1>
                 <p className={Style.version}>{version}</p>
             </span>
         </div>

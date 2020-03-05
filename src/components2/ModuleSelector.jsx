@@ -5,7 +5,7 @@ import * as ModuleRegistry from '@flapjs/modules2/ModuleRegistry.js';
 
 export default function ModuleSelector(props)
 {
-    const { moduleId, setModuleId } = useContext(ModuleContext);
+    const { moduleId, /* setModuleId */ } = useContext(ModuleContext);
     const [ nextModuleId, setNextModuleId ] = useState(moduleId);
 
     const moduleIds = Object.keys(ModuleRegistry);
@@ -26,7 +26,22 @@ export default function ModuleSelector(props)
             </select>
             <button className={Style.launcher}
                 disabled={!nextModuleId || moduleId === nextModuleId}
-                onClick={() => setModuleId(nextModuleId)}>
+                onClick={() =>
+                {
+                    let string = window.location.href;
+                    let index = string.lastIndexOf('?');
+                    if (index)
+                    {
+                        window.location = string.substring(0, index) + '?module=' + nextModuleId;
+                    }
+                    else
+                    {
+                        window.location = string + '?module=' + nextModuleId;
+                    }
+
+                    // Or to silently switch modules...
+                    // setModuleId(nextModuleId);
+                }}>
                 {'Let\'s Go!'}
             </button>
         </div>

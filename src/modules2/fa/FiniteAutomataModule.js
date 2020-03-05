@@ -11,6 +11,11 @@ import FiniteAutomataGraphPlayground from './fagraph/FiniteAutomataGraphPlaygrou
 import AutoInit from './AutoInit.jsx';
 import AutoSave from './AutoSave.jsx';
 
+import OverviewPanel from './drawer/OverviewPanel.jsx';
+import AnalysisPanel from './drawer/AnalysisPanel.jsx';
+import TestingPanel from './drawer/TestingPanel.jsx';
+import ExportPanel from './drawer/ExportPanel.jsx';
+
 export default class FiniteAutomataModule extends BaseModule
 {
     /** @override */
@@ -24,7 +29,8 @@ export default class FiniteAutomataModule extends BaseModule
         return {
             header: [ AutoInit, AutoSave ],
             appbar: [ FiniteAutomataToolbar ],
-            viewarea: [ FiniteAutomataForeground ]
+            viewarea: [ FiniteAutomataForeground ],
+            drawer: [ OverviewPanel, AnalysisPanel, TestingPanel, ExportPanel ],
         };
     }
 
