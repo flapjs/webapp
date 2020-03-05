@@ -11,12 +11,12 @@
     - ~~Import~~ COMPLETE!
     - ~~Save~~ COMPLETE!
 - Services
-    - ~~Autosave~~ POSTPONED!
+    - ~~Autosave~~ COMPLETE!
     - ~~Load from Saves~~ COMPLETE!
     - ~~Export to Images~~ COMPLETE!
     - ~~Notifications~~ COMPLETE!
     - ~~Undo / Redo~~ COMPLETE!
-    - Session-specific Storage
+    - ~~Session-specific Storage~~ PARTIAL!
     - Lanuage Select
     - Real-time Analysis
     - Localization

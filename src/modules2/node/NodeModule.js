@@ -29,12 +29,6 @@ export default class NodeModule extends BaseModule
     }
 
     /** @override */
-    static get providers()
-    {
-        return [];
-    }
-
-    /** @override */
     static get renders()
     {
         return {

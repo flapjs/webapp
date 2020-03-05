@@ -1,11 +1,15 @@
 import BaseModule from '../base/BaseModule.js';
 import GraphService from '@flapjs/services2/graph/GraphService.js';
 import NotifyService from '@flapjs/services2/notify/NotifyService.js';
+import HistoryService from '@flapjs/services2/history/HistoryService.js';
 
 import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataForeground from './FiniteAutomataForeground.jsx';
 import FiniteAutomataGraph from './fagraph/FiniteAutomataGraph.js';
 import FiniteAutomataGraphPlayground from './fagraph/FiniteAutomataGraphPlayground.jsx';
+
+import AutoInit from './AutoInit.jsx';
+import AutoSave from './AutoSave.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -18,6 +22,7 @@ export default class FiniteAutomataModule extends BaseModule
     static get renders()
     {
         return {
+            header: [ AutoInit, AutoSave ],
             appbar: [ FiniteAutomataToolbar ],
             viewarea: [ FiniteAutomataForeground ]
         };
@@ -27,6 +32,7 @@ export default class FiniteAutomataModule extends BaseModule
     static get services()
     {
         return [
+            HistoryService,
             NotifyService.withInitialMessages([ 'Hello' ]),
             GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground),
         ];
