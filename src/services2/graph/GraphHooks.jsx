@@ -1,36 +1,31 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
+
+import { useUpdateCycle } from '@flapjs/hooks/UpdateCycleHook.jsx';
 import { getElementListeners } from './elements/GraphElementListener.js';
 
 export function useGraphUpdateCycle(state)
 {
-    // NOTE: Manages the graph element dirty/update cycle.
-    useEffect(() =>
+    const updateCallback = useCallback(() =>
     {
-        let animationFrameHandle = requestAnimationFrame(onAnimationFrame);
-        function onAnimationFrame(now)
+        for(let elementByIds of Object.values(state))
         {
-            animationFrameHandle = requestAnimationFrame(onAnimationFrame);
-            for(let elementByIds of Object.values(state))
+            for(let element of Object.values(elementByIds))
             {
-                for(let element of Object.values(elementByIds))
+                // This is where all elements are washed (updated) if they are dirty :P
+                if (element.isDirty())
                 {
-                    // This is where all elements are washed (updated) if they are dirty :P
-                    if (element.isDirty())
+                    element.markDirty(false);
+                    element.onUpdate();
+                    for(let listener of getElementListeners(element))
                     {
-                        element.markDirty(false);
-                        element.onUpdate();
-                        for(let listener of getElementListeners(element))
-                        {
-                            listener.call(undefined, element);
-                        }
+                        listener.call(undefined, element);
                     }
                 }
             }
         }
-        return () =>
-        {
-            cancelAnimationFrame(animationFrameHandle);
-        };
     },
     [ state ]);
+
+    // NOTE: Manages the graph element dirty/update cycle.
+    useUpdateCycle(updateCallback);
 }

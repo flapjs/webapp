@@ -10,7 +10,12 @@ const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = 
     return (
         <>
         {target &&
-        <MarkerTriangleRenderer x={target.x} y={target.y} offset={target.radius || 0}childProps={{pointerEvents: 'none'}} maskProps={{pointerEvents: 'none'}}/>}
+        <MarkerTriangleRenderer
+            x={target.x}
+            y={target.y}
+            offset={target.radius || 0}
+            childProps={{pointerEvents: 'none'}}
+            maskProps={{pointerEvents: 'none'}}/>}
         </>
     );
 });

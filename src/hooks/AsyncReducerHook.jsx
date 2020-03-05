@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
 /**
+ * A replacement for useReducer() that allows async return values.
+ * 
  * @param {Function} reducer The function used to "reduce" the state by the given action.
  * @param {object} [initialState] The state it will start with.
  * @param {boolean} [shouldReset] Whether the state should reset if initialState changes.
