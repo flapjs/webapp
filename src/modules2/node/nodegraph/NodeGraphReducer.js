@@ -7,24 +7,28 @@ export default function GraphReducer(prev, action)
     {
         case 'add':
         {
+            const { elementType, elementId, opts } = action;
+
             let next = { ...prev };
-            let key = computeElementsKey(action.elementType);
+            let key = computeElementsKey(elementType);
             let nextElements = key in next ? {...next[key]} : {};
-            let id = action.elementId || uuid();
-            let element = new (action.elementType)(id, action.opts || {});
+            let id = elementId || uuid();
+            let element = new (elementType)(id, opts || {});
             nextElements[id] = element;
             next[key] = nextElements;
             return [ next, id ];
         }
         case 'delete':
         {
+            const { elementType, elementId } = action;
+
             let next = { ...prev };
-            let key = computeElementsKey(action.elementType);
+            let key = computeElementsKey(elementType);
             if (key in next)
             {
                 let nextElements = {...next[key]};
-                let element = nextElements[action.elementId];
-                delete nextElements[action.elementId];
+                let element = nextElements[elementId];
+                delete nextElements[elementId];
                 next[key] = nextElements;
                 element.onDestroy();
             }
@@ -32,8 +36,10 @@ export default function GraphReducer(prev, action)
         }
         case 'clear':
         {
+            const { elementType } = action;
+            
             let next = { ...prev };
-            let key = computeElementsKey(action.elementType);
+            let key = computeElementsKey(elementType);
             if (key in next)
             {
                 next[key] = {};
@@ -48,6 +54,11 @@ export default function GraphReducer(prev, action)
         {
             // Do nothing. It's a forceUpdate().
             return prev;
+        }
+        case 'resetState':
+        {
+            const { state } = action;
+            return state;
         }
         case 'swapProperty':
         {

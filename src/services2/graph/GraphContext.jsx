@@ -36,7 +36,7 @@ export function GraphProvider(props)
 
     return (
         <GraphTypeContext.Provider value={graphType}>
-            <GraphStateProvider initialState={graphState}>
+            <GraphStateProvider graphState={graphState}>
                 {props.children}
             </GraphStateProvider>
         </GraphTypeContext.Provider>
@@ -53,9 +53,8 @@ GraphProvider.defaultProps = {
 
 function GraphStateProvider(props)
 {
-    const { initialState } = props;
     const graphType = useContext(GraphTypeContext);
-    const [ currentState, dispatch ] = useAsyncReducer(graphType.reducer, initialState, true);
+    const [ currentState, dispatch ] = useAsyncReducer(graphType.reducer, props.graphState, true);
 
     useGraphUpdateCycle(currentState);
 
@@ -76,10 +75,10 @@ function GraphStateProvider(props)
 }
 GraphStateProvider.propTypes = {
     children: PropTypes.node,
-    initialState: PropTypes.object,
+    graphState: PropTypes.object,
 };
 GraphStateProvider.defaultProps = {
-    initialState: {},
+    graphState: {},
 };
 
 /**

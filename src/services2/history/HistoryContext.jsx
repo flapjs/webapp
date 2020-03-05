@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
+import { getSourceName } from './HistoryHelper.js';
+import { stringHash } from '@flapjs/util/MathHelper.js';
 
 const MAX_HISTORY_LENGTH = 1000;
 
@@ -10,7 +12,7 @@ export const HistoryDispatchContext = React.createContext();
 
 export function HistoryProvider(props)
 {
-    const [ historyState, historyDispatch ] = useAsyncReducer(HistoryReducer, props.historyState);
+    const [ historyState, historyDispatch ] = useAsyncReducer(HistoryReducer, props.historyState, true);
 
     return (
         <HistoryStateContext.Provider value={historyState}>
@@ -22,20 +24,10 @@ export function HistoryProvider(props)
 }
 HistoryProvider.propTypes = {
     children: PropTypes.node,
-    historyState: PropTypes.shape({
-        history: PropTypes.arrayOf(
-            PropTypes.shape({
-                source: PropTypes.any,
-                state: PropTypes.object,
-            })),
-        historyIndex: PropTypes.number,
-    }),
+    historyState: PropTypes.object,
 };
 HistoryProvider.defaultProps = {
-    historyState: {
-        history: [],
-        historyIndex: 0,
-    },
+    historyState: {}
 };
 
 function HistoryReducer(state, action)
@@ -44,75 +36,89 @@ function HistoryReducer(state, action)
     {
         case 'undo':
         {
-            if (state.historyIndex <= 0)
+            const { source, update } = action;
+
+            const sourceName = getSourceName(source);
+            if (!(sourceName in state)) return;
+            const sourceState = state[sourceName];
+            
+            if (sourceState.historyIndex <= 0) return;
+            if (sourceState.historyIndex <= 1)
             {
-                return state;
+                sourceState.historyIndex = 0;
             }
             else
             {
-                let nextState = { ...state };
-                if (nextState.historyIndex <= 1)
-                {
-                    nextState.historyIndex = 0;
-                }
-                else
-                {
-                    nextState.historyIndex -= 1;
-                }
-                return nextState;
+                sourceState.historyIndex -= 1;
             }
+
+            const { data, hash } = sourceState.history[sourceState.historyIndex];
+            update(data, hash);
+
+            return { ...state };
         }
         case 'redo':
         {
-            if (state.historyIndex >= state.history.length - 1)
+            const { source, update } = action;
+
+            const sourceName = getSourceName(source);
+            if (!(sourceName in state)) return;
+            const sourceState = state[sourceName];
+            
+            if (sourceState.historyIndex >= sourceState.history.length - 1) return;
+            if (sourceState.historyIndex >= sourceState.history.length - 2)
             {
-                return state;
+                sourceState.historyIndex = sourceState.history.length - 1;
             }
             else
             {
-                let nextState = { ...state };
-                if (nextState.historyIndex >= nextState.history.length - 2)
-                {
-                    nextState.historyIndex = nextState.history.length - 1;
-                }
-                else
-                {
-                    nextState.historyIndex += 1;
-                }
-                return nextState;
+                sourceState.historyIndex += 1;
             }
+
+            const { data, hash } = sourceState.history[sourceState.historyIndex];
+            update(data, hash);
+
+            return { ...state };
         }
         case 'commit':
         {
-            let nextState = { ...state };
+            const { source, data, hash } = action;
 
+            const sourceHash = hash || stringHash(data);
+            const sourceName = getSourceName(source);
+            if (!(sourceName in state)) state[sourceName] = { history: [], historyIndex: 0 };
+            const sourceState = state[sourceName];
+
+            if (sourceState.history.length > 0
+                && sourceState.history[sourceState.historyIndex].hash === sourceHash) return;
+            
             // Cycle it.
-            if (nextState.history.length >= MAX_HISTORY_LENGTH)
+            if (sourceState.history.length >= MAX_HISTORY_LENGTH)
             {
-                nextState.history.shift();
+                sourceState.history.shift();
             }
             // Makes sure the historyIndex is updated.
-            else if (nextState.historyIndex === nextState.history.length - 1)
+            else if (sourceState.historyIndex === sourceState.history.length - 1)
             {
-                nextState.historyIndex += 1;
+                sourceState.historyIndex += 1;
             }
-            nextState.history.push({ source: action.source, state: action.state });
+            sourceState.history.push({ data, hash: sourceHash });
 
-            return nextState;
+            return { ...state };
         }
         case 'clear':
         {
-            if (state.history.length <= 0)
-            {
-                return state;
-            }
-            else
-            {
-                let nextState = { ...state };
-                nextState.history.length = 0;
-                nextState.historyIndex = 0;
-                return nextState;
-            }
+            const { source } = action;
+
+            const sourceName = getSourceName(source);
+            if (!(sourceName in state)) return;
+            const sourceState = state[sourceName];
+            if (sourceState.history.length <= 0) return;
+
+            sourceState.history.length = 0;
+            sourceState.historyIndex = 0;
+
+            return { ...state };
         }
     }
 }
