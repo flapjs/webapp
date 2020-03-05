@@ -18,6 +18,7 @@ export default function AppLayout(props)
         <>
         <Slot mode="wrapped" name="providers">
             <header>
+                <Slot name="header"></Slot>
                 <AppBar>
                     <Logo title="Flap.js" version={app.version}/>
                     <ModuleSelector/>
@@ -48,6 +49,7 @@ export default function AppLayout(props)
                 {/* Nothing yet. Perhaps ice cream? */}
                 <Slot name="footer"></Slot>
             </footer>
+            <Slot name="splash"></Slot>
         </Slot>
         </>
     );

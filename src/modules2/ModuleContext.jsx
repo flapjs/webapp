@@ -94,5 +94,5 @@ function getDefaultModuleId()
         // ...yes we are.
         return params.module;
     }
-    return 'node';
+    return null;
 }

@@ -8,9 +8,8 @@ import ExportPanel from './ExportPanel.jsx';
 import NodeGraph from './nodegraph/NodeGraph.js';
 import NodeGraphPlayground from './nodegraph/NodeGraphPlayground.jsx';
 import NodeToolbar from './NodeToolbar.jsx';
-import SplashService from '@flapjs/services2/splash/SplashService.js';
-
-import WelcomeSplash from './WelcomeSplash.jsx';
+import AutoInit from './AutoInit.jsx';
+import AutoSave from './AutoSave.jsx';
 
 export default class NodeModule extends BaseModule
 {
@@ -26,7 +25,6 @@ export default class NodeModule extends BaseModule
             HistoryService,
             NotifyService.withInitialMessages([ 'Welcome to Node Module!', 'I hope you have a wonderful time.', 'I really do.', 'Seriously.' ]),
             GraphService.withGraphType(NodeGraph, NodeGraphPlayground),
-            SplashService.withInitialSplash(WelcomeSplash),
         ];
     }
 
@@ -40,6 +38,7 @@ export default class NodeModule extends BaseModule
     static get renders()
     {
         return {
+            header: [ AutoInit, AutoSave ],
             appbar: [ NodeToolbar ],
             drawer: [ ExportPanel ],
         };
