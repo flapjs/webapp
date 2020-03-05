@@ -1,10 +1,8 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { useGraphUpdateCycle } from './GraphHooks.jsx';
-
-import { serialize } from './GraphLoader.js';
 
 const DEFAULT_GRAPH_STATE = {};
 
@@ -57,13 +55,6 @@ function GraphStateProvider(props)
     const [ currentState, dispatch ] = useAsyncReducer(graphType.reducer, props.graphState, true);
 
     useGraphUpdateCycle(currentState);
-
-    // TODO: This should not be here.
-    useEffect(() =>
-    {
-        let data = serialize(graphType, currentState);
-        localStorage.setItem(graphType.name + '.graphData', JSON.stringify(data));
-    });
 
     return (
         <GraphStateContext.Provider value={currentState}>

@@ -6,8 +6,8 @@ import { GraphElementEditorProvider } from './widgets/editor/GraphElementEditorC
 
 import BaseGraph from './BaseGraph.js';
 
-import { deserialize } from './GraphLoader.js';
 import GraphElementEditor from './widgets/editor/GraphElementEditor.jsx';
+import GraphStateDeserializer from './GraphStateDeserializer.js';
 
 export default class GraphService extends BaseService
 {
@@ -68,8 +68,7 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
             let graphState = {};
             if (data)
             {
-                let objectData = JSON.parse(data);
-                graphState = deserialize(graphType, objectData);
+                graphState = GraphStateDeserializer(graphType, data);
             }
 
             // GraphProvider

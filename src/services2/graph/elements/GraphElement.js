@@ -11,7 +11,7 @@ const ID = Symbol('elementId');
  * It can also serialize and deserialize itself :) Because of this functionality, EVERY graph element
  * must be able to be instantiated with only an "id" argument. Any additional args will not be provided
  * nor stored by the serializer. Additional arguments will only be used when instantiating during active
- * app use. This feature is mainly used by GraphLoader to load/save graphs.
+ * app use. This feature is mainly used by state serializers to load/save graphs.
  * 
  * Also, the class name MUST BE UNIQUE. It is used as the key to access its instances.
  * Refer to GraphHelper.computeElementsKey() for more information.
