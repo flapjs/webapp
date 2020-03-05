@@ -5,6 +5,8 @@ import Logger from '@flapjs/util/Logger.js';
 import * as URLHelper from '@flapjs/util/URLHelper.js';
 import * as ModuleLoader from './ModuleLoader.js';
 
+const FALLBACK_MODULE_ID = 'node';
+
 export const ModuleContext = React.createContext();
 
 export function ModuleProvider(props)
@@ -94,5 +96,5 @@ function getDefaultModuleId()
         // ...yes we are.
         return params.module;
     }
-    return null;
+    return FALLBACK_MODULE_ID;
 }
