@@ -25,8 +25,9 @@ export default class BaseModule
      * and only once for the instance.
      * 
      * @abstract
+     * @param {object} loader The current load context. Refer to ModuleLoader for the implementation.
      */
-    destroy() {}
+    destroy(loader) {}
 
     /**
      * This is dangerous stuff. This is effectively injecting code
@@ -35,8 +36,9 @@ export default class BaseModule
      * not utilizing React correctly. But it is here if you need it...
      * 
      * @abstract
+     * @param {Map} services A map of all loaded services, keyed by their class.
      */
-    mount() {}
+    mount(services) {}
 
     /**
      * This is dangerous stuff. This is effectively injecting code
@@ -45,6 +47,7 @@ export default class BaseModule
      * not utilizing React correctly. But it is here if you need it...
      * 
      * @abstract
+     * @param {Map} services A map of all loaded services, keyed by their class.
      */
-    unmount() {}
+    unmount(services) {}
 }

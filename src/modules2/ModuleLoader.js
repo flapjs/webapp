@@ -118,9 +118,9 @@ export function loadModule(moduleClass)
     for(let serviceClass of orderedServices)
     {
         let serviceInstance = loader.serviceContexts.get(serviceClass);
-        if ('mount' in serviceInstance) serviceInstance.mount();
+        if ('mount' in serviceInstance) serviceInstance.mount(loader.serviceContexts);
     }
-    if ('mount' in currentModule) currentModule.mount();
+    if ('mount' in currentModule) currentModule.mount(loader.serviceContexts);
 
     Logger.out('ModuleLoader', '...hello!');
 
@@ -133,12 +133,12 @@ export function unloadModule(currentModule, loader)
 
     Logger.out('ModuleLoader', `...unmounting '${currentModule.constructor.name}' and services...`);
 
-    if ('unmount' in currentModule) currentModule.unmount();
+    if ('unmount' in currentModule) currentModule.unmount(loader.serviceContexts);
     let services = Array.from(loader.serviceContexts.keys()).reverse();
     for(let serviceClass of services)
     {
         let serviceInstance = loader.serviceContexts.get(serviceClass);
-        if ('unmount' in serviceInstance) serviceInstance.unmount();
+        if ('unmount' in serviceInstance) serviceInstance.unmount(loader.serviceContexts);
     }
 
     Logger.out('ModuleLoader', '...clearing slot components...');
@@ -148,10 +148,10 @@ export function unloadModule(currentModule, loader)
     for(let serviceClass of services)
     {
         let serviceInstance = loader.serviceContexts.get(serviceClass);
-        if ('destroy' in serviceInstance) serviceInstance.destroy();
+        if ('destroy' in serviceInstance) serviceInstance.destroy(loader);
         loader.serviceContexts.delete(serviceClass);
     }
-    if ('destroy' in currentModule) currentModule.destroy();
+    if ('destroy' in currentModule) currentModule.destroy(loader);
     loader.moduleClass = null;
 
     Logger.out('ModuleLoader', '...good-bye!');
