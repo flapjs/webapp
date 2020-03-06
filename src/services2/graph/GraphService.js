@@ -53,7 +53,7 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
             // "playarea" render slot
             if (graphPlayground)
             {
-                contribs.playarea[0] = { component: graphPlayground };
+                contribs.playarea.push({ component: graphPlayground });
             }
         }
     };
