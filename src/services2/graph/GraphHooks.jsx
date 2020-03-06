@@ -1,46 +1,38 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { useUpdateCycle } from '@flapjs/hooks/UpdateCycleHook.jsx';
-import { getElementListeners } from './elements/GraphElementListener.js';
-import { getStateListeners } from './elements/GraphStateListener.js';
+import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
-export function useGraphUpdateCycle(state)
+import { UNSAFE_useGraphStateContext } from './GraphContext.jsx';
+
+import { addStateListener, removeStateListener } from './GraphStateListener.js';
+
+/**
+ * Use this instead of useContext(GraphStateContext). This will make sure that any "minute"
+ * changes that are usually kept within the graph element, will also trigger this user's
+ * re-render.
+ * 
+ * @returns {object} The graph state.
+ */
+export function useGraphState()
 {
-    const updateCallback = useCallback(() =>
+    const graphState = UNSAFE_useGraphStateContext();
+    const forceUpdate = useForceUpdate();
+
+    const stateChangeCallback = useCallback(graphState => forceUpdate(), [ forceUpdate ]);
+
+    useEffect(() =>
     {
-        let dirty = false;
-        for(let elementByIds of Object.values(state))
-        {
-            let elements = Object.values(elementByIds);
-            for(let element of elements)
-            {
-                // This is where all elements are washed (updated) if they are dirty :P
-                if (element.isDirty())
-                {
-                    dirty = true;
-                    element.markDirty(false);
-                    element.onUpdate();
+        if (graphState) addStateListener(graphState, stateChangeCallback);
 
-                    // Allow element listeners to be updated...
-                    for(let listener of getElementListeners(element))
-                    {
-                        listener.call(undefined, element);
-                    }
-                }
-            }
-        }
-
-        // Allow state listeners to be updated...
-        if (dirty)
+        return () =>
         {
-            for(let listener of getStateListeners(state))
-            {
-                listener.call(undefined, state);
-            }
-        }
+            if (graphState) removeStateListener(graphState, stateChangeCallback);
+        };
     },
-    [ state ]);
+    [
+        graphState,
+        stateChangeCallback,
+    ]);
 
-    // NOTE: Manages the graph element dirty/update cycle.
-    useUpdateCycle(updateCallback);
+    return graphState;
 }

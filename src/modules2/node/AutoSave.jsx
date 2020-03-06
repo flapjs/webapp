@@ -1,13 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 
-import { GraphTypeContext, GraphStateContext } from '@flapjs/services2/graph/GraphContext.jsx';
+import { GraphTypeContext } from '@flapjs/services2/graph/GraphContext.jsx';
 
 import GraphStateSerializer from '@flapjs/services2/graph/GraphStateSerializer.js';
+import { useGraphState } from '@flapjs/services2/graph/GraphHooks.jsx';
 
 export default function AutoInit()
 {
     const graphType = useContext(GraphTypeContext);
-    const graphState = useContext(GraphStateContext);
+    const graphState = useGraphState();
 
     useEffect(() =>
     {

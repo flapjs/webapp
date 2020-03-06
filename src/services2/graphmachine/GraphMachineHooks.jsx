@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 
-import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
-
 import { useMachineBuilder, useMachine, useSourceForMachine } from '@flapjs/services2/machine/MachineHooks.jsx';
 
 import { GraphDispatchContext } from '@flapjs/services2/graph/GraphContext.jsx';
-import { useGraphState } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
+import { useGraphState } from '@flapjs/services2/graph/GraphHooks.jsx';
 
 export function useGraphMachineBuilder(machineBuilderType)
 {
@@ -19,8 +17,7 @@ export function useGraphMachine(machineBuilderType)
 
 export function useGraphForMachine(machineBuilderType)
 {
-    const forceUpdate = useForceUpdate();
-    const graphState = useGraphState(graphState => forceUpdate());
+    const graphState = useGraphState();
     const graphDispatch = useContext(GraphDispatchContext);
     
     useSourceForMachine(

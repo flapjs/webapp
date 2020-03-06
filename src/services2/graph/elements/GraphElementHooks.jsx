@@ -1,13 +1,12 @@
 import { useContext, useEffect } from 'react';
 import { addElementListener, removeElementListener } from './GraphElementListener.js';
-import { addStateListener, removeStateListener } from './GraphStateListener.js';
 
-import { GraphStateContext, GraphDispatchContext } from '../GraphContext.jsx';
+import { GraphDispatchContext, UNSAFE_useGraphStateContext } from '../GraphContext.jsx';
 import { UNSAFE_getGraphElements } from '../GraphHelper.js';
 
 export function useGraphElementIds(elementType)
 {
-    let graphState = useContext(GraphStateContext);
+    let graphState = UNSAFE_useGraphStateContext();
     let graphDispatch = useContext(GraphDispatchContext);
     let elementIds = Object.keys(UNSAFE_getGraphElements(graphState, elementType) || {});
     let elementsDispatch = action => graphDispatch({elementType, ...action});
@@ -16,7 +15,7 @@ export function useGraphElementIds(elementType)
 
 export function useGraphElement(elementType, elementId, onChange)
 {
-    let graphState = useContext(GraphStateContext);
+    let graphState = UNSAFE_useGraphStateContext();
 
     let elements = UNSAFE_getGraphElements(graphState, elementType) || {};
     let element = elements[elementId] || null;
@@ -38,25 +37,4 @@ export function useGraphElement(elementType, elementId, onChange)
     ]);
 
     return element;
-}
-
-export function useGraphState(onChange)
-{
-    const graphState = useContext(GraphStateContext);
-
-    useEffect(() =>
-    {
-        if (graphState) addStateListener(graphState, onChange);
-
-        return () =>
-        {
-            if (graphState) removeStateListener(graphState, onChange);
-        };
-    },
-    [
-        graphState,
-        onChange,
-    ]);
-
-    return graphState;
 }

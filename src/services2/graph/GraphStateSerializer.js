@@ -1,6 +1,6 @@
 import { computeElementsKey } from './GraphHelper.js';
 
-export default function GraphStateSerializer(graphType, graphState)
+export default function GraphStateSerializer(graphType, graphState, opts = {})
 {
     let data = {};
     

@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useEffect } from 'react';
-import { GraphTypeContext, GraphStateContext, GraphDispatchContext } from '@flapjs/services2/graph/GraphContext.jsx';
+import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services2/graph/GraphContext.jsx';
 
 import * as Downloader from '@flapjs/util/Downloader.js';
 import Upload from '@flapjs/components2/Upload.jsx';
@@ -11,13 +11,15 @@ import { useHistory } from '@flapjs/services2/history/HistoryHook.jsx';
 
 import GraphStateDeserializer from '@flapjs/services2/graph/GraphStateDeserializer.js';
 import GraphStateSerializer from '@flapjs/services2/graph/GraphStateSerializer';
+import { useGraphState } from '@flapjs/services2/graph/GraphHooks.jsx';
 
 export default function NodeToolbar(props)
 {
     const graphType = useContext(GraphTypeContext);
-    const graphState = useContext(GraphStateContext);
     const graphDispatch = useContext(GraphDispatchContext);
     const { svgRef } = useContext(ViewContext);
+
+    const graphState = useGraphState();
 
     useHistory(graphType, () => GraphStateSerializer(graphType, graphState));
     const graphUpdateCallback = useCallback(data =>

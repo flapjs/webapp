@@ -1,8 +1,9 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
+import { useGraphState } from '@flapjs/services2/graph/GraphHooks.jsx';
 import { useGraphElement } from '@flapjs/services2/graph/elements/GraphElementHooks.jsx';
 import { useGraphElementEditorBehavior } from '@flapjs/services2/graph/widgets/editor/GraphElementEditorBehavior.jsx';
 
@@ -10,7 +11,6 @@ import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer
 import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
 import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
 
-import { GraphStateContext } from '@flapjs/services2/graph/GraphContext.jsx';
 import { UNSAFE_findGraphElementWithinPosition } from '@flapjs/services2/graph/GraphHelper.js';
 
 import * as QuadraticEdgeHelper from '../elements/edge/QuadraticEdgeHelper.js';
@@ -21,11 +21,11 @@ export default function EdgeElementComponent(props)
 {
     const { element: edge } = props;
     
-    const graphState = useContext(GraphStateContext);
     const elementRef = useRef(null);
     const labelRef = useRef(null);
     const forwardEndpointRef = useRef(null);
 
+    const graphState = useGraphState();
     const forceUpdate = useForceUpdate();
     const from = useGraphElement(NodeElement, edge.fromId, forceUpdate);
     const sourceTo = useGraphElement(NodeElement, edge.toId, forceUpdate);
