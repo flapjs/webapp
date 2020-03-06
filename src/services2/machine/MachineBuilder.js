@@ -69,7 +69,7 @@ export default class MachineBuilder
     {
         // Apply to source...
         this.updateMachineFromSource(this._machine, source);
-        this._buildNumber = this.getNextBuildId();
+        this._buildId = this.getNextBuildId();
 
         // Resolve previous promises...
         let resolve = this._resolveCallback;

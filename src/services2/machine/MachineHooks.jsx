@@ -71,19 +71,23 @@ export function useMachine(machineBuilderType, machineName)
  * 
  * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
  * @param {string} machineName The session-unique name for the machine.
- * @param {Class<React.Context>} sourceContext The source React state context.
+ * @param {object} sourceState The source state object. The state must be from source that triggers a re-render
+ * in order to start an update. In other words, this hook DOES NOT TRIGGER RE-RENDERS. That is up to you (usually
+ * you pass it the result of a React state context).
  * @param {Function} [changeCallback] The handler for data flow FROM the machine TO the source. If not defined,
  * data will not flow back towards the source and makes the machine act like a "view" of the source (instead of a hybrid).
  */
-export function useSourceForMachine(machineBuilderType, machineName, sourceContext, changeCallback = () => {})
+export function useSourceForMachine(machineBuilderType, machineName, sourceState, changeCallback = () => {})
 {
-    const source = useContext(sourceContext);
-    let machineBuilder = useMachineBuilder(machineBuilderType, machineName);
-    machineBuilder.setSourceCallback(changeCallback);
+    // NOTE: Why do we not use useMachineBuilder() here?
+    // Because useMachineBuilder() will update itself if the machine builder's state changes (determinted by build id).
+    // And since this function CALLS applySource(), which changes the machine state, it would then be in an infinite loop.
+    const contextId = useContext(MachineContext);
+    const machineId = contextId + ':' + machineName;
 
-    useEffect(() =>
-    {
-        machineBuilder.applySource(source);
-    },
-    [ source, machineBuilder ]);
+    let machineBuilderContext = MachineBuilderAPI.getMachineBuilderContext(machineBuilderType, machineId, true);
+    let machineBuilder = machineBuilderContext.builder;
+
+    machineBuilder.setSourceCallback(changeCallback);
+    machineBuilder.applySource(sourceState);
 }

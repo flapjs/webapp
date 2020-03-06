@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { addElementListener, removeElementListener } from './GraphElementListener.js';
+import { addStateListener, removeStateListener } from './GraphStateListener.js';
 
 import { GraphStateContext, GraphDispatchContext } from '../GraphContext.jsx';
 import { UNSAFE_getGraphElements } from '../GraphHelper.js';
@@ -37,4 +38,25 @@ export function useGraphElement(elementType, elementId, onChange)
     ]);
 
     return element;
+}
+
+export function useGraphState(onChange)
+{
+    const graphState = useContext(GraphStateContext);
+
+    useEffect(() =>
+    {
+        if (graphState) addStateListener(graphState, onChange);
+
+        return () =>
+        {
+            if (graphState) removeStateListener(graphState, onChange);
+        };
+    },
+    [
+        graphState,
+        onChange,
+    ]);
+
+    return graphState;
 }

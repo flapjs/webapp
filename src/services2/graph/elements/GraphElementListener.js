@@ -1,4 +1,10 @@
 /**
+ * @module GraphElementListener
+ * @description
+ * You may notice that is you useContext(GraphStateContext), sometimes changes on the
+ * graph don't propagate. That is intentional. Use this to listen for "minute" changes
+ * in the graph elements that don't incur a re-render.
+ * 
  * These functions allow anyone to "listen" for changes in a graph element. Whenever
  * a graph element is marked dirty and then cleaned, the registered event listeners
  * will fire, allowing anyone to handle that change.

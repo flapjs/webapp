@@ -8,6 +8,7 @@ const DEFAULT_GRAPH_STATE = {};
 
 export const GraphTypeContext = React.createContext();
 
+// NOTE: This should not be used anywhere! Because it usually used improperly. Refer to GraphHooks for proper usage.
 export const GraphStateContext = React.createContext();
 export const GraphDispatchContext = React.createContext();
 
