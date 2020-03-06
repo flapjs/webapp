@@ -134,9 +134,9 @@ export default class FSABuilder extends GraphMachineBuilder
             {
                 const edge = source.EdgeElement[edgeId];
     
-                const { fromId, toId, label, proxyTo } = edge;
+                const { fromId, toId, label } = edge;
                 
-                if (proxyTo)
+                if (!toId)
                 {
                     edgePlaceholders.push(edgeId);
                     continue;

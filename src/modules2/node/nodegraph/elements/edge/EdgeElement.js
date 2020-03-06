@@ -5,6 +5,7 @@ import GraphElement from '@flapjs/services2/graph/elements/GraphElement.js';
 // serialized (symbols are not enumerable by default).
 const PRIVATE_X_KEY = Symbol('x');
 const PRIVATE_Y_KEY = Symbol('y');
+const PROXY_TO = Symbol('proxyTo');
 
 export default class EdgeElement extends GraphElement
 {
@@ -18,7 +19,7 @@ export default class EdgeElement extends GraphElement
         this.toId = opts.toId || null;
         this.label = opts.label || '';
         // Used to move the endpoint to a custom position (like a cursor)
-        this.proxyTo = opts.proxyTo || null;
+        this[PROXY_TO] = opts.proxyTo || null;
 
         // NOTE: DO NOT MANUALLY EDIT THIS! Refer to EdgeElementComponent for more info.
         this[PRIVATE_X_KEY] = 0;
@@ -40,8 +41,11 @@ export default class EdgeElement extends GraphElement
         };
     }
 
+    // This let's the interface have these properties, but won't be enumerated (will not be discovered by the serializer).
     get x() { return this[PRIVATE_X_KEY]; }
     get y() { return this[PRIVATE_Y_KEY]; }
+    get proxyTo() { return this[PROXY_TO]; }
+    set proxyTo(value) { this[PROXY_TO] = value; }
 
     static updatePosition(edge, x, y)
     {
@@ -55,7 +59,6 @@ export default class EdgeElement extends GraphElement
     {
         data.quad = { ...instance.quad };
         data.quad.coords = { ...instance.quad.coords };
-        data.proxyTo = null;
         return super.serialize(instance, data);
     }
 }
