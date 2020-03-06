@@ -10,6 +10,7 @@ export default class ViewService extends BaseService
 {
     /** @override */
     static get providers() { return [ ViewProvider ]; }
+
     /** @override */
     static get renders()
     {
@@ -18,6 +19,7 @@ export default class ViewService extends BaseService
             foreground: [ withChildSlot('viewarea', ViewArea) ],
         };
     }
+    
     /** @override */
     static get serviceVersion() { return '1.0.0'; }
 }

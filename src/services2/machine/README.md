@@ -13,10 +13,18 @@ should be done on the graph object (which will eventually reflect to the machine
 the infrastructure needed to support both sources of input would be too cumbersome to actually
 be useful.
 
-One surprising thing is that machines do not use a MachineContext, as you would expect. This
-is because machines are mostly backend code. The only time a UI will see a change from the
-machine is when a computation has not yet started or has finished, creating a static new machine
-state. Therefore, there is no need to constantly update the UI for all changes.
+One surprising thing is that machines do not use a MachineContext (well at least not in the
+typical way), as you would expect. This is because machines are mostly backend code. The only
+time a UI will see a change from the machine is when a computation has not yet started or has
+finished, creating a static new machine state. Therefore, there is no need to constantly update
+the UI for all changes.
+
+NOTE: We ended up did using MachineContext, but ony to restrict the domain of machine names to
+per context session (or per React app render, which is once per session). This is because sometimes
+there could exist multiple sessions of a React app (particularly when hotloading) and using
+the name as the id would conflict with one another in the API. So MachineContext only provides
+a unique id per React context for any calls from the UI to make sure it works only with its own
+machine builders.
 
 ## How To Stop Crying And Learn To Love The Machines
 So, ideally, any component can display/manipulate information on any machine. Therefore,

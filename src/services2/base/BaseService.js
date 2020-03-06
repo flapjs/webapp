@@ -1,13 +1,51 @@
 export default class BaseService
 {
-    /** @abstract */
-    static get services() { return []; }
-    /** @abstract */
-    static get providers() { return []; }
-    /** @abstract */
-    static get renders() { return {}; }
-    /** @abstract */
+    /**
+     * The current version of this service. Used by ModuleLoader.
+     * 
+     * @abstract
+     */
     static get serviceVersion() { return '0.0.0'; }
+    
+    /**
+     * An array of dependent services that must run before this service.
+     * Used by ModuleLoader.
+     * 
+     * @abstract
+     */
+    static get services() { return []; }
+
+    /**
+     * An array of provider components to inject into the app. Used by
+     * ModuleLoader.
+     * 
+     * @abstract
+     */
+    static get providers() { return []; }
+
+    /**
+     * An object map of an array of render components to slot names that
+     * will be injected into the app. Used by ModuleLoader.
+     * 
+     * @abstract
+     */
+    static get renders() { return {}; }
+
+    /**
+     * NOTE: This is not used by any service yet. I'll leave it to you to implement/enforce it.
+     * But do be aware that this will also affect how "contribs" are named.
+     * 
+     * Any slots defined by this service to be used by other services should
+     * be listed here.
+     * 
+     * This is an object map of names to slotNames defined by this service.
+     * This is used by other services to reference the slot names this service
+     * provides. This way, slot names can change to prevent conflicts, but
+     * still secure the dependencies from changing.
+     * 
+     * @abstract
+     */
+    static get slots() { return {}; }
 
     /**
      * Prepare your service here.

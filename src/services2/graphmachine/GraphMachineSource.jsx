@@ -5,20 +5,20 @@ import { GraphStateContext, GraphDispatchContext } from '@flapjs/services2/graph
 
 import { useSourceForMachine } from '@flapjs/services2/machine/MachineHooks.jsx';
 
-export default function MachineGraphSource(props)
+export default function GraphMachineSource(props)
 {
-    const { machineBuilderType, machineName } = props;
+    const { machineBuilderType } = props;
     const graphState = useContext(GraphStateContext);
     const graphDispatch = useContext(GraphDispatchContext);
     useSourceForMachine(
         machineBuilderType,
-        machineName,
+        'graph',
         GraphStateContext,
         machine => machineBuilderType.updateGraphFromMachine(graphState, graphDispatch, machine)
     );
     return (<></>);
 }
-MachineGraphSource.propTypes = {
+GraphMachineSource.propTypes = {
+    // Should be a descendent of GraphMachineBuilder.
     machineBuilderType: PropTypes.elementType.isRequired,
-    machineName: PropTypes.string.isRequired,
 };

@@ -12,6 +12,7 @@ export default class GraphService extends BaseService
 {
     /** @override */
     static get services() { return [ ViewService ]; }
+
     /** @override */
     static get providers()
     {
@@ -20,6 +21,7 @@ export default class GraphService extends BaseService
             GraphElementEditorProvider
         ];
     }
+
     /** @override */
     static get renders()
     {
@@ -28,6 +30,7 @@ export default class GraphService extends BaseService
             viewarea: [ GraphElementEditor ]
         };
     }
+
     /** @override */
     static get serviceVersion() { return '1.0.0'; }
 }
@@ -53,7 +56,7 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
             // "playarea" render slot
             if (graphPlayground)
             {
-                contribs.playarea.push({ component: graphPlayground });
+                contribs.playarea.unshift({ component: graphPlayground });
             }
         }
     };
