@@ -3,7 +3,7 @@ import { HistoryStateContext, HistoryDispatchContext } from './HistoryContext.js
 import { stringHash } from '@flapjs/util/MathHelper.js';
 import { isCurrentState } from './HistoryHelper.js';
 
-export function useHistory(source, dataCallback, recheckTimeInterval = 2000)
+export function useHistory(source, dataCallback, recheckTimeInterval = 2000, commitImmediately = false)
 {
     const historyState = useContext(HistoryStateContext);
     const historyDispatch = useContext(HistoryDispatchContext);
@@ -23,8 +23,14 @@ export function useHistory(source, dataCallback, recheckTimeInterval = 2000)
 
     useEffect(() =>
     {
-        // Submit a change check because a re-render occurred...
-        historyCommitCallback();
+        // This will commit the change immediately, instead of waiting a buffer time to commit.
+        // By waiting, we can bundle lots of changes into one commit entry, being more efficient.
+        // But sometimes, you do need to save things immediately, so it's a tradeoff.
+        if (commitImmediately)
+        {
+            // Submit a change check because a re-render occurred...
+            historyCommitCallback();
+        }
 
         // Try for a change check every so often, just in case a change happened that doesn't cause a re-render...
         if (recheckTimeInterval > 0)

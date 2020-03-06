@@ -20,12 +20,13 @@ export default function FiniteAutomataToolbar(props)
     const graphDispatch = useContext(GraphDispatchContext);
     const { svgRef } = useContext(ViewContext);
 
-    useHistory(graphType, () => GraphStateSerializer(graphType, graphState));
+    // History setup...
     const graphUpdateCallback = useCallback(data =>
     {
         graphDispatch({ type: 'resetState', state: GraphStateDeserializer(graphType, data) });
     },
     [ graphDispatch, graphType ]);
+    useHistory(graphType, () => GraphStateSerializer(graphType, graphState));
 
     // Auto save...
     useEffect(() =>
