@@ -1,7 +1,10 @@
 import React from 'react';
 
+import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
+
 import { createTabWithIcon } from '@flapjs/components2/drawer/DrawerHelper.js';
-import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
+import { PencilIcon } from '@flapjs/components/icons/Icons.js';
+import EquivalenceTester from './equivalence/EquivalenceTester.jsx';
 
 export default function AnalysisPanel(props)
 {
@@ -10,11 +13,38 @@ export default function AnalysisPanel(props)
         <header>
             <h2>Analysis</h2>
         </header>
-        <section>
-            Hello
-        </section>
+        <Pane title="Equivalent Conversions">
+            <ul>
+                <li>
+                    <select multiple={true}>
+                        <option>Remove unreachable states</option>
+                        <option>Remove redundant empty transitions</option>
+                    </select>
+                    <button>
+                        Perform selected optimizations
+                    </button>
+                </li>
+                <li>
+                    <button onClick={() => {}}>
+                        Convert to valid deterministic machine
+                    </button>
+                </li>
+            </ul>
+        </Pane>
+        <Pane title="Related Converions">
+            <ul>
+                <li>
+                    <button onClick={() => {}}>
+                        Flip all accept states
+                    </button>
+                </li>
+            </ul>
+        </Pane>
+        <Pane title="Equivalence Test">
+            <EquivalenceTester/>
+        </Pane>
         </>
     );
 }
 
-AnalysisPanel.Tab = createTabWithIcon(DownloadIcon);
+AnalysisPanel.Tab = createTabWithIcon(PencilIcon);

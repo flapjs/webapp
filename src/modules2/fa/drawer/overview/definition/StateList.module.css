@@ -1,0 +1,14 @@
+.stateLabel {
+    margin: 0 0.2rem;
+}
+
+.stateAccept {
+    text-decoration: underline;
+}
+
+.emptyLabel {
+    text-align: center;
+    width: 100%;
+    opacity: 30%;
+    font-size: 1.5rem;
+}
