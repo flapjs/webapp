@@ -82,6 +82,8 @@ export default class MachineBuilder
 
     applySource(source, opts = {})
     {
+        if (opts) opts.builder = this;
+        
         // Apply to source...
         this.updateMachineFromSource(this._machine, source, opts);
         this._buildId = this.getNextBuildId();
@@ -105,6 +107,8 @@ export default class MachineBuilder
      */
     async applyChanges(callback, opts = {})
     {
+        if (opts) opts.builder = this;
+
         if (this._sourceCallback && !this._resolveCallback)
         {
             // NOTE: To stop any synchronous calls from entering here...

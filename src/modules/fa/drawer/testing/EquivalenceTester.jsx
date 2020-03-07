@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
-import { isEquivalentFSAWithWitness } from '@flapjs/deprecated/modules/fa/machine/FSAUtils.js';
+import { isEquivalentFSAWithWitness } from '@flapjs/modules/fa/machine/FSAUtils.js';
 import { createMachineFromFileBlob } from '@flapjs/deprecated/modules/fa/machine/FSAMachineLoader.js';
 
 export default function EquivalenceTester(props)

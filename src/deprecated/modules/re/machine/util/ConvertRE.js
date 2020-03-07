@@ -1,4 +1,4 @@
-import FSA, { EMPTY_SYMBOL } from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import FSA, { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/FSA.js';
 import
 {
     EMPTY,

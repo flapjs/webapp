@@ -38,11 +38,12 @@ export default class GraphService extends BaseService
 /**
  * Creates another GraphService with the given graph type.
  *
- * @param {Class<NodeGraph>} graphType The chosen graph type.
- * @param {Class<NodeGraphPlayground>} [graphPlayground] The complementary playground.
+ * @param {Class<BaseGraph>} graphType The chosen graph type.
+ * @param {React.ComponentType} [graphPlayground] The complementary playground.
+ * @param {React.ComponentType} [graphEditor] The complementary graph editor.
  * @returns {Class<GraphService>} The new GraphService with reducer function.
  */
-GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
+GraphService.withGraphType = (graphType, graphPlayground = undefined, graphEditor = undefined) =>
 {
     return class extends GraphService
     {
@@ -57,6 +58,12 @@ GraphService.withGraphType = (graphType, graphPlayground = undefined) =>
             if (graphPlayground)
             {
                 contribs.playarea.unshift({ component: graphPlayground });
+            }
+
+            // GraphElementEditor
+            if (graphEditor)
+            {
+                contribs.viewarea[0].component = graphEditor;
             }
         }
     };

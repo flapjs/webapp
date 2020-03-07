@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { isEquivalentFSAWithWitness } from '@flapjs/deprecated/modules/fa/machine/util/EqualFSA.js';
+import { isEquivalentFSAWithWitness } from '@flapjs/modules/fa/machine/util/EqualFSA.js';
 import { createMachineFromFileBlob } from '@flapjs/deprecated/modules/fa/machine/FSAMachineLoader.js';
 import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
-import FSA from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import FSA from '@flapjs/modules/fa/machine/FSA.js';
 
 class TestingEquivalenceSection extends React.Component
 {

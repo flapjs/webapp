@@ -1,5 +1,5 @@
 import {convertToNFA} from '../REUtils.js';
-import FSA, {EMPTY_SYMBOL} from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import FSA, {EMPTY_SYMBOL} from '@flapjs/modules/fa/machine/FSA.js';
 // eslint-disable-next-line no-unused-vars
 import RE, {EMPTY, CONCAT, UNION, KLEENE, SIGMA, EMPTY_SET} from '../RE.js';
 

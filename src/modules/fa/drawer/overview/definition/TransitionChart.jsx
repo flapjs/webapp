@@ -6,7 +6,7 @@ import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
 import { EMPTY_SYMBOL, EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
-import * as FSA from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
 
 export default function TransitionChart(props)
 {
@@ -72,7 +72,7 @@ function UNSAFE_renderTransitionTable(machine)
     if (!deterministic)
     {
         result.push(
-            <tr className={Style.forAllOtherInputs}>
+            <tr key="forallotherinputs" className={Style.forAllOtherInputs}>
                 <td className={Style.chartKey}>For all other input</td>
                 <td className={Style.chartValue}>{EMPTY_SET}</td>
             </tr>

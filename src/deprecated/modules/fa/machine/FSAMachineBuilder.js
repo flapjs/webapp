@@ -1,7 +1,7 @@
 import AbstractMachineBuilder from '@flapjs/deprecated/services/graph/controller/AbstractMachineBuilder.js';
 import { stringHash } from '@flapjs/util/MathHelper';
 
-import FSA, { EMPTY_SYMBOL, State } from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import FSA, { EMPTY_SYMBOL, State } from '@flapjs/modules/fa/machine/FSA.js';
 import FSANode from '@flapjs/deprecated/modules/fa/graph/elements/FSANode.js';
 import { SYMBOL_SEPARATOR, EMPTY_CHAR } from '@flapjs/deprecated/modules/fa/graph/elements/FSAEdge.js';
 import { getUnreachableNodes } from '@flapjs/deprecated/services/graph/util/NodeGraphUtils.js';

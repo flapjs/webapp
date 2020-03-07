@@ -7,6 +7,8 @@ import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import NodeGraph from './graph/NodeGraph.js';
 import NodeGraphPlayground from './graph/NodeGraphPlayground.jsx';
+import NodeGraphLabelEditor from './graph/widgets/NodeGraphLabelEditor.jsx';
+
 import NodeToolbar from './NodeToolbar.jsx';
 import AutoInit from './AutoInit.jsx';
 import AutoSave from './AutoSave.jsx';
@@ -24,7 +26,7 @@ export default class NodeModule extends BaseModule
         return [
             HistoryService,
             NotifyService.withInitialMessages([ 'Welcome to Node Module!', 'I hope you have a wonderful time.', 'I really do.', 'Seriously.' ]),
-            GraphService.withGraphType(NodeGraph, NodeGraphPlayground),
+            GraphService.withGraphType(NodeGraph, NodeGraphPlayground, NodeGraphLabelEditor),
         ];
     }
 

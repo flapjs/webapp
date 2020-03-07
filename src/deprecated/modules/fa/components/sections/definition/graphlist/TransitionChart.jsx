@@ -2,7 +2,7 @@ import React from 'react';
 import Style from './TransitionChart.module.css';
 
 import { EMPTY_CHAR } from '@flapjs/deprecated/modules/fa/graph/elements/FSAEdge.js';
-import { EMPTY_SYMBOL } from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/FSA.js';
 import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
 
 class TransitionChart extends React.Component

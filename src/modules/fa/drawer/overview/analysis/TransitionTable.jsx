@@ -6,7 +6,7 @@ import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
-import * as FSA from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
 
 const SYMBOL_AXIS = 'symbols';
 const STATE_AXIS = 'states';

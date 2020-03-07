@@ -1,7 +1,7 @@
 import SessionExporter from '@flapjs/deprecated/session/loaders/SessionExporter.js';
 import { INSTANCE as FSA_PARSER } from '@flapjs/deprecated/modules/fa/loaders/FSAGraphParser.js';
 import FSAGraph from '@flapjs/deprecated/modules/fa/graph/FSAGraph.js';
-import {EMPTY_SYMBOL} from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import {EMPTY_SYMBOL} from '@flapjs/modules/fa/machine/FSA.js';
 import {EMPTY_CHAR, SYMBOL_SEPARATOR} from '@flapjs/deprecated/modules/fa/graph/elements/FSAEdge.js';
 import GraphLayout from '@flapjs/deprecated/services/graph/util/GraphLayout.js';
 import { FileJSONIcon } from '@flapjs/components/icons/Icons.js';

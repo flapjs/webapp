@@ -2,7 +2,7 @@ import TextUploader from '@flapjs/deprecated/services/import/TextUploader.js';
 import FSAGraphParser from '@flapjs/deprecated/modules/fa/loaders/FSAGraphParser.js';
 import FSAGraph from '@flapjs/deprecated/modules/fa/graph/FSAGraph.js';
 import FSABuilder from '@flapjs/deprecated/modules/fa/machine/FSAMachineBuilder.js';
-import FSA from '@flapjs/deprecated/modules/fa/machine/FSA.js';
+import FSA from '@flapjs/modules/fa/machine/FSA.js';
 
 export function createMachineFromFileBlob(fileBlob)
 {

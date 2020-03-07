@@ -18,6 +18,7 @@ import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource.jsx';
 import FSABuilder from './machine/FSABuilder.js';
+import FiniteAutomataGraphEditor from './graph/widgets/FiniteAutomataGraphEditor.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -46,7 +47,7 @@ export default class FiniteAutomataModule extends BaseModule
         return [
             HistoryService,
             NotifyService.withInitialMessages([ 'Hello' ]),
-            GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground),
+            GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground, FiniteAutomataGraphEditor),
             MachineService,
         ];
     }

@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
+import Style from './GraphElementEditor.module.css';
 
 import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
 import { GraphElementEditorContext } from './GraphElementEditorContext.jsx';
@@ -8,13 +9,14 @@ import { useGraphElement } from '@flapjs/services/graph/elements/GraphElementHoo
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { transformViewToScreen } from '@flapjs/util/ViewHelper.js';
-import { GraphDispatchContext } from '../../GraphContext.jsx';
+
+import IconButton from '@flapjs/components/icons/IconButton.jsx';
+import { CrossIcon } from '@flapjs/components/icons/Icons.js';
 
 export default function GraphElementEditor(props)
 {
-    const { offset } = props;
+    const { offset, onOpen } = props;
     const { elementType, elementId, isOpen, closeEditor } = useContext(GraphElementEditorContext);
-    const graphDispatch = useContext(GraphDispatchContext);
 
     const forceUpdate = useForceUpdate();
     const element = useGraphElement(elementType, elementId, forceUpdate);
@@ -68,20 +70,14 @@ export default function GraphElementEditor(props)
         }
     });
 
-    const inputRef = useRef(null);
     const [ wasOpen, setWasOpen ] = useState(false);
-    const [ input, setInput ] = useState('');
 
     useLayoutEffect(() =>
     {
         if (isOpen !== wasOpen)
         {
             setWasOpen(isOpen);
-            if (isOpen)
-            {
-                inputRef.current.focus();
-                setInput(element.label || '');
-            }
+            if (isOpen) onOpen();
         }
     },
     // NOTE: Although this depends on "element.label" we only care when open changes.
@@ -90,37 +86,24 @@ export default function GraphElementEditor(props)
     
     return (
         <dialog ref={editorRef} style={{ margin: 0 }} open={isOpen}>
-            <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
-            <button onClick={() =>
-            {
-                element.label = input;
-                element.markDirty();
-                closeEditor();
-            }}>
-                Submit
-            </button>
-            <button onClick={() =>
-            {
-                closeEditor();
-            }}>
-                Cancel
-            </button>
-            <button onClick={() =>
-            {
-                graphDispatch({ type: 'delete', elementType, elementId });
-                closeEditor();
-            }}>
-                Delete This
-            </button>
+            <IconButton className={Style.cancel}
+                iconClass={CrossIcon}
+                onClick={closeEditor}/>
+            {props.children}
         </dialog>
     );
 }
 GraphElementEditor.propTypes = {
+    children: PropTypes.node,
     offset: PropTypes.oneOfType([
         PropTypes.shape({
             x: PropTypes.number,
             y: PropTypes.number,
         }),
         PropTypes.func,
-    ])
+    ]),
+    onOpen: PropTypes.func,
+};
+GraphElementEditor.defaultProps = {
+    onOpen: () => {},
 };
