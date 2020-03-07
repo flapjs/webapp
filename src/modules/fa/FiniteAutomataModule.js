@@ -4,7 +4,7 @@ import NotifyService from '@flapjs/services/notify/NotifyService.js';
 import HistoryService from '@flapjs/services/history/HistoryService.js';
 import MachineService from '@flapjs/services/machine/MachineService.js';
 
-import FiniteAutomataToolbar from './components/FiniteAutomataToolbar.jsx';
+import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './graph/FiniteAutomataGraph.js';
 import FiniteAutomataGraphPlayground from './graph/FiniteAutomataGraphPlayground.jsx';
 
