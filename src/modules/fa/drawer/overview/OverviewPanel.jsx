@@ -3,7 +3,7 @@ import React from 'react';
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 
-import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
+import Pane from '@flapjs/components/pane/Pane.jsx';
 
 import StateList from './definition/StateList.jsx';
 import AlphabetList from './definition/AlphabetList.jsx';

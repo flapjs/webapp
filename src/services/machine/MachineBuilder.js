@@ -105,6 +105,8 @@ export default class MachineBuilder
                 callback(nextMachine);
                 // Propagate those changes...eventually returning to update()...
                 this._sourceCallback(nextMachine);
+
+                this._machine = nextMachine;
             });
         }
         else
@@ -134,6 +136,8 @@ export default class MachineBuilder
             changeContext.callback(nextMachine);
             // Propagate those changes...eventually returning to update()...
             this._sourceCallback(nextMachine);
+
+            this._machine = nextMachine;
         }
     }
 

@@ -18,8 +18,8 @@ export default function DeterminismSwitch(props)
             value={machine.isDeterministic()}
             onChange={e =>
             {
-                let value = e.target.value;
-                machineBuilder.applyChange(machine => machine.setDeterministic(value));
+                let value = e.target.checked;
+                machineBuilder.applyChanges(machine => machine.setDeterministic(value));
             }}/>
         <label htmlFor={inputId}>
             Deterministic

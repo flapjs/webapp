@@ -21,7 +21,6 @@
     width: 100%;
     height: 100%;
     max-width: 60vw;
-    max-height: 60vh;
     color: var(--pane-content);
 
     /* border-bottom: 4px solid var(--pane-outline-important); */

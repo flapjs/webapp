@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Style from './AlphabetList.module.css';
+import ItemListStyle from './ItemList.module.css';
 
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
-import { EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import { EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 
 export default function AlphabetList(props)
 {
@@ -17,11 +17,11 @@ export default function AlphabetList(props)
             <legend>
                 Alphabet
             </legend>
-            <ul>
+            <ul className={ItemListStyle.itemList}>
                 {alphabet.length <= 0
                     ? (
                         <li>
-                            <label className={Style.emptyLabel}>
+                            <label className={ItemListStyle.emptyLabel}>
                                 {EMPTY_SET}
                             </label>
                         </li>
@@ -29,7 +29,7 @@ export default function AlphabetList(props)
                     : (
                         alphabet.map(e => (
                             <li key={e}>
-                                <label className={Style.alphabetLabel}>
+                                <label className={ItemListStyle.itemLabel}>
                                     {e}
                                 </label>
                             </li>
