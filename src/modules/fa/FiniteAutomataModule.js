@@ -4,8 +4,7 @@ import NotifyService from '@flapjs/services/notify/NotifyService.js';
 import HistoryService from '@flapjs/services/history/HistoryService.js';
 import MachineService from '@flapjs/services/machine/MachineService.js';
 
-import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
-import FiniteAutomataForeground from './FiniteAutomataForeground.jsx';
+import FiniteAutomataToolbar from './components/FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './fagraph/FiniteAutomataGraph.js';
 import FiniteAutomataGraphPlayground from './fagraph/FiniteAutomataGraphPlayground.jsx';
 
@@ -36,7 +35,7 @@ export default class FiniteAutomataModule extends BaseModule
             header: [ AutoInit, AutoSave ],
             appbar: [ FiniteAutomataToolbar ],
             playarea: [ [GraphMachineSource, { machineBuilderType: FSABuilder }] ],
-            viewarea: [ FiniteAutomataForeground ],
+            viewarea: [ ],
             drawer: [ OverviewPanel, AnalysisPanel, TestingPanel, ExportPanel ],
         };
     }
