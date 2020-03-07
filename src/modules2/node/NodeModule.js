@@ -16,7 +16,7 @@ export default class NodeModule extends BaseModule
     /** @override */
     static get moduleId() { return 'node'; }
     /** @override */
-    static get moduleVersion() { return '1.0.0'; }
+    static get moduleVersion() { return '2.0.0'; }
 
     /** @override */
     static get services()

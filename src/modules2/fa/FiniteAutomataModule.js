@@ -25,7 +25,7 @@ export default class FiniteAutomataModule extends BaseModule
     /** @override */
     static get moduleId() { return 'fa'; }
     /** @override */
-    static get moduleVersion() { return '1.0.0'; }
+    static get moduleVersion() { return '4.0.0'; }
 
     /** @override */
     static get providers() { return []; }
