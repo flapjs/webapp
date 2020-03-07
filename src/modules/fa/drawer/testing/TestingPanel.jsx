@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
-import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
+import { RunningManIcon } from '@flapjs/components/icons/Icons.js';
+import EquivalenceTester from './EquivalenceTester.jsx';
+import Pane from '@flapjs/components/pane/Pane.jsx';
 
 export default function TestingPanel(props)
 {
@@ -10,11 +12,11 @@ export default function TestingPanel(props)
         <header>
             <h2>Testing</h2>
         </header>
-        <section>
-            Hello
-        </section>
+        <Pane title="Equivalence">
+            <EquivalenceTester/>
+        </Pane>
         </>
     );
 }
 
-TestingPanel.Tab = createTabWithIcon(DownloadIcon);
+TestingPanel.Tab = createTabWithIcon(RunningManIcon);

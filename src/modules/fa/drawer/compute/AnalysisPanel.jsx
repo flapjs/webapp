@@ -4,7 +4,6 @@ import Pane from '@flapjs/components/pane/Pane.jsx';
 
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
-import EquivalenceTester from './equivalence/EquivalenceTester.jsx';
 
 export default function AnalysisPanel(props)
 {
@@ -39,9 +38,6 @@ export default function AnalysisPanel(props)
                     </button>
                 </li>
             </ul>
-        </Pane>
-        <Pane title="Equivalence Test">
-            <EquivalenceTester/>
         </Pane>
         </>
     );

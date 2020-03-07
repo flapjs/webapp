@@ -12,19 +12,20 @@ export default function DeterminismSwitch(props)
     const inputId = `${machineName}.deterministic`;
 
     return (
-        <>
-        <input type="checkbox"
-            id={inputId}
-            value={machine.isDeterministic()}
-            onChange={e =>
-            {
-                let value = e.target.checked;
-                machineBuilder.applyChanges(machine => machine.setDeterministic(value));
-            }}/>
-        <label htmlFor={inputId}>
-            Deterministic
-        </label>
-        </>
+        <fieldset>
+            <legend>Determinism</legend>
+            <input type="checkbox"
+                id={inputId}
+                value={machine.isDeterministic()}
+                onChange={e =>
+                {
+                    let value = e.target.checked;
+                    machineBuilder.applyChanges(machine => machine.setDeterministic(value));
+                }}/>
+            <label htmlFor={inputId}>
+                Deterministic
+            </label>
+        </fieldset>
     );
 }
 DeterminismSwitch.propTypes = {
