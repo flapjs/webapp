@@ -1,43 +1,50 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
+import * as Downloader from '@flapjs/util/Downloader.js';
 
-import Pane from '@flapjs/components/pane/Pane.jsx';
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
+import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
+import GraphStateSerializer from '@flapjs/services/graph/GraphStateSerializer.js';
+import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
+import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export default function ExportPanel(props)
 {
+    const { svgRef } = useContext(ViewContext);
+
+    const graphType = useContext(GraphTypeContext);
+    const graphState = useGraphState();
+
     return (
         <>
         <header>
-            <h1>Admire Your Work</h1>
+            <h2>Export</h2>
         </header>
-        <Pane title="Save (for later)">
+        <section>
             <ul>
-                <li><button>Save to JSON</button></li>
-                <li><button>Save to XML</button></li>
+                <li><button onClick={() => exportTo('graph', { graphState, graphType })}>Save to File</button></li>
+                <li><button onClick={() => exportTo('image', { svgRef })}>Export to Image</button></li>
+                <li><button onClick={() => exportTo('svg', { svgRef })}>Export to SVG</button></li>
             </ul>
-        </Pane>
-        <Pane title="Export (send it)">
-            <ul>
-                <li><button>Export to PNG</button></li>
-                <li>Export to JPG</li>
-            </ul>
-        </Pane>
+        </section>
         </>
     );
 }
-ExportPanel.Tab = ExportTab;
 
-// The tab component that goes with this panel.
-function ExportTab(props)
+ExportPanel.Tab = createTabWithIcon(DownloadIcon);
+
+function exportTo(exportType, opts)
 {
-    const { onClick, ...otherProps } = props;
-    return (
-        <IconButton iconClass={DownloadIcon}
-            onClick={onClick} {...otherProps}/>
-    );
+    switch(exportType)
+    {
+        case 'image':
+            Downloader.downloadImageFromSVG('Untitled.png', Downloader.FILE_TYPE_PNG, opts.svgRef.current, 640, 480);
+            break;
+        case 'svg':
+            Downloader.downloadImageFromSVG('Untitled.svg', Downloader.FILE_TYPE_SVG, opts.svgRef.current, 640, 480);
+            break;
+        case 'graph':
+            Downloader.downloadText('Untitled.node.json', GraphStateSerializer(opts.graphType, opts.graphState));
+            break;
+    }
 }
-ExportTab.propTypes = {
-    onClick: PropTypes.func.isRequired
-};
