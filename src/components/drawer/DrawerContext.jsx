@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 
 // Behold...the drawer context.
 export const DrawerStateContext = React.createContext();
@@ -8,39 +9,42 @@ export const DrawerDispatchContext = React.createContext();
 // ...and it's reducer...
 export function DrawerReducer(prev, action)
 {
-    let next;
     switch(action.type)
     {
         case 'open':
-            next = { open: true };
-            break;
+        {
+            let nextState = { ...prev };
+            nextState.open = true;
+            return nextState;
+        }
         case 'close':
-            next = { open: false };
-            break;
+        {
+            let nextState = { ...prev };
+            nextState.open = false;
+            return nextState;
+        }
         case 'toggle':
-            next = { open: !prev.open };
-            break;
+        {
+            let nextState = { ...prev };
+            nextState.open = !nextState.open;
+            return nextState;
+        }
         case 'change-tab':
-            next = { open: true, tabIndex: action.value };
-            break;
+        {
+            let nextState = { ...prev };
+            nextState.open = true;
+            nextState.tabIndex = action.value;
+            return nextState;
+        }
         default:
             throw new Error(`Unhandled reducer action '${action.type}'.`);
     }
-    return [ next, undefined ];
 }
 
 // ...and it's provider...
 export function DrawerProvider(props)
 {
-    // This should match the expected shape for the consumers.
-    const [state, setState] = useState({ open: false, tabIndex: 0 });
-    // This should match the expected interface for the consumers.
-    async function dispatch(action)
-    {
-        let [nextState, result] = DrawerReducer(state, action);
-        setState(nextState);
-        return result;
-    }
+    const [ state, dispatch ] = useAsyncReducer(DrawerReducer, props.drawerState, true);
 
     return (
         <DrawerStateContext.Provider value={state}>
@@ -52,6 +56,10 @@ export function DrawerProvider(props)
 }
 DrawerProvider.propTypes = {
     children: PropTypes.node,
+    drawerState: PropTypes.object,
+};
+DrawerProvider.defaultProps = {
+    drawerState: { open: false, tabIndex: 0 },
 };
 
 // ...and it's consumers...

@@ -74,7 +74,7 @@ function UNSAFE_renderTableEntryForSymbolAxis(machine, state, symbol)
 
     return (
         <td key={state.getStateID() + ':' + symbol}
-            className={Style.table_entry +
+            className={Style.tableEntry +
                 (error ? ' error ' : '') +
                 (disabled ? ' disabled ' : '')}>
             {transitionString}
@@ -116,7 +116,8 @@ function UNSAFE_renderTableEntries(machine, rowAxis)
                         string = '-';
                     }
                     rowComponents.push(
-                        <td key={state.getStateID() + ':' + other.getStateID()}>
+                        <td key={state.getStateID() + ':' + other.getStateID()}
+                            className={Style.tableEntry}>
                             {string}
                         </td>
                     );
@@ -127,7 +128,7 @@ function UNSAFE_renderTableEntries(machine, rowAxis)
         }
         result.push(
             <tr key={state.getStateID()}>
-                <th scope="row" className={Style.table_axis_header + ' row'}>
+                <th scope="row" className={Style.tableAxisHeader + ' row'}>
                     {state.getStateLabel()}
                 </th>
                 {rowComponents}
@@ -147,14 +148,14 @@ function UNSAFE_renderTableAxis(machine, rowAxis)
             for (const symbol of machine.getAlphabet())
             {
                 result.push(
-                    <th key={symbol} scope="col" className={Style.table_axis_header + ' col'}>
+                    <th key={symbol} scope="col" className={Style.tableAxisHeader + ' col'}>
                         {symbol}
                     </th>
                 );
             }
             result.push(
                 <th key={FSA.EMPTY_SYMBOL} scope="col"
-                    className={Style.table_axis_header +
+                    className={Style.tableAxisHeader +
                         (disabled ? ' disabled ' : '') +
                         ' col'}>
                     {EMPTY_SYMBOL}
@@ -165,7 +166,7 @@ function UNSAFE_renderTableAxis(machine, rowAxis)
             for (const state of machine.getStates())
             {
                 result.push(
-                    <th key={state.getStateID()} scope="col" className={Style.table_axis_header + ' col'}>
+                    <th key={state.getStateID()} scope="col" className={Style.tableAxisHeader + ' col'}>
                         {state.getStateLabel()}
                     </th>
                 );

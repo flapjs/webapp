@@ -4,7 +4,7 @@ import Style from './TransitionChart.module.css';
 
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
-import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
+import { EMPTY_SYMBOL, EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
 import * as FSA from '@flapjs/deprecated/modules/fa/machine/FSA.js';
 
@@ -51,7 +51,7 @@ TransitionChart.propTypes = {
 function UNSAFE_renderTransitionTable(machine)
 {
     const result = [];
-    // const deterministic = machine.isDeterministic();
+    const deterministic = machine.isDeterministic();
 
     for(const state of machine.getStates())
     {
@@ -68,6 +68,17 @@ function UNSAFE_renderTransitionTable(machine)
             if (entry) result.push(entry);
         }
     }
+
+    if (!deterministic)
+    {
+        result.push(
+            <tr className={Style.forAllOtherInputs}>
+                <td className={Style.chartKey}>For all other input</td>
+                <td className={Style.chartValue}>{EMPTY_SET}</td>
+            </tr>
+        );
+    }
+
     return result;
 }
 
@@ -130,8 +141,8 @@ function UNSAFE_renderTransitionEntry(machine, state, symbol)
 
     return (
         <tr key={state.getStateID() + ':' + symbol}>
-            <td className={Style.chart_key + (error ? ' error ' : '')}>{'(' + state.getStateLabel() + ',' + symbol + ')'}</td>
-            <td className={Style.chart_value + (error ? ' error ' : '')}>{transitionString}</td>
+            <td className={`${Style.chartKey} ${error ? 'error' : ''}`}>{'(' + state.getStateLabel() + ',' + symbol + ')'}</td>
+            <td className={`${Style.chartValue} ${error ? 'error' : ''}`}>{transitionString}</td>
         </tr>
     );
 }
