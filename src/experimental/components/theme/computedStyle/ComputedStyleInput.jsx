@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleInput from '../sourceStyle/StyleInput.jsx';
 
-import { getElementFromRef } from '@flapjs/util/ElementHelper.js';
+import { getElementFromRef } from '@flapjs/deprecated/util/ElementHelper.js';
 import { TinyColor } from '@ctrl/tinycolor';
 
 /**

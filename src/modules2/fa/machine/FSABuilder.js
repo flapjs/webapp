@@ -1,6 +1,6 @@
 import GraphMachineBuilder from '@flapjs/services2/graphmachine/GraphMachineBuilder.js';
 
-import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa/machine/FSA.js';
+import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/deprecated/modules/fa/machine/FSA.js';
 import GraphStateDeserializer from '@flapjs/services2/graph/GraphStateDeserializer';
 import FiniteAutomataGraph from '../fagraph/FiniteAutomataGraph';
 import { EMPTY_SYMBOL } from './Symbols';

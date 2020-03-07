@@ -1,5 +1,5 @@
 import ControllerChangeHandler from '@flapjs/deprecated/services/graph/controller/ControllerChangeHandler';
-import EventManager from '@flapjs/util/event/EventManager.js';
+import EventManager from '@flapjs/deprecated/util/event/EventManager.js';
 
 class AbstractController extends EventManager
 {

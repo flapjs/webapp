@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getElementFromRef } from '@flapjs/util/ElementHelper.js';
+import { getElementFromRef } from '@flapjs/deprecated/util/ElementHelper.js';
 
 /**
  * A React component that can control a style property of a DOM element.

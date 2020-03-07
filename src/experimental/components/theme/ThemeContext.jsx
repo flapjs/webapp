@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as ThemeHandler from './ThemeHandler.js';
 import StyleRegistry from './StyleRegistry.js';
 
-import * as ElementHelper from '@flapjs/util/ElementHelper.js';
+import * as ElementHelper from '@flapjs/deprecated/util/ElementHelper.js';
 
 // The registry to hold all known style relationships.
 export const STYLE_REGISTRY = new StyleRegistry();
