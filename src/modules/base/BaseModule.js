@@ -4,8 +4,8 @@ import NodeGraphExporter from './NodeGraphExporter.js';
 import { IMAGE_EXPORTERS } from './NodeGraphImageExporters.js';
 import NodeGraphImporter from '@flapjs/modules/base/NodeGraphImporter.js';
 
-import AutoSaveService from '@flapjs/services/AutoSaveService.js';
-import UndoService from '@flapjs/services/UndoService.js';
+import AutoSaveService from '@flapjs/deprecated/services/autosave/AutoSaveService.js';
+import UndoService from '@flapjs/deprecated/services/undo/UndoService.js';
 import GraphService from '@flapjs/services/GraphService.js';
 import ExportService from '@flapjs/services/ExportService.js';
 import ImportService from '@flapjs/services/ImportService.js';

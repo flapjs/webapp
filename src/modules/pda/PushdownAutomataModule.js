@@ -1,9 +1,9 @@
 import ExportService from '@flapjs/services/ExportService.js';
 import ImportService from '@flapjs/services/ImportService.js';
 import NotificationService from '@flapjs/services/NotificationService.js';
-import UndoService from '@flapjs/services/UndoService.js';
+import UndoService from '@flapjs/deprecated/services/undo/UndoService.js';
 import GraphService from '@flapjs/services/GraphService.js';
-import AutoSaveService from '@flapjs/services/AutoSaveService.js';
+import AutoSaveService from '@flapjs/deprecated/services/autosave/AutoSaveService.js';
 
 import OverviewPanel from './components/panels/OverviewPanel.jsx';
 import AnalysisPanel from './components/panels/AnalysisPanel.jsx';

@@ -1,6 +1,6 @@
-import AbstractService from './AbstractService.js';
+import AbstractService from '@flapjs/services/AbstractService.js';
 
-import UndoManager from '@flapjs/services/undo/UndoManager.js';
+import UndoManager from '@flapjs/deprecated/services/undo/UndoManager.js';
 
 class UndoService extends AbstractService
 {

@@ -1,4 +1,4 @@
-import AbstractEventHandler from '@flapjs/services/undo/AbstractEventHandler.js';
+import AbstractEventHandler from '@flapjs/deprecated/services/undo/AbstractEventHandler.js';
 
 class SafeUndoNodeGraphEventHandler extends AbstractEventHandler
 {
