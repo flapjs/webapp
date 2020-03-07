@@ -13,14 +13,18 @@ export default function AlphabetLabelRenameOption(props)
     const machineBuilder = useGraphMachineBuilder(FSABuilder, 'graph');
     const machine = machineBuilder.getMachine();
     
+    // NOTE: UPDATE - Actually, semantically, it should ONLY use machine builder. Otherwise, any rules applied by
+    // the machine is lost or has to be re-implemented here. Although the sentiment to optimize is correct, it
+    // shouldn't even be using the graph in the first place.
     // NOTE: Here is another good example of where to optimize. If you use useGraphState(), the typical
     // method to get the graph changes, this will re-render anytime there's a change in the graph, even
     // if it's changes to NODES. Since this only depends on EdgeElements, it would be more efficient to
     // useGraphElements(EdgeElement) instead. It would be even BETTER if we get rid of useMachineBuilder()
     // and derive the alphabet ourselves. Here's the offending statement for posterity:
+    
     // const graphState = useGraphState();
 
-    // This is the better solution instead.
+    // Here's the current solution.
     const forceUpdate = useForceUpdate();
     const edges = useGraphElements(EdgeElement, elements => forceUpdate());
 
@@ -40,7 +44,10 @@ export default function AlphabetLabelRenameOption(props)
                 {alphabet.map(symbol => <option key={symbol} value={symbol}>{symbol}</option>)}
             </select>
             <span>{'=>'}</span>
-            <input type="text" value={toSymbol} onChange={e => setToSymbol(e.target.value)}/>
+            <input type="text"
+                value={toSymbol}
+                onChange={e => setToSymbol(e.target.value)}
+                placeholder={'New Symbol'}/>
             <button
                 onClick={e =>
                 {
