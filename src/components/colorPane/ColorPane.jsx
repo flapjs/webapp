@@ -5,8 +5,8 @@ import Pane from '@flapjs/components2/drawer/pane/Pane.jsx';
 import ColorEntry from './ColorEntry.jsx';
 import ColorSubEntry from './ColorSubEntry.jsx';
 
-import StyleInput from '../../theme/sourceStyle/StyleInput.jsx';
-import ComputedStyleInput from '../../theme/computedStyle/ComputedStyleInput.jsx';
+import StyleInput from '../theme/sourceStyle/StyleInput.jsx';
+import ComputedStyleInput from '../theme/computedStyle/ComputedStyleInput.jsx';
 
 /**
  * A React component to hold all color changing options.
