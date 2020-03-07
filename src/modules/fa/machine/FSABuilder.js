@@ -39,6 +39,7 @@ export default class FSABuilder extends GraphMachineBuilder
         };
 
         // Compute all states...
+        let xy = 0;
         for(const state of machine.getStates())
         {
             let nodeData = {};
@@ -48,7 +49,22 @@ export default class FSABuilder extends GraphMachineBuilder
             {
                 nodeId = opts.builder.sourceMap.get(state.getStateID()) || nodeId;
                 let node = UNSAFE_getGraphElement(graphState, NodeElement, nodeId);
-                if (node) NodeElement.serialize(node, nodeData);
+                if (node)
+                {
+                    NodeElement.serialize(node, nodeData);
+                }
+                else
+                {
+                    nodeData.x = xy;
+                    nodeData.y = xy;
+                    xy += 10;
+                }
+            }
+            else
+            {
+                nodeData.x = xy;
+                nodeData.y = xy;
+                xy += 10;
             }
 
             nodeData.label = state.getStateLabel();
@@ -76,6 +92,11 @@ export default class FSABuilder extends GraphMachineBuilder
             fromId = source.getStateID();
             if (!fromId) continue;
 
+            if (opts.builder)
+            {
+                fromId = opts.builder.sourceMap.get(fromId) || fromId;
+            }
+
             label = transition.getSymbols().join('\n');
 
             destination = transition.getDestinationState();
@@ -84,14 +105,20 @@ export default class FSABuilder extends GraphMachineBuilder
             toId = destination.getStateID();
             if (!toId) continue;
 
+            if (opts.builder)
+            {
+                toId = opts.builder.sourceMap.get(toId) || toId;
+            }
+
             edge = {
                 fromId,
                 toId,
                 label,
             };
+
             result.EdgeElement[index++] = edge;
         }
-
+        
         let graphData = JSON.stringify(result);
         let nextGraphState = GraphStateDeserializer(FiniteAutomataGraph, graphData);
         graphDispatch({ type: 'resetState', state: nextGraphState });

@@ -25,13 +25,13 @@ export default function ComputePanel(props)
                 <button onClick={() =>
                     machineBuilder.applyChanges(machine =>
                     {
-                        if (deterministic)
+                        if (!deterministic)
                         {
-                            convertToDFA(machine);
+                            convertToDFA(machine, machine);
                         }
                         else
                         {
-                            convertToNFA(machine);
+                            convertToNFA(machine, machine);
                         }
                     })}>
                     <span>Convert to </span>
@@ -40,12 +40,14 @@ export default function ComputePanel(props)
             </div>
             <hr/>
             <div>
-                <button>Remove Unreachable States</button>
+                <button disabled={true}>
+                    Remove unreachable states
+                </button>
             </div>
         </Pane>
-        <Pane title="Related Converions">
+        <Pane title="Related Conversions">
             <div>
-                <button onClick={() => {}}>
+                <button disabled={true}>
                     Flip all accept states
                 </button>
             </div>

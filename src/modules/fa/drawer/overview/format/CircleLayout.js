@@ -30,6 +30,7 @@ export default function apply(graphState)
     }
 
     let currentStep = 0;
+
     if (numOfReachable === 1)
     {
         let degree = 2 * Math.PI / numOfNode;
@@ -44,8 +45,6 @@ export default function apply(graphState)
     else 
     {
         const degree_re = 2 * Math.PI / numOfReachable;
-        const degree_un = 2 * Math.PI / numOfUnreachable;
-
         currentStep = 0;
         for (const node of reachableNodes)
         {
@@ -55,6 +54,7 @@ export default function apply(graphState)
             currentStep += 1;
         }
 
+        const degree_un = 2 * Math.PI / numOfUnreachable;
         currentStep = 0;
         for (const node of unreachableNodes)
         {
