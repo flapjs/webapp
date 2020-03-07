@@ -9,7 +9,7 @@ import
     PLUS
 } from '@flapjs/modules/re/machine/RE.js';
 
-import AST from '@flapjs/services/expression/model/AST.js';
+import AST from '@flapjs/experimental/services/expression/model/AST.js';
 
 class REParser
 {

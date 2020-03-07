@@ -1,4 +1,4 @@
-import AbstractService from './AbstractService.js';
+import AbstractService from '@flapjs/deprecated/services/AbstractService.js';
 
 import InputController from '@flapjs/services/graph/controller/InputController.js';
 import ViewController from '@flapjs/services/graph/controller/ViewController.js';

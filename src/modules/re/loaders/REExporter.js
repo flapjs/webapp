@@ -1,6 +1,6 @@
 import SessionExporter from '@flapjs/session/loaders/SessionExporter.js';
 import { INSTANCE as RE_PARSER } from '@flapjs/modules/re/loaders/REParser.js';
-import { INSTANCE as AST_PARSER } from '@flapjs/services/expression/model/parser/ASTParser.js';
+import { INSTANCE as AST_PARSER } from '@flapjs/experimental/services/expression/model/parser/ASTParser.js';
 import { FileJSONIcon } from '@flapjs/components2/icons/Icons.js';
 
 /**

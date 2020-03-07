@@ -1,5 +1,5 @@
-import ExportService from '@flapjs/services/ExportService.js';
-import ImportService from '@flapjs/services/ImportService.js';
+import ExportService from '@flapjs/deprecated/services/export/ExportService.js';
+import ImportService from '@flapjs/deprecated/services/import/ImportService.js';
 import NotificationService from '@flapjs/services/NotificationService.js';
 import UndoService from '@flapjs/deprecated/services/undo/UndoService.js';
 import GraphService from '@flapjs/services/GraphService.js';

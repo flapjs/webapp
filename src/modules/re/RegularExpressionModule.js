@@ -1,8 +1,8 @@
 import MachineService from '@flapjs/services/MachineService.js';
 import REPlaygroundLayer from '@flapjs/modules/re/components/layers/REPlaygroundLayer.jsx';
 import REMachineController from '@flapjs/modules/re/machine/REMachineController.js';
-import ExportService from '@flapjs/services/ExportService.js';
-import ImportService from '@flapjs/services/ImportService.js';
+import ExportService from '@flapjs/deprecated/services/export/ExportService.js';
+import ImportService from '@flapjs/deprecated/services/import/ImportService.js';
 import REImporter from '@flapjs/modules/re/loaders/REImporter.js';
 import REExporter from '@flapjs/modules/re/loaders/REExporter.js';
 

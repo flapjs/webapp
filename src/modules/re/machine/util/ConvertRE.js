@@ -11,7 +11,7 @@ import
 } from '../RE.js';
 
 import { INSTANCE as RE_PARSER } from '@flapjs/modules/re/loaders/REParser.js';
-import AST from '@flapjs/services/expression/model/AST.js';
+import AST from '@flapjs/experimental/services/expression/model/AST.js';
 
 // Return NFA representation of the input regular expression
 // Construction of NFA is done using Thompson's algorithm

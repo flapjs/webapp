@@ -1,4 +1,4 @@
-import TextUploader from '@flapjs/services/import/TextUploader.js';
+import TextUploader from '@flapjs/deprecated/services/import/TextUploader.js';
 import FSAGraphParser from '@flapjs/modules/fa/loaders/FSAGraphParser.js';
 import FSAGraph from '@flapjs/modules/fa/graph/FSAGraph.js';
 import FSABuilder from '@flapjs/modules/fa/machine/FSAMachineBuilder.js';
