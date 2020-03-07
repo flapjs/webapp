@@ -1,4 +1,4 @@
-import NodeGraphReducer from '@flapjs/modules/node/nodegraph/NodeGraphReducer.js';
+import { GraphReducer } from '@flapjs/services/graph/GraphContext.jsx';
 import NodeElement from '@flapjs/modules/node/nodegraph/elements/node/NodeElement.js';
 
 import { computeElementsKey, UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
@@ -11,7 +11,7 @@ export default function FiniteAutomataGraphReducer(prev, action)
         {
             if (action.elementType === NodeElement)
             {
-                let [nextState, id] = NodeGraphReducer(prev, { type: 'add', elementType: NodeElement, opts: action.opts });
+                let [nextState, id] = GraphReducer(prev, { type: 'add', elementType: NodeElement, opts: action.opts });
                 if (Object.keys(nextState[computeElementsKey(NodeElement)]).length === 1)
                 {
                     let element = UNSAFE_getGraphElement(nextState, NodeElement, id);
@@ -21,5 +21,4 @@ export default function FiniteAutomataGraphReducer(prev, action)
             }
         }
     }
-    return NodeGraphReducer(prev, action);
 }

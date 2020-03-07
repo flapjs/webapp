@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 
 import { MachineContext } from './MachineContext.jsx';
 
@@ -67,7 +67,8 @@ export function useMachine(machineBuilderType, machineName)
 }
 
 /**
- * Attaches a source for the machine to reflect from. This should only be used once per machine builder.
+ * Attaches a source for the machine to reflect from. This should only be used once per unique machine builder type
+ * and name combination.
  * 
  * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
  * @param {string} machineName The session-unique name for the machine.
@@ -77,7 +78,7 @@ export function useMachine(machineBuilderType, machineName)
  * @param {Function} [changeCallback] The handler for data flow FROM the machine TO the source. If not defined,
  * data will not flow back towards the source and makes the machine act like a "view" of the source (instead of a hybrid).
  */
-export function useSourceForMachine(machineBuilderType, machineName, sourceState, changeCallback = () => {})
+export function useSourceForMachine(machineBuilderType, machineName, sourceState, changeCallback = (machine, opts) => {})
 {
     // NOTE: Why do we not use useMachineBuilder() here?
     // Because useMachineBuilder() will update itself if the machine builder's state changes (determinted by build id).
@@ -88,6 +89,22 @@ export function useSourceForMachine(machineBuilderType, machineName, sourceState
     let machineBuilderContext = MachineBuilderAPI.getMachineBuilderContext(machineBuilderType, machineId, true);
     let machineBuilder = machineBuilderContext.builder;
 
-    machineBuilder.setSourceCallback(changeCallback);
-    machineBuilder.applySource(sourceState);
+    // Pass on the builder opts if given any from the source callback (refer below).
+    // NOTE: This allows us to pass opts from applyChanges() to every function in the change pipeline. This is the
+    // same opts object through each of those calls so they can effectively communicate with eachother. We use this
+    // to optimize some of the build stages.
+    let builderOpts = machineBuilderContext.opts || {};
+    machineBuilderContext.opts = {};
+
+    const sourceCallback = useCallback((machine, opts) =>
+    {
+        // Save for the eventual "applySource()" call. Refer above for more info.
+        machineBuilderContext.opts = opts;
+        // Do the change...
+        changeCallback.call(undefined, machine, opts);
+    },
+    [ changeCallback, machineBuilderContext ]);
+
+    machineBuilder.setSourceCallback(sourceCallback);
+    machineBuilder.applySource(sourceState, builderOpts);
 }

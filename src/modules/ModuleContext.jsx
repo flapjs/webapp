@@ -57,6 +57,9 @@ export function ModuleProvider(props)
                 const [currentModule, loader] = ModuleLoader.loadModule(moduleClass);
                 moduleInstanceRef.current = currentModule;
 
+                // ...save it as recent...
+                localStorage.setItem('recentModuleId', moduleClass.moduleId);
+
                 // ...and here is the unmount procedure...
                 return () =>
                 {
@@ -96,5 +99,13 @@ function getDefaultModuleId()
         // ...yes we are.
         return params.module;
     }
+
+    // Was there a recent module used?
+    let prevModuleId = localStorage.getItem('recentModuleId');
+    if (prevModuleId)
+    {
+        return prevModuleId;
+    }
+
     return FALLBACK_MODULE_ID;
 }

@@ -1,3 +1,12 @@
+
+/**
+ * The callback to handle any reflexive changes to be applied from the machine to the source.
+ * 
+ * @callback SourceCallback
+ * @param {object} machine The updated machine to apply to the source.
+ * @param {object} opts Any additional arguements for this change.
+ */
+
 /**
  * MachineBuilder only handles data flow FROM source TO machine. Refer to useMachineBuilder() for more info.
  */
@@ -5,10 +14,11 @@ export default class MachineBuilder
 {
     /**
      * @abstract
-     * @param {object} [prev] The previous machine to build a copy from. Null if should create from default state.
+     * @param {object} [from] The previous machine to build a copy from. Null if should create from default state.
+     * @param {object} [opts] Any additional options to build the machine with.
      * @returns {object} The new machine.
      */
-    static build(prev = null)
+    static build(from = null, opts = {})
     {
         throw new Error(`No implementation found for ${this.name}.build().`);
     }
@@ -30,8 +40,9 @@ export default class MachineBuilder
      * @abstract
      * @param {object} machine The machine to update.
      * @param {object} source The source to update from.
+     * @param {object} opts Any additional arguments.
      */
-    updateMachineFromSource(machine, source)
+    updateMachineFromSource(machine, source, opts = {})
     {
         throw new Error('No implementation found for this.updateMachineFromSource().');
     }
@@ -41,7 +52,11 @@ export default class MachineBuilder
         this._persistent = persistent;
         return this; 
     }
-    
+
+    /**
+     * @param {SourceCallback} callback The handler for the source change.
+     * @returns {this} For method-chaining.
+     */
     setSourceCallback(callback)
     {
         if (callback)
@@ -65,10 +80,10 @@ export default class MachineBuilder
         return this;
     }
 
-    applySource(source)
+    applySource(source, opts = {})
     {
         // Apply to source...
-        this.updateMachineFromSource(this._machine, source);
+        this.updateMachineFromSource(this._machine, source, opts);
         this._buildId = this.getNextBuildId();
 
         // Resolve previous promises...
@@ -84,9 +99,11 @@ export default class MachineBuilder
 
     /**
      * @param {Function} callback Called to apply the necessary changes to the machine.
+     * @param {object} opts Additional arguments to describe the change. This will propagate to all other used
+     * functions within the "build" pipeline. This can be used to communicate between the stages.
      * @returns {Promise} The promised result of the changed machine (after the source has been updated too).
      */
-    async applyChanges(callback)
+    async applyChanges(callback, opts = {})
     {
         if (this._sourceCallback && !this._resolveCallback)
         {
@@ -95,7 +112,7 @@ export default class MachineBuilder
 
             // Do changes on a copied instance of the machine...
             let prevMachine = this._machine;
-            let nextMachine = this.constructor.build(prevMachine);
+            let nextMachine = this.constructor.build(prevMachine, opts);
 
             return new Promise(resolve =>
             {
@@ -104,7 +121,7 @@ export default class MachineBuilder
                 // Apply those changes...
                 callback(nextMachine);
                 // Propagate those changes...eventually returning to update()...
-                this._sourceCallback(nextMachine);
+                this._sourceCallback(nextMachine, opts);
 
                 this._machine = nextMachine;
             });
@@ -112,7 +129,7 @@ export default class MachineBuilder
         else
         {
             // Save it for later to be called by propagateRemainingChanges().
-            let changeContext = { callback, resolve: null };
+            let changeContext = { callback, opts, resolve: null };
             this._changeQueue.push(changeContext);
             return new Promise(resolve => changeContext.resolve = resolve);
         }
@@ -130,12 +147,12 @@ export default class MachineBuilder
 
             // Do changes on a copied instance of the machine...
             let prevMachine = this._machine;
-            let nextMachine = this.constructor.build(prevMachine);
+            let nextMachine = this.constructor.build(prevMachine, changeContext.opts);
 
             // Apply those changes...
             changeContext.callback(nextMachine);
-            // Propagate those changes...eventually returning to update()...
-            this._sourceCallback(nextMachine);
+            // Propagate those changes...eventually returning to applySource()...
+            this._sourceCallback(nextMachine, changeContext.opts);
 
             this._machine = nextMachine;
         }

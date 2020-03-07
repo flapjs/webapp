@@ -24,6 +24,6 @@ export function useGraphForMachine(machineBuilderType)
         machineBuilderType,
         'graph',
         graphState,
-        machine => machineBuilderType.updateGraphFromMachine(graphState, graphDispatch, machine)
+        (machine, opts) => machineBuilderType.updateGraphFromMachine(graphState, graphDispatch, machine, opts)
     );
 }

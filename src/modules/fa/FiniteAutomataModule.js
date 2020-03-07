@@ -12,7 +12,7 @@ import AutoInit from './AutoInit.jsx';
 import AutoSave from './AutoSave.jsx';
 
 import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
-import AnalysisPanel from './drawer/analysis/AnalysisPanel.jsx';
+import ComputePanel from './drawer/compute/ComputePanel.jsx';
 import TestingPanel from './drawer/testing/TestingPanel.jsx';
 import ExportPanel from './drawer/export/ExportPanel.jsx';
 
@@ -36,7 +36,7 @@ export default class FiniteAutomataModule extends BaseModule
             appbar: [ FiniteAutomataToolbar ],
             playarea: [ [GraphMachineSource, { machineBuilderType: FSABuilder }] ],
             viewarea: [ ],
-            drawer: [ OverviewPanel, AnalysisPanel, TestingPanel, ExportPanel ],
+            drawer: [ OverviewPanel, ComputePanel, TestingPanel, ExportPanel ],
         };
     }
 

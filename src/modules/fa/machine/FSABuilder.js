@@ -8,16 +8,29 @@ import { EMPTY_SYMBOL } from './Symbols';
 export default class FSABuilder extends GraphMachineBuilder
 {
     /** @override */
-    static build(prev = null)
+    static build(from = null, opts = {})
     {
-        let result = new FSA(false);
-        if (prev) result.copy(prev);
-        return result;
+        if (from && opts.machineOnly)
+        {
+            return from;
+        }
+        else
+        {
+            let result = new FSA(false);
+            if (from) result.copy(from);
+            return result;
+        }
     }
 
     /** @override */
-    static updateGraphFromMachine(graphState, graphDispatch, machine)
+    static updateGraphFromMachine(graphState, graphDispatch, machine, opts = {})
     {
+        if (opts.machineOnly)
+        {
+            graphDispatch({ type: 'forceUpdate' });
+            return;
+        }
+
         let result = {
             NodeElement: {},
             EdgeElement: {},
@@ -82,8 +95,13 @@ export default class FSABuilder extends GraphMachineBuilder
     }
 
     /** @override */
-    updateMachineFromSource(machine, source)
+    updateMachineFromSource(machine, source, opts = {})
     {
+        if (opts.machineOnly)
+        {
+            return;
+        }
+        
         this.sourceMap.clear();
         this.errors.length = 0;
         this.warnings.length = 0;

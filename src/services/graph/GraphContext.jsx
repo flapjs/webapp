@@ -1,11 +1,15 @@
 import React, { useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
+import { uuid } from '@flapjs/util/MathHelper.js';
+
 import { useUpdateCycle } from '@flapjs/hooks/UpdateCycleHook.jsx';
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 
 import { getElementListeners } from './elements/GraphElementListener.js';
 import { getStateListeners } from './GraphStateListener.js';
+
+import { computeElementsKey, UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
 
 const DEFAULT_GRAPH_STATE = {};
 
@@ -59,7 +63,12 @@ GraphProvider.defaultProps = {
 function GraphStateProvider(props)
 {
     const graphType = useContext(GraphTypeContext);
-    const [ currentState, dispatch ] = useAsyncReducer(graphType.reducer, props.graphState, true);
+    const [ currentState, dispatch ] = useAsyncReducer((state, action) =>
+    {
+        const result = graphType.reducer && graphType.reducer(state, action);
+        return result || GraphReducer(state, action);
+    },
+    props.graphState, true);
 
     useGraphUpdateCycle(currentState);
 
@@ -131,3 +140,85 @@ function useGraphUpdateCycle(state)
     useUpdateCycle(updateCallback);
 }
 
+/**
+ * The default graph reducer (if action was not handled by the given reducer() from the graph type).
+ * 
+ * @param {object} prev The previous state.
+ * @param {object} action The action options to perform.
+ * @param {string} action.type The type of action to perform.
+ * @returns {object} The resultant state. Or falsey if no changes.
+ */
+export function GraphReducer(prev, action)
+{
+    switch(action.type)
+    {
+        case 'add':
+        {
+            const { elementType, elementId, opts } = action;
+
+            let next = { ...prev };
+            let key = computeElementsKey(elementType);
+            let nextElements = key in next ? {...next[key]} : {};
+            let id = elementId || uuid();
+            let element = new (elementType)(id, opts || {});
+            nextElements[id] = element;
+            next[key] = nextElements;
+            return [ next, id ];
+        }
+        case 'delete':
+        {
+            const { elementType, elementId } = action;
+
+            let next = { ...prev };
+            let key = computeElementsKey(elementType);
+            if (key in next)
+            {
+                let nextElements = {...next[key]};
+                let element = nextElements[elementId];
+                delete nextElements[elementId];
+                next[key] = nextElements;
+                element.onDestroy();
+            }
+            return next;
+        }
+        case 'clear':
+        {
+            const { elementType } = action;
+            
+            let next = { ...prev };
+            let key = computeElementsKey(elementType);
+            if (key in next)
+            {
+                next[key] = {};
+            }
+            return next;
+        }
+        case 'clearAll':
+        {
+            return {};
+        }
+        case 'forceUpdate':
+        {
+            // Do nothing. It's a forceUpdate().
+            return { ...prev };
+        }
+        case 'resetState':
+        {
+            const { state } = action;
+            return state;
+        }
+        case 'swapProperty':
+        {
+            let element = UNSAFE_getGraphElement(prev, action.elementType, action.elementId);
+            let other = UNSAFE_getGraphElement(prev, action.targetType || action.elementType, action.targetId);
+            let value = element[action.property];
+            element[action.property] = other[action.property];
+            other[action.property] = value;
+            
+            // NOTE: Why not cause a re-render?
+            // This action's changes should really only be handled by markDirty(), because it deals only
+            // with individual elements.
+            return prev;
+        }
+    }
+}

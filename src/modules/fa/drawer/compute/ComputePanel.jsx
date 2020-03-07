@@ -5,12 +5,12 @@ import Pane from '@flapjs/components/pane/Pane.jsx';
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 
-export default function AnalysisPanel(props)
+export default function ComputePanel(props)
 {
     return (
         <>
         <header>
-            <h2>Analysis</h2>
+            <h2>Computations</h2>
         </header>
         <Pane title="Equivalent Conversions">
             <ul>
@@ -43,4 +43,4 @@ export default function AnalysisPanel(props)
     );
 }
 
-AnalysisPanel.Tab = createTabWithIcon(PencilIcon);
+ComputePanel.Tab = createTabWithIcon(PencilIcon);
