@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
@@ -11,14 +11,7 @@ export default function FiniteAutomataEdgeEditor(props)
     const graphDispatch = useContext(GraphDispatchContext);
 
     const inputRef = useRef(null);
-    const [ input, setInput ] = useState('');
-
-    useEffect(() =>
-    {
-        inputRef.current.focus();
-        setInput(element.label || '');
-    },
-    [ element.label ]);
+    const [ input, setInput ] = useState(element.label);
     
     return (
         <>

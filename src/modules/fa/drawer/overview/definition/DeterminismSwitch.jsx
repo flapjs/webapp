@@ -16,7 +16,7 @@ export default function DeterminismSwitch(props)
             <legend>Determinism</legend>
             <input type="checkbox"
                 id={inputId}
-                value={machine.isDeterministic()}
+                checked={machine.isDeterministic()}
                 onChange={e =>
                 {
                     let value = e.target.checked;
