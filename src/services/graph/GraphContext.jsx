@@ -214,7 +214,7 @@ export function GraphReducer(prev, action)
         case 'clearAll':
         {
             // Destroy all previous elements...
-            for(let elementType of prev)
+            for(let elementType of Object.keys(prev))
             {
                 for(let element of Object.values(prev[elementType]))
                 {
@@ -234,7 +234,7 @@ export function GraphReducer(prev, action)
         case 'resetState':
         {
             // Destroy all previous elements...
-            for(let elementType of prev)
+            for(let elementType of Object.keys(prev))
             {
                 for(let element of Object.values(prev[elementType]))
                 {
