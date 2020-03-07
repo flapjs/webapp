@@ -12,7 +12,7 @@ export default function GraphLayoutOptions(props)
     const layoutSelectorRef = useRef(null);
 
     return (
-        <Options title={'Layout'} disabled={false}>
+        <Options title={'Layout'}>
             <div>
                 <select ref={layoutSelectorRef}>
                     <option value={'circle'}>Circle</option>

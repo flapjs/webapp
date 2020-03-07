@@ -10,7 +10,7 @@ export default function GraphElementComponentLayer(props)
 {
     const { elementType } = props;
 
-    const [ elementIds ] = useGraphElementIds(elementType);
+    const elementIds = useGraphElementIds(elementType);
 
     return (
         <GraphElementLayer elementType={elementType} elementIds={elementIds}>

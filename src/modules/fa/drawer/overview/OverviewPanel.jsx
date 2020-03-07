@@ -12,6 +12,7 @@ import DeterminismSwitch from './definition/DeterminismSwitch.jsx';
 
 import TransitionTable from './analysis/TransitionTable.jsx';
 import GraphLayoutOptions from './format/GraphLayoutOptions.jsx';
+import AlphabetLabelOptions from './format/AlphabetLabelOptions.jsx';
 
 export default function OverviewPanel(props)
 {
@@ -32,18 +33,8 @@ export default function OverviewPanel(props)
             <TransitionTable machineName={machineName}/>
         </Pane>
         <Pane title="Format">
-            <GraphLayoutOptions disabled={true}/>
-            <fieldset>
-                <legend>Alphabet Label</legend>
-                <div>
-                    <label htmlFor=".rename">Rename Alphabet</label>
-                    <select id=".rename">
-                        <option>a</option>
-                    </select>
-                    <span>{'=>'}</span>
-                    <input type="text"/>
-                </div>
-            </fieldset>
+            <GraphLayoutOptions/>
+            <AlphabetLabelOptions/>
             <fieldset>
                 <legend>Node Label</legend>
                 <div>

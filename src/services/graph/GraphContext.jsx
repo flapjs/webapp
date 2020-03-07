@@ -10,6 +10,7 @@ import { getElementListeners } from './elements/GraphElementListener.js';
 import { getStateListeners } from './GraphStateListener.js';
 
 import { computeElementsKey, UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
+import { getElementTypeListeners } from './elements/GraphElementTypeListener.js';
 
 const DEFAULT_GRAPH_STATE = {};
 
@@ -103,9 +104,10 @@ function useGraphUpdateCycle(state)
 {
     const updateCallback = useCallback(() =>
     {
-        let dirty = false;
+        let stateDirty = false;
         for(let elementByIds of Object.values(state))
         {
+            let dirty = false;
             let elements = Object.values(elementByIds);
             for(let element of elements)
             {
@@ -123,10 +125,20 @@ function useGraphUpdateCycle(state)
                     }
                 }
             }
+
+            // Allow element type listeners to be updated...
+            if (dirty)
+            {
+                stateDirty = true;
+                for(let listener of getElementTypeListeners(elementByIds))
+                {
+                    listener.call(undefined, elements);
+                }
+            }
         }
 
         // Allow state listeners to be updated...
-        if (dirty)
+        if (stateDirty)
         {
             for(let listener of getStateListeners(state))
             {

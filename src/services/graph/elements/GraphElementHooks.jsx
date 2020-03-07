@@ -1,16 +1,40 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { addElementListener, removeElementListener } from './GraphElementListener.js';
+import { addElementTypeListener, removeElementTypeListener } from './GraphElementTypeListener.js';
 
-import { GraphDispatchContext, UNSAFE_useGraphStateContext } from '../GraphContext.jsx';
-import { UNSAFE_getGraphElement, UNSAFE_getGraphElementIds } from '../GraphHelper.js';
+import { UNSAFE_useGraphStateContext } from '../GraphContext.jsx';
+import { UNSAFE_getGraphElement, UNSAFE_getGraphElementIds, UNSAFE_getGraphElements } from '../GraphHelper.js';
 
 export function useGraphElementIds(elementType)
 {
     let graphState = UNSAFE_useGraphStateContext();
-    let graphDispatch = useContext(GraphDispatchContext);
     let elementIds = UNSAFE_getGraphElementIds(graphState, elementType);
-    let elementsDispatch = action => graphDispatch({elementType, ...action});
-    return [ elementIds, elementsDispatch ];
+    return elementIds;
+}
+
+export function useGraphElements(elementType, onChange)
+{
+    let graphState = UNSAFE_useGraphStateContext();
+
+    let elements = UNSAFE_getGraphElements(graphState, elementType);
+
+    useEffect(() =>
+    {
+        if (elements) addElementTypeListener(elementType, onChange);
+
+        return () =>
+        {
+            if (elements) removeElementTypeListener(elementType, onChange);
+        };
+    },
+    [
+        graphState,
+        elements,
+        elementType,
+        onChange,
+    ]);
+
+    return elements;
 }
 
 export function useGraphElement(elementType, elementId, onChange)
