@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './ModeTrayWidget.module.css';
 
-import IconButton from '@flapjs/components2/icons/IconButton.jsx';
-import { PencilIcon, MoveIcon } from '@flapjs/components2/icons/Icons.js';
+import IconButton from '@flapjs/components/icons/IconButton.jsx';
+import { PencilIcon, MoveIcon } from '@flapjs/components/icons/Icons.js';
 
 export const MODE_ACTION = 'action';
 export const MODE_MOVE = 'move';

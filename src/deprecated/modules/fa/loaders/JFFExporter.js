@@ -1,5 +1,5 @@
 import SessionExporter from '@flapjs/deprecated/session/loaders/SessionExporter.js';
-import { FileXMLIcon } from '@flapjs/components2/icons/Icons.js';
+import { FileXMLIcon } from '@flapjs/components/icons/Icons.js';
 import { INSTANCE as JFF_PARSER } from '@flapjs/deprecated/modules/fa/loaders/JFFGraphParser.js';
 
 class JFFExporter extends SessionExporter

@@ -1,6 +1,6 @@
 import SessionExporter from '@flapjs/deprecated/session/loaders/SessionExporter.js';
 import { INSTANCE as FSA_PARSER } from '@flapjs/deprecated/modules/fa/loaders/FSAGraphParser.js';
-import { FileJSONIcon } from '@flapjs/components2/icons/Icons.js';
+import { FileJSONIcon } from '@flapjs/components/icons/Icons.js';
 
 /**
  * A class that represents a session exporter for the FSA module.

@@ -1,5 +1,5 @@
 import React from 'react';
-import Pane from '@flapjs/components2/drawer/pane/Pane.jsx';
+import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
 
 class TestingPanel extends React.Component
 {

@@ -2,7 +2,7 @@ import SessionExporter from '@flapjs/deprecated/session/loaders/SessionExporter.
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-import { FileJPEGIcon, FilePNGIcon, FileSVGIcon } from '@flapjs/components2/icons/Icons.js';
+import { FileJPEGIcon, FilePNGIcon, FileSVGIcon } from '@flapjs/components/icons/Icons.js';
 
 export const IMAGE_TYPE_PNG = 'png';
 export const IMAGE_TYPE_JPG = 'jpg';

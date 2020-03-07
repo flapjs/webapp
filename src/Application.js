@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 import Logger from '@flapjs/util/Logger.js';
 
-import App from './components2/App.jsx';
+import App from './components/App.jsx';
 
 /** The root of all evil...a SINGLETON! */
 // NOTE: This is necessary for hot reloading, since the ENTIRE module will be replaced.
