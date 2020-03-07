@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
+import Options from '@flapjs/components/options/Options.jsx';
+
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
 import { isEquivalentFSAWithWitness } from '@flapjs/modules/fa/machine/FSAUtils.js';
 import { createMachineFromFileBlob } from '@flapjs/deprecated/modules/fa/machine/FSAMachineLoader.js';
+import Upload from '@flapjs/components/upload/Upload.jsx';
 
 export default function EquivalenceTester(props)
 {
@@ -15,10 +18,9 @@ export default function EquivalenceTester(props)
     const [ witnessString, setWitnessString ] = useState('');
 
     return (
-        <fieldset>
-            <legend>Test equivalence with machine</legend>
+        <Options title={'Equivalence Tester'}>
             <div>
-                <input type="file" name="import" onChange={e =>
+                <Upload onUpload={e =>
                 {
                     const files = e.target.files;
                     if (files.length > 0)
@@ -65,7 +67,7 @@ export default function EquivalenceTester(props)
                     setWitnessString(targetMachine);
                 }
             }}>
-                Test
+                Test Machine
             </button>
             <output htmlFor="testEquivalenceTargetFile">
                 <p>
@@ -79,6 +81,6 @@ export default function EquivalenceTester(props)
                     {witnessString}
                 </p>
             </output>
-        </fieldset>
+        </Options>
     );
 }
