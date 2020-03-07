@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
+import Pane from '@flapjs/components2/drawer/pane/Pane.jsx';
 
 import IconButton from '@flapjs/components2/icons/IconButton.jsx';
 import { PageContentIcon } from '@flapjs/components2/icons/Icons.js';
