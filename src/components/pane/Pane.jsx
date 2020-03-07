@@ -42,17 +42,19 @@ class Pane extends React.Component
             <section className={Style.container
                 + ' ' + (props.className || '')
                 + (open ? ' open': '')}>
-                <header>
-                    <button className={Style.dropdown} onClick={this.onHeaderClick}>
-                        <span className={Style.title}>
-                            {props.title}
-                        </span>
-                        <TinyDownIcon className="icon" />
-                    </button>
-                </header>
-                <main>
-                    {props.children}
-                </main>
+                <div className={Style.innerContainer}>
+                    <header>
+                        <button className={Style.dropdown} onClick={this.onHeaderClick}>
+                            <span className={Style.title}>
+                                {props.title}
+                            </span>
+                            <TinyDownIcon className="icon" />
+                        </button>
+                    </header>
+                    <main>
+                        {props.children}
+                    </main>
+                </div>
             </section>
         );
     }

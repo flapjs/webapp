@@ -1,5 +1,6 @@
-const DIRTY = Symbol('dirty');
 const ID = Symbol('elementId');
+const DEAD = Symbol('dead');
+const DIRTY = Symbol('dirty');
 
 /**
  * This class represents the data for the interactive elements of a graph, such as the nodes or edges.
@@ -22,6 +23,7 @@ export default class GraphElement
     {
         this[ID] = id;
         this[DIRTY] = true;
+        this[DEAD] = false;
     }
 
     get type() { return this.constructor; }
@@ -46,6 +48,9 @@ export default class GraphElement
 
     markDirty(force = true) { this[DIRTY] = force; }
     isDirty() { return this[DIRTY]; }
+    
+    markDead(force = true) { this[DEAD] = force; }
+    isDead() { return this[DEAD]; }
     
     /**
      * Attempts to serialize this element. Any function properties will be skipped.

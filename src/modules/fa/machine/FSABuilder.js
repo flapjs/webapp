@@ -4,6 +4,8 @@ import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/deprecated
 import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer';
 import FiniteAutomataGraph from '../fagraph/FiniteAutomataGraph';
 import { EMPTY_SYMBOL } from './Symbols';
+import NodeElement from '@flapjs/modules/node/nodegraph/elements/node/NodeElement.js';
+import { UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
 
 export default class FSABuilder extends GraphMachineBuilder
 {
@@ -37,19 +39,25 @@ export default class FSABuilder extends GraphMachineBuilder
         };
 
         // Compute all states...
-        let node;
         for(const state of machine.getStates())
         {
-            node = { label: state.getStateLabel() };
+            let nodeData = {};
+
+            let nodeId = machine.sourceMap.get(state.getStateID());
+            let node = UNSAFE_getGraphElement(graphState, NodeElement, nodeId);
+            if (node) NodeElement.serialize(node, nodeData);
+
+            nodeData.label = state.getStateLabel();
             if (machine.isStartState(state))
             {
-                node.initial = true;
+                nodeData.initial = true;
             }
             if (machine.isFinalState(state))
             {
-                node.final = true;
+                nodeData.final = true;
             }
-            result.NodeElement[state.getStateID()] = node;
+
+            result.NodeElement[nodeId || state.getStateID()] = nodeData;
         }
 
         // Compute all transitions...
@@ -89,6 +97,7 @@ export default class FSABuilder extends GraphMachineBuilder
     {
         super();
         
+        // From state ids to node ids
         this.sourceMap = new Map();
         this.errors = [];
         this.warnings = [];

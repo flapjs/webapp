@@ -10,13 +10,21 @@
     --pane-outline-important: var(--accent, #FFD700);
 }
 
-.container > header {
-    width: 100%;
-    height: 3rem;
+.innerContainer {
     border-bottom: 4px solid var(--pane-outline);
 }
 
-.container > main {
+.container:global(.open) > .innerContainer {
+    border-color: var(--pane-outline-important);
+    padding-bottom: 1rem;
+}
+
+.container > .innerContainer > header {
+    width: 100%;
+    height: 3rem;
+}
+
+.container > .innerContainer > main {
     display: none;
     width: 100%;
     height: 100%;
@@ -52,15 +60,15 @@
     text-align: left;
 }
 
-.container > header > .dropdown > :global(.icon) {
+.container > .innerContainer > header > .dropdown > :global(.icon) {
     transform: rotate(0);
 }
 
-.container:global(.open) > header > .dropdown > :global(.icon) {
+.container:global(.open) > .innerContainer > header > .dropdown > :global(.icon) {
     transform: rotate(180deg);
 }
 
-.container:global(.open) > main {
+.container:global(.open) > .innerContainer > main {
     display: block;
     overflow: auto;
 }

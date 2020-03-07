@@ -13,6 +13,8 @@ import DeterminismSwitch from './definition/DeterminismSwitch.jsx';
 import TransitionTable from './analysis/TransitionTable.jsx';
 import GraphLayoutOptions from './format/GraphLayoutOptions.jsx';
 import AlphabetLabelOptions from './format/AlphabetLabelOptions.jsx';
+import NodeLabelOptions from './format/NodeLabelOptions.jsx';
+import EdgeCurveOptions from './format/EdgeCurveOptions.jsx';
 
 export default function OverviewPanel(props)
 {
@@ -35,34 +37,8 @@ export default function OverviewPanel(props)
         <Pane title="Format">
             <GraphLayoutOptions/>
             <AlphabetLabelOptions/>
-            <fieldset>
-                <legend>Node Label</legend>
-                <div>
-                    <label htmlFor=".prefix">Prefix</label>
-                    <input id=".prefix" type="text"/>
-                </div>
-                <div>
-                    <label htmlFor=".index">Index Set</label>
-                    <select id=".index">
-                        <option>0-9</option>
-                    </select>
-                </div>
-                <div>
-                    <input id=".automatic" type="checkbox"/>
-                    <label htmlFor=".automatic">Auto-Assign</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Edge Curve</legend>
-                <div>
-                    <input id=".freeangle" type="checkbox"/>
-                    <label htmlFor=".freeangle">Free Angle</label>
-                </div>
-                <div>
-                    <input id=".placeholder" type="checkbox"/>
-                    <label htmlFor=".placeholder">Use Placeholder</label>
-                </div>
-            </fieldset>
+            <NodeLabelOptions/>
+            <EdgeCurveOptions/>
         </Pane>
         </>
     );

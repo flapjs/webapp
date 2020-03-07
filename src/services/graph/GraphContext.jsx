@@ -190,6 +190,7 @@ export function GraphReducer(prev, action)
                 delete nextElements[elementId];
                 next[key] = nextElements;
                 element.onDestroy();
+                element.markDead();
             }
             return next;
         }
@@ -201,12 +202,26 @@ export function GraphReducer(prev, action)
             let key = computeElementsKey(elementType);
             if (key in next)
             {
+                for(let element of Object.values(next[key]))
+                {
+                    element.onDestroy();
+                    element.markDead();
+                }
                 next[key] = {};
             }
             return next;
         }
         case 'clearAll':
         {
+            // Destroy all previous elements...
+            for(let elementType of prev)
+            {
+                for(let element of Object.values(prev[elementType]))
+                {
+                    element.onDestroy();
+                    element.markDead();
+                }
+            }
             return {};
         }
         case 'forceUpdate':
@@ -214,8 +229,20 @@ export function GraphReducer(prev, action)
             // Do nothing. It's a forceUpdate().
             return { ...prev };
         }
+        // NOTE: Be careful when using "resetState", any references to old elements
+        // are marked as DEAD and therefore should not be re-used.
         case 'resetState':
         {
+            // Destroy all previous elements...
+            for(let elementType of prev)
+            {
+                for(let element of Object.values(prev[elementType]))
+                {
+                    element.onDestroy();
+                    element.markDead();
+                }
+            }
+
             const { state } = action;
             return state;
         }

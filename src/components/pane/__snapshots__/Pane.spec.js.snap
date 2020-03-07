@@ -4,19 +4,23 @@ exports[`<Pane/> rendering renders correctly 1`] = `
 <section
   className="container  open"
 >
-  <header>
-    <button
-      className="dropdown"
-      onClick={[Function]}
-    >
-      <span
-        className="title"
-      />
-      <ForwardRef
-        className="icon"
-      />
-    </button>
-  </header>
-  <main />
+  <div
+    className="innerContainer"
+  >
+    <header>
+      <button
+        className="dropdown"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        />
+        <ForwardRef
+          className="icon"
+        />
+      </button>
+    </header>
+    <main />
+  </div>
 </section>
 `;
