@@ -109,6 +109,8 @@ export default class FSABuilder extends GraphMachineBuilder
         // const deterministic = machine.isDeterministic();
         machine.clear();
 
+        const nodeToStateMap = new Map();
+
         const nodeLabels = new Map();
         const nodeOutgoings = new Map();
         const edgeSymbols = new Set();
@@ -125,7 +127,8 @@ export default class FSABuilder extends GraphMachineBuilder
                 let state = new State(label);
                 machine.addState(state);
     
-                this.sourceMap.set(nodeId, state.getStateID());
+                nodeToStateMap.set(nodeId, state.getStateID());
+                this.sourceMap.set(state.getStateID(), nodeId);
     
                 if (final)
                 {
@@ -161,8 +164,8 @@ export default class FSABuilder extends GraphMachineBuilder
                 }
                 else if (fromId && toId)
                 {
-                    const sourceId = this.sourceMap.get(fromId);
-                    const destinationId = this.sourceMap.get(toId);
+                    const sourceId = nodeToStateMap.get(fromId);
+                    const destinationId = nodeToStateMap.get(toId);
     
                     const srcState = machine.getStateByID(sourceId);
                     const dstState = machine.getStateByID(destinationId);
