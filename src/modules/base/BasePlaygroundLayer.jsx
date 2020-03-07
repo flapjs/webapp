@@ -1,7 +1,7 @@
 import React from 'react';
 
 import GraphService from '@flapjs/services/GraphService.js';
-import GraphPlaygroundLayer from '@flapjs/components/graph/GraphPlaygroundLayer.jsx';
+import GraphPlaygroundLayer from '@flapjs/deprecated/components/graph/GraphPlaygroundLayer.jsx';
 import NodeGraphLayer from './NodeGraphLayer.jsx';
 
 class BasePlaygroundLayer extends React.Component

@@ -20,7 +20,7 @@ import JFFExporter from '@flapjs/modules/fa/loaders/JFFExporter.js';
 import FSAImporter from '@flapjs/modules/fa/loaders/FSAImporter.js';
 import FSAExporter from '@flapjs/modules/fa/loaders/FSAExporter';
 import { IMAGE_EXPORTERS } from '../base/NodeGraphImageExporters.js';
-import GraphViewportLayer from '@flapjs/components/graph/GraphViewportLayer.jsx';
+import GraphViewportLayer from '@flapjs/deprecated/components/graph/GraphViewportLayer.jsx';
 import FSAMachineController from '@flapjs/modules/fa/machine/FSAMachineController.js';
 // import FSAErrorChecker from '@flapjs/modules/fa/tester/FSAErrorChecker.js';
 import FSAValidator from '@flapjs/modules/fa/machine/FSAValidator.js';

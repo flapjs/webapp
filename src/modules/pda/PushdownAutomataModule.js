@@ -16,7 +16,7 @@ import { IMAGE_EXPORTERS } from '../base/NodeGraphImageExporters.js';
 
 import PDAGraphController from '@flapjs/modules/pda/graph/PDAGraphController.js';
 import PDAPlaygroundLayer from '@flapjs/modules/pda/components/layers/PDAPlaygroundLayer.jsx';
-import GraphViewportLayer from '@flapjs/components/graph/GraphViewportLayer.jsx';
+import GraphViewportLayer from '@flapjs/deprecated/components/graph/GraphViewportLayer.jsx';
 
 const MODULE = {
     id: 'pda',
