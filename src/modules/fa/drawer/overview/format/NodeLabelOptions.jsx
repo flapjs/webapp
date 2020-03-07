@@ -9,7 +9,7 @@ export default function NodeLabelOptions(props)
         <Options title={'Node Label'} disabled={true}>
             <div>
                 <label htmlFor=".prefix">Prefix</label>
-                <input id=".prefix" type="text"/>
+                <input id=".prefix" type="text" style={{ width: '3rem' }}/>
             </div>
             <div>
                 <label htmlFor=".index">Index Set</label>

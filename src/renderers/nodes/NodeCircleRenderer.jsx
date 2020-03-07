@@ -20,7 +20,7 @@ export default function NodeCircleRenderer(props)
         {labels && labels.length > 0 && labels.map((s, i) => (
             <text className={RendererStyle.decorative}
                 key={`${s}:${i}`}
-                x={x} y={y}
+                x={x} y={y + 3}
                 transform={`translate(0 ${(i * -15)})`}
                 style={{ fontSize: `${magicFontSize(s.length)}em` }}
                 textAnchor="middle">

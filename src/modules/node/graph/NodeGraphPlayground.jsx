@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import GraphElementComponentLayer from '@flapjs/services/graph/components/GraphElementComponentLayer.jsx';
 
-import NodeElement from '@flapjs/modules/node/nodegraph/elements/node/NodeElement.js';
-import EdgeElement from '@flapjs/modules/node/nodegraph/elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
+import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement.js';
 
-import NodeElementComponent from '@flapjs/modules/node/nodegraph/components/NodeElementComponent.jsx';
-import EdgeElementComponent from '@flapjs/modules/node/nodegraph/components/EdgeElementComponent.jsx';
+import NodeElementComponent from '@flapjs/modules/node/graph/components/NodeElementComponent.jsx';
+import EdgeElementComponent from '@flapjs/modules/node/graph/components/EdgeElementComponent.jsx';
 
 import { ProxyEdgeProvider } from './widgets/ProxyEdgeContext.jsx';
 import { SelectionBoxProvider } from '@flapjs/services/graph/widgets/selection/SelectionBoxContext.jsx';

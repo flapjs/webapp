@@ -5,8 +5,8 @@ import HistoryService from '@flapjs/services/history/HistoryService.js';
 
 import ExportPanel from './ExportPanel.jsx';
 
-import NodeGraph from './nodegraph/NodeGraph.js';
-import NodeGraphPlayground from './nodegraph/NodeGraphPlayground.jsx';
+import NodeGraph from './graph/NodeGraph.js';
+import NodeGraphPlayground from './graph/NodeGraphPlayground.jsx';
 import NodeToolbar from './NodeToolbar.jsx';
 import AutoInit from './AutoInit.jsx';
 import AutoSave from './AutoSave.jsx';

@@ -2,9 +2,9 @@ import GraphMachineBuilder from '@flapjs/services/graphmachine/GraphMachineBuild
 
 import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/deprecated/modules/fa/machine/FSA.js';
 import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer';
-import FiniteAutomataGraph from '../fagraph/FiniteAutomataGraph';
+import FiniteAutomataGraph from '../graph/FiniteAutomataGraph';
 import { EMPTY_SYMBOL } from './Symbols';
-import NodeElement from '@flapjs/modules/node/nodegraph/elements/node/NodeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
 import { UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
 
 export default class FSABuilder extends GraphMachineBuilder

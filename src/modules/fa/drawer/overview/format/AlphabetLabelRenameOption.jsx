@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { useGraphElements } from '@flapjs/services/graph/elements/GraphElementHooks.jsx';
-import EdgeElement from '@flapjs/modules/node/nodegraph/elements/edge/EdgeElement.js';
+import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
 
@@ -45,9 +45,10 @@ export default function AlphabetLabelRenameOption(props)
             </select>
             <span>{'=>'}</span>
             <input type="text"
+                style={{ width: '3rem' }}
                 value={toSymbol}
                 onChange={e => setToSymbol(e.target.value)}
-                placeholder={'New Symbol'}/>
+                placeholder={'Symbol'}/>
             <button
                 onClick={e =>
                 {
