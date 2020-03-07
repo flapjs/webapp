@@ -3,7 +3,7 @@ import GraphService from '@flapjs/services/graph/GraphService.js';
 import NotifyService from '@flapjs/services/notify/NotifyService.js';
 import HistoryService from '@flapjs/services/history/HistoryService.js';
 
-import ExportPanel from './ExportPanel.jsx';
+import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import NodeGraph from './graph/NodeGraph.js';
 import NodeGraphPlayground from './graph/NodeGraphPlayground.jsx';
