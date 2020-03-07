@@ -2,7 +2,7 @@ import React, { useContext, useCallback, useEffect } from 'react';
 import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 
 import * as Downloader from '@flapjs/util/Downloader.js';
-import Upload from '@flapjs/components/Upload.jsx';
+import Upload from '@flapjs/components/upload/Upload.jsx';
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
 import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
 
