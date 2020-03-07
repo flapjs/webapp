@@ -5,14 +5,27 @@ export function computeElementsKey(elementType)
     return elementType && elementType.name;
 }
 
+export function UNSAFE_getGraphElementIds(graphState, elementType)
+{
+    return Object.keys(graphState[computeElementsKey(elementType)] || {});
+}
+
 export function UNSAFE_getGraphElements(graphState, elementType)
 {
-    return graphState[computeElementsKey(elementType)];
+    return Object.values(graphState[computeElementsKey(elementType)] || {});
 }
 
 export function UNSAFE_getGraphElement(graphState, elementType, elementId)
 {
-    return graphState[computeElementsKey(elementType)][elementId];
+    let graphElementMap = graphState[computeElementsKey(elementType)];
+    if (graphElementMap && elementId in graphElementMap)
+    {
+        return graphElementMap[elementId];
+    }
+    else
+    {
+        return null;
+    }
 }
 
 /**
@@ -32,7 +45,7 @@ export function UNSAFE_findGraphElementWithinPosition(graphState, elementType, x
     if (elements)
     {
         let radiusSquared = radius * radius;
-        for(let element of Object.values(elements))
+        for(let element of elements)
         {
             let dist = distanceSquared(x, y, element.x, element.y);
             if (dist <= radiusSquared) return element;
@@ -63,7 +76,7 @@ export function UNSAFE_findGraphElementsWithinBox(graphState, elementType, fromX
     let elements = UNSAFE_getGraphElements(graphState, elementType);
     if (elements)
     {
-        for(let element of Object.values(elements))
+        for(let element of elements)
         {
             let { x, y } = element;
             if (fromX <= x && x <= toX && fromY <= y && y <= toY)

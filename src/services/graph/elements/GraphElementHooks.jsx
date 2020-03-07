@@ -2,13 +2,13 @@ import { useContext, useEffect } from 'react';
 import { addElementListener, removeElementListener } from './GraphElementListener.js';
 
 import { GraphDispatchContext, UNSAFE_useGraphStateContext } from '../GraphContext.jsx';
-import { UNSAFE_getGraphElements } from '../GraphHelper.js';
+import { UNSAFE_getGraphElement, UNSAFE_getGraphElementIds } from '../GraphHelper.js';
 
 export function useGraphElementIds(elementType)
 {
     let graphState = UNSAFE_useGraphStateContext();
     let graphDispatch = useContext(GraphDispatchContext);
-    let elementIds = Object.keys(UNSAFE_getGraphElements(graphState, elementType) || {});
+    let elementIds = UNSAFE_getGraphElementIds(graphState, elementType);
     let elementsDispatch = action => graphDispatch({elementType, ...action});
     return [ elementIds, elementsDispatch ];
 }
@@ -17,8 +17,7 @@ export function useGraphElement(elementType, elementId, onChange)
 {
     let graphState = UNSAFE_useGraphStateContext();
 
-    let elements = UNSAFE_getGraphElements(graphState, elementType) || {};
-    let element = elements[elementId] || null;
+    let element = UNSAFE_getGraphElement(graphState, elementType, elementId);
 
     useEffect(() =>
     {

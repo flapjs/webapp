@@ -11,6 +11,7 @@ import TransitionChart from './definition/TransitionChart.jsx';
 import DeterminismSwitch from './definition/DeterminismSwitch.jsx';
 
 import TransitionTable from './analysis/TransitionTable.jsx';
+import GraphLayoutOptions from './format/GraphLayoutOptions.jsx';
 
 export default function OverviewPanel(props)
 {
@@ -31,25 +32,7 @@ export default function OverviewPanel(props)
             <TransitionTable machineName={machineName}/>
         </Pane>
         <Pane title="Format">
-            <fieldset>
-                <legend>Layout</legend>
-                <div>
-                    <select>
-                        <option>Circle</option>
-                        <option>Grid</option>
-                    </select>
-                    <button>Apply</button>
-                </div>
-                <div>
-                    <input id=".autolayout"type="checkbox"/>
-                    <label htmlFor=".autolayout">Auto-Apply</label>
-                </div>
-                <hr/>
-                <div>
-                    <input id=".snapgrid" type="checkbox"/>
-                    <label htmlFor=".snapgrid">Snap-to-Grid</label>
-                </div>
-            </fieldset>
+            <GraphLayoutOptions disabled={true}/>
             <fieldset>
                 <legend>Alphabet Label</legend>
                 <div>
