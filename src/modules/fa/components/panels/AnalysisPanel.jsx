@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
 
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { PencilIcon } from '@flapjs/components/icons/Icons.js';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
+import { PencilIcon } from '@flapjs/components2/icons/Icons.js';
 
 import TestingEquivalenceSection from '../sections/TestingEquivalenceSection.jsx';
 

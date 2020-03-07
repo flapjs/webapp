@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { PinpointIcon } from '@flapjs/components/icons/Icons.js';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
+import { PinpointIcon } from '@flapjs/components2/icons/Icons.js';
 
 const OFFSET_EPSILON = 0.1;
 

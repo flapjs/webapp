@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FlexibleOrientationLayout from '@flapjs/components/layout/FlexibleOrientationLayout.jsx';
+import FlexibleOrientationLayout from '@flapjs/components2/layout/FlexibleOrientationLayout.jsx';
 import WorkspaceLayout from './WorkspaceLayout.jsx';
 
 import Drawer from '../drawer/Drawer.jsx';

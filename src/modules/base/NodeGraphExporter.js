@@ -1,6 +1,6 @@
 import SessionExporter from '@flapjs/session/loaders/SessionExporter.js';
 
-import { RunningManIcon } from '@flapjs/components/icons/Icons.js';
+import { RunningManIcon } from '@flapjs/components2/icons/Icons.js';
 
 class NodalGraphExporter extends SessionExporter
 {

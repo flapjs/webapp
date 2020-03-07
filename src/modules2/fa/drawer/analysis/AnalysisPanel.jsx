@@ -3,7 +3,7 @@ import React from 'react';
 import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
 
 import { createTabWithIcon } from '@flapjs/components2/drawer/DrawerHelper.js';
-import { PencilIcon } from '@flapjs/components/icons/Icons.js';
+import { PencilIcon } from '@flapjs/components2/icons/Icons.js';
 import EquivalenceTester from './equivalence/EquivalenceTester.jsx';
 
 export default function AnalysisPanel(props)

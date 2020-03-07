@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './Pane.module.css';
 
-import { TinyDownIcon } from '@flapjs/components/icons/Icons.js';
+import { TinyDownIcon } from '@flapjs/components2/icons/Icons.js';
 
 /**
  * A React component that can do anything you want :D.

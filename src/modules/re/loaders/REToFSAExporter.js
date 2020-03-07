@@ -4,7 +4,7 @@ import FSAGraph from '@flapjs/modules/fa/graph/FSAGraph.js';
 import {EMPTY_SYMBOL} from '@flapjs/modules/fa/machine/FSA.js';
 import {EMPTY_CHAR, SYMBOL_SEPARATOR} from '@flapjs/modules/fa/graph/elements/FSAEdge.js';
 import GraphLayout from '@flapjs/services/graph/util/GraphLayout.js';
-import { FileJSONIcon } from '@flapjs/components/icons/Icons.js';
+import { FileJSONIcon } from '@flapjs/components2/icons/Icons.js';
 
 class REToFSAExporter extends SessionExporter
 {

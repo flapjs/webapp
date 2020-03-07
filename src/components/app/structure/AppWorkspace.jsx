@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import Style from '../App.module.css';
 
-import FlexibleOrientationLayout from '@flapjs/components/layout/FlexibleOrientationLayout.jsx';
+import FlexibleOrientationLayout from '@flapjs/components2/layout/FlexibleOrientationLayout.jsx';
 import WorkspaceLayout from '@flapjs/components/workspace/layout/WorkspaceLayout.jsx';
 
 function AppWorkspace(props)

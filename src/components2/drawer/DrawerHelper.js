@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
 
 export function transformPanelToDrawerTab(panel)
 {

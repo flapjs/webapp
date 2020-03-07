@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './ZoomWidget.module.css';
 
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { ZoomInIcon, ZoomOutIcon } from '@flapjs/components/icons/Icons.js';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
+import { ZoomInIcon, ZoomOutIcon } from '@flapjs/components2/icons/Icons.js';
 
 class ZoomWidget extends React.Component
 {

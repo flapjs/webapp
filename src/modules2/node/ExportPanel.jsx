@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
+import { DownloadIcon } from '@flapjs/components2/icons/Icons.js';
 
 export default function ExportPanel(props)
 {

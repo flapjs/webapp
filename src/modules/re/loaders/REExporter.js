@@ -1,7 +1,7 @@
 import SessionExporter from '@flapjs/session/loaders/SessionExporter.js';
 import { INSTANCE as RE_PARSER } from '@flapjs/modules/re/loaders/REParser.js';
 import { INSTANCE as AST_PARSER } from '@flapjs/services/expression/model/parser/ASTParser.js';
-import { FileJSONIcon } from '@flapjs/components/icons/Icons.js';
+import { FileJSONIcon } from '@flapjs/components2/icons/Icons.js';
 
 /**
  * A class that represents a session exporter for the RE module.

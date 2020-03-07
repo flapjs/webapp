@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './TrashCanWidget.module.css';
 
-import ControlledIconButton from '@flapjs/components/icons/ControlledIconButton.jsx';
-import { TrashCanDetailedIcon } from '@flapjs/components/icons/Icons.js';
+import ControlledIconButton from '@flapjs/components2/icons/ControlledIconButton.jsx';
+import { TrashCanDetailedIcon } from '@flapjs/components2/icons/Icons.js';
 
 const DOUBLE_TAP_TIME = 250;
 

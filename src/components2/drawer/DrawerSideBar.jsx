@@ -4,8 +4,8 @@ import Style from './DrawerSideBar.module.css';
 
 import DrawerExpander from './DrawerExpander.jsx';
 
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { TinyDownIcon } from '@flapjs/components/icons/Icons.js';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
+import { TinyDownIcon } from '@flapjs/components2/icons/Icons.js';
 
 export default function DrawerSideBar(props)
 {

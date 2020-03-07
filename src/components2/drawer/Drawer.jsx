@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SideBarLayout from '@flapjs/components/sidebar/layout/SideBarLayout.jsx';
-import DrawerLayout from '@flapjs/components/drawer/layout/DrawerLayout.jsx';
+import SideBarLayout from '@flapjs/components2/sidebar/SideBarLayout.jsx';
+import DrawerLayout from '@flapjs/components2/drawer/layout/DrawerLayout.jsx';
 import { DrawerConsumer } from './DrawerContext.jsx';
 import DrawerSideBar from './DrawerSideBar.jsx';
 import { transformPanelToDrawerPanel, transformPanelToDrawerTab, } from './DrawerHelper.js';
 
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
+import IconButton from '@flapjs/components2/icons/IconButton.jsx';
+import { BoxEmptyIcon } from '@flapjs/components2/icons/Icons.js';
 
 export default function Drawer(props)
 {
