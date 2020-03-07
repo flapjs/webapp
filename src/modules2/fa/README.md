@@ -1,11 +1,57 @@
 # Finite Automata Module
 
 ## TODO List
+- General
+    - TITLE attribute for all buttons
+- Graph
+    - Left click to toggle Accept
+    - Toggle accept in graph editor menu for nodes
+    - Auto naming states
+    - Auto assign symbols to edges
+    - Symbol selector in graph editor menu for edges
+    - Selection Box - Selecting multiple nodes
+    - Graph Editor Menu - Click off to close dialog
+    - Reverse edge should force bend.
+    - Merge same direction edges.
+    - ReFocus button.
+    - Fullscreen button.
+    - Zoom Level Meter
 - Drawer
     - Overview Panel
-    - Analysis Panel
+        - Definition
+        - Analysis
+        - Format
+            - Apply Layout
+                - Enable autolayout for layout
+                    - Circle Layout
+                    - Grid Layout
+                        - Snap to grid
+            - Rename alphabet symbol
+            - Allow free edge move (vs locked direction to normal only).
+                - Disable auto edge formatting
+                - Disable placeholders
+            - Enable autoname for nodes
+                - Node Label Prefix
+                - Node Label Index Set
+    - Experiment Panel
+        - Equivalent Conversions
+            - Convert to DFA / NFA
+        - Related Conversions
+            - Flip all states
     - Testing Panel
+        - String Test
+        - Equivalence Test
     - Exporting Panel
+        - Save to JSON File (import)
+        - Export to JFF (import)
+        - Export to PNG
+        - Export to SVG
+    - Options Panel
+        - Left-handed / Right-handed
+        - Color
+        - Themes
+        - Localization
+        - Auto-save
 - Appbar
     - ~~Undo / Redo~~ COMPLETE!
     - ~~Import~~ COMPLETE!
@@ -17,7 +63,7 @@
     - ~~Notifications~~ COMPLETE!
     - ~~Undo / Redo~~ COMPLETE!
     - ~~Session-specific Storage~~ PARTIAL!
-    - Lanuage Select
     - Real-time Analysis
+    - Lanuage Select
     - Localization
     - Theming
