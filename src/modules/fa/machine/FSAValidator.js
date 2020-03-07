@@ -1,5 +1,5 @@
-import AbstractMachineValidator from '@flapjs/services/machine/AbstractMachineValidator.js';
-import SuccessMessage from '@flapjs/services/notification/components/messages/SuccessMessage.jsx';
+import AbstractMachineValidator from '@flapjs/deprecated/services/machine/AbstractMachineValidator.js';
+import SuccessMessage from '@flapjs/deprecated/services/notification/components/messages/SuccessMessage.jsx';
 
 import * as FSANotifications from '@flapjs/modules/fa/components/messages/FSANotifications.js';
 

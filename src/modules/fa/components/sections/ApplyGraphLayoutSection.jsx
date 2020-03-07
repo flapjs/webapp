@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GraphService from '@flapjs/services/GraphService.js';
+import GraphService from '@flapjs/deprecated/services/graph/GraphService.js';
 
 class ApplyGraphLayoutSection extends React.Component
 {

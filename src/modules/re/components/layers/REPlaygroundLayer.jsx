@@ -1,5 +1,5 @@
 import React from 'react';
-import MachineService from '@flapjs/services/MachineService';
+import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
 
 class REPlaygroundLayer extends React.Component
 {

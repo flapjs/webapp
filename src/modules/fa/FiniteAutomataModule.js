@@ -1,10 +1,10 @@
 import ExportService from '@flapjs/deprecated/services/export/ExportService.js';
 import ImportService from '@flapjs/deprecated/services/import/ImportService.js';
-import NotificationService from '@flapjs/services/NotificationService.js';
+import NotificationService from '@flapjs/deprecated/services/notification/NotificationService.js';
 import UndoService from '@flapjs/deprecated/services/undo/UndoService.js';
-import GraphService from '@flapjs/services/GraphService.js';
+import GraphService from '@flapjs/deprecated/services/graph/GraphService.js';
 import AutoSaveService from '@flapjs/deprecated/services/autosave/AutoSaveService.js';
-import MachineService from '@flapjs/services/MachineService.js';
+import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
 
 import AnalysisPanel from '@flapjs/modules/fa/components/panels/AnalysisPanel.jsx';
 import TestingPanel from '@flapjs/modules/fa/components/panels/TestingPanel.jsx';
@@ -12,7 +12,7 @@ import OverviewPanel from '@flapjs/modules/fa/components/panels/OverviewPanel.js
 
 import FSAGraphController from '@flapjs/modules/fa/graph/FSAGraphController.js';
 import FSAPlaygroundLayer from '@flapjs/modules/fa/components/layers/FSAPlaygroundLayer.jsx';
-import NotificationList from '@flapjs/services/notification/components/NotificationList.jsx';
+import NotificationList from '@flapjs/deprecated/services/notification/components/NotificationList.jsx';
 
 import { INSTANCE as FSA_PARSER } from '@flapjs/modules/fa/loaders/FSAGraphParser.js';
 import JFFImporter from '@flapjs/modules/fa/loaders/JFFImporter.js';

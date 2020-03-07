@@ -1,4 +1,4 @@
-import IndexedNodeGraph from '@flapjs/services/graph/model/IndexedNodeGraph.js';
+import IndexedNodeGraph from '@flapjs/deprecated/services/graph/model/IndexedNodeGraph.js';
 
 import PDANode from './elements/PDANode.js';
 import PDAEdge from './elements/PDAEdge.js';

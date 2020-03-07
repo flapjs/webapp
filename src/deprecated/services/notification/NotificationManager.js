@@ -1,5 +1,5 @@
 import { uuid } from '@flapjs/util/MathHelper.js';
-import InfoMessage from '@flapjs/services/notification/components/messages/InfoMessage.jsx';
+import InfoMessage from '@flapjs/deprecated/services/notification/components/messages/InfoMessage.jsx';
 
 class NotificationManager
 {

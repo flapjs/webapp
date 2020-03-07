@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ViewportComponent from './viewport/ViewportComponent.jsx';
 import ViewportInputHandler from '../controller/inputhandler/ViewportInputHandler.js';
 
-import InputContext from '@flapjs/services/graph/input/InputContext.js';
+import InputContext from '@flapjs/deprecated/services/graph/input/InputContext.js';
 
 class GraphView extends React.Component
 {

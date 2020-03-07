@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MachineService from '@flapjs/services/MachineService.js';
+import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
 
 class ChangeDeterminismSection extends React.Component
 {

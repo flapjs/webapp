@@ -3,7 +3,7 @@ import Style from './TransitionChart.module.css';
 
 import { EMPTY_CHAR } from '@flapjs/modules/fa/graph/elements/FSAEdge.js';
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/FSA.js';
-import MachineService from '@flapjs/services/MachineService.js';
+import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
 
 class TransitionChart extends React.Component
 {

@@ -1,11 +1,11 @@
 import AbstractService from '@flapjs/deprecated/services/AbstractService.js';
 
-import InputController from '@flapjs/services/graph/controller/InputController.js';
-import ViewController from '@flapjs/services/graph/controller/ViewController.js';
+import InputController from '@flapjs/deprecated/services/graph/controller/InputController.js';
+import ViewController from '@flapjs/deprecated/services/graph/controller/ViewController.js';
 
-import SafeUndoNodeGraphEventHandler from '@flapjs/services/graph/controller/SafeUndoNodeGraphEventHandler.js';
-import GraphAutoSaveHandler from '@flapjs/services/graph/controller/GraphAutoSaveHandler.js';
-import { createServiceContext } from '@flapjs/services/util/ServiceContextFactory.js';
+import SafeUndoNodeGraphEventHandler from '@flapjs/deprecated/services/graph/controller/SafeUndoNodeGraphEventHandler.js';
+import GraphAutoSaveHandler from '@flapjs/deprecated/services/graph/controller/GraphAutoSaveHandler.js';
+import { createServiceContext } from '@flapjs/deprecated/services/util/ServiceContextFactory.js';
 
 class GraphService extends AbstractService
 {

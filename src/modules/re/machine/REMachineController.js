@@ -1,4 +1,4 @@
-import MachineController from '@flapjs/services/machine/controller/MachineController.js';
+import MachineController from '@flapjs/deprecated/services/machine/controller/MachineController.js';
 import { stringHash } from '@flapjs/util/MathHelper.js';
 
 import RE from './RE.js';

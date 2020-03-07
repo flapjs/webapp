@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GraphService from '@flapjs/services/GraphService.js';
+import GraphService from '@flapjs/deprecated/services/graph/GraphService.js';
 import GraphPlaygroundLayer from '@flapjs/deprecated/components/graph/GraphPlaygroundLayer.jsx';
 import PDAGraphLayer from './PDAGraphLayer.jsx';
 

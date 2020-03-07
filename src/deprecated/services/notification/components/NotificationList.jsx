@@ -1,7 +1,7 @@
 import React from 'react';
 import Style from './NotificationList.module.css';
 
-import NotificationService from '@flapjs/services/NotificationService.js';
+import NotificationService from '@flapjs/deprecated/services/notification/NotificationService.js';
 import InfoMessage from './messages/InfoMessage.jsx';
 
 class NotificationList extends React.Component

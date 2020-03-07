@@ -2,7 +2,7 @@ import React from 'react';
 import * as Style from './OverviewStateListSection.module.css';
 import * as GraphElementListStyle from './GraphElementList.module.css';
 
-import GraphService from '@flapjs/services/GraphService.js';
+import GraphService from '@flapjs/deprecated/services/graph/GraphService.js';
 
 export const EMPTY_SET_CHAR = '\u2205';
 

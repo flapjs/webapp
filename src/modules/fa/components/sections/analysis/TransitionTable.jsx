@@ -4,7 +4,7 @@ import Style from './TransitionTable.module.css';
 import { EMPTY_CHAR } from '@flapjs/modules/fa/graph/elements/FSAEdge.js';
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/FSA.js';
 
-import MachineService from '@flapjs/services/MachineService.js';
+import MachineService from '@flapjs/deprecated/services/machine/MachineService.js';
 
 const SYMBOL_AXIS = 'symbols';
 const STATE_AXIS = 'states';

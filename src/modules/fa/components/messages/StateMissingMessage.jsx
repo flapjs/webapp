@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorMessage from '@flapjs/services/notification/components/messages/ErrorMessage.jsx';
+import ErrorMessage from '@flapjs/deprecated/services/notification/components/messages/ErrorMessage.jsx';
 import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
 
 class StateMissingMessage extends React.Component

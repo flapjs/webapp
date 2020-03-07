@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LocaleString from '@flapjs/util/localization/LocaleString.jsx';
-import ErrorMessage from '@flapjs/services/notification/components/messages/ErrorMessage.jsx';
+import ErrorMessage from '@flapjs/deprecated/services/notification/components/messages/ErrorMessage.jsx';
 
 class StateUnreachableMessage extends React.Component
 {

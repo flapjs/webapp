@@ -6,12 +6,12 @@ import NodeGraphImporter from '@flapjs/modules/base/NodeGraphImporter.js';
 
 import AutoSaveService from '@flapjs/deprecated/services/autosave/AutoSaveService.js';
 import UndoService from '@flapjs/deprecated/services/undo/UndoService.js';
-import GraphService from '@flapjs/services/GraphService.js';
+import GraphService from '@flapjs/deprecated/services/graph/GraphService.js';
 import ExportService from '@flapjs/deprecated/services/export/ExportService.js';
 import ImportService from '@flapjs/deprecated/services/import/ImportService.js';
 
 import BaseGraphController from './BaseGraphController.js';
-import { INSTANCE as NODE_PARSER } from '@flapjs/services/graph/model/parser/NodeGraphParser.js';
+import { INSTANCE as NODE_PARSER } from '@flapjs/deprecated/services/graph/model/parser/NodeGraphParser.js';
 import GraphViewportLayer from '@flapjs/deprecated/components/graph/GraphViewportLayer.jsx';
 import BasePlaygroundLayer from '@flapjs/modules/base/BasePlaygroundLayer.jsx';
 

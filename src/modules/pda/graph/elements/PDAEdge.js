@@ -1,4 +1,4 @@
-import QuadraticEdge from '@flapjs/services/graph/model/elements/QuadraticEdge.js';
+import QuadraticEdge from '@flapjs/deprecated/services/graph/model/elements/QuadraticEdge.js';
 
 export const LINE_SEPARATOR = '\n';
 export const SYMBOL_SEPARATOR = ' ';

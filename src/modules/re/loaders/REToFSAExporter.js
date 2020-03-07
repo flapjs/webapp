@@ -3,7 +3,7 @@ import { INSTANCE as FSA_PARSER } from '@flapjs/modules/fa/loaders/FSAGraphParse
 import FSAGraph from '@flapjs/modules/fa/graph/FSAGraph.js';
 import {EMPTY_SYMBOL} from '@flapjs/modules/fa/machine/FSA.js';
 import {EMPTY_CHAR, SYMBOL_SEPARATOR} from '@flapjs/modules/fa/graph/elements/FSAEdge.js';
-import GraphLayout from '@flapjs/services/graph/util/GraphLayout.js';
+import GraphLayout from '@flapjs/deprecated/services/graph/util/GraphLayout.js';
 import { FileJSONIcon } from '@flapjs/components2/icons/Icons.js';
 
 class REToFSAExporter extends SessionExporter
