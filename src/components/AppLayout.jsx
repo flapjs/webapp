@@ -10,6 +10,8 @@ import Viewport from './viewport/Viewport.jsx';
 import Logo from './logo/Logo.jsx';
 import ModuleSelector from './ModuleSelector.jsx';
 
+import DebugToggle from './DebugToggle.jsx';
+
 export default function AppLayout(props)
 {
     const { app } = props;
@@ -21,6 +23,7 @@ export default function AppLayout(props)
                 <Slot name="header"></Slot>
                 <AppBar>
                     <Logo title="Flap.js" version={app.version}/>
+                    <DebugToggle/>
                     <ModuleSelector/>
                     <Slot name="appbar"></Slot>
                 </AppBar>
