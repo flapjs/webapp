@@ -17,8 +17,8 @@ import TestingPanel from './drawer/testing/TestingPanel.jsx';
 import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource.jsx';
+import FiniteAutomataGraphEditor from './graph/widgets/editor/FiniteAutomataGraphEditor.jsx';
 import FSABuilder from './machine/FSABuilder.js';
-import FiniteAutomataGraphEditor from './graph/widgets/FiniteAutomataGraphEditor.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
