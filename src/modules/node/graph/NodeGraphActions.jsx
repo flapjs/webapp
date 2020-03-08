@@ -5,6 +5,11 @@ import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import NodeElement from './elements/node/NodeElement.js';
 import EdgeElement from './elements/edge/EdgeElement.js';
 
+/**
+ * This is basically a wrapper for certain GraphReducer actions.
+ * 
+ * @returns {[Function, Function, Function]} An array of callback functions.
+ */
 export function useNodeGraphActions()
 {
     const graphDispatch = useContext(GraphDispatchContext);

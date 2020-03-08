@@ -13,7 +13,7 @@ import { ProxyEdgeProvider } from './widgets/ProxyEdgeContext.jsx';
 import { SelectionBoxProvider } from '@flapjs/services/graph/widgets/selection/SelectionBoxContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
-import { useNodeGraphActions } from './NodeGraphHooks.jsx';
+import { useNodeGraphActions } from './NodeGraphActions.jsx';
 
 import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
 
