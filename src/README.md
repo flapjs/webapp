@@ -75,7 +75,12 @@ Furthermore, sometimes there are just too many different action types in a reduc
 
 NOTE: Sometimes we want a computed value from the dispatcher (the reducer), but the reducer does not return anything. So to facilitate this, we sometimes use an AsyncReducer, this dispatches a change asynchronously so you can `await` or `then()` it for it's result. You can tell the dispatcher is an AsyncReducer if in the provider, it has `useAsyncReducer()`.
 
+## Render Props
+One way to configure what a component renders is by passing a function through props that will return rendered content. The component that takes in this prop can determine where to call that function and where it should render.
+
 ## Slots
+Like Render Props, this let's you customize a component's rendered children.
+
 Slots are not a React concept. It is taken from WebComponents (it's also in Vue). Basically, you first define a `<Slot name="somePlace">` where you want future content to be. It must have a name in order to refer back to. Then, in some point in time, you "inject" components into that slot by name (refer to `Slot.inject()` or `<Slot.Fill>` for more info). Then, that slot will now contain your new component without you having to edit the original code! How cool is that?
 
 NOTE: The problem this solves is modularity. We wanted modules to only edit their own code, yet be able to change components in the app "shell". This method allows a declarative (and imperative if you must) method of changing the app's contents.
@@ -88,6 +93,12 @@ NOTE: If you want to pass props to a component rendered by a slot, you can pass 
 These are React hooks that deal with input handling. Before this, input handling was a monster (not as big of a monster as the graph-machine behemoth, but contributed to it quite a bit). Now it's as simple as using a behavior and you are good to go! See the current use cases for a better understanding on how to use them.
 
 NOTE: Be careful when attaching behaviors to components that re-render frequently, you may need to optimize them for better performance.
+
+## Renderers
+These are React components that ONLY renders things, no state or logic. They are essentially `PureComponent`s in that they only change/re-render if their props change. Components that handle a lot of state or logic can benefit from being split into 2 separate files, one that handles rendering and the other that handles the rest. To distinguish between these components, we call one the renderer and the other a regular component.
+
+## Layouts
+These are React components that ONLY structure its children. It can contain some logic and state, but it is mainly concerned with properly managing where components are rendered. Most of these achieve this either by defining slots or render props.
 
 ## Services
 These are like modules, except they are "bundled" with the app itself and available to be used across modules. They have their own providers, renders, the same lifecycle callbacks, and even their own list of dependent services (the dependency tree is solved for you). They simply encapsulate a functionality that is used across modules. They use all the methods above to give an interface for your module.

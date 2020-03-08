@@ -2,8 +2,10 @@
 
 Cause graphs are hard.
 
-## My Graph Design Thought Process
+## Getting Started
+The entrypoint is `GraphService.js`. It also expects you to define a graph type class (refer to `BaseGraph.js` for more info). Most functions interacting with the graph will take a graph type.
 
+## My Graph Design Thought Process
 What if I want to access a graph element's state in render()?
 > For example: `<... disabled={state.active}/>`
 - You'll need to re-render if it changes.
