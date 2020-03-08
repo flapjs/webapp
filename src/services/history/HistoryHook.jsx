@@ -3,7 +3,7 @@ import { HistoryStateContext, HistoryDispatchContext } from './HistoryContext.js
 import { stringHash } from '@flapjs/util/MathHelper.js';
 import { isCurrentState } from './HistoryHelper.js';
 
-export function useHistory(source, dataCallback, recheckTimeInterval = 2000, commitImmediately = false)
+export function useHistory(source, dataCallback, recheckTimeInterval = 300, commitImmediately = false)
 {
     const historyState = useContext(HistoryStateContext);
     const historyDispatch = useContext(HistoryDispatchContext);

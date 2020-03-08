@@ -4,7 +4,7 @@ import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
 import GraphStateSerializer from '@flapjs/services/graph/GraphStateSerializer.js';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
-export default function AutoInit()
+export default function AutoSave()
 {
     const graphType = useContext(GraphTypeContext);
     const graphState = useGraphState();
