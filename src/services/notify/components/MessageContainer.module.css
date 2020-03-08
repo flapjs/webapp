@@ -1,0 +1,25 @@
+.container {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    max-width: 20rem;
+    max-height: 80%;
+    overflow-y: auto;
+    background-color: darkgray;
+    border-top: 0.5rem solid black;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.container > p {
+    margin: 0.5rem;
+}
+
+.container > fieldset {
+    position: sticky;
+    bottom: 0;
+    background-color: darkgray;
+}
+
+.container > fieldset > legend {
+    font-size: 0.8rem;
+    color: rgb(100, 100, 100);
+}

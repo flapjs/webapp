@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
@@ -6,14 +6,20 @@ import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder';
-import { convertToDFA, convertToNFA } from '@flapjs/modules/fa/machine/FSAUtils';
+
+import { NotifyDispatchContext } from '@flapjs/services/notify/NotifyContext.jsx';
+import NFAToDFAConversionMessage from '../../messages/NFAToDFAConversionMessage.jsx';
+import { convertToNFA } from '../../machine/FSAUtils.js';
 
 export default function ComputePanel(props)
 {
     const machineBuilder = useGraphMachineBuilder(FSABuilder);
     const machine = machineBuilder.getMachine();
 
+    const notifyDispatch = useContext(NotifyDispatchContext);
+
     const deterministic = machine.isDeterministic();
+    const stateCount = machine.getStateCount();
 
     return (
         <>
@@ -22,21 +28,17 @@ export default function ComputePanel(props)
         </header>
         <Pane title="Equivalent Conversions">
             <div>
-                <button onClick={() =>
-                    machineBuilder.applyChanges(machine =>
-                    {
-                        if (!deterministic)
-                        {
-                            convertToDFA(machine, machine);
-                        }
-                        else
-                        {
-                            convertToNFA(machine, machine);
-                        }
-                    })}>
-                    <span>Convert to </span>
-                    <span>{deterministic ? 'NFA' : 'DFA'}</span>
-                </button>
+                {!deterministic
+                    ? <button onClick={() => notifyDispatch({ type: 'send', component: NFAToDFAConversionMessage, message: `${stateCount} state(s) -> ${Math.pow(2, stateCount)} states`})}
+                        disabled={stateCount <= 0}>
+                        <span>Convert to </span>
+                        <span>DFA</span>
+                    </button>
+                    : <button onClick={() => machineBuilder.applyChanges(machine => convertToNFA(machine, machine))}
+                        disabled={stateCount <= 0}>
+                        <span>Convert to </span>
+                        <span>NFA</span>
+                    </button>}
             </div>
             <hr/>
             <div>
