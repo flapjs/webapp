@@ -1,0 +1,34 @@
+.container {
+    text-anchor: middle;
+    user-select: none;
+    pointer-events: none;
+    animation: fadein 10s forwards;
+}
+
+.container:global(.hidden) {
+    animation: fadeout 1s forwards;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

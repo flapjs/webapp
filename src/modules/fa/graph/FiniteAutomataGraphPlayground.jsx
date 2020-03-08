@@ -17,6 +17,7 @@ import FiniteAutomataNodeElementComponent from './components/FiniteAutomataNodeE
 import { GraphElementEditorContext } from '@flapjs/services/graph/widgets/editor/GraphElementEditorContext.jsx';
 
 import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
+import Tooltip from './components/Tooltip.jsx';
 
 export default function FiniteAutomataGraphPlayground(props)
 {
@@ -57,6 +58,7 @@ export default function FiniteAutomataGraphPlayground(props)
                         edge.markDirty();
                     }
                 }}>
+                <Tooltip/>
                 <GraphElementComponentLayer elementType={NodeElement}>
                     {element => <FiniteAutomataNodeElementComponent element={element}/>}
                 </GraphElementComponentLayer>
