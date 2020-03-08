@@ -5,7 +5,7 @@ import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer
 import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
 import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
 
-import * as QuadraticEdgeHelper from '../elements/edge/QuadraticEdgeHelper.js';
+import * as QuadraticEdgeHelper from '../elements/QuadraticEdgeHelper.js';
 
 export default function ControlledEdgeElementComponent(props)
 {

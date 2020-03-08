@@ -8,8 +8,8 @@ import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer
 import EdgeEndpointArrowRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointArrowRenderer.jsx';
 import EdgeEndpointNoneRenderer from '@flapjs/renderers/edges/endpoints/EdgeEndpointNoneRenderer.jsx';
 
-import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
+import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/QuadraticEdgeHelper.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { useEdgeBehaviors } from '@flapjs/modules/node/graph/behaviors/EdgeBehaviors.jsx';
 
 export default function FiniteAutomataEdgeElementComponent(props)

@@ -1,5 +1,5 @@
 import { GraphReducer } from '@flapjs/services/graph/GraphContext.jsx';
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 
 import { computeElementsKey } from '@flapjs/services/graph/GraphHelper.js';
 

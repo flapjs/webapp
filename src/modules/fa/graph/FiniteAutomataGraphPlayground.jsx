@@ -10,14 +10,14 @@ import { StartMarkerProvider } from './widgets/StartMarkerContext.jsx';
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
 import { useNodeGraphActions } from '@flapjs/modules/node/graph/NodeGraphActions.jsx';
 
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
-import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
+import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
 import FiniteAutomataEdgeElementComponent from './components/FiniteAutomataEdgeElementComponent.jsx';
 import FiniteAutomataNodeElementComponent from './components/FiniteAutomataNodeElementComponent.jsx';
 import { GraphElementEditorContext } from '@flapjs/services/graph/widgets/editor/GraphElementEditorContext.jsx';
 
-import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
+import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/QuadraticEdgeHelper.js';
 
 export default function FiniteAutomataGraphPlayground(props)
 {

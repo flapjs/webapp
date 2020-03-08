@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import GraphElementComponentLayer from '@flapjs/services/graph/components/GraphElementComponentLayer.jsx';
 import NodeGraphTooltip from './components/NodeGraphTooltip.jsx';
 
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
-import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
+import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
 import NodeElementComponent from '@flapjs/modules/node/graph/components/NodeElementComponent.jsx';
 import EdgeElementComponent from '@flapjs/modules/node/graph/components/EdgeElementComponent.jsx';
@@ -16,7 +16,7 @@ import { SelectionBoxProvider } from '@flapjs/services/graph/widgets/selection/S
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
 import { useNodeGraphActions } from './NodeGraphActions.jsx';
 
-import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
+import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/QuadraticEdgeHelper.js';
 
 export default function NodeGraphPlayground(props)
 {

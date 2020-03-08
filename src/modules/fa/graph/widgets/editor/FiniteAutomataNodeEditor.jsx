@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement';
 
 export default function FiniteAutomataNodeEditor(props)
 {

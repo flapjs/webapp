@@ -8,7 +8,7 @@ import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import GraphElementEditor from '@flapjs/services/graph/widgets/editor/GraphElementEditor.jsx';
 import FiniteAutomataNodeEditor from './FiniteAutomataNodeEditor.jsx';
 import FiniteAutomataEdgeEditor from './FiniteAutomataEdgeEditor.jsx';
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 
 export default function FiniteAutomataGraphEditor(props)
 {

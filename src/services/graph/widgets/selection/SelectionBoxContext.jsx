@@ -5,7 +5,7 @@ import { createConnector } from '@flapjs/behaviors/ConnectBehaviorFactory.jsx';
 import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
 import { UNSAFE_findGraphElementsWithinBox } from '@flapjs/services/graph/GraphHelper';
 
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export const SelectionBoxStateContext = React.createContext();

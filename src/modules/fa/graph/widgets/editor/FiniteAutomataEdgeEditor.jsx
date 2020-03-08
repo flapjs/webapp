@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
-import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement';
+import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
 
 export default function FiniteAutomataEdgeEditor(props)
 {

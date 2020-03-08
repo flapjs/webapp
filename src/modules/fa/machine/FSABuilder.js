@@ -4,7 +4,7 @@ import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa
 import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer';
 import FiniteAutomataGraph from '../graph/FiniteAutomataGraph';
 import { EMPTY_SYMBOL } from './Symbols';
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
 
 export default class FSABuilder extends GraphMachineBuilder

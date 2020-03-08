@@ -2,9 +2,9 @@ import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 import { useProxyEdgeFromBehavior } from '../widgets/ProxyEdgeContext.jsx';
 import { useGraphElementEditorBehavior } from '@flapjs/services/graph/widgets/editor/GraphElementEditorBehavior.jsx';
 
-import { changeCenterPoint, resetQuadsIfPlaceholder } from '../elements/edge/QuadraticEdgeHelper.js';
+import { changeCenterPoint, resetQuadsIfPlaceholder } from '../elements/QuadraticEdgeHelper.js';
 
-import EdgeElement from '../elements/edge/EdgeElement.js';
+import EdgeElement from '../elements/EdgeElement.js';
 
 export function useEdgeBehaviors(elementRef, labelRef, forwardEndpointRef, edge, from, to, start, center, end)
 {

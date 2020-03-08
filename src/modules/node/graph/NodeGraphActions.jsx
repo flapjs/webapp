@@ -2,8 +2,8 @@ import { useContext, useCallback } from 'react';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 
-import NodeElement from './elements/node/NodeElement.js';
-import EdgeElement from './elements/edge/EdgeElement.js';
+import NodeElement from './elements/NodeElement.js';
+import EdgeElement from './elements/EdgeElement.js';
 
 /**
  * This is basically a wrapper for certain GraphReducer actions.

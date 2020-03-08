@@ -1,6 +1,6 @@
 import { UNSAFE_getGraphElements, UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
-import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
-import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement.js';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
+import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
 export default function apply(graphState)
 {
