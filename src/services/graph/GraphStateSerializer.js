@@ -1,5 +1,7 @@
 import { computeElementsKey } from './GraphHelper.js';
 
+const VERSION = '1.0.0';
+
 export default function GraphStateSerializer(graphType, graphState, opts = {})
 {
     let data = {};
@@ -18,5 +20,11 @@ export default function GraphStateSerializer(graphType, graphState, opts = {})
         }
     }
 
+    // Version checking...
+    data.__metadata__ = {
+        graphType: graphType.name,
+        version: VERSION,
+    };
     return JSON.stringify(data);
 }
+GraphStateSerializer.VERSION = VERSION;

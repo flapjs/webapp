@@ -28,7 +28,7 @@ export async function fetchModuleClassById(moduleId, expectedModuleVersion = und
                 + ' "' + nextModule.moduleId + '" does not equal "' + moduleId + '".');
         }
 
-        if (expectedModuleVersion && !SemanticVersion.parse(nextModule.moduleVersion).canSupportVersion(SemanticVersion.parse(expectedModuleVersion)))
+        if (expectedModuleVersion && !SemanticVersion.parse(nextModule.moduleVersion).canSupportVersion(expectedModuleVersion))
         {
             throw new Error('Outdated module version!');
         }
