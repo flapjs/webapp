@@ -5,7 +5,7 @@ import { GRAPH_EVENT_EDGE_EDIT_WHILE_DELETE, GRAPH_EVENT_EDGE_DELETE, GRAPH_EVEN
 import { GRAPH_EVENT_START_MARKER_CHANGE } from '@flapjs/deprecated/services/graph/controller/inputhandler/IndexedGraphStartMarkerInputHandler.js';
 
 // import { WARNING_LAYOUT_ID } from 'deprecated/session/manager/notification/NotificationManager.js';
-import FSAGraphLabeler from './FSAGraphLabeler';
+import FSAGraphLabeler from './FSAGraphLabeler.js';
 
 import { SYMBOL_SEPARATOR } from './elements/FSAEdge.js';
 
