@@ -7,7 +7,7 @@ import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import NodeGraph from './graph/NodeGraph.js';
 import NodeGraphPlayground from './graph/NodeGraphPlayground.jsx';
-import NodeGraphLabelEditor from './graph/widgets/NodeGraphLabelEditor.jsx';
+import NodeGraphLabelEditor from './graph/widgets/editor/NodeGraphLabelEditor.jsx';
 
 import NodeToolbar from './NodeToolbar.jsx';
 import AutoInit from './AutoInit.jsx';

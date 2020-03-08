@@ -282,6 +282,7 @@ function setQuadraticByCoords(x, y, from, to, opts, dst = opts.quad)
     const inrad = radians - (HALF_PI);
 
     // FIXME: Should be dependent on length, instead of a constant.
+    // const maxdr = Math.PI / 2 + 0.1;
     const maxdr = Math.PI / 20;
 
     if (Math.abs(length) < 8)
