@@ -26,7 +26,7 @@ export default function FiniteAutomataEdgeEditor(props)
         </button>
         <button onClick={() =>
         {
-            graphDispatch({ type: 'delete', elementType: EdgeElement, elementId: element.elementId });
+            graphDispatch({ type: 'delete', elementType: EdgeElement, elementId: element.id });
             closeEditor();
         }}>
             Delete This

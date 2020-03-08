@@ -42,7 +42,7 @@ export default function FiniteAutomataNodeEditor(props)
         </div>
         <button onClick={() =>
         {
-            graphDispatch({ type: 'delete', elementType: NodeElement, elementId: element.elementId });
+            graphDispatch({ type: 'delete', elementType: NodeElement, elementId: element.id });
             closeEditor();
         }}>
             Delete This

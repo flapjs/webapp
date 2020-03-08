@@ -12,13 +12,14 @@ export const ENDPOINT_DIRECTION_BACKWARD = 'backward';
 const MASK_WIDTH_OFFSET = 8;
 const QUAD_RADIAN_THRESHOLD = 0.01;
 const QUAD_REVERSE_OFFSET_THRESHOLD = 4;
+const HIDDEN_OPACITY = 0.1;
 
 export default function EdgeQuadraticRenderer(props)
 {
     const { start, end, center,
         label, labelDirection, labelKeepUp,
         childProps, maskProps, labelProps,
-        renderEndpoint } = props;
+        renderEndpoint, hidden } = props;
 
     let fromPoint = start;
     let toPoint = end;
@@ -53,7 +54,7 @@ export default function EdgeQuadraticRenderer(props)
 
     const pathData = `M ${fromPoint.x} ${fromPoint.y} ${quadLine}`;
     return (
-        <g>
+        <g style={{ opacity: hidden ? HIDDEN_OPACITY : 1 }}>
             <path className={RendererStyle.decorative}
                 d={pathData} fill="none"
                 {...childProps}/>
@@ -110,6 +111,7 @@ EdgeQuadraticRenderer.propTypes = {
      * @param {string} direction Either "forward" or "backward" direction.
      */
     renderEndpoint: PropTypes.func,
+    hidden: PropTypes.bool,
 };
 EdgeQuadraticRenderer.defaultProps = {
     start: { x: 0, y: 0 },
@@ -120,4 +122,5 @@ EdgeQuadraticRenderer.defaultProps = {
     childProps: {},
     maskProps: {},
     labelProps: {},
+    hidden: false,
 };

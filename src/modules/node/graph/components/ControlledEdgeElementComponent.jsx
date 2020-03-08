@@ -9,7 +9,7 @@ import * as QuadraticEdgeHelper from '../elements/edge/QuadraticEdgeHelper.js';
 
 export default function ControlledEdgeElementComponent(props)
 {
-    const { from, to, opts } = props;
+    const { from, to, label, opts } = props;
 
     const start = QuadraticEdgeHelper.getStartPoint(from, to, opts);
     const end = QuadraticEdgeHelper.getEndPoint(from, to, opts);
@@ -20,6 +20,7 @@ export default function ControlledEdgeElementComponent(props)
             start={start}
             end={end}
             center={center}
+            label={label}
             renderEndpoint={(point, angle, direction) =>
             {
                 if (direction === 'forward')
@@ -47,5 +48,6 @@ ControlledEdgeElementComponent.propTypes = {
         x: PropTypes.number,
         y: PropTypes.number,
     }).isRequired,
+    label: PropTypes.string,
     opts: PropTypes.object,
 };

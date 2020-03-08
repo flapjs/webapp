@@ -175,7 +175,7 @@ export function GraphReducer(prev, action)
             let element = new (elementType)(id, opts || {});
             nextElements[id] = element;
             next[key] = nextElements;
-            return [ next, id ];
+            return [ next, element ];
         }
         case 'delete':
         {
