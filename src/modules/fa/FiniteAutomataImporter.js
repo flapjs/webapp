@@ -20,7 +20,7 @@ export default async function applyImport(fileBlob)
         // Flap.js v2.0.0-v4.0.0
         else if (name.endsWith('.fsa.json'))
         {
-            // Parse an old fsa graph.
+            // Parse an old fsa session.
             graphState = importFromTheOldApp(textData);
         }
         // JFLAP v7.0
@@ -44,10 +44,6 @@ export default async function applyImport(fileBlob)
     {
         Logger.error('FiniteAutomataImporter', 'Failed to import file.', e);
     }
-
-    // TODO: Add backwards compatibility for older files
-    // TODO: Add JFF importing.
-    // TODO: Add version checking.
 
     return graphState;
 }

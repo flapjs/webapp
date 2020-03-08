@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { HistoryStateContext, HistoryDispatchContext } from './HistoryContext.jsx';
 import { canUndo, canRedo } from './HistoryHelper.js';
+import IconButton from '@flapjs/components/icons/IconButton.jsx';
+import { UndoIcon, RedoIcon } from '@flapjs/components/icons/Icons.js';
 
 export function Undo(props)
 {
@@ -12,10 +14,11 @@ export function Undo(props)
     const historyDispatch = useContext(HistoryDispatchContext);
 
     return (
-        <button onClick={() => historyDispatch({ type: 'undo', source, update })}
-            disabled={!canUndo(historyState, source)}>
-            Undo
-        </button>
+        <IconButton
+            iconClass={UndoIcon}
+            onClick={() => historyDispatch({ type: 'undo', source, update })}
+            disabled={!canUndo(historyState, source)}
+            title="Undo"/>
     );
 }
 Undo.propTypes = {
@@ -34,10 +37,11 @@ export function Redo(props)
     const historyDispatch = useContext(HistoryDispatchContext);
     
     return (
-        <button onClick={() => historyDispatch({ type: 'redo', source, update })}
-            disabled={!canRedo(historyState, source)}>
-            Redo
-        </button>
+        <IconButton
+            iconClass={RedoIcon}
+            onClick={() => historyDispatch({ type: 'redo', source, update })}
+            disabled={!canRedo(historyState, source)}
+            title="Redo"/>
     );
 }
 Redo.propTypes = {
