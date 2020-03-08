@@ -12,7 +12,7 @@ export default function StateList(props)
     const machineBuilder = useMachineBuilder(FSABuilder, props.machineName);
     const machine = machineBuilder.getMachine();
     const states = Array.from(machine.getStates());
-    
+
     return (
         <fieldset>
             <legend>

@@ -1,5 +1,4 @@
-import { useState, useMemo } from 'react';
-import { useEventListeners } from '@flapjs/hooks/EventListenerHook.jsx';
+import { useState, useEffect, useCallback } from 'react';
 
 import { distance } from '@flapjs/util/MathHelper.js';
 import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
@@ -25,86 +24,90 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
 
     const [ dragging, setDragging ] = useState(false);
 
-    // NOTE: Since this is a memo func, be sure to add any dependencies to the array at the end!
-    // Otherwise, it won't know to refresh the function.
-    const DOMEventListeners = useMemo(() =>
+    const mouseDownCallback = useCallback(e =>
     {
-        return {
-            // NOTE: Disables context menu for right mouse button drags.
-            onContextMenu: function(e)
+        if (CURRENT_DRAG_TARGET) return;
+        if (typeof opts.useButton === 'undefined' || e.button === opts.useButton)
+        {
+            // e.preventDefault();
+            // e.stopPropagation();
+
+            let element = elementRef.current;
+            setDragTarget(element, e.clientX, e.clientY, (x, y, dragging) =>
             {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            },
-            onMouseDown: function(e)
+                if (typeof x !== 'undefined' || typeof y !== 'undefined') setPos({ x, y });
+                if (typeof dragging !== 'undefined') setDragging(dragging);
+            });
+
+            // Whether to wait for the user to drag some before consuming the input.
+            if (opts.startBufferRadius)
             {
-                if (CURRENT_DRAG_TARGET) return;
-                if (typeof opts.useButton === 'undefined' || e.button === opts.useButton)
-                {
-                    // e.preventDefault();
-                    // e.stopPropagation();
-    
-                    let element = elementRef.current;
-                    setDragTarget(element, e.clientX, e.clientY, (x, y, dragging) =>
-                    {
-                        if (typeof x !== 'undefined' || typeof y !== 'undefined') setPos({ x, y });
-                        if (typeof dragging !== 'undefined') setDragging(dragging);
-                    });
-    
-                    // Whether to wait for the user to drag some before consuming the input.
-                    if (opts.startBufferRadius)
-                    {
-                        CURRENT_DRAG_TARGET.startRadius = opts.startBufferRadius;
-                    }
-    
-                    // Whether to keep the initial offset. This is so when you start "dragging",
-                    // the object doesn't just "snap" to the cursor; it maintains the initial offset
-                    // from the first drag. Otherwise, it would reset the target position to the
-                    // "true" drag position.
-                    if (opts.preserveOffset)
-                    {
-                        let transformedPoint = transformScreenToView(element, e.clientX, e.clientY);
-                        CURRENT_DRAG_TARGET.initialOffsetX = transformedPoint[0] - pos.x;
-                        CURRENT_DRAG_TARGET.initialOffsetY = transformedPoint[1] - pos.y;
-                    }
-
-                    if (opts.onDragBegin)
-                    {
-                        CURRENT_DRAG_TARGET.beginCallback = opts.onDragBegin;
-                    }
-
-                    if (opts.onDragMove)
-                    {
-                        CURRENT_DRAG_TARGET.moveCallback = opts.onDragMove;
-                    }
-
-                    if (opts.onDragEnd)
-                    {
-                        CURRENT_DRAG_TARGET.endCallback = opts.onDragEnd;
-                    }
-                }
+                CURRENT_DRAG_TARGET.startRadius = opts.startBufferRadius;
             }
-        };
+
+            // Whether to keep the initial offset. This is so when you start "dragging",
+            // the object doesn't just "snap" to the cursor; it maintains the initial offset
+            // from the first drag. Otherwise, it would reset the target position to the
+            // "true" drag position.
+            if (opts.preserveOffset)
+            {
+                let transformedPoint = transformScreenToView(element, e.clientX, e.clientY);
+                CURRENT_DRAG_TARGET.initialOffsetX = transformedPoint[0] - pos.x;
+                CURRENT_DRAG_TARGET.initialOffsetY = transformedPoint[1] - pos.y;
+            }
+
+            if (opts.onDragBegin)
+            {
+                CURRENT_DRAG_TARGET.beginCallback = opts.onDragBegin;
+            }
+
+            if (opts.onDragMove)
+            {
+                CURRENT_DRAG_TARGET.moveCallback = opts.onDragMove;
+            }
+
+            if (opts.onDragEnd)
+            {
+                CURRENT_DRAG_TARGET.endCallback = opts.onDragEnd;
+            }
+        }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-        /* NOTE: Although onMouseDown() depends on x and y for the initial offset,
-        it only really matters when you start dragging. Therefore, we depend on "dragging"
-        instead (it changes less often than x and y). */
-        dragging,
-        setDragging,
-        setPos,
         elementRef,
-        opts.useButton,
-        opts.startBufferRadius,
-        opts.preserveOffset,
         opts.onDragBegin,
         opts.onDragMove,
         opts.onDragEnd,
+        opts.preserveOffset,
+        opts.startBufferRadius,
+        opts.useButton,
+        setPos,
+        pos.x,
+        pos.y
     ]);
 
-    useEventListeners(elementRef, DOMEventListeners);
+    // NOTE: Disables context menu for right mouse button drags.
+    const contextMenuCallback = useCallback(e =>
+    {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    },
+    []);
+
+    useEffect(() =>
+    {
+        if (!dragging)
+        {
+            let element = elementRef.current;
+            element.addEventListener('mousedown', mouseDownCallback);
+            element.addEventListener('contextmenu', contextMenuCallback);
+            return () =>
+            {
+                element.removeEventListener('mousedown', mouseDownCallback);
+                element.removeEventListener('contextmenu', contextMenuCallback);
+            };
+        }
+    });
 
     return dragging;
 }
