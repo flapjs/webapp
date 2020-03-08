@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import GraphElementComponentLayer from '@flapjs/services/graph/components/GraphElementComponentLayer.jsx';
+import NodeGraphTooltip from './components/NodeGraphTooltip.jsx';
 
 import NodeElement from '@flapjs/modules/node/graph/elements/node/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/edge/EdgeElement.js';
@@ -55,17 +56,14 @@ export default function NodeGraphPlayground(props)
                         edge.markDirty();
                     }
                 }}>
-                    
+                <NodeGraphTooltip/>
                 <GraphElementComponentLayer elementType={NodeElement}>
                     {element => <NodeElementComponent element={element}/>}
                 </GraphElementComponentLayer>
-    
                 <GraphElementComponentLayer elementType={EdgeElement}>
                     {element => <EdgeElementComponent element={element}/>}
                 </GraphElementComponentLayer>
-
                 {props.children}
-
             </ProxyEdgeProvider>
         </SelectionBoxProvider>
         </>

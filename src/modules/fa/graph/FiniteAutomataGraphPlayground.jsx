@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import GraphElementComponentLayer from '@flapjs/services/graph/components/GraphElementComponentLayer.jsx';
+import FiniteAutomataTooltip from './components/FiniteAutomataTooltip.jsx';
 
 import { ProxyEdgeProvider } from '@flapjs/modules/node/graph/widgets/ProxyEdgeContext.jsx';
 import { StartMarkerProvider } from './widgets/StartMarkerContext.jsx';
@@ -17,7 +18,6 @@ import FiniteAutomataNodeElementComponent from './components/FiniteAutomataNodeE
 import { GraphElementEditorContext } from '@flapjs/services/graph/widgets/editor/GraphElementEditorContext.jsx';
 
 import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
-import Tooltip from './components/Tooltip.jsx';
 
 export default function FiniteAutomataGraphPlayground(props)
 {
@@ -58,7 +58,7 @@ export default function FiniteAutomataGraphPlayground(props)
                         edge.markDirty();
                     }
                 }}>
-                <Tooltip/>
+                <FiniteAutomataTooltip/>
                 <GraphElementComponentLayer elementType={NodeElement}>
                     {element => <FiniteAutomataNodeElementComponent element={element}/>}
                 </GraphElementComponentLayer>

@@ -1,8 +1,6 @@
 import React from 'react';
-import Style from './Tooltip.module.css';
-
-import { useGraphMachine } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
-import FSABuilder from '../../machine/FSABuilder.js';
+import PropTypes from 'prop-types';
+import Style from './TooltipRenderer.module.css';
 
 const CONGRATS = [
     'Hooray!',
@@ -12,12 +10,10 @@ const CONGRATS = [
 ];
 const CONGRATS_MESSAGE = CONGRATS[Math.floor(Math.random() * CONGRATS.length)];
 
-export default function Tooltip(props)
+export default function TooltipRenderer(props)
 {
-    const machine = useGraphMachine(FSABuilder);
+    const { hidden } = props;
 
-    const stateCount = machine.getStateCount();
-    const hidden = stateCount > 0;
     return (
         <text className={Style.container + ' ' + (hidden ? 'hidden' : '')}>
             {hidden
@@ -26,3 +22,6 @@ export default function Tooltip(props)
         </text>
     );
 }
+TooltipRenderer.propTypes = {
+    hidden: PropTypes.bool,
+};
