@@ -16,10 +16,28 @@
 .container > fieldset {
     position: sticky;
     bottom: 0;
-    background-color: darkgray;
 }
 
 .container > fieldset > legend {
     font-size: 0.8rem;
-    color: rgb(100, 100, 100);
+    opacity: 0.3;
+}
+
+.container:global(.info) {
+    /** It's the default style */
+}
+
+.container:global(.error) {
+    border-color: darkred;
+    background-color: orangered;
+}
+
+.container:global(.warning) {
+    border-color: gold;
+    background-color: yellow;
+}
+
+.container:global(.success) {
+    border-color: darkgreen;
+    background-color: olivedrab;
 }

@@ -14,7 +14,7 @@ export default function NFAToDFAConversionMessage(props)
     const machineBuilder = useGraphMachineBuilder(FSABuilder);
 
     return (
-        <MessageContainer messageId={messageId}
+        <MessageContainer messageId={messageId} mode={'warning'}
             message={'Careful! This conversion will exponentially increase the number of states.\n' + message}
             renderControls={dismiss => (
                 <>

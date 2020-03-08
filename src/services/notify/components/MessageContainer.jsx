@@ -6,13 +6,13 @@ import { NotifyDispatchContext } from '../NotifyContext.jsx';
 
 export default function MessageContainer(props)
 {
-    const { message, messageId, renderMessages, renderControls } = props;
+    const { message, messageId, mode, renderMessages, renderControls } = props;
     const notifyDispatch = useContext(NotifyDispatchContext);
 
     const dismiss = useCallback(() => notifyDispatch({ type: 'dismiss', messageId }), [ messageId, notifyDispatch ]);
 
     return (
-        <section className={Style.container}>
+        <section className={Style.container + ' ' + (mode ? mode : '')}>
             {renderMessages(message)}
             {props.children}
             <fieldset>
@@ -31,11 +31,18 @@ MessageContainer.propTypes = {
     message: PropTypes.string,
     renderMessages: PropTypes.func,
     renderControls: PropTypes.func,
+    mode: PropTypes.oneOf([
+        'error',
+        'warning',
+        'success',
+        'info',
+    ]),
 };
 MessageContainer.defaultProps = {
     message: '',
     renderMessages: renderMessages,
     renderControls: dismiss => null,
+    mode: 'info',
 };
 
 function renderMessages(message)
