@@ -15,6 +15,8 @@ import { SelectionBoxProvider } from '@flapjs/services/graph/widgets/selection/S
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
 import { useNodeGraphActions } from './NodeGraphHooks.jsx';
 
+import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/edge/QuadraticEdgeHelper.js';
+
 export default function NodeGraphPlayground(props)
 {
     const { createNode, createEdge } = useNodeGraphActions();
@@ -25,18 +27,47 @@ export default function NodeGraphPlayground(props)
     return (
         <>
         <SelectionBoxProvider>
-            <ProxyEdgeProvider onConnect={createEdge}>
+            <ProxyEdgeProvider
+                onConnect={(from, to, cursor, opts) =>
+                {
+                    if (opts.prevEdge)
+                    {
+                        let edge = opts.prevEdge;
+                        edge.fromId = from.id;
+                        edge.toId = to.id;
+                        edge.markDirty();
+                    }
+                    else
+                    {
+                        createEdge(from, to);
+                    }
+                }}
+                onCancel={(from, to, cursor, opts) =>
+                {
+                    if (opts.prevEdge)
+                    {
+                        let edge = opts.prevEdge;
+                        edge.toId = 0;
+
+                        // NOTE: This allows the edge to revert to placeholder form if the
+                        // "current" edge is using a proxy as its endpoint.
+                        QuadraticEdgeHelper.changeEndPoint(null, from, cursor, edge);
+                        edge.markDirty();
+                    }
+                }}>
+                    
                 <GraphElementComponentLayer elementType={NodeElement}>
                     {element => <NodeElementComponent element={element}/>}
                 </GraphElementComponentLayer>
+    
+                <GraphElementComponentLayer elementType={EdgeElement}>
+                    {element => <EdgeElementComponent element={element}/>}
+                </GraphElementComponentLayer>
+
+                {props.children}
+
             </ProxyEdgeProvider>
         </SelectionBoxProvider>
-    
-        <GraphElementComponentLayer elementType={EdgeElement}>
-            {element => <EdgeElementComponent element={element}/>}
-        </GraphElementComponentLayer>
-
-        {props.children}
         </>
     );
 }

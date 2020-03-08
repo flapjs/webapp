@@ -14,14 +14,14 @@ export function createConnector(renderConnector)
 
     function ConnectorProvider(props)
     {
-        const { onConnect } = props;
-        const [ opts, isActive, updateSource, setTarget ] = useConnector(onConnect);
+        const { onConnect, onCancel } = props;
+        const [ opts, isActive, updateSource, setTarget ] = useConnector(onConnect, onCancel);
 
         return (
             <>
             <ConnectorContext.Provider value={{ updateSource, setTarget, isActive }}>
                 {props.children}
-                {renderConnector(opts.from, opts.to, opts.cursor)}
+                {renderConnector(opts.from, opts.to, opts.cursor, opts.opts)}
             </ConnectorContext.Provider>
             </>
         );
@@ -29,28 +29,42 @@ export function createConnector(renderConnector)
     ConnectorProvider.propTypes = {
         children: PropTypes.node,
         onConnect: PropTypes.func,
+        onCancel: PropTypes.func,
     };
     ConnectorProvider.defaultProps = {
-        onConnect: (from, to, cursor) => {},
+        onConnect: (from, to, cursor, opts) => {},
+        onCancel: (from, to, cursor, opts) => {},
     };
     ConnectorProvider.displayName = connectorName + '.ConnectorProvider';
 
-    function useConnectorFromBehavior(elementRef, fromTarget = null, dragBehaviorOpts = {})
+    /**
+     * @param {React.Ref} elementRef The element to attach to.
+     * @param {object} fromTarget The target object attached to.
+     * @param {number} fromTarget.x The x position of the target.
+     * @param {number} fromTarget.y The y position of the target.
+     * @param {object} opts Any additional options.
+     * @returns {boolean} Whether it is actively dragging the connector.
+     */
+    function useConnectorFromBehavior(elementRef, fromTarget = null, opts = {})
     {
         const { updateSource } = useContext(ConnectorContext);
     
         return useDragBehavior(elementRef, fromTarget, value =>
         {
-            updateSource(fromTarget, value);
+            updateSource(fromTarget, value, opts);
         },
         {
-            ...dragBehaviorOpts,
+            ...opts,
             // Make sure to tell the connector that we are no longer using it.
-            onDragEnd: () => updateSource(null),
+            onDragEnd: () =>
+            {
+                if (opts.onDragEnd) opts.onDragEnd();
+                updateSource(null, undefined, opts);
+            },
         });
     }
 
-    function useConnectorToBehavior(elementRef, toTarget)
+    function useConnectorToBehavior(elementRef, toTarget, opts = {})
     {
         const { setTarget, isActive } = useContext(ConnectorContext);
     
@@ -58,7 +72,7 @@ export function createConnector(renderConnector)
         {
             function onMouseOver()
             {
-                setTarget(toTarget);
+                setTarget(toTarget, opts);
             }
     
             function onMouseOut()
@@ -66,7 +80,7 @@ export function createConnector(renderConnector)
                 // NOTE:
                 // You may wonder: "what if you enter another targetable element?
                 // Wouldn't that erase the previously set target?"
-                // Answer: Actually, no. The DOM will cal the onMouseOver() only AFTER
+                // Answer: Actually, no. The DOM will call the onMouseOver() only AFTER
                 // onMouseOut() therefore the target will always be correct.
                 setTarget(null);
             }
@@ -83,14 +97,17 @@ export function createConnector(renderConnector)
                 };
             }
         },
-        [ elementRef, toTarget, setTarget, isActive ]);
+        [ elementRef, toTarget, setTarget, isActive, opts ]);
     }
 
-    function useConnector(connectCallback)
+    function useConnector(connectCallback, cancelCallback)
     {
         const [ isActive, setActive ] = useState(false);
         const [ from, setFrom ] = useState({ target: null, cursor: null });
         const [ to, setTo ] = useState({ target: null });
+        const [ fromOpts, setFromOpts ] = useState({});
+        const [ toOpts, setToOpts ] = useState({});
+        const fromToOpts = { ...fromOpts, ...toOpts };
 
         useEffect(() =>
         {
@@ -100,7 +117,11 @@ export function createConnector(renderConnector)
                 {
                     if (from.target && to.target)
                     {
-                        connectCallback(from.target, to.target);
+                        connectCallback(from.target, to.target, from.cursor, fromToOpts);
+                    }
+                    else
+                    {
+                        cancelCallback(from.target, to.target, from.cursor, fromToOpts);
                     }
 
                     // Reset to default.
@@ -109,11 +130,11 @@ export function createConnector(renderConnector)
                 }
             }
         },
-        /* Although this is also dependent on "target", we only care about when "isActive" changes. */
+        /* Although this is also dependent on "target" and "fromOpts/toOpts", we only care about when "isActive" changes. */
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [ isActive, connectCallback ]);
+        [ isActive, connectCallback, cancelCallback ]);
 
-        const updateSource = useCallback((fromTarget, cursorPosition) =>
+        const updateSource = useCallback((fromTarget, cursorPosition, opts = {}) =>
         {
             if (fromTarget)
             {
@@ -124,14 +145,16 @@ export function createConnector(renderConnector)
             {
                 setActive(false);
             }
+
+            setFromOpts(opts);
         },
-        // NOTE: We only care about updateCallback if active or from changes.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [ setActive, setFrom ]);
+        [ setActive, setFrom, setFromOpts ]);
     
-        const setTarget = useCallback((toTarget) =>
+        const setTarget = useCallback((toTarget, opts = {}) =>
         {
             setTo({ target: toTarget });
+            
+            setToOpts(opts);
         },
         [ setTo ]);
 
@@ -139,6 +162,7 @@ export function createConnector(renderConnector)
             from: from.target,
             to: to.target,
             cursor: from.cursor,
+            opts: fromToOpts,
         };
         return [
             opts,
