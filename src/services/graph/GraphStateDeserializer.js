@@ -10,9 +10,9 @@ export default function GraphStateDeserializer(graphType, graphData, opts = {})
     let graphState = {};
 
     // Version checking...
-    if (!('__metadata__' in dataObject)) return graphState;
-    if (graphType.name !== dataObject.__metadata__.graphType) return graphState;
-    if (SemanticVersion.parse(GraphStateSerializer.VERSION).canSupportVersion(dataObject.__metadata__.version)) return graphState;
+    if (!('__metadata__' in dataObject)) throw new Error('Missing metadata.');
+    if (graphType.name !== dataObject.__metadata__.graphType) throw new Error('Mismatched metadata graph type.');
+    if (!SemanticVersion.parse(GraphStateSerializer.VERSION).canSupportVersion(dataObject.__metadata__.version)) throw new Error(`Unsupported graph parser version - ${GraphStateSerializer.VERSION} cannot support ${dataObject.__metadata__.version}`);
 
     for(let elementType of graphType.elementTypes)
     {

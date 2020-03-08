@@ -233,18 +233,29 @@ export function GraphReducer(prev, action)
         // are marked as DEAD and therefore should not be re-used.
         case 'resetState':
         {
-            // Destroy all previous elements...
-            for(let elementType of Object.keys(prev))
+            const { state } = action;
+
+            if (state)
             {
-                for(let element of Object.values(prev[elementType]))
+                // Destroy all previous elements...
+                for(let elementType of Object.keys(prev))
                 {
-                    element.onDestroy();
-                    element.markDead();
+                    for(let element of Object.values(prev[elementType]))
+                    {
+                        element.onDestroy();
+                        element.markDead();
+                    }
                 }
+    
+                return state;
+            }
+            else
+            {
+                // eslint-disable-next-line no-console
+                console.warn('Trying to resetState to null - skipping...');
             }
 
-            const { state } = action;
-            return state;
+            return;
         }
         case 'swapProperty':
         {

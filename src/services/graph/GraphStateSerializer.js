@@ -24,6 +24,7 @@ export default function GraphStateSerializer(graphType, graphState, opts = {})
     data.__metadata__ = {
         graphType: graphType.name,
         version: VERSION,
+        timestamp: new Date().toString(),
     };
     return JSON.stringify(data);
 }
