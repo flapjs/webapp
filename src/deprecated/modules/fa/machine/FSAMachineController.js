@@ -1,4 +1,4 @@
-import { convertToDFA, invertDFA } from './FSAUtils.js';
+import { convertToDFA, invertDFA } from '@flapjs/modules/fa/machine/FSAUtils.js';
 import GraphLayout from '@flapjs/deprecated/services/graph/util/GraphLayout.js';
 
 import MachineController from '@flapjs/deprecated/services/machine/controller/MachineController.js';
