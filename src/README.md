@@ -100,6 +100,9 @@ These are React components that ONLY renders things, no state or logic. They are
 ## Layouts
 These are React components that ONLY structure its children. It can contain some logic and state, but it is mainly concerned with properly managing where components are rendered. Most of these achieve this either by defining slots or render props.
 
+## Modules
+These refer to Flap.js's module system (not related to the general import/export es6 modules). They are completely isolated bundles that users can switch to to work on some type of machine and essentially encapsulates a type of workflow / concept. The module class is the entrypoint to your module. The class file itself mostly contains static variables and functions. They basically serve as a "template" to how you want the app to be structured. Through it's static properties, it supplies component classes for slots, component classes for providers, an array of service classes, etc. All these will be evaluated during runtime on module load. Because it only runs at load and unload (mount and unmount), THEY SHOULD NOT HOLD STATE. Any state should be handled by a provider or a component themselves. Refer to each type of object property individually to see what features they give to your module.
+
 ## Services
 These are like modules, except they are "bundled" with the app itself and available to be used across modules. They have their own providers, renders, the same lifecycle callbacks, and even their own list of dependent services (the dependency tree is solved for you). They simply encapsulate a functionality that is used across modules. They use all the methods above to give an interface for your module.
 
