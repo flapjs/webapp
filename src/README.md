@@ -102,3 +102,6 @@ These are React components that ONLY structure its children. It can contain some
 
 ## Services
 These are like modules, except they are "bundled" with the app itself and available to be used across modules. They have their own providers, renders, the same lifecycle callbacks, and even their own list of dependent services (the dependency tree is solved for you). They simply encapsulate a functionality that is used across modules. They use all the methods above to give an interface for your module.
+
+## UNSAFE_Functions
+Functions that start with `UNSAFE_...()` should not be used if you don't know what you are doing. This is mostly because these functions do not update itself when its' arguments change (which all React components and hooks do). They rely on their caller to re-call these functions when the arguments change.
