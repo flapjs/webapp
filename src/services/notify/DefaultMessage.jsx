@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import MessageContainer from './components/MessageContainer.jsx';
 
-export default function DefaultMessageComponent(props)
+export default function DefaultMessage(props)
 {
     const { message, messageId } = props;
 
@@ -12,10 +12,10 @@ export default function DefaultMessageComponent(props)
         </MessageContainer>
     );
 }
-DefaultMessageComponent.propTypes = {
+DefaultMessage.propTypes = {
     messageId: PropTypes.string.isRequired,
     message: PropTypes.string,
 };
-DefaultMessageComponent.defaultProps = {
+DefaultMessage.defaultProps = {
     message: ''
 };

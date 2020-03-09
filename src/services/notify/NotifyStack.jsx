@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { NotifyStateContext } from './NotifyContext.jsx';
 
-import DefaultMessageComponent from './DefaultMessageComponent.jsx';
+import DefaultMessage from './DefaultMessage.jsx';
 
 /**
  * Renders the notify message stack. For the rendered components for each
@@ -58,5 +58,5 @@ NotifyStack.propTypes = {
     defaultComponent: PropTypes.elementType,
 };
 NotifyStack.defaultProps = {
-    defaultComponent: DefaultMessageComponent,
+    defaultComponent: DefaultMessage,
 };
