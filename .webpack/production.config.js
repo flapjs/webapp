@@ -1,11 +1,11 @@
 /* eslint-env node */
 
 const merge = require('webpack-merge');
-const base = require('./base.config.js');
+const output = require('./output.config.js');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = merge.smart(base, {
+module.exports = merge.smart(output('production'), {
     mode: 'production',
     output: {
         /**

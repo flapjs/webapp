@@ -2,22 +2,13 @@
 
 const path = require('path');
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { DefinePlugin } = require('webpack');
-const package = require('../package.json');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const globals = require('../.config/globals.js');
 
-// This is our custom webpack plugin to handle inlining.
-const HtmlWebpackInlineSourceOnlyPlugin = require('../tools/html-webpack-inline-source-only-plugin/index.js');
-// This is our custom webpack plugin to handle defer/async bundled scripts.
-const HtmlWebpackScriptAttributesPlugin = require('../tools/html-webpack-script-attributes-plugin/index.js');
-
-const HTML_PAGE_TITLE = 'Flap.js';
-
-module.exports = {
+// NOTE: Why is this a function, not an object?
+// https://webpack.js.org/guides/environment-variables/
+module.exports = env => ({
     entry: {
         /** Add entrypoints here for different modules. */
         'app.bundle': './src/main.js'
@@ -28,15 +19,6 @@ module.exports = {
             /** Add any aliases that need to be resolved by webpack here. Refer to eslint and jest config as well. */
             '@flapjs': path.resolve('.', 'src'),
         }
-    },
-    output: {
-        // NOTE: This should be __dirname, but then all webpack
-        // config files would need to be at the root directory.
-        // For now, '.' will resolve from execution directory,
-        // which the first webpack.config.js is at the root.
-        path: path.resolve('.', 'build'),
-        publicPath: '/',
-        filename: '[name].js',
     },
     module: {
         rules: [
@@ -79,11 +61,16 @@ module.exports = {
                     }
                 ]
             },
-            /** This is to bundle LOCAL css module files (these gotta match in 'development.config.js'). */
+            /** This is to bundle LOCAL css module files. */
             {
                 test: /\.module\.css$/,
                 use: [
-                    { loader: MiniCssExtractPlugin.loader },
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: env === 'development',
+                        }
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -106,11 +93,16 @@ module.exports = {
                     }
                 ]
             },
-            /** This is to bundle GLOBAL css files (these gotta match in 'development.config.js'). */
+            /** This is to bundle GLOBAL css files. */
             {
                 test: /^((?!\.module).)*\.css$/,
                 use: [
-                    { loader: MiniCssExtractPlugin.loader },
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: env === 'development',
+                        }
+                    },
                     {
                         loader: 'css-loader',
                         // NOTE: We got rid of CSS modules for this loader, because this is a
@@ -130,43 +122,9 @@ module.exports = {
         ]
     },
     plugins: [
-        /** This NEEDS to be FIRST. Storybook's webpack config file depends on it. */
-        new HtmlWebpackPlugin({
-            template: './src/assets/template.html',
-            cache: false,
-            // NOTE: This is used nowhere, since we override it in the template.
-            // But we have it here anyways since the expected use case is to define
-            // it here. So it's really just in case someone references it unknowingly.
-            title: HTML_PAGE_TITLE,
-            // NOTE: Other data used only by the template, not the plugin itself (this is allowed).
-            package,
-        }),
-        /** This NEEDS to be SECOND. Storybook's webpack config file depends on it. */
-        new HtmlWebpackInlineSourceOnlyPlugin(HtmlWebpackPlugin),
-        /** This NEEDS to be THIRD. Storybook's webpack config file depends on it. */
-        new HtmlWebpackScriptAttributesPlugin(HtmlWebpackPlugin, {
-            defaultAttributes: { 'defer': true }
-        }),
-        new CopyWebpackPlugin([
-            { from: './src/assets/metadata/' },
-            { from: './src/assets/images/', to: 'images' },
-            { from: './src/assets/langs/', to: 'langs' },
-            // NOTE: All self-hosted libs should be copied from here to build.
-            { from: './src/assets/libs/', to: 'libs' },
-            // NOTE: Most of the scripts and styles are already inlined, so
-            // this is just for externally loaded scripts.
-            { from: './src/assets/scripts/', to: 'scripts' },
-            { from: './src/assets/styles/', to: 'styles' },
-            // NOTE: Icons are loaded and inlined into bundles automatically.
-            // { from: './src/assets/icons/', to: 'icons' },
-        ]),
-        new WorkboxWebpackPlugin.InjectManifest({
-            swSrc: './src/assets/scripts/ServiceWorker.js',
-            swDest: 'service-worker.js'
-        }),
+        new DefinePlugin(globals),
         new MiniCssExtractPlugin({
             moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`
         }),
-        new DefinePlugin(globals),
     ]
-};
+});

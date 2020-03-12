@@ -25,10 +25,9 @@ class HtmlWebpackInlineSourceOnlyPlugin
 
     apply(compiler)
     {
-        // HtmlWebpackPlugin version 4.0.0-beta.8
+        // HtmlWebpackPlugin version 4.0.0
         if (this.htmlWebpackPlugin.getHooks)
         {
-            // Hook into html-webpack-plugin process...
             compiler.hooks.compilation.tap(PLUGIN_NAME, compilation =>
             {
                 this.htmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(

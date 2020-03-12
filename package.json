@@ -41,12 +41,12 @@
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
+    "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@storybook/addon-knobs": "^5.2.5",
     "@storybook/addon-storyshots": "^5.2.5",
-    "@storybook/react": "^5.2.5",
+    "@storybook/react": "^5.3.14",
     "@svgr/webpack": "^4.3.3",
     "autoprefixer": "^9.7.0",
     "babel-eslint": "^10.0.3",
