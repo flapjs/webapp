@@ -180,7 +180,11 @@ module.exports = {
     // timers: "real",
 
     // A map from regular expressions to paths to transformers
-    // transform: null,
+    transform: {
+        // NOTE: Used by @storybook/addon-storyshots to support MDX file formats
+        "^.+\\.[tj]sx?$": "babel-jest",
+        "^.+\\.mdx$": "@storybook/addon-docs/jest-transform-mdx"
+    },
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
     // transformIgnorePatterns: [

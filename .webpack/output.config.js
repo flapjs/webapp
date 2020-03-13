@@ -10,9 +10,9 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const package = require('../package.json');
 
 // This is our custom webpack plugin to handle inlining.
-const HtmlWebpackInlineSourceOnlyPlugin = require('../tools/html-webpack-inline-source-only-plugin/index.js');
+const HtmlWebpackInlineSourceOnlyPlugin = require('../tools/webpack/html-webpack-inline-source-only-plugin/index.js');
 // This is our custom webpack plugin to handle defer/async bundled scripts.
-const HtmlWebpackScriptAttributesPlugin = require('../tools/html-webpack-script-attributes-plugin/index.js');
+const HtmlWebpackScriptAttributesPlugin = require('../tools/webpack/html-webpack-script-attributes-plugin/index.js');
 
 const HTML_PAGE_TITLE = 'Flap.js';
 

@@ -127,10 +127,22 @@ Add the plugin to `postcss.config.js` under plugins.
 ## storybook/react
 - This adds support for React in Storybook. No other setup is required other than installation (it does require React...).
 
-## storybook/addon-knobs
+## storybook/addon-knobs - NOT USED
 - Let's you change the values of the component in realtime with sliders, text fields, etc. This way we can actually build a component playground for developers to try things out.
 
-## babel-plugin-require-context-hook
+> **NOTE:**
+This is no longer used because, at this point in time, it does not work with `storybook/addon-docs`. Perhaps in the future we can bring it back in?
+
+## storybook/addon-docs
+- This auto-generates storybook component docs for you. It also allows you to write mdx files, which are basically markdown with jsx to document your components.
+
+## storybook/addon-console
+- This adds a console output to the 'actions' tab in storybook. Useful when you don't want to open that big tab.
+
+## storybook/addon-actions
+- This adds an ability for storybook to output messages. It is currently used by `storybook/addon-console`.
+
+## babel-plugin-require-context-hook - NO LONGER USED since Storybook 5.3.0
 - Allows Storybook stories to be searchable within the source directories by prepping the executed context to the directory it lives in.
 
 > **SETUP:**
@@ -254,8 +266,14 @@ To use it, add it to snapshotSerializers array in Jest config file.
 > **NOTICE:**
 The version MUST MATCH the `react` version. Otherwise, you will get an error.
 
+## react-is
+- Provides functions to test the equivalence of react components. This is only used by Storybook's docs addon.
+
 ## storybook/addon-storyshots
 - Allows automatic test snapshots for every Storybook story. This does require its own `.spec.js` file to be executed by Jest (which currently lives in `src/tests`).
+
+> **SETUP:**
+In order to support MDX files in storybook, you will need to add some 'transform' entries in jest's config files.
 
 ## prop-types
 - Allows prop type checking for React component.
