@@ -1,3 +1,164 @@
+.src-components-drawer-layout-__DrawerLayout-module__container--3MR1r {
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    --drawer-layout-handle: var(--primary, #333641);
+    --drawer-layout-background: var(--primary-dark, #1D1E22);
+    --drawer-layout-text: var(--primary-text, #FFFFFF);
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__viewport--2t6VQ {
+    -webkit-box-flex: 1;
+            flex: 1;
+    width: 100%;
+    height: 100%;
+
+    /** NOTE: This is not like the other viewports. It likes to hide... */
+    overflow: hidden;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    color: var(--drawer-layout-text);
+    background: var(--drawer-layout-background);
+
+    /**
+     * HACK: Overrides the 'none' for workspace foreground input events.
+     * Refer to WorkspaceLayout for more info.
+     **/
+    pointer-events: auto;
+
+    /** Animated properties */
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm,
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm {
+    /** It's being blocked by the handle. */
+    margin-left: calc(6px);
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm,
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm {
+    /** It's being blocked by the handle. */
+    margin-top: calc(6px);
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left,
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right {
+    min-width: 15rem;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top,
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom {
+    min-height: 15rem;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx:not(.open) {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+
+    /** Animated properties */
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+/** Sliiiide to the left! */
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left:not(.open) {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+
+/** Sliiiide to the right! */
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right:not(.open) {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+}
+
+/** Sliiiide to the top! */
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top:not(.open) {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+}
+
+/** Sliiiide to the bottom! */
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom:not(.open) {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--drawer-layout-handle);
+    border-left: 2px solid rgba(255, 255, 255, 0.05);
+    border-right: 2px solid rgba(0, 0, 0, 0.4);
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    pointer-events: auto;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx:not(.open) .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+    pointer-events: none;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+    right: 0;
+    width: 6px;
+    -webkit-transform: translateX(calc(6px / 2));
+            transform: translateX(calc(6px / 2));
+    cursor: col-resize;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+    left: 0;
+    width: 6px;
+    -webkit-transform: translateX(calc(6px / -2));
+            transform: translateX(calc(6px / -2));
+    cursor: col-resize;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+    top: 0;
+    height: 6px;
+    -webkit-transform: translateY(calc(6px / -2));
+            transform: translateY(calc(6px / -2));
+    cursor: row-resize;
+}
+
+.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+    bottom: 0;
+    height: 6px;
+    -webkit-transform: translateY(calc(6px / -2));
+            transform: translateY(calc(6px / -2));
+    cursor: row-resize;
+}
+
 .src-components-example-helloWorld-__HelloWorld-module__helloWorld--Rt5Bj {
     outline: none;
     border: none;
