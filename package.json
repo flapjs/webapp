@@ -47,7 +47,6 @@
     "@storybook/addon-actions": "^5.3.14",
     "@storybook/addon-console": "^1.2.1",
     "@storybook/addon-docs": "^5.3.14",
-    "@storybook/addon-storyshots": "^5.3.14",
     "@storybook/react": "^5.3.14",
     "@svgr/webpack": "^4.3.3",
     "autoprefixer": "^9.7.0",

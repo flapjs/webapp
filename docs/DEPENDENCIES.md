@@ -269,9 +269,11 @@ The version MUST MATCH the `react` version. Otherwise, you will get an error.
 ## react-is
 - Provides functions to test the equivalence of react components. This is only used by Storybook's docs addon.
 
-## storybook/addon-storyshots
+## storybook/addon-storyshots - NOT USED
 - Allows automatic test snapshots for every Storybook story. This does require its own `.spec.js` file to be executed by Jest (which currently lives in `src/tests`).
 
+> **NOTE:**
+This is not longer used as it requires WAY too much setup for not that much benefit. When we already know we are changing something, we don't need a test for that. Unit tests are preferred instead of this.
 > **SETUP:**
 In order to support MDX files in storybook, you will need to add some 'transform' entries in jest's config files.
 

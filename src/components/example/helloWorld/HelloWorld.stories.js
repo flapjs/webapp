@@ -4,7 +4,6 @@ import HelloWorld from './HelloWorld.jsx';
 export default {
     title: '@flapjs/components/example/helloWorld/HelloWorld',
     component: HelloWorld,
-    decorators: [],
 };
 
 export const Primary = () => <HelloWorld/>;
