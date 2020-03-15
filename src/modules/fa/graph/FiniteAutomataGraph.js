@@ -1,5 +1,6 @@
 import NodeGraph from '@flapjs/modules/node/graph/NodeGraph.js';
-import FiniteAutomataGraphReducer from './FiniteAutomataGraphReducer.js';
+import { GraphReducer } from '@flapjs/services/graph/GraphContext.jsx';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 
 export default class FiniteAutomataGraph extends NodeGraph
 {
@@ -9,6 +10,24 @@ export default class FiniteAutomataGraph extends NodeGraph
     /** @override */
     static reducer(state, action)
     {
-        return FiniteAutomataGraphReducer(state, action);
+        switch(action.type)
+        {
+            case 'add':
+            {
+                if (action.elementType === NodeElement)
+                {
+                    let [nextState, element] = GraphReducer(state, { type: 'add', elementType: NodeElement, opts: action.opts });
+                    let elementCount = Object.keys(nextState[this.computeElementTypeKey(NodeElement)]).length;
+    
+                    element.label = 'q' + (elementCount - 1);
+    
+                    if (elementCount === 1)
+                    {
+                        element.initial = true;
+                    }
+                    return [nextState, element];
+                }
+            }
+        }
     }
 }
