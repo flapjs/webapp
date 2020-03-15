@@ -152,7 +152,7 @@ export default class BaseGraph
      */
     static findElementWithinRadius(graphState, elementType, x, y, radius)
     {
-        let elements = this.UNSAFE_getElements(graphState, elementType);
+        let elements = this.getElements(graphState, elementType);
         if (elements)
         {
             let radiusSquared = radius * radius;
