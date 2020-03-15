@@ -8,7 +8,7 @@ import { ProxyEdgeProvider } from '@flapjs/modules/node/graph/widgets/ProxyEdgeC
 import { StartMarkerProvider } from './widgets/StartMarkerContext.jsx';
 
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
-import { useNodeGraphActions } from '@flapjs/modules/node/graph/NodeGraphActions.jsx';
+import { useNodeGraphActions } from '@flapjs/modules/node/graph/NodeGraphActionHooks.jsx';
 
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';

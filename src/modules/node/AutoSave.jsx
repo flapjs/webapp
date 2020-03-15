@@ -1,13 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 
-import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
-
-import GraphStateSerializer from '@flapjs/services/graph/GraphStateSerializer.js';
-import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
+import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export default function AutoInit()
 {
-    const graphType = useContext(GraphTypeContext);
+    const graphType = useGraphType();
     const graphState = useGraphState();
 
     useEffect(() =>
@@ -20,7 +17,8 @@ export default function AutoInit()
         {
             if (canUpdate)
             {
-                localStorage.setItem(graphDataKey, GraphStateSerializer(graphType, graphState));
+                let graphData = graphType.serialize(graphState, {});
+                localStorage.setItem(graphDataKey, JSON.stringify(graphData));
             }
         },
         3000);

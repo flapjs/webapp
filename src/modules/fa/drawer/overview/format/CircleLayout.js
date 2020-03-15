@@ -1,14 +1,19 @@
-import { UNSAFE_getGraphElements, UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
-export default function apply(graphState)
+/**
+ * Applies a circle layout to the graph.
+ * 
+ * @param {Class<BaseGraph>} graphType The graph type for the graph state.
+ * @param {object} graphState The graph state to apply the layout to.
+ */
+export default function CircleLayout(graphType, graphState)
 {
     // Seperate nodes to reachable and unreachable
-    const nodes = UNSAFE_getGraphElements(graphState, NodeElement);
+    const nodes = graphType.getElements(graphState, NodeElement);
 
     const startNode = findStartNode(nodes);
-    const reachableNodes = getReachableNodes(graphState, startNode);
+    const reachableNodes = getReachableNodes(graphType, graphState, startNode);
     const unreachableNodes = nodes.filter(node => !reachableNodes.includes(node));
 
     // Find number of nodes
@@ -75,9 +80,9 @@ function findStartNode(nodes)
     return null;
 }
 
-function getReachableNodes(graphState, startNode)
+function getReachableNodes(graphType, graphState, startNode)
 {
-    const edges = UNSAFE_getGraphElements(graphState, EdgeElement);
+    const edges = graphType.getElements(graphState, EdgeElement);
     
     let reachableIds = [];
     reachableIds.push(startNode.id);
@@ -95,5 +100,5 @@ function getReachableNodes(graphState, startNode)
         }
     }
     
-    return reachableIds.map(nodeId => UNSAFE_getGraphElement(graphState, NodeElement, nodeId));
+    return reachableIds.map(nodeId => graphType.getElement(graphState, NodeElement, nodeId));
 }

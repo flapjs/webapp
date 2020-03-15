@@ -8,8 +8,6 @@ import Upload from '@flapjs/components/upload/Upload.jsx';
 import { Undo, Redo } from '@flapjs/services/history/HistoryButtons.jsx';
 import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
 
-import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer.js';
-import GraphStateSerializer from '@flapjs/services/graph/GraphStateSerializer';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 import FiniteAutomataImporter from '@flapjs/modules/fa/FiniteAutomataImporter.js';
@@ -27,16 +25,18 @@ export default function FiniteAutomataToolbar(props)
     // History setup...
     const graphUpdateCallback = useCallback(data =>
     {
-        graphDispatch({ type: 'resetState', state: GraphStateDeserializer(graphType, data) });
+        let graphData = JSON.parse(data);
+        let graphState = graphType.deserialize(graphData, {});
+        graphDispatch({ type: 'resetState', state: graphState });
     },
     [ graphDispatch, graphType ]);
-    useHistory(graphType, () => GraphStateSerializer(graphType, graphState));
+    useHistory(graphType, () => JSON.stringify(graphType.serialize(graphState, {})));
 
     // Auto save...
     useEffect(() =>
     {
-        let data = GraphStateSerializer(graphType, graphState);
-        localStorage.setItem(graphType.name + '.graphData', data);
+        let graphData = graphType.serialize(graphState, {});
+        localStorage.setItem(graphType.name + '.graphData', JSON.stringify(graphData));
     });
 
     return (

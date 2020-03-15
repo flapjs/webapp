@@ -1,3 +1,10 @@
+/**
+ * Sort an array topologically.
+ * 
+ * @param {Array<object>} nodes List of all nodes (as long as it includes the root node).
+ * @param {Function} dependencyCallback A callback to get the dependencies of a node.
+ * @returns {Array<object>} A sorted array of node objects where the dependent nodes are always listed before the dependees.
+ */
 export function topoSort(nodes, dependencyCallback)
 {
     let dependencyEntries = [];

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { createConnector } from '@flapjs/behaviors/ConnectBehaviorFactory.jsx';
 import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
-import { UNSAFE_findGraphElementsWithinBox } from '@flapjs/services/graph/GraphHelper';
 
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
-import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
+import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export const SelectionBoxStateContext = React.createContext();
 export const SelectionBoxDispatchContext = React.createContext();
@@ -42,6 +41,7 @@ function SelectionBoxStateProvider(props)
     const [ state, dispatch ] = useAsyncReducer(SelectionBoxReducer, { elementIds: new Set() });
 
     // TODO: There's gotta be a better way than to just re-render everything.
+    const graphType = useGraphType();
     const graphState = useGraphState();
 
     const { svgRef, pos } = useContext(ViewContext);
@@ -58,7 +58,7 @@ function SelectionBoxStateProvider(props)
         {
             let nextX = x - pos.x;
             let nextY = y - pos.y;
-            let elements = UNSAFE_findGraphElementsWithinBox(
+            let elements = graphType.findElementsWithinBox(
                 graphState,
                 NodeElement,
                 fromRef.current.x,

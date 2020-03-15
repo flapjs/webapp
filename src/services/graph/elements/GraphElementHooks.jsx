@@ -3,20 +3,24 @@ import { addElementListener, removeElementListener } from './GraphElementListene
 import { addElementTypeListener, removeElementTypeListener } from './GraphElementTypeListener.js';
 
 import { UNSAFE_useGraphStateContext } from '../GraphContext.jsx';
-import { UNSAFE_getGraphElement, UNSAFE_getGraphElementIds, UNSAFE_getGraphElements } from '../GraphHelper.js';
+import { useGraphType } from '../GraphHooks.jsx';
 
 export function useGraphElementIds(elementType)
 {
+    const graphType = useGraphType();
+    // This is allowed because we don't care about the detail changes per every element.
+    // Only whether the graph state itself has added/removed elements, which this handles.
     let graphState = UNSAFE_useGraphStateContext();
-    let elementIds = UNSAFE_getGraphElementIds(graphState, elementType);
+    let elementIds = graphType.getElementIds(graphState, elementType);
     return elementIds;
 }
 
 export function useGraphElements(elementType, onChange)
 {
+    const graphType = useGraphType();
     let graphState = UNSAFE_useGraphStateContext();
 
-    let elements = UNSAFE_getGraphElements(graphState, elementType);
+    let elements = graphType.getElements(graphState, elementType);
 
     useEffect(() =>
     {
@@ -39,9 +43,10 @@ export function useGraphElements(elementType, onChange)
 
 export function useGraphElement(elementType, elementId, onChange)
 {
+    const graphType = useGraphType();
     let graphState = UNSAFE_useGraphStateContext();
 
-    let element = UNSAFE_getGraphElement(graphState, elementType, elementId);
+    let element = graphType.getElement(graphState, elementType, elementId);
 
     useEffect(() =>
     {

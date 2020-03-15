@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 
 import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
-import GraphStateSerializer from '@flapjs/services/graph/GraphStateSerializer.js';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export default function AutoSave()
@@ -19,7 +18,8 @@ export default function AutoSave()
         {
             if (canUpdate)
             {
-                localStorage.setItem(graphDataKey, GraphStateSerializer(graphType, graphState));
+                let graphData = graphType.serialize(graphState, {});
+                localStorage.setItem(graphDataKey, JSON.stringify(graphData));
             }
         },
         3000);

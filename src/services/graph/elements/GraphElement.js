@@ -15,7 +15,7 @@ const DIRTY = Symbol('dirty');
  * app use. This feature is mainly used by state serializers to load/save graphs.
  * 
  * Also, the class name MUST BE UNIQUE. It is used as the key to access its instances.
- * Refer to GraphHelper.computeElementsKey() for more information.
+ * Refer to BaseGraph.computeElementTypeKey() for more information.
  */
 export default class GraphElement
 {

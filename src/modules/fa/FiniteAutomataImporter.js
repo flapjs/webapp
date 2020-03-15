@@ -1,9 +1,14 @@
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
-import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer.js';
 import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
 import Logger from '@flapjs/util/Logger';
 
-export default async function applyImport(fileBlob)
+/**
+ * The default importer to load the saved workspace session.
+ * 
+ * @param {Blob} fileBlob The file blob containing the serialized workspace session.
+ * @returns {object} The deserialized graph state.
+ */
+export default async function FiniteAutomataImporter(fileBlob)
 {
     let name = fileBlob.name;
     let textData = await transformFileBlobToText(fileBlob);
@@ -15,7 +20,7 @@ export default async function applyImport(fileBlob)
         if (name.endsWith('.fa.json'))
         {
             // Parsing a modern fa graph.
-            graphState = GraphStateDeserializer(FiniteAutomataGraph, textData);
+            graphState = FiniteAutomataGraph.deserialize(JSON.parse(textData), {});
         }
         // Flap.js v2.0.0-v4.0.0
         else if (name.endsWith('.fsa.json'))
@@ -68,7 +73,87 @@ function importFromTheOldPrototype(textData)
 
 function importFromJFLAP(textData)
 {
-    // let xmlData = new DOMParser().parseFromString(textData, 'text/xml');
+    /*
+    let graphState = {
+        NodeElement: {},
+        EdgeElement: {},
+    };
 
+    const xmlData = new DOMParser().parseFromString(textData, 'text/xml');
+    const stateElements = xmlData.getElementsByTagName('state') || [];
+    const transitionElements = xmlData.getElementsByTagName('transition') || [];
+
+    // Create those NodeElements...
+    let nodes = {};
+    for(let stateElement of stateElements)
+    {
+        if (!stateElement.hasAttribute('id')) continue;
+        const stateId = stateElement.getAttribute('id');
+
+        let x = 0;
+        // NOTE: If no elements exists, we are guaranteed an empty array.
+        const xElements = stateElement.getElementsByTagName('x');
+        if (xElements.length > 0)
+        {
+            // We will only use the first one.
+            for(let xElement of xElements)
+            {
+                // hasChildNodes(), if true, guarantees at least 1 element.
+                if (xElement.hasChildNodes())
+                {
+                    try
+                    {
+                        x = parseFloat(xElement.childNodes[0].nodevalue);
+                        break;
+                    }
+                    catch(e)
+                    {
+                        x = 0;
+                    }
+                }
+            }
+        }
+
+        let y = 0;
+        // NOTE: If no elements exists, we are guaranteed an empty array.
+        const yElements = stateElement.getElementsByTagName('y');
+        if (yElements.length > 0)
+        {
+            // We will only use the first one.
+            for(let yElement of yElements)
+            {
+                // hasChildNodes(), if true, guarantees at least 1 element.
+                if (yElement.hasChildNodes())
+                {
+                    try
+                    {
+                        y = parseFloat(yElement.childNodes[0].nodevalue);
+                        break;
+                    }
+                    catch(e)
+                    {
+                        y = 0;
+                    }
+                }
+            }
+        }
+
+        const initialElements = stateElement.getElementsByTagName('initial');
+        let initial = initialElements.length > 0;
+
+        const finalElements = stateElement.getElementsByTagName('final');
+        let final = finalElements.length > 0;
+
+        let nodeData = {
+            x, y,
+            initial,
+            accept: final,
+        };
+
+        // nodes[stateId] = NodeElement.deserialize();
+    }
+    */
     throw new Error('Not yet implemented.');
+
+    // return graphState;
 }

@@ -1,11 +1,9 @@
 import GraphMachineBuilder from '@flapjs/services/graphmachine/GraphMachineBuilder.js';
 
 import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa/machine/FSA.js';
-import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer';
 import FiniteAutomataGraph from '../graph/FiniteAutomataGraph';
-import { EMPTY_SYMBOL } from './Symbols';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
-import { UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
+import { EMPTY_SYMBOL } from './Symbols.js';
 
 export default class FSABuilder extends GraphMachineBuilder
 {
@@ -25,7 +23,7 @@ export default class FSABuilder extends GraphMachineBuilder
     }
 
     /** @override */
-    static updateGraphFromMachine(graphState, graphDispatch, machine, opts = {})
+    static updateGraphFromMachine(graphType, graphState, graphDispatch, machine, opts = {})
     {
         if (opts.machineOnly)
         {
@@ -48,7 +46,7 @@ export default class FSABuilder extends GraphMachineBuilder
             if (opts.builder)
             {
                 nodeId = opts.builder.sourceMap.get(state.getStateID()) || nodeId;
-                let node = UNSAFE_getGraphElement(graphState, NodeElement, nodeId);
+                let node = graphType.getElement(graphState, NodeElement, nodeId);
                 if (node)
                 {
                     NodeElement.serialize(node, nodeData);
@@ -118,9 +116,8 @@ export default class FSABuilder extends GraphMachineBuilder
 
             result.EdgeElement[index++] = edge;
         }
-        
-        let graphData = JSON.stringify(result);
-        let nextGraphState = GraphStateDeserializer(FiniteAutomataGraph, graphData);
+
+        let nextGraphState = FiniteAutomataGraph.serialize(result, {});
         graphDispatch({ type: 'resetState', state: nextGraphState });
     }
 
