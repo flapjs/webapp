@@ -9,7 +9,6 @@ import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { getElementListeners } from './elements/GraphElementListener.js';
 import { getStateListeners } from './GraphStateListener.js';
 
-import { computeElementsKey, UNSAFE_getGraphElement } from '@flapjs/services/graph/GraphHelper.js';
 import { getElementTypeListeners } from './elements/GraphElementTypeListener.js';
 
 const DEFAULT_GRAPH_STATE = {};
@@ -67,7 +66,7 @@ function GraphStateProvider(props)
     const [ currentState, dispatch ] = useAsyncReducer((state, action) =>
     {
         const result = graphType.reducer && graphType.reducer(state, action);
-        return result || GraphReducer(state, action);
+        return result || GraphReducer(graphType, state, action);
     },
     props.graphState, true);
 
@@ -155,12 +154,13 @@ function useGraphUpdateCycle(state)
 /**
  * The default graph reducer (if action was not handled by the given reducer() from the graph type).
  * 
- * @param {object} prev The previous state.
+ * @param {Class<BaseGraph>} graphType The type of graph for the state.
+ * @param {object} graphState The previous state.
  * @param {object} action The action options to perform.
  * @param {string} action.type The type of action to perform.
  * @returns {object} The resultant state. Or falsey if no changes.
  */
-export function GraphReducer(prev, action)
+export function GraphReducer(graphType, graphState, action)
 {
     switch(action.type)
     {
@@ -168,8 +168,8 @@ export function GraphReducer(prev, action)
         {
             const { elementType, elementId, opts } = action;
 
-            let next = { ...prev };
-            let key = computeElementsKey(elementType);
+            let next = { ...graphState };
+            let key = graphType.computeElementTypeKey(elementType);
             let nextElements = key in next ? {...next[key]} : {};
             let id = elementId || uuid();
             let element = new (elementType)(id, opts || {});
@@ -181,8 +181,8 @@ export function GraphReducer(prev, action)
         {
             const { elementType, elementId } = action;
 
-            let next = { ...prev };
-            let key = computeElementsKey(elementType);
+            let next = { ...graphState };
+            let key = graphType.computeElementTypeKey(elementType);
             if (key in next)
             {
                 let nextElements = {...next[key]};
@@ -198,8 +198,8 @@ export function GraphReducer(prev, action)
         {
             const { elementType } = action;
             
-            let next = { ...prev };
-            let key = computeElementsKey(elementType);
+            let next = { ...graphState };
+            let key = graphType.computeElementTypeKey(elementType);
             if (key in next)
             {
                 for(let element of Object.values(next[key]))
@@ -214,9 +214,9 @@ export function GraphReducer(prev, action)
         case 'clearAll':
         {
             // Destroy all previous elements...
-            for(let elementType of Object.keys(prev))
+            for(let elementType of Object.keys(graphState))
             {
-                for(let element of Object.values(prev[elementType]))
+                for(let element of Object.values(graphState[elementType]))
                 {
                     element.onDestroy();
                     element.markDead();
@@ -227,7 +227,7 @@ export function GraphReducer(prev, action)
         case 'forceUpdate':
         {
             // Do nothing. It's a forceUpdate().
-            return { ...prev };
+            return { ...graphState };
         }
         // NOTE: Be careful when using "resetState", any references to old elements
         // are marked as DEAD and therefore should not be re-used.
@@ -238,9 +238,9 @@ export function GraphReducer(prev, action)
             if (state)
             {
                 // Destroy all previous elements...
-                for(let elementType of Object.keys(prev))
+                for(let elementType of Object.keys(graphState))
                 {
-                    for(let element of Object.values(prev[elementType]))
+                    for(let element of Object.values(graphState[elementType]))
                     {
                         element.onDestroy();
                         element.markDead();
@@ -259,8 +259,8 @@ export function GraphReducer(prev, action)
         }
         case 'swapProperty':
         {
-            let element = UNSAFE_getGraphElement(prev, action.elementType, action.elementId);
-            let other = UNSAFE_getGraphElement(prev, action.targetType || action.elementType, action.targetId);
+            let element = graphType.getElement(graphState, action.elementType, action.elementId);
+            let other = graphType.getElement(graphState, action.targetType || action.elementType, action.targetId);
             let value = element[action.property];
             element[action.property] = other[action.property];
             other[action.property] = value;
@@ -268,7 +268,7 @@ export function GraphReducer(prev, action)
             // NOTE: Why not cause a re-render?
             // This action's changes should really only be handled by markDirty(), because it deals only
             // with individual elements.
-            return prev;
+            return graphState;
         }
     }
 }
