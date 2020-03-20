@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Pane from '@flapjs/components/drawer/pane/Pane.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
-import { SessionConsumer } from '@flapjs/session/context/SessionContext.jsx'
+import { SessionConsumer } from '@flapjs/session/context/SessionContext.jsx';
 import TestingEquivalenceSection from '../sections/TestingEquivalenceSection.jsx';
 
 /* TODO : These messages definitely don't belong here but I'm not sure where
-    they go.    
+    they go.
 */
 const MACHINE_TYPE_FA = 'fa';
 const NFA_FLIP_STATE_MESSAGE = 'Warning: Flipping the states in an NFA does not'
@@ -84,7 +84,7 @@ class AnalysisPanel extends React.Component
                                                     onChange={this.onChangeOptimizeUnreachable} />
                                                 <label htmlFor="analysisOptimizationUnreachable">
                                                     Remove unreachable states
-                                    </label>
+                                                </label>
                                             </li>
                                             <li>
                                                 <input id="analysisOptimizationRedundant"
@@ -94,7 +94,7 @@ class AnalysisPanel extends React.Component
                                                     onChange={this.onChangeOptimizeRedundant} />
                                                 <label htmlFor="analysisOptimizationRedundant">
                                                     Remove redundant empty transitions
-                                    </label>
+                                                </label>
                                             </li>
                                             <li>
                                                 <button>
@@ -106,7 +106,7 @@ class AnalysisPanel extends React.Component
                                     <li>
                                         <button disabled={false} onClick={this.onPerformDeterministicConversion}>
                                             Convert to valid deterministic machine
-                            </button>
+                                        </button>
                                     </li>
                                 </ul>
                             </Pane>
@@ -115,7 +115,7 @@ class AnalysisPanel extends React.Component
                                     <li>
                                         <button onClick={this.onPerformFlipAcceptStates}>
                                             Flip all accept states
-                            </button>
+                                        </button>
                                     </li>
                                 </ul>
                             </Pane>
