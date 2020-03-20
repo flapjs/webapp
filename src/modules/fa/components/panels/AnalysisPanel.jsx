@@ -11,14 +11,13 @@ import TestingEquivalenceSection from '../sections/TestingEquivalenceSection.jsx
 */
 const MACHINE_TYPE_FA = 'fa';
 const NFA_FLIP_STATE_MESSAGE = 'Warning: Flipping the states in an NFA does not'
-+ ' produce a logically equivalent inverse.';
+    + ' produce a logically equivalent inverse.';
 
 class AnalysisPanel extends React.Component
 {
     constructor(props)
     {
         super(props);
-
         this.state = {
             optimizeUnreachable: true,
             optimizeRedundant: false,
@@ -99,7 +98,7 @@ class AnalysisPanel extends React.Component
                                             <li>
                                                 <button>
                                                     Perform selected optimizations
-                                    </button>
+                                                </button>
                                             </li>
                                         </ul>
                                     </li>
