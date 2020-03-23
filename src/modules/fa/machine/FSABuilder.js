@@ -126,7 +126,7 @@ export default class FSABuilder extends GraphMachineBuilder
             result.EdgeElement[index++] = edge;
         }
         
-        let nextGraphState = FiniteAutomataGraph.serialize(result, {});
+        let nextGraphState = FiniteAutomataGraph.deserialize(result, {}, { forceIgnoreVersion: true });
         graphDispatch({ type: 'resetState', state: nextGraphState });
     }
 
