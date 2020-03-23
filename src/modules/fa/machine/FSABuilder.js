@@ -72,9 +72,18 @@ export default class FSABuilder extends GraphMachineBuilder
             {
                 nodeData.initial = true;
             }
+            else
+            {
+                nodeData.initial = false;
+            }
+            
             if (machine.isFinalState(state))
             {
                 nodeData.final = true;
+            }
+            else
+            {
+                nodeData.final = false;
             }
 
             result.NodeElement[nodeId] = nodeData;
@@ -120,7 +129,7 @@ export default class FSABuilder extends GraphMachineBuilder
         }
         
         let graphData = JSON.stringify(result);
-        let nextGraphState = GraphStateDeserializer(FiniteAutomataGraph, graphData);
+        let nextGraphState = GraphStateDeserializer(FiniteAutomataGraph, graphData, { forceIgnoreVersion: true });
         graphDispatch({ type: 'resetState', state: nextGraphState });
     }
 
