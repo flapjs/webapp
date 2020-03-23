@@ -39,7 +39,7 @@ export default class BaseGraph
 
     /* ===================== Serialization ===================== */
 
-    static serialize(graphState, graphData = {})
+    static serialize(graphState, graphData = {}, opts = {})
     {
         for(let elementType of this.elementTypes)
         {
@@ -67,20 +67,23 @@ export default class BaseGraph
         return graphData;
     }
 
-    static deserialize(graphData, graphState = {})
+    static deserialize(graphData, graphState = {}, opts = {})
     {
         // Version checking...
-        if (!('__metadata__' in graphData)) throw new Error('Missing metadata.');
-
-        if (this.name !== graphData.__metadata__.graphType)
+        if (!opts.forceIgnoreVersion)
         {
-            throw new Error('Mismatched metadata graph type.');
-        }
-
-        if (!SemanticVersion.parse(this.version).canSupportVersion(graphData.__metadata__.version))
-        {
-            throw new Error(`Unsupported graph parser version - ${this.version} cannot support `
-                + graphData.__metadata__.version);
+            if (!('__metadata__' in graphData)) throw new Error('Missing metadata.');
+    
+            if (this.name !== graphData.__metadata__.graphType)
+            {
+                throw new Error('Mismatched metadata graph type.');
+            }
+    
+            if (!SemanticVersion.parse(this.version).canSupportVersion(graphData.__metadata__.version))
+            {
+                throw new Error(`Unsupported graph parser version - ${this.version} cannot support `
+                    + graphData.__metadata__.version);
+            }
         }
 
         for(let elementType of this.elementTypes)

@@ -1,7 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { propKnobs } from '@flapjs/util/storybook/PropKnobs.js';
+
+import { propKnobs } from '../../../storybook/util/PropKnobs.js';
 
 import __NAME__ from './__NAME__.jsx';
 

@@ -8,6 +8,13 @@ import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 
 import TestingEquivalenceSection from '../sections/TestingEquivalenceSection.jsx';
 
+/*
+// TODO : These messages definitely don't belong here but I'm not sure where they go.
+const MACHINE_TYPE_FA = 'fa';
+const NFA_FLIP_STATE_MESSAGE = 'Warning: Flipping the states in an NFA does not'
+    + ' produce a logically equivalent inverse.';
+*/
+
 class AnalysisPanel extends React.Component
 {
     constructor(props)
@@ -43,7 +50,19 @@ class AnalysisPanel extends React.Component
 
     onPerformFlipAcceptStates()
     {
+        throw new Error('Not yet implemented');
+        /*
+        const session = this.session;
+        const machineController = session.machineController;
+        machineController.invertMachine();
 
+        if (session.moduleID !== MACHINE_TYPE_FA)
+        {
+            //TODO : I'm not quite sure how to display this message here.
+            //This has something to do with notifications
+            alert(NFA_FLIP_STATE_MESSAGE);
+        }
+        */
     }
 
     /** @override */
@@ -94,7 +113,7 @@ class AnalysisPanel extends React.Component
                 <Pane title="Related Converions">
                     <ul>
                         <li>
-                            <button disabled={true} onClick={this.onPerformFlipAcceptStates}>
+                            <button onClick={this.onPerformFlipAcceptStates}>
                                 Flip all accept states
                             </button>
                         </li>
