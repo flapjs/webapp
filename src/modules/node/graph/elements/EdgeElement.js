@@ -52,8 +52,11 @@ export default class EdgeElement extends GraphElement
     /** @override */
     static serialize(instance, data = {})
     {
-        data.quad = { ...instance.quad };
-        data.quad.coords = { ...instance.quad.coords };
+        if (instance.quad)
+        {
+            data.quad = { ...instance.quad };
+            data.quad.coords = { ...instance.quad.coords };
+        }
         return super.serialize(instance, data);
     }
 }

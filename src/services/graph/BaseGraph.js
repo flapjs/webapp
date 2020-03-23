@@ -85,7 +85,7 @@ export default class BaseGraph
                     + graphData.__metadata__.version);
             }
         }
-
+        
         for(let elementType of this.elementTypes)
         {
             const key = this.computeElementTypeKey(elementType);
@@ -126,7 +126,7 @@ export default class BaseGraph
 
     static getElements(graphState, elementType)
     {
-        return Object.keys(graphState[this.computeElementTypeKey(elementType)] || {});
+        return Object.values(graphState[this.computeElementTypeKey(elementType)] || {});
     }
     
     static getElement(graphState, elementType, elementId)
