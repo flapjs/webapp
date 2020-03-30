@@ -1,92 +1,53 @@
-import AboutPanel from './AboutPanel.jsx';
+export default class BaseModule
+{
+    /** @abstract */
+    static get services() { return []; }
+    /** @abstract */
+    static get providers() { return []; }
+    /** @abstract */
+    static get renders() { return {}; }
+    /** @abstract */
+    static get moduleId() { throw new Error('Must be overriden.'); }
+    /** @abstract */
+    static get moduleVersion() { return '0.0.0'; }
 
-import NodeGraphExporter from './NodeGraphExporter.js';
-import { IMAGE_EXPORTERS } from './NodeGraphImageExporters.js';
-import NodeGraphImporter from '@flapjs/modules/base/NodeGraphImporter.js';
+    /**
+     * Prepare your module here.
+     * 
+     * @param {object} loader The current load context. Refer to ModuleLoader for the implementation.
+     * @param {object} contribs Your contributions to the load context. Any changes made to this object will be applied.
+     */
+    constructor(loader, contribs) {}
 
-import AutoSaveService from '@flapjs/services/AutoSaveService.js';
-import UndoService from '@flapjs/services/UndoService.js';
-import GraphService from '@flapjs/services/GraphService.js';
-import ExportService from '@flapjs/services/ExportService.js';
-import ImportService from '@flapjs/services/ImportService.js';
+    /**
+     * Any setup you've done in the constructor should be un-done here. You are
+     * only guaranteed that this will be called AFTER the instance has been created
+     * and only once for the instance.
+     * 
+     * @abstract
+     * @param {object} loader The current load context. Refer to ModuleLoader for the implementation.
+     */
+    destroy(loader) {}
 
-import BaseGraphController from './BaseGraphController.js';
-import { INSTANCE as NODE_PARSER } from '@flapjs/services/graph/model/parser/NodeGraphParser.js';
-import GraphViewportLayer from '@flapjs/components/graph/GraphViewportLayer.jsx';
-import BasePlaygroundLayer from '@flapjs/modules/base/BasePlaygroundLayer.jsx';
+    /**
+     * This is dangerous stuff. This is effectively injecting code
+     * into the app's componentDidMount() phase. Be careful when
+     * using this callback since it usually signifies that you are
+     * not utilizing React correctly. But it is here if you need it...
+     * 
+     * @abstract
+     * @param {Map} services A map of all loaded services, keyed by their class.
+     */
+    mount(services) {}
 
-// Theme Manager
-// Hotkeys?
-// Tooltips
-
-const MODULE = {
-    id: 'base',
-    version: '1.0.0',
-    services: [
-        ExportService,
-        ImportService,
-        UndoService,
-        GraphService,
-        AutoSaveService,
-    ],
-    renders: {
-        appbar: [ ],
-        playground: [ BasePlaygroundLayer ],
-        viewport: [ GraphViewportLayer ],
-        drawer: [ AboutPanel ],
-    },
-    menus: {
-        file: [
-            // NewMenuOption,
-            // SaveMenuOption,
-        ],
-        view: [
-            // RecenterMenuOption,
-        ]
-    },
-    reducer(state, action)
-    {
-        switch(action.type)
-        {
-            default:
-                throw new Error(`Unsupported action ${action}.`);
-        }
-    },
-    preload(session)
-    {
-    },
-    load(session)
-    {
-        // This is called after all services have been created, but before they are loaded.
-        // This is usually where you setup the session to be loaded correctly (instead of passing args to constructor).
-        session.importService
-            .addImporter(
-                new NodeGraphImporter(NODE_PARSER,
-                    [ '.json', '.base.json', '.fa.json', '.fsa.json' ])
-            );
-        session.exportService
-            .setExports({
-                session: new NodeGraphExporter(NODE_PARSER),
-                ...IMAGE_EXPORTERS
-            });
-        session.graphService
-            .setGraphParser(NODE_PARSER)
-            .setGraphControllerClass(BaseGraphController)
-            .enableAutoSaveServiceFeatures(session.autoSaveService)
-            .enableUndoServiceFeatures(session.undoService);
-        
-        session.graphController.getGraph().createNode();
-    },
-    unload(session)
-    {
-    },
-    onSessionMount(sessionProvider)
-    {
-    },
-    onSessionUnmount(sessionProvider)
-    {
-    }
-};
-
-export default MODULE;
-
+    /**
+     * This is dangerous stuff. This is effectively injecting code
+     * into the app's componentWillUnmount() phase. Be careful when
+     * using this callback since it usually signifies that you are
+     * not utilizing React correctly. But it is here if you need it...
+     * 
+     * @abstract
+     * @param {Map} services A map of all loaded services, keyed by their class.
+     */
+    unmount(services) {}
+}

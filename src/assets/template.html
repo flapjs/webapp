@@ -85,7 +85,8 @@
 <!-- Global Variables -->
 <script>
     // NOTE: ServiceWorker will only be enabled in 'production'.
-    const NODE_ENV = '<%= webpackConfig.mode %>';
+    const __NODE_ENV__ = '<%= webpackConfig.mode %>';
+    if (__NODE_ENV__ !== 'production') document.getElementById('root').classList.add('debug');
 </script>
 
 <!-- Service Worker Install -->

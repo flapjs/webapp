@@ -1,37 +1,13 @@
 /* eslint-env node */
 
 const merge = require('webpack-merge');
-const base = require('./base.config.js');
+const output = require('./output.config.js');
 
 const { HotModuleReplacementPlugin } = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = merge.smart(base, {
+const result = merge.smart(output('development'), {
     mode: 'development',
     devtool: 'inline-source-map',
-    module: {
-        rules: [
-            /** Add loaders here for different file types. */
-            {
-                test: /\.module\.css$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: { hmr: true }
-                    }
-                ]
-            },
-            {
-                test: /^((?!\.module).)*\.css$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: { hmr: true }
-                    }
-                ]
-            },
-        ]
-    },
     plugins: [
         new HotModuleReplacementPlugin()
     ],
@@ -44,3 +20,5 @@ module.exports = merge.smart(base, {
         https: true,
     },
 });
+
+module.exports = result;

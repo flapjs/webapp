@@ -1,0 +1,23 @@
+@value APPBAR_HEIGHT: 3rem;
+
+.container {
+    display: grid;
+    grid-template-rows: APPBAR_HEIGHT;
+    width: 100%;
+    height: 100%;
+}
+
+.container header {
+    width: 100%;
+    height: APPBAR_HEIGHT;
+    overflow: hidden;
+}
+
+.container main {
+    width: 100%;
+    height: 100%;
+}
+
+.container footer:empty {
+    display: none;
+}

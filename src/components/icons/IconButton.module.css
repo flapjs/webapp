@@ -20,3 +20,8 @@
     /** Inherits the color from the container */
     color: currentColor;
 }
+
+.container:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

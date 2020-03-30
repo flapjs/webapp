@@ -1,0 +1,12 @@
+.tableEntry {
+    text-align: center;
+}
+
+.tableEntry:global(.error) {
+    color: red;
+}
+
+.tableEntry:not(:global(.error)):global(.disabled),
+.tableAxisHeader:global(.disabled) {
+    opacity: 0.3;
+}

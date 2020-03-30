@@ -1,5 +1,5 @@
 /* global module */
-/* global NODE_ENV */
+/* global __NODE_ENV__ */
 /* global __VERSION__ */
 
 // NOTE: This is for polyfill
@@ -9,27 +9,27 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import Logger from './util/Logger.js';
-import FlapJSApplication from './FlapJSApplication.js';
+import * as Application from './Application.js';
 
-// NOTE: NODE_ENV is defined in `template.html` as a global.
-Logger.out('Main', `Preparing app for ${NODE_ENV} environment...`);
+Logger.out('Main', '='.repeat(40));
+
+// NOTE: __NODE_ENV__ is defined in `template.html` as a global.
+Logger.out('Main', `Preparing app for ${__NODE_ENV__} environment...`);
 // NOTE: __VERSION__ is defined by Webpack with the DefinePlugin.
 Logger.out('Main', `Loading app version '${__VERSION__}'...`);
 
 // Initial rendering...
-try
-{
-    FlapJSApplication.start();
-}
-catch(e)
-{
-    // NOTE: As of right now, this does nothing. Hopefully it catches something though...
-    window.alert(e);
-}
+Application.startUp();
 
 // Debug rendering...
 if (module.hot)
 {
     Logger.out('Main', '...in debug mode for hot-reload...');
-    module.hot.accept('./FlapJSApplication.js', () => FlapJSApplication.render());
+    module.hot.accept();
+    module.hot.dispose(function()
+    {
+        // eslint-disable-next-line no-console
+        console.clear();
+        Application.shutDown();
+    });
 }

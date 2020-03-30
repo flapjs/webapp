@@ -21,11 +21,13 @@ class SemanticVersion
      * it returns true if the other version is newer but within the same major
      * version. Because of how versioning works, order matters!
      * 
-     * @param {SemanticVersion} otherVersion  The version to compare to.
-     * @returns {boolean}                     Whether this version can support the other.
+     * @param {SemanticVersion|string} otherVersion The version to compare to. If it is a string, it will be parsed into SemanticVersion.
+     * @returns {boolean} Whether this version can support the other.
      */
     canSupportVersion(otherVersion)
     {
+        if (typeof otherVersion === 'string') otherVersion = SemanticVersion.parse(otherVersion);
+        
         return this.major == otherVersion.major &&
             (this.minor < otherVersion.minor ||
                 (this.minor == otherVersion.minor && this.patch <= otherVersion.patch));

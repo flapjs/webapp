@@ -1,0 +1,30 @@
+/** Currently used by SVGPlayground as default style */
+svg:global(.viewarea) circle {
+    fill: white;
+    stroke: black;
+}
+
+svg:global(.viewarea) path {
+    stroke: black;
+}
+
+/** Must at least match the specificity of default styles^^^ */
+svg:global(.viewarea) .decorative {
+    pointer-events: none;
+    user-select: none;
+}
+
+svg:global(.viewarea) .mask {
+    fill: transparent;
+    stroke: transparent;
+}
+
+/** Debug styles */
+:global(#root.debug) svg:global(.viewarea) .mask {
+    stroke: yellowgreen;
+    opacity: 0.5;
+}
+
+:global(#root.debug) svg *:hover {
+    outline: 1px dashed rgba(0, 0, 0, 0.3);
+}

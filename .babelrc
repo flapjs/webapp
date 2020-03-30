@@ -6,13 +6,5 @@
         { "useBuiltIns": "entry", "corejs": 3 }
       ],
       "@babel/preset-react"
-    ],
-    "env": {
-      "test": {
-        "plugins": [
-          /* Allows Storybook to execute scripts in a sub-directory */
-          "require-context-hook"
-        ]
-      }
-    }
+    ]
 }

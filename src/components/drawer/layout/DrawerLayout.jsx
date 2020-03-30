@@ -10,7 +10,7 @@ const INITIAL_DRAWER_SIZE = 30;
  * drawer with a viewport. It uses render props to delegate
  * rendering outside itself, therefore separation of concerns!
  */
-class DrawerLayout extends React.Component
+export default class DrawerLayout extends React.Component
 {
     constructor(props)
     {
@@ -174,7 +174,6 @@ function applySnapPointsNearest(value, snapPoints)
     }
     return minValue;
 }
-
 DrawerLayout.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node,
@@ -198,5 +197,3 @@ DrawerLayout.defaultProps = {
     snapPoints: [INITIAL_DRAWER_SIZE, 50, 100],
     snapBehavior: 'range',
 };
-
-export default DrawerLayout;

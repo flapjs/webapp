@@ -9,7 +9,7 @@ import Style from './HelloWorld.module.css';
  * 
  * Here's a tutorial on the effect: {@link https://w3bits.com/rainbow-text/}.
  */
-class HelloWorld extends React.Component
+export default class HelloWorld extends React.Component
 {
     constructor(props)
     {
@@ -52,7 +52,6 @@ class HelloWorld extends React.Component
         );
     }
 }
-
 HelloWorld.propTypes = {
     id: PropTypes.string,
     style: PropTypes.object,
@@ -65,5 +64,3 @@ HelloWorld.propTypes = {
 HelloWorld.defaultProps = {
     title: 'World!'
 };
-
-export default HelloWorld;

@@ -1,26 +1,51 @@
-# Graph
+# Graphs
 
-This provides all necessary components, logic, state management, etc to implement a graph editor.
+Cause graphs are hard.
 
-## History
-### 10/13/2019
-Things have been moved around to better reflect their purpose. So all pure data utilities are now under "model", all renderers under "components", etc.
+## Getting Started
+The entrypoint is `GraphService.js`. It also expects you to define a graph type class (refer to `BaseGraph.js` for more info). Most functions interacting with the graph will take a graph type.
 
-### 05/05/2019
-The old system was hard to change. This should have a better sense of division of responsibility.
+## My Graph Design Thought Process
+What if I want to access a graph element's state in render()?
+> For example: `<... disabled={state.active}/>`
+- You'll need to re-render if it changes.
+- Solutions:
+    - Maybe a `useGraphElement(elementId)`. It will force an update anytime that element changes (inside will `useContext()` to get the graph).
+    - Maybe a per node consumer?
+What if I want to access a graph element's state in general?
+> For example: `onload() { if (!graph.isEmpty()) showWarning(); }`
+- You don't need to re-render as any code "outside" will have a normal program flow. This changes when you want to change its state though...
+- Solutions:
+    - Use a `Context.Provider` and pass it the graph object. Then, you can reference the graph object, while the render bits can reference the context.
+What if I want to change a graph element's state in render()?
+> For example: `<button onClick={() => {graph.state.accept = !graph.state.accept}}>`
+- Solutions:
+    - `[nodeState, setNodeState] = useGraphElement(id); setNodeState((prev) => ({accept: prev.accept}));`
 
-The primary component that manages everything for editing a graph is the GraphView. The view is further divided into a graph view (NodeGraphView) and a label editing view (LabelEditorView). More views can be added through the graph editor's children or the corresponding props.
+What if I want to change a graph elemnet's state in general?
+> For example: `focusToNode(graph)`
 
-The components of the editor are divided into 4 categories:
+What if I want to list all graph elements?
+> For example: `<p>States: {graph.nodes.map(value => <div>{value.label}</div>)}</p>`
 
-At the top are the views, which manage all other components and should ONLY be dependent on something if it will initialize that component for you. These are the "entry points".
+What if I want to add/delete graph elements?
+> For example: `<button onClick={() => {graph.createState()}}>`
 
-Then, each view is divided into layers. Each view should be able to be modified by someone by simply adding/modifying a layer. A layer should only render related items.
 
-At the bottom are renderers and widgets. The difference is that a widget is self-contained, usually handling its own state and logic, while renderers are expected to be given data to render from. Together, they make up all the individual components of the editor.
+Example: Create a button for all node elements, that when clicked will move the viewport to that node.
+- `const [nodes, updateNodes] = useGraphElements(NodeType)`
+Example: Create a button for all node elements, that when clicked will delete the node (should also remove the button from previous).
+- `const [nodes, updateNodes] = useGraphElements(NodeType)`
+Example: When click on button, create a node at origin.
+- `const [nodes, updateNodes] = useGraphElements(NodeType)`
+Example: When click on button, clear all node elements.
+- `const [nodes, updateNodes] = useGraphElements(NodeType)`
+Example: When click on button, rearrange all nodes to a certain layout.
+- `const [nodes, updateNodes] = useGraphElements(NodeType)`
 
--=-=-=-=-
+What about undo/redo?
+- Every few seconds serialize the entire graph and check if it has changed.
+    - If it has, save it. Otherwise, throw it away.
 
-All logic and manipulation not related to the UI are further distributed to the controllers, mainly graph tasks for GraphController, input handling for InputController, and selection handling for SelectionBox.
-
-To change input behavior, replace/create the input handlers instead of modifying them. This should easily be done through the already implemented input system.
+What about initialization/loading/exporting?
+- Just do it.

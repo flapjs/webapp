@@ -43,6 +43,19 @@ class Logger
     }
 
     /**
+     * Logs the warning.
+     * 
+     * @param {string} tag The tag that the message belongs to. This is usually the class name.
+     * @param {string} message The message content.
+     * @param {Error} [err=null] The error message, if applicable.
+     */
+    static warn(tag, message, err = null)
+    {
+        const result = '[' + tag + '] ' + message + (err ? '\n\n' + err.stack : '');
+        print('warn', result);
+    }
+
+    /**
      * Logs the error.
      * 
      * @param {string} tag The tag that the message belongs to. This is usually the class name.
@@ -51,7 +64,7 @@ class Logger
      */
     static error(tag, message, err = null)
     {
-        const result = '[' + tag + '] ' + (err ? err.message + ' : ' : '') + message;
+        const result = '[' + tag + '] ' + message + (err ? '\n\n' + err.stack : '');
         print('error', result);
     }
 }

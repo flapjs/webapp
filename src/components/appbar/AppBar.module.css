@@ -1,0 +1,19 @@
+@value COLOR_BACKGROUND: #333641;
+@value COLOR_TEXT: #FFFFFF;
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    background: COLOR_BACKGROUND;
+    color: COLOR_TEXT;
+}
+
+.container > * {
+    flex: 1;
+    margin-right: 1rem;
+}

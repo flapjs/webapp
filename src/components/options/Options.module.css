@@ -1,0 +1,7 @@
+.container[disabled] {
+    color: gray;
+}
+
+.container input[disabled] ~ label[for] {
+    color: gray;
+}
