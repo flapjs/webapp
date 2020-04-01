@@ -6,6 +6,7 @@ import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
+import NodeGraphExporter from '../../exporters/NodeGraphExporter';
 
 export default function ExportPanel(props)
 {
@@ -43,7 +44,7 @@ function exportTo(exportType, opts)
             Downloader.downloadImageFromSVG('Untitled.svg', Downloader.FILE_TYPE_SVG, opts.svgRef.current, 640, 480);
             break;
         case 'graph':
-            Downloader.downloadText('Untitled.node.json', JSON.stringify(opts.graphType.serialize(opts.graphState, {})));
+            Downloader.downloadText('Untitled.node.json', NodeGraphExporter(opts.graphType, opts.graphState));
             break;
     }
 }

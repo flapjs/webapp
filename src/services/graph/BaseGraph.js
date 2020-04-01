@@ -39,7 +39,7 @@ export default class BaseGraph
 
     /* ===================== Serialization ===================== */
 
-    static serialize(graphState, graphData = {}, opts = {})
+    static serialize(graphState, graphData, opts = {})
     {
         for(let elementType of this.elementTypes)
         {
@@ -67,7 +67,7 @@ export default class BaseGraph
         return graphData;
     }
 
-    static deserialize(graphData, graphState = {}, opts = {})
+    static deserialize(graphData, graphState, opts = {})
     {
         // Version checking...
         if (!opts.forceIgnoreVersion)

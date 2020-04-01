@@ -60,7 +60,7 @@ export default class GraphElement
      * @param {object} data The data object to serialize to.
      * @returns {object} The serialized data object.
      */
-    static serialize(instance, data = {})
+    static serialize(instance, data)
     {
         let warnings = [];
         for(let key of Object.keys(instance))
@@ -100,7 +100,7 @@ export default class GraphElement
      * @param {object} data The data object to deserialize from.
      * @returns {GraphElement} The deserialized instance.
      */
-    static deserialize(instance, data = {})
+    static deserialize(instance, data)
     {
         for(let key of Object.keys(data))
         {

@@ -10,7 +10,8 @@ import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
 
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
-import FiniteAutomataImporter from '@flapjs/modules/fa/FiniteAutomataImporter.js';
+import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataImporter.js';
+
 import { DrawerDispatchContext } from '@flapjs/components/drawer/DrawerContext.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon } from '@flapjs/components/icons/Icons.js';

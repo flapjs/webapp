@@ -5,6 +5,8 @@ import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
 
 export default function FiniteAutomataJFLAP7Exporter(graphType, graphState)
 {
+    if (typeof graphType !== 'function') throw new Error('Missing graph type class.');
+    
     const graphNodes = graphType.getElements(graphState, NodeElement);
     const graphEdges = graphType.getElements(graphState, EdgeElement);
 
@@ -12,11 +14,10 @@ export default function FiniteAutomataJFLAP7Exporter(graphType, graphState)
     const header = '<?xml version="1.0" encoding="UTF-8" '
         + 'standalone="no"?><!--Created from Flap.js Web App '
         + __VERSION__
-        + '-->';
-    const parser = new DOMParser();
-    let jff = parser.parseFromString(header, 'application/xml');
-    
-    let rootStructure = jff.createElement('structure');
+        + '--><structure></structure>';
+    let jff = new DOMParser().parseFromString(header, 'application/xml');
+
+    let rootStructure = jff.querySelector('structure');
 
     // For Finite Automata...
     let typeElement = jff.createElement('type');
@@ -38,11 +39,11 @@ export default function FiniteAutomataJFLAP7Exporter(graphType, graphState)
         automatonElement.appendChild(stateElement);
 
         let xElement = jff.createElement('x');
-        xElement.innerHTML = String(node.x || 0);
+        xElement.innerHTML = String((Math.round(node.x * 100) / 100) || 0);
         stateElement.appendChild(xElement);
 
         let yElement = jff.createElement('y');
-        yElement.innerHTML = String(node.y || 0);
+        yElement.innerHTML = String((Math.round(node.y * 100) / 100) || 0);
         stateElement.appendChild(yElement);
 
         if (node.initial)
