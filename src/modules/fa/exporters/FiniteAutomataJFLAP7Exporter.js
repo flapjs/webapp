@@ -65,7 +65,6 @@ export default function FiniteAutomataJFLAP7Exporter(graphType, graphState)
         let toStateId = nodeIdToStateId.get(edge.toId);
 
         if (typeof fromStateId !== 'number' || typeof toStateId !== 'number') continue;
-        if (typeof edge.label === 'string') continue;
 
         const symbols = edge.label.split('\n');
         for(let symbol of symbols)

@@ -71,10 +71,17 @@ function importFromTheOldPrototype(textData)
     throw new Error('Not yet implemented.');
 }
 
+/**
+ * This transforms text from JFLAPv7 XML format to FiniteAutomata graph data, THEN to graph state.
+ * It does an additional step to graph data first in order to preserve parsing rules from the
+ * deserializer. Otherwise, we would need to write a deserializer for EVERY import type.
+ * 
+ * @param {string} textData The text data from the imported file.
+ * @returns {object} The graph state.
+ */
 function importFromJFLAP(textData)
 {
-    /*
-    let graphState = {
+    let graphData = {
         NodeElement: {},
         EdgeElement: {},
     };
@@ -84,76 +91,87 @@ function importFromJFLAP(textData)
     const transitionElements = xmlData.getElementsByTagName('transition') || [];
 
     // Create those NodeElements...
-    let nodes = {};
+    let nodes = graphData.NodeElement;
     for(let stateElement of stateElements)
     {
         if (!stateElement.hasAttribute('id')) continue;
         const stateId = stateElement.getAttribute('id');
+        const stateName = stateElement.getAttribute('name');
 
-        let x = 0;
-        // NOTE: If no elements exists, we are guaranteed an empty array.
-        const xElements = stateElement.getElementsByTagName('x');
-        if (xElements.length > 0)
-        {
-            // We will only use the first one.
-            for(let xElement of xElements)
-            {
-                // hasChildNodes(), if true, guarantees at least 1 element.
-                if (xElement.hasChildNodes())
-                {
-                    try
-                    {
-                        x = parseFloat(xElement.childNodes[0].nodevalue);
-                        break;
-                    }
-                    catch(e)
-                    {
-                        x = 0;
-                    }
-                }
-            }
-        }
-
-        let y = 0;
-        // NOTE: If no elements exists, we are guaranteed an empty array.
-        const yElements = stateElement.getElementsByTagName('y');
-        if (yElements.length > 0)
-        {
-            // We will only use the first one.
-            for(let yElement of yElements)
-            {
-                // hasChildNodes(), if true, guarantees at least 1 element.
-                if (yElement.hasChildNodes())
-                {
-                    try
-                    {
-                        y = parseFloat(yElement.childNodes[0].nodevalue);
-                        break;
-                    }
-                    catch(e)
-                    {
-                        y = 0;
-                    }
-                }
-            }
-        }
-
-        const initialElements = stateElement.getElementsByTagName('initial');
-        let initial = initialElements.length > 0;
-
-        const finalElements = stateElement.getElementsByTagName('final');
-        let final = finalElements.length > 0;
+        let x = Number.parseFloat(getElementInnerValue(stateElement, 'x', '0'));
+        let y = Number.parseFloat(getElementInnerValue(stateElement, 'y', '0'));
+        let initial = stateElement.getElementsByTagName('initial').length > 0;
+        let final = stateElement.getElementsByTagName('final').length > 0;
 
         let nodeData = {
             x, y,
+            label: stateName,
             initial,
             accept: final,
         };
 
-        // nodes[stateId] = NodeElement.deserialize();
+        nodes[stateId] = nodeData;
     }
-    */
-    throw new Error('Not yet implemented.');
 
-    // return graphState;
+    // Create those EdgeElements...
+    let edgeDataMapping = new Map();
+    let edges = graphData.EdgeElement;
+    let edgeId = 0;
+    for(let transitionElement of transitionElements)
+    {
+        let from = getElementInnerValue(transitionElement, 'from', null);
+        let to = getElementInnerValue(transitionElement, 'to', null);
+        if (!from || !to) continue;
+
+        let read = getElementInnerValue(transitionElement, 'read', '');
+
+        const edgeDataKey = from + ':' + to;
+        if (edgeDataMapping.has(edgeDataKey))
+        {
+            let edgeData = edgeDataMapping.get(edgeDataKey);
+
+            edgeData.label += '\n' + read;
+        }
+        else
+        {
+            let edgeData = {
+                fromId: from,
+                toId: to,
+                label: read,
+            };
+    
+            edges[`${++edgeId}`] = edgeData;
+    
+            // Save it for later transitions to modify...
+            edgeDataMapping.set(edgeDataKey, edgeData);
+        }
+    }
+
+    return FiniteAutomataGraph.deserialize(graphData, {}, { forceIgnoreVersion: true });
+}
+
+function getElementInnerValue(parentElement, tagName, defaultValue = '')
+{
+    // NOTE: If no elements exists, we are guaranteed an empty array.
+    let elements = parentElement.getElementsByTagName(tagName);
+    if (elements.length > 0)
+    {
+        // We will only use the first VALID one.
+        for(let element of elements)
+        {
+            // hasChildNodes(), if true, guarantees at least 1 element.
+            if (element.hasChildNodes())
+            {
+                try
+                {
+                    return element.childNodes[0].nodeValue;
+                }
+                catch(e)
+                {
+                    // Ignore the error and try the next one.
+                }
+            }
+        }
+    }
+    return defaultValue;
 }

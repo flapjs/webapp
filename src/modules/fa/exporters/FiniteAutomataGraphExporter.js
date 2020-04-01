@@ -1,6 +1,4 @@
-import FiniteAutomataGraph from '../graph/FiniteAutomataGraph.js';
-
-export default function FiniteAutomataGraphExporter(graphState)
+export default function FiniteAutomataGraphExporter(graphType, graphState)
 {
-    return FiniteAutomataGraph.serialize(graphState, {});
+    return JSON.stringify(graphType.serialize(graphState, {}));
 }

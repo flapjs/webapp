@@ -54,7 +54,9 @@ export default function FiniteAutomataToolbar(props)
             <button onClick={() => drawerDispatch({ type: 'change-tab', value: 3 })}>
                 Save
             </button>
-            <Upload onUpload={fileBlob => graphDispatch({ type: 'resetState', state: FiniteAutomataImporter(fileBlob) })}/>
+            <Upload onUpload={fileBlob =>
+                FiniteAutomataImporter(fileBlob)
+                    .then(graphState => graphDispatch({ type: 'resetState', state: graphState }))}/>
         </fieldset>
         </>
     );
