@@ -7,7 +7,7 @@ const { HotModuleReplacementPlugin } = require('webpack');
 
 const result = merge.smart(output('development'), {
     mode: 'development',
-    devtool: 'inline-source-map',
+    devtool: 'eval-source-map',
     plugins: [
         new HotModuleReplacementPlugin()
     ],
@@ -18,6 +18,7 @@ const result = merge.smart(output('development'), {
         contentBase: './build',
         port: 8004,
         https: true,
+        quiet: true,
     },
 });
 
