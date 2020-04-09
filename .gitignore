@@ -13,3 +13,6 @@
 
 # ESlint cache file
 .eslintcache
+
+# VSCode setting files
+/.vscode/

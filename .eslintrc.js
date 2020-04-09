@@ -63,13 +63,11 @@ module.exports = {
             4,
             { "SwitchCase": 1 }
         ],
-        /*
-        // Handled by git
+        // NOTE: git already converts all linebreaks to unix style.
         'linebreak-style': [
-            'error',
+            'off',
             'unix'
         ],
-        */
         'quotes': [
             'error',
             'single'
