@@ -5,11 +5,12 @@ import Style from './Button.module.css';
 
 export default function Button(props)
 {
-    const { className, id, title, disabled, onClick } = props;
+    const { className, id, style, title, disabled, onClick } = props;
 
     return (
         <button className={`${Style.element} ${className}`}
             id={id}
+            style={style}
             onClick={onClick}
             title={title}
             disabled={disabled}>
@@ -21,6 +22,7 @@ Button.propTypes = {
     children: PropTypes.node,
     id: PropTypes.string,
     className: PropTypes.string,
+    style: PropTypes.object,
     onClick: PropTypes.func,
     title: PropTypes.string,
     disabled: PropTypes.bool,

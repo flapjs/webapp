@@ -10,6 +10,8 @@ import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.j
 import FiniteAutomataGraphExporter from '@flapjs/modules/fa/exporters/FiniteAutomataGraphExporter.js';
 import FiniteAutomataJFLAP7Exporter from '@flapjs/modules/fa/exporters/FiniteAutomataJFLAP7Exporter.js';
 
+import Button from '@flapjs/components/lib/Button.jsx';
+
 export default function ExportPanel(props)
 {
     const { svgRef } = useContext(ViewContext);
@@ -23,10 +25,10 @@ export default function ExportPanel(props)
         </header>
         <section>
             <ul>
-                <li><button onClick={() => exportTo('graph', { graphType, graphState })}>Save to File</button></li>
-                <li><button onClick={() => exportTo('jflap', { graphType, graphState })}>Export to JFF</button></li>
-                <li><button onClick={() => exportTo('image', { svgRef })}>Export to Image</button></li>
-                <li><button onClick={() => exportTo('svg', { svgRef })}>Export to SVG</button></li>
+                <li><Button onClick={() => exportTo('graph', { graphType, graphState })}>Save to File</Button></li>
+                <li><Button onClick={() => exportTo('jflap', { graphType, graphState })}>Export to JFF</Button></li>
+                <li><Button onClick={() => exportTo('image', { svgRef })}>Export to Image</Button></li>
+                <li><Button onClick={() => exportTo('svg', { svgRef })}>Export to SVG</Button></li>
             </ul>
         </section>
         </>
