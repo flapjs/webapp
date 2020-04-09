@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
+        "jsx": "react",
         "target": "es6",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
             "@flapjs/*": [
                 "src/*"
             ]
-        }
+        },
+        "checkJs": true
     },
     "exclude": ["node_modules", "build", "docs", "coverage", "out"]
 }

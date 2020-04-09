@@ -5,6 +5,7 @@
   "main": "index.js",
   "browser": "main.js",
   "scripts": {
+    "preinstall": "npm run setup-vscode -- dev",
     "start": "webpack-dev-server --env=development --config webpack.config.js",
     "build": "webpack --env=production --config webpack.config.js",
     "build-docs": "npm run build-storybook && npm run build-coverage",
@@ -21,18 +22,19 @@
     "lint-js": "eslint \"src/\" --ext \".js\" --ext \".jsx\"",
     "lint-css": "stylelint \"src/**/*.css\"",
     "boilerplate": "node ./tools/boilerplate/boilerplate.js",
-    "generate-storybooks": "node ./tools/generate-storybooks/index.js"
+    "generate-storybooks": "node ./tools/generate-storybooks/index.js",
+    "setup-vscode": "node ./tools/vscode/setup.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flapjs/FLAPJS-WebApp.git"
+    "url": "git+https://github.com/flapjs/webapp.git"
   },
   "author": "Flap.js Team",
   "license": "MIT",
   "bugs": {
     "url": "https://forms.gle/cyQFU9Ckgs5mr8D4A"
   },
-  "homepage": "https://github.com/flapjs/FLAPJS-WebApp#readme",
+  "homepage": "https://github.com/flapjs/webapp#readme",
   "dependencies": {
     "@ctrl/tinycolor": "^2.5.4",
     "core-js": "^3.3.5",
@@ -54,9 +56,11 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "chalk": "^4.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.2.0",
+    "enquirer": "^2.3.5",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
@@ -76,6 +80,7 @@
     "jest-fetch-mock": "^2.1.2",
     "lint-staged": "^9.4.2",
     "mini-css-extract-plugin": "^0.8.0",
+    "mkdirp": "^1.0.4",
     "postcss-loader": "^3.0.0",
     "react-is": "^16.13.0",
     "react-test-renderer": "^16.13.0",
