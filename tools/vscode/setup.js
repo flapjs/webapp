@@ -7,15 +7,27 @@ const mkdirp = require('mkdirp');
 const { prompt } = require('enquirer');
 const chalk = require('chalk');
 
-const VSCODE_DIR = './vscode/';
+const VSCODE_DIR = './.vscode/';
 const VSCODE_SETTINGS_FILENAME = 'settings.json';
 
 // Start the program on execute.
 main(process.argv).catch(e => { throw e; });
 
+/**
+ * Sets up the workspace for VS code. This usually just means generating an
+ * appropriate settings.json. This is a command line script, so simply execute
+ * this node script. For a specific mode, you can pass the mode in as the first
+ * argument. Here are the list of valid workspace modes:
+ * - **full**. For access to everything. Useful for admin or devops work.
+ * - **dev**. For general development. Useful for developers. Less clutter.
+ * 
+ * @param {Array<String>} args The program arguments.
+ */
 async function main(args)
 {
     let mode = args[2];
+
+    console.log('Preparing to setup workspace...');
 
     if (!mode)
     {
