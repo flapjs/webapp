@@ -1,0 +1,45 @@
+.element {
+    display: flex;
+}
+
+.disabled {
+    opacity: 0.3;
+}
+
+.element button {
+    background-color: transparent;
+    border-radius: 1rem;
+    border: 0.2rem solid currentColor;
+    padding: 0.1rem;
+    margin: 0.1rem 0.3rem;
+    color: currentColor;
+    text-shadow: 1px 1px 3px black;
+}
+
+.element button span {
+    padding: 0 0.5rem;
+    opacity: 0.3;
+}
+
+.element button span.checked {
+    opacity: 1;
+    background: gray;
+    border-radius: 1rem;
+}
+
+.label {
+    margin-top: auto;
+    margin-bottom: auto;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.inplace button {
+    margin: 0;
+    padding: 0.1rem;
+}
+
+.inplace span:not(.checked) {
+    display: none;
+    padding: 0;
+}

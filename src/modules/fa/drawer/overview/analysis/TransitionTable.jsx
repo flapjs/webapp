@@ -7,6 +7,7 @@ import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
 import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
+import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
 const SYMBOL_AXIS = 'symbols';
 const STATE_AXIS = 'states';
@@ -15,6 +16,8 @@ export default function TransitionTable(props)
 {
     const machine = useMachine(FSABuilder, props.machineName);
     const [ rowAxis, setRowAxis ] = useState(SYMBOL_AXIS);
+
+    const isRowAxis = rowAxis === SYMBOL_AXIS;
 
     return (
         <fieldset>
@@ -25,9 +28,11 @@ export default function TransitionTable(props)
                 <tbody>
                     <tr>
                         <th>
-                            <button onClick={() => setRowAxis(rowAxis === SYMBOL_AXIS ? STATE_AXIS : SYMBOL_AXIS)}>
-                                {rowAxis === SYMBOL_AXIS ? 'Q/\u03A3' : 'Q/Q'}
-                            </button>
+                            <FieldSwitch inplace={true}
+                                checked={isRowAxis}
+                                on={'Q/\u03A3'}
+                                off={'Q/Q'}
+                                onClick={value => setRowAxis(isRowAxis ? STATE_AXIS : SYMBOL_AXIS)} />
                         </th>
                         {UNSAFE_renderTableAxis(machine, rowAxis)}
                     </tr>

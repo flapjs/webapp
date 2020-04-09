@@ -1,0 +1,29 @@
+.element {
+    display: flex;
+    padding: 0.2rem 0;
+    margin: 0.2rem;
+}
+
+.element > label {
+    padding-right: 1rem;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.element input {
+    background-color: transparent;
+    padding: 0.1rem 0.5rem;
+    margin: 0.1rem 0.3rem;
+    color: currentColor;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.element > span {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.element input:disabled {
+    opacity: 0.3;
+}

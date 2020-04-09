@@ -47,6 +47,10 @@
     overflow: auto;
 }
 
+.drawer .content::-webkit-scrollbar {
+    display: none;
+}
+
 .drawer:global(.left) .content,
 .drawer:global(.right) .content {
     /** It's being blocked by the handle. */

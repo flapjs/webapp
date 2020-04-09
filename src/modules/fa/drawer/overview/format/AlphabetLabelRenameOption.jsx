@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 
+import Button from '@flapjs/components/lib/Button.jsx';
+
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { useGraphElements } from '@flapjs/services/graph/elements/GraphElementHooks.jsx';
@@ -8,9 +10,11 @@ import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
 
+import FieldInput from '@flapjs/components/lib/FieldInput.jsx';
+
 export default function AlphabetLabelRenameOption(props)
 {
-    const machineBuilder = useGraphMachineBuilder(FSABuilder, 'graph');
+    const machineBuilder = useGraphMachineBuilder(FSABuilder);
     const machine = machineBuilder.getMachine();
     
     // NOTE: UPDATE - Actually, semantically, it should ONLY use machine builder. Otherwise, any rules applied by
@@ -39,25 +43,25 @@ export default function AlphabetLabelRenameOption(props)
 
     return (
         <div>
-            <label htmlFor={labelId}>Rename Alphabet</label>
             <select ref={fromSymbolSelectorRef} id={labelId}>
                 {alphabet.map(symbol => <option key={symbol} value={symbol}>{symbol}</option>)}
             </select>
-            <span>{'=>'}</span>
-            <input type="text"
-                style={{ width: '3rem' }}
+            <FieldInput style={{ width: '3rem' }}
                 value={toSymbol}
-                onChange={e => setToSymbol(e.target.value)}
-                placeholder={'Symbol'}/>
-            <button
+                placeholder={'Symbol'}
+                onChange={e => setToSymbol(e.target.value)}>
+                    Rename Alphabet
+            </FieldInput>
+            <Button
                 onClick={e =>
                 {
                     applyRename(fromSymbolSelectorRef.current.value, toSymbol, edges);
                     setToSymbol('');
                 }}
+                title={'Apply rename alphabet'}
                 disabled={!toSymbol}>
                 Apply
-            </button>
+            </Button>
         </div>
     );
 }

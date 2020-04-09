@@ -1,15 +1,20 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
+import FieldInput from '@flapjs/components/lib/FieldInput.jsx';
+
 import Options from '@flapjs/components/options/Options.jsx';
+
+import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
 export default function NodeLabelOptions(props)
 {
     return (
         <Options title={'Node Label'} disabled={true}>
             <div>
-                <label htmlFor=".prefix">Prefix</label>
-                <input id=".prefix" type="text" style={{ width: '3rem' }}/>
+                <FieldInput id="prefix" style={{ width: '3rem' }}>
+                    Prefix
+                </FieldInput>
             </div>
             <div>
                 <label htmlFor=".index">Index Set</label>
@@ -18,8 +23,9 @@ export default function NodeLabelOptions(props)
                 </select>
             </div>
             <div>
-                <input id=".automatic" type="checkbox"/>
-                <label htmlFor=".automatic">Auto-Assign</label>
+                <FieldSwitch id="automatic">
+                    Auto-Assign
+                </FieldSwitch>
             </div>
         </Options>
     );

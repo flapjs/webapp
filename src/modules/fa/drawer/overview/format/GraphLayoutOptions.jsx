@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 
+import Button from '@flapjs/components/lib/Button.jsx';
+
 import Options from '@flapjs/components/options/Options.jsx';
 
 import CircleLayout from './CircleLayout.js';
 import { useGraphState, useGraphType } from '@flapjs/services/graph/GraphHooks.jsx';
+import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
 export default function GraphLayoutOptions(props)
 {
@@ -19,16 +22,20 @@ export default function GraphLayoutOptions(props)
                     <option value={'circle'}>Circle</option>
                     <option value={'grid'} disabled={true}>Grid</option>
                 </select>
-                <button onClick={e => applyLayout(layoutSelectorRef.current.value, graphType, graphState)}>Apply</button>
+                <Button onClick={e => applyLayout(layoutSelectorRef.current.value, graphType, graphState)}>
+                    Apply
+                </Button>
             </div>
             <div>
-                <input id=".autolayout"type="checkbox" disabled={true}/>
-                <label htmlFor=".autolayout">Auto-Apply</label>
+                <FieldSwitch id="autolayout" disabled={true}>
+                    Auto-Apply
+                </FieldSwitch>
             </div>
             <hr/>
             <div>
-                <input id=".snapgrid" type="checkbox" disabled={true}/>
-                <label htmlFor=".snapgrid">Snap-to-Grid</label>
+                <FieldSwitch id="snapgrid" disabled={true}>
+                    Snap-to-Grid
+                </FieldSwitch>
             </div>
         </Options>
     );

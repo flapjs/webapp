@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
+
 import { useMachine, useMachineBuilder } from '@flapjs/services/machine/MachineHooks.jsx';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
 
@@ -14,17 +16,14 @@ export default function DeterminismSwitch(props)
     return (
         <fieldset>
             <legend>Determinism</legend>
-            <input type="checkbox"
+            <FieldSwitch
                 id={inputId}
                 checked={machine.isDeterministic()}
-                onChange={e =>
-                {
-                    let value = e.target.checked;
-                    machineBuilder.applyChanges(machine => machine.setDeterministic(value), { machineOnly: true });
-                }}/>
-            <label htmlFor={inputId}>
+                onClick={value =>
+                    machineBuilder.applyChanges(machine =>
+                        machine.setDeterministic(value), { machineOnly: true })}>
                 Deterministic
-            </label>
+            </FieldSwitch>
         </fieldset>
     );
 }
