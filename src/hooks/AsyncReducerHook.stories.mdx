@@ -1,12 +1,10 @@
 import { Meta, Props } from '@storybook/addon-docs/blocks';
-import AsyncReducerHook from './AsyncReducerHook.jsx';
+import { useAsyncReducer } from './AsyncReducerHook.jsx';
 
 <Meta title="@flapjs/hooks/AsyncReducerHook"
-    component={AsyncReducerHook}/>
+    component={useAsyncReducer}/>
 
 # AsyncReducerHook
 
-A React component that needs some love. Please describe me! :(
-
-<Props of={AsyncReducerHook}/>
-
+A React hook that allows for asynchronous reducer functions.
+This effectively replaces `useReducer()`.

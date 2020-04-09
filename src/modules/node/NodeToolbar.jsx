@@ -1,5 +1,4 @@
 import React, { useContext, useCallback, useEffect } from 'react';
-import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 
 import * as Downloader from '@flapjs/util/Downloader.js';
 import Upload from '@flapjs/components/upload/Upload.jsx';
@@ -9,30 +8,30 @@ import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
 import { Undo, Redo } from '@flapjs/services/history/HistoryButtons.jsx';
 import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
 
-import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer.js';
-import GraphStateSerializer from '@flapjs/services/graph/GraphStateSerializer';
-import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
+import { useGraphType, useGraphState, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export default function NodeToolbar(props)
 {
-    const graphType = useContext(GraphTypeContext);
-    const graphDispatch = useContext(GraphDispatchContext);
+    const graphType = useGraphType();
+    const graphDispatch = useGraphDispatch();
     const { svgRef } = useContext(ViewContext);
 
     const graphState = useGraphState();
 
-    useHistory(graphType, () => GraphStateSerializer(graphType, graphState));
+    useHistory(graphType, () => JSON.stringify(graphType.serialize(graphState, {})));
     const graphUpdateCallback = useCallback(data =>
     {
-        graphDispatch({ type: 'resetState', state: GraphStateDeserializer(graphType, data) });
+        let graphData = JSON.parse(data);
+        let graphState = graphType.deserialize(graphData, {});
+        graphDispatch({ type: 'resetState', state: graphState });
     },
     [ graphDispatch, graphType ]);
 
     // Auto save...
     useEffect(() =>
     {
-        let data = GraphStateSerializer(graphType, graphState);
-        localStorage.setItem(graphType.name + '.graphData', data);
+        let graphData = JSON.stringify(graphType.serialize(graphState, {}));
+        localStorage.setItem(graphType.name + '.graphData', graphData);
     });
 
     return (
@@ -55,14 +54,14 @@ export default function NodeToolbar(props)
         <fieldset>
             <button onClick={() =>
             {
-                const data = GraphStateSerializer(graphType, graphState);
-                Downloader.downloadText('Untitled.node.json', data);
+                let graphData = graphType.serialize(graphState, {});
+                Downloader.downloadText('Untitled.node.json', JSON.stringify(graphData));
             }}>
                 Save To File
             </button>
             <Upload onUpload={fileBlob =>
             {
-                let graphState = transformFileBlobToText(fileBlob).then(data => GraphStateDeserializer(graphType, data));
+                let graphState = transformFileBlobToText(fileBlob).then(data => graphType.deserialize(JSON.parse(data)));
                 graphDispatch({ type: 'resetState', state: graphState });
             }}/>
         </fieldset>

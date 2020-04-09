@@ -1,9 +1,5 @@
-import { useContext } from 'react';
-
 import { useMachineBuilder, useMachine, useSourceForMachine } from '@flapjs/services/machine/MachineHooks.jsx';
-
-import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
-import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
+import { useGraphType, useGraphState, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export function useGraphMachineBuilder(machineBuilderType)
 {
@@ -17,13 +13,14 @@ export function useGraphMachine(machineBuilderType)
 
 export function useGraphForMachine(machineBuilderType)
 {
+    const graphType = useGraphType();
     const graphState = useGraphState();
-    const graphDispatch = useContext(GraphDispatchContext);
+    const graphDispatch = useGraphDispatch();
     
     useSourceForMachine(
         machineBuilderType,
         'graph',
         graphState,
-        (machine, opts) => machineBuilderType.updateGraphFromMachine(graphState, graphDispatch, machine, opts)
+        (machine, opts) => machineBuilderType.updateGraphFromMachine(graphType, graphState, graphDispatch, machine, opts)
     );
 }

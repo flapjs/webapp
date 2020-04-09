@@ -37,7 +37,9 @@ module.exports = env => ({
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: [
-                    { loader: 'babel-loader' }
+                    {
+                        loader: 'babel-loader'
+                    }
                 ]
             },
             /** This is to auto-bundle svg to React components. */

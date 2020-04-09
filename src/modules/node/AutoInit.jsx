@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
-import GraphStateDeserializer from '@flapjs/services/graph/GraphStateDeserializer.js';
 
 export default function AutoInit()
 {
@@ -13,8 +12,8 @@ export default function AutoInit()
         if (!init)
         {
             // Load from localStorage.
-            const graphData = localStorage.getItem(graphType.name + '.graphData');
-            let graphState = GraphStateDeserializer(graphType, graphData);
+            let graphData = JSON.parse(localStorage.getItem(graphType.name + '.graphData'));
+            let graphState = graphType.deserialize(graphData, {});
             graphDispatch({ type: 'resetState', state: graphState });
     
             // End init.
