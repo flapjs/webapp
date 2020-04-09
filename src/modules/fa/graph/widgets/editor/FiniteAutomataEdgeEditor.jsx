@@ -14,27 +14,34 @@ export default function FiniteAutomataEdgeEditor(props)
     const [ input, setInput ] = useState(element.label);
     
     return (
-        <>
-        <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
-        <button onClick={() =>
-        {
-            element.label = input;
-            element.markDirty();
-            closeEditor();
-        }}>
-            Submit
-        </button>
-        <button onClick={() =>
-        {
-            graphDispatch({ type: 'delete', elementType: EdgeElement, elementId: element.id });
-            closeEditor();
-        }}>
-            Delete This
-        </button>
-        </>
+        <div onContextMenu={onContextMenu}>
+            <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
+            <button onClick={() =>
+            {
+                element.label = input;
+                element.markDirty();
+                closeEditor();
+            }}>
+                Submit
+            </button>
+            <button onClick={() =>
+            {
+                graphDispatch({ type: 'delete', elementType: EdgeElement, elementId: element.id });
+                closeEditor();
+            }}>
+                Delete This
+            </button>
+        </div>
     );
 }
 FiniteAutomataEdgeEditor.propTypes = {
     element: PropTypes.object.isRequired,
     closeEditor: PropTypes.func.isRequired,
 };
+
+function onContextMenu(e)
+{
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}

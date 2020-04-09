@@ -17,40 +17,47 @@ export default function FiniteAutomataNodeEditor(props)
     const acceptId = 'nodeEditor.accept';
     
     return (
-        <>
-        <div>
-            <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
+        <div onContextMenu={onContextMenu}>
+            <div>
+                <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
+                <button onClick={() =>
+                {
+                    element.label = input;
+                    element.markDirty();
+                    closeEditor();
+                }}>
+                    Change Label
+                </button>
+            </div>
+            <div>
+                <input id={acceptId} type="checkbox"
+                    checked={accept}
+                    onChange={e =>
+                    {
+                        element.final = e.target.checked;
+                        element.markDirty();
+                        setAccept(element.final);
+                    }}/>
+                <label htmlFor={acceptId}>Accept</label>
+            </div>
             <button onClick={() =>
             {
-                element.label = input;
-                element.markDirty();
+                graphDispatch({ type: 'delete', elementType: NodeElement, elementId: element.id });
                 closeEditor();
             }}>
-                Change Label
+                Delete This
             </button>
         </div>
-        <div>
-            <input id={acceptId} type="checkbox"
-                checked={accept}
-                onChange={e =>
-                {
-                    element.final = e.target.checked;
-                    element.markDirty();
-                    setAccept(element.final);
-                }}/>
-            <label htmlFor={acceptId}>Accept</label>
-        </div>
-        <button onClick={() =>
-        {
-            graphDispatch({ type: 'delete', elementType: NodeElement, elementId: element.id });
-            closeEditor();
-        }}>
-            Delete This
-        </button>
-        </>
     );
 }
 FiniteAutomataNodeEditor.propTypes = {
     element: PropTypes.object.isRequired,
     closeEditor: PropTypes.func.isRequired,
 };
+
+function onContextMenu(e)
+{
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}

@@ -9,6 +9,8 @@ import { isEquivalentFSAWithWitness } from '@flapjs/modules/fa/machine/FSAUtils.
 import { createMachineFromFileBlob } from '@flapjs/deprecated/modules/fa/machine/FSAMachineLoader.js';
 import Upload from '@flapjs/components/upload/Upload.jsx';
 
+import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
+
 export default function EquivalenceTester(props)
 {
     const machine = useMachine(FSABuilder, 'graph');
@@ -37,7 +39,7 @@ export default function EquivalenceTester(props)
                 }}/>
             </div>
 
-            <button id="testEquivalenceTargetFile" onClick={() =>
+            <FieldButton id="testEquivalenceTargetFile" onClick={() =>
             {
                 if (typeof targetMachine === 'object')
                 {
@@ -68,7 +70,7 @@ export default function EquivalenceTester(props)
                 }
             }}>
                 Test Machine
-            </button>
+            </FieldButton>
             <output htmlFor="testEquivalenceTargetFile">
                 <p>
                     {isEqual === null
