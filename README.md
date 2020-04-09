@@ -2,7 +2,9 @@
 
 <h1 align="center">
   <br>
-  <img src="https://flapjs.github.io/webapp/docs/logo/logo-dark.png" alt="flapjs">
+  <a href="https://flapjs.github.io/welcome">
+    <img src="https://flapjs.github.io/webapp/docs/logo/logo-dark.png" alt="flapjs">
+  </a>
   <br>
   Explore what it means to be computable.
   <br>
