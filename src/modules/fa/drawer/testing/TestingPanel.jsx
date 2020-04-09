@@ -12,7 +12,7 @@ export default function TestingPanel(props)
     return (
         <>
         <header>
-            <h2>Testing</h2>
+            <h2 style={{ margin: '1rem' }}>Testing</h2>
         </header>
         <Pane title="Strings">
             <StringTester/>

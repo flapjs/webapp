@@ -29,7 +29,7 @@ export default function ComputePanel(props)
     return (
         <>
         <header>
-            <h2>Computations</h2>
+            <h2 style={{ margin: '1rem' }}>Computations</h2>
         </header>
         <Pane title="Equivalent Conversions">
             <div>

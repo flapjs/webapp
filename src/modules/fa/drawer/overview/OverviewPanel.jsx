@@ -23,7 +23,7 @@ export default function OverviewPanel(props)
     return (
         <>
         <header>
-            <h2>Overview</h2>
+            <h2 style={{ margin: '1rem' }}>Overview</h2>
         </header>
         <Pane title="Definition">
             <DeterminismSwitch machineName={machineName}/>

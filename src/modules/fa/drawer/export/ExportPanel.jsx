@@ -21,7 +21,7 @@ export default function ExportPanel(props)
     return (
         <>
         <header>
-            <h2>Export</h2>
+            <h2 style={{ margin: '1rem' }}>Export</h2>
         </header>
         <section>
             <ul style={{ padding: 0, listStyle: 'none' }}>
