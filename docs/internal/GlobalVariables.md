@@ -39,16 +39,22 @@ underscores and the name itself is in all caps. Any spaces inbetween are
 also converted to underscores. This is not a syntax rule, just a coding style.
 
 ## Defining New Global Variables
-To define your very own global variable, just add the name and value as a property
-to the exported object in `.config/globals.js`. Since global variables are simply
-doing a search-and-replace, the value defined for the property will simply **replace**
-the variable reference. In other words, if a global variable is a string value "Hello World",
-the global variable should be defined as:
+To define your very own global variable, add the name and value as a property
+to the exported object in `.config/globals.js` and add its type to `./declarations.d.ts`.
+Since global variables are simply doing a search-and-replace, the value defined for the
+property will simply **replace** the variable reference. In other words, if a global
+variable is a string value "Hello World", the global variable should be defined as:
 
 ```javascript
 module.exports = {
     "__HELLO_WORLD__": '"Hello World"'
 };
+```
+
+And it's type declaration:
+
+```typescript
+declare const __HELLO_WORLD__ : string;
 ```
 
 Notice the additional set of quotes in the value. Refer to the usage for an explanation on why this is.
@@ -59,6 +65,9 @@ Well well well. So we finally meet (lol). Anyways, global variables must be defi
 - **webpack** for bundling and actually replacing the variables with their value.
 - **jest** for linking the variables with their values when running the tests.
 - **(Please include any future dependents here!)**
+
+So instead of defining them manually everywhere, we simply `require()` the `globals.js` file. If you cannot do that, such as is the case
+with `declarations.d.ts`, please update the above to match your added changes. Otherwise, who is going to know to do it? :P
 
 These "links" can be seen in `.webpack/base.config.js` (used by the DefinePlugin) and `.jest/config.js` (under "globals"). Hope that helps!
 

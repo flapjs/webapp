@@ -63,8 +63,9 @@ module.exports = {
             4,
             { "SwitchCase": 1 }
         ],
+        // NOTE: git already converts all linebreaks to unix style.
         'linebreak-style': [
-            'error',
+            'off',
             'unix'
         ],
         'quotes': [
