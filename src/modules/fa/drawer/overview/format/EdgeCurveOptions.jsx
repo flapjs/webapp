@@ -10,12 +10,12 @@ export default function EdgeCurveOptions(props)
     return (
         <Options title={'Edge Curve'} disabled={true}>
             <div>
-                <FieldSwitch id="freeangle" disabled={true}>
+                <FieldSwitch id="freeangle">
                     Free Angle
                 </FieldSwitch>
             </div>
             <div>
-                <FieldSwitch id="placeholder" disabled={true}>
+                <FieldSwitch id="placeholder">
                     Use Placeholder
                 </FieldSwitch>
             </div>

@@ -23,7 +23,7 @@
 
 .element button span.checked {
     opacity: 1;
-    background: gray;
+    background-color: gray;
     border-radius: 1rem;
 }
 

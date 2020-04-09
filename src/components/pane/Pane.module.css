@@ -10,6 +10,10 @@
     --pane-outline-important: var(--accent, #FFD700);
 }
 
+.container fieldset {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
 .innerContainer {
     border-bottom: 4px solid var(--pane-outline);
 }
