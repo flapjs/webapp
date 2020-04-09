@@ -5,6 +5,7 @@
   "main": "index.js",
   "browser": "main.js",
   "scripts": {
+    "preinstall": "npm run setup-vscode -- dev",
     "start": "webpack-dev-server --env=development --config webpack.config.js",
     "build": "webpack --env=production --config webpack.config.js",
     "build-docs": "npm run build-storybook && npm run build-coverage",
@@ -26,14 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flapjs/FLAPJS-WebApp.git"
+    "url": "git+https://github.com/flapjs/webapp.git"
   },
   "author": "Flap.js Team",
   "license": "MIT",
   "bugs": {
     "url": "https://forms.gle/cyQFU9Ckgs5mr8D4A"
   },
-  "homepage": "https://github.com/flapjs/FLAPJS-WebApp#readme",
+  "homepage": "https://github.com/flapjs/webapp#readme",
   "dependencies": {
     "@ctrl/tinycolor": "^2.5.4",
     "core-js": "^3.3.5",

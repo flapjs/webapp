@@ -80,7 +80,7 @@ async function writeSettings(settings)
 
         if (!answer)
         {
-            throw new Error('Stopping program.');
+            throw 'Skipping \'settings.json\'...';
         }
     }
 

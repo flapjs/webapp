@@ -1,6 +1,6 @@
-# Tools
+# Dependencies
 
-# What is this for?
+## What is this for?
 To make sure any future contributor can update the tools we use, we must show our reasoning for each toolset, plugin, language, etc. that we chose. Therefore, for any tools you decide to add to the project, be sure to also include below your reasoning why you chose it, why it is better than other alternatives, what would be better, and how to update/change it.
 
 ## react

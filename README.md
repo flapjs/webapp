@@ -1,5 +1,15 @@
 # Flap.js
-*Formal Languages and Automata Package*
+
+<h1 align="center">
+  <br>
+  <img src="https://flapjs.github.io/webapp/docs/logo/logo-dark.png" alt="flapjs">
+  <br>
+  Explore what it means to be computable.
+  <br>
+  <br>
+</h1>
+
+Also known as *Formal Languages and Automata Package dot JavaScript*.
 
 [![Build Status](https://travis-ci.org/flapjs/webapp.svg?branch=master)](https://travis-ci.org/flapjs/webapp)
 
