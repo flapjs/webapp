@@ -360,3 +360,15 @@ https://www.smooth-code.com/open-source/svgr/docs/options/
 
 ## @ctrl/tinycolor
 - This is a tiny and useful color helper, so we don't have to keep writing our own :P
+
+## mkdirp
+- This is used by node scripts to create recursive directories. It beats always checking if the parent directories
+exist everytime you want to write a file.
+
+## enquirer
+- This is used by node scripts to create a stylish command line interface :) It has all sorts of cool input options
+and other knick-knacks to make your command line menus pretty and easy to use! Have fun!
+
+## chalk
+- This is used by node scripts to colorize your text output in console. This makes messages a lot easier to read and
+visually grep (look at).
