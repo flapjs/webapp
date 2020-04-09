@@ -13,14 +13,14 @@ import { getElementTypeListeners } from './elements/GraphElementTypeListener.js'
 
 const DEFAULT_GRAPH_STATE = {};
 
-export const GraphTypeContext = React.createContext();
-export const GraphDispatchContext = React.createContext();
+export const GraphTypeContext = React.createContext(null);
+export const GraphDispatchContext = React.createContext(null);
 
 /**
  * This should not be used anywhere! Because it usually used improperly. Refer
  * to GraphHooks for more info.
  */
-const GraphStateContext = React.createContext();
+const GraphStateContext = React.createContext(null);
 
 /**
  * To use this, you need 1 thing:
@@ -36,7 +36,7 @@ const GraphStateContext = React.createContext();
  * Any time this "graphState" changes through props, the entire graph will be reset
  * to that state.
  * 
- * @param {React.Props} props The component props.
+ * @param {object} props The component props.
  * @returns {React.ReactNode} The rendered node.
  */
 export function GraphProvider(props)
