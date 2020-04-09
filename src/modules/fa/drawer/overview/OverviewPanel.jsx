@@ -25,21 +25,23 @@ export default function OverviewPanel(props)
         <header>
             <h2 style={{ margin: '1rem' }}>Overview</h2>
         </header>
-        <Pane title="Definition">
-            <DeterminismSwitch machineName={machineName}/>
-            <StateList machineName={machineName}/>
-            <AlphabetList machineName={machineName}/>
-            <TransitionChart machineName={machineName}/>
-        </Pane>
-        <Pane title="Analysis">
-            <TransitionTable machineName={machineName}/>
-        </Pane>
-        <Pane title="Format">
-            <GraphLayoutOptions/>
-            <AlphabetLabelOptions/>
-            <NodeLabelOptions/>
-            <EdgeCurveOptions/>
-        </Pane>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
+            <Pane title="Definition">
+                <DeterminismSwitch machineName={machineName}/>
+                <StateList machineName={machineName}/>
+                <AlphabetList machineName={machineName}/>
+                <TransitionChart machineName={machineName}/>
+            </Pane>
+            <Pane title="Analysis">
+                <TransitionTable machineName={machineName}/>
+            </Pane>
+            <Pane title="Format">
+                <GraphLayoutOptions/>
+                <AlphabetLabelOptions/>
+                <NodeLabelOptions/>
+                <EdgeCurveOptions/>
+            </Pane>
+        </div>
         </>
     );
 }

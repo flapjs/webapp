@@ -1,5 +1,5 @@
 @value HANDLE_SIZE: 6px;
-@value MIN_DRAWER_SIZE: 15rem;
+@value MIN_DRAWER_SIZE: 20rem;
 
 .container {
     position: relative;

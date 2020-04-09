@@ -14,12 +14,14 @@ export default function TestingPanel(props)
         <header>
             <h2 style={{ margin: '1rem' }}>Testing</h2>
         </header>
-        <Pane title="Strings">
-            <StringTester/>
-        </Pane>
-        <Pane title="Machines">
-            <EquivalenceTester/>
-        </Pane>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
+            <Pane title="Strings">
+                <StringTester/>
+            </Pane>
+            <Pane title="Machines">
+                <EquivalenceTester/>
+            </Pane>
+        </div>
         </>
     );
 }
