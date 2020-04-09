@@ -1,0 +1,17 @@
+.element {
+    display: flex;
+}
+
+.element button {
+    flex: 1;
+    background-color: transparent;
+    border-radius: 1rem;
+    border: 0.2rem solid currentColor;
+    padding: 0.1rem 0.5rem;
+    margin: 0.5rem;
+    color: currentColor;
+}
+
+.element button:disabled {
+    opacity: 0.3;
+}
