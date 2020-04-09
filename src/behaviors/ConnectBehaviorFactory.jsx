@@ -10,7 +10,7 @@ import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 export function createConnector(renderConnector)
 {
     const connectorName = renderConnector.name;
-    const ConnectorContext = React.createContext();
+    const ConnectorContext = React.createContext(null);
 
     function ConnectorProvider(props)
     {
@@ -38,7 +38,7 @@ export function createConnector(renderConnector)
     ConnectorProvider.displayName = connectorName + '.ConnectorProvider';
 
     /**
-     * @param {React.Ref} elementRef The element to attach to.
+     * @param {React.Ref<React.ReactElement>} elementRef The element to attach to.
      * @param {object} fromTarget The target object attached to.
      * @param {number} fromTarget.x The x position of the target.
      * @param {number} fromTarget.y The y position of the target.
@@ -100,6 +100,12 @@ export function createConnector(renderConnector)
         [ elementRef, toTarget, setTarget, isActive, opts ]);
     }
 
+    /**
+     * @param {Function} connectCallback The callback to handle when the connection is connected.
+     * @param {Function} cancelCallback The callbakc to handle when the connection is cancelled.
+     * 
+     * @returns {[ { from, to, cursor, opts }, boolean, Function, Function ]} The connector hook results.
+     */
     function useConnector(connectCallback, cancelCallback)
     {
         const [ isActive, setActive ] = useState(false);
