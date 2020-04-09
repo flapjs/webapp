@@ -17,7 +17,8 @@ const result = merge.smart(output('development'), {
         overlay: true,
         contentBase: './build',
         port: 8004,
-        https: true,
+        // NOTE: This disables the security warning on dev server startup
+        https: false,
     },
 });
 
