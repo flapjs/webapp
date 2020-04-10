@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 
 // Behold...the drawer context.
-export const DrawerStateContext = React.createContext();
-export const DrawerDispatchContext = React.createContext();
+export const DrawerStateContext = React.createContext(null);
+export const DrawerDispatchContext = React.createContext(null);
 
 // ...and it's reducer...
 export function DrawerReducer(prev, action)
@@ -34,6 +34,20 @@ export function DrawerReducer(prev, action)
             let nextState = { ...prev };
             nextState.open = true;
             nextState.tabIndex = action.value;
+            return nextState;
+        }
+        case 'toggle-tab':
+        {
+            let nextState = { ...prev };
+            if (nextState.open && nextState.tabIndex === action.value)
+            {
+                nextState.open = false;
+            }
+            else
+            {
+                nextState.open = true;
+                nextState.tabIndex = action.value;
+            }
             return nextState;
         }
         default:

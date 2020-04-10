@@ -26,7 +26,7 @@ export default function Drawer(props)
                             side={side}
                             renderSideBar = {() => (
                                 <DrawerSideBar direction={direction}>
-                                    {renderTabs(tabEntries, tabIndex => dispatch({ type: 'change-tab', value: tabIndex }), tabIndex)}
+                                    {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
                                 </DrawerSideBar>
                             )}>
                             <DrawerLayout

@@ -23,7 +23,7 @@
 }
 
 .theme {
-    --theme-color-primary: black;
+    --theme-color-primary: #333641;
     --theme-color-text: white;
     --theme-color-surface: gray;
 }

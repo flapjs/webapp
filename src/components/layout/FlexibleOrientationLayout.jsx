@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './FlexibleOrientationLayout.module.css';
 
+const RESIZE_MEDIA_QUERY = '(max-width: 500px)';
+
 /**
  * A React component that takes a function as its child and
  * orientate itself on resize based on the passed-in media query.
@@ -12,8 +14,11 @@ class FlexibleOrientationLayout extends React.Component
     {
         super(props);
 
+        // Makes sure the first state is always correctly orientated.
+        const orientation = FlexibleOrientationLayout.computeOrientation();
+
         this.state = {
-            orientation: 'row',
+            orientation,
             resize: false,
         };
         
@@ -48,19 +53,22 @@ class FlexibleOrientationLayout extends React.Component
             this.props.resizeDelay);
         }
 
-        if (window.matchMedia(this.props.resizeMediaQuery).matches)
+        const orientation = FlexibleOrientationLayout.computeOrientation();
+        if (orientation !== this.state.orientation)
         {
-            if (this.state.orientation !== 'column')
-            {
-                this.setState({ orientation: 'column' });
-            }
+            this.setState({ orientation });
+        }
+    }
+
+    static computeOrientation()
+    {
+        if (window.matchMedia(RESIZE_MEDIA_QUERY).matches)
+        {
+            return 'column';
         }
         else
         {
-            if (this.state.orientation !== 'row')
-            {
-                this.setState({ orientation: 'row' });
-            }
+            return 'row';
         }
     }
 
@@ -83,11 +91,9 @@ class FlexibleOrientationLayout extends React.Component
 FlexibleOrientationLayout.propTypes = {
     className: PropTypes.string,
     children: PropTypes.func.isRequired,
-    resizeMediaQuery: PropTypes.string,
     resizeDelay: PropTypes.number,
 };
 FlexibleOrientationLayout.defaultProps = {
-    resizeMediaQuery: '(max-width: 500px)',
     resizeDelay: 300,
 };
 
