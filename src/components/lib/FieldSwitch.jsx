@@ -9,10 +9,11 @@ export default function FieldSwitch(props)
 
     return (
         <div className={`${Style.element} ${inplace ? Style.inplace : ''} ${disabled ? Style.disabled : ''} ${className}`}>
-            <label className={Style.label}
-                htmlFor={id}>
-                {props.children}
-            </label>
+            {props.children &&
+                <label className={Style.label}
+                    htmlFor={id}>
+                    {props.children}
+                </label>}
             <button id={id}
                 role="switch"
                 aria-checked={checked}

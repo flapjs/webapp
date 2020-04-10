@@ -5,17 +5,15 @@ import Style from './FieldButton.module.css';
 
 export default function FieldButton(props)
 {
-    const { id, className, style, placeholder, disabled, value, onChange } = props;
+    const { id, className, style, disabled, onClick } = props;
 
     return (
         <div className={`${Style.element} ${className}`}>
             <button
                 id={id}
                 style={style}
-                value={value}
-                placeholder={placeholder}
                 disabled={disabled}
-                onChange={onChange}>
+                onClick={onClick}>
                 {props.children}
             </button>
         </div>
@@ -27,11 +25,5 @@ FieldButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     onClick: PropTypes.func,
-    placeholder: PropTypes.string,
     disabled: PropTypes.bool,
-    value: PropTypes.string,
-    onChange: PropTypes.func,
-};
-FieldButton.defaultProps = {
-    value: ''
 };

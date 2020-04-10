@@ -19,13 +19,11 @@ export default function DeterminismSwitch(props)
             <FieldSwitch
                 id={inputId}
                 checked={machine.isDeterministic()}
-                on={'Enable'}
-                off={'Disable'}
+                on={'Deterministic'}
+                off={'Nondeterministic'}
                 onClick={value =>
                     machineBuilder.applyChanges(machine =>
-                        machine.setDeterministic(value), { machineOnly: true })}>
-                Deterministic
-            </FieldSwitch>
+                        machine.setDeterministic(value), { machineOnly: true })} />
         </fieldset>
     );
 }
