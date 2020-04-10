@@ -21,3 +21,9 @@
 .container footer:empty {
     display: none;
 }
+
+.theme {
+    --theme-color-primary: black;
+    --theme-color-text: white;
+    --theme-color-surface: gray;
+}

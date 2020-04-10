@@ -1,3 +1,10 @@
+.container {
+    margin: 0;
+    border-radius: 1rem;
+    background-color: gray;
+    border-color: gray;
+}
+
 .cancel {
     position: absolute;
     top: 0;

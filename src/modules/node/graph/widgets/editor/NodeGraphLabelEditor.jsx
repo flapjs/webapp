@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
+import Style from './NodeGraphLabelEditor.module.css';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import { GraphElementEditorContext } from '@flapjs/services/graph/widgets/editor/GraphElementEditorContext.jsx';
@@ -7,6 +8,8 @@ import { useGraphElement } from '@flapjs/services/graph/elements/GraphElementHoo
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import GraphElementEditor from '@flapjs/services/graph/widgets/editor/GraphElementEditor.jsx';
+
+import Button from '@flapjs/components/lib/Button.jsx';
 
 export default function NodeGraphLabelEditor(props)
 {
@@ -20,27 +23,30 @@ export default function NodeGraphLabelEditor(props)
     const [ input, setInput ] = useState('');
     
     return (
-        <GraphElementEditor onOpen={() =>
-        {
-            inputRef.current.focus();
-            setInput(element.label || '');
-        }}>
-            <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
-            <button onClick={() =>
+        <GraphElementEditor className={Style.container}
+            onOpen={() =>
+            {
+                inputRef.current.focus();
+                setInput(element.label || '');
+            }}>
+            <textarea ref={inputRef}
+                value={input}
+                onChange={e => setInput(e.target.value)}/>
+            <Button onClick={() =>
             {
                 element.label = input;
                 element.markDirty();
                 closeEditor();
             }}>
                 Submit
-            </button>
-            <button onClick={() =>
+            </Button>
+            <Button onClick={() =>
             {
                 graphDispatch({ type: 'delete', elementType, elementId });
                 closeEditor();
             }}>
                 Delete This
-            </button>
+            </Button>
         </GraphElementEditor>
     );
 }

@@ -14,7 +14,7 @@ export default function App(props)
     const { app } = props;
 
     return (
-        <div className={Style.container}>
+        <div className={`${Style.container} ${Style.theme}`}>
             <ModuleProvider>
                 <SlotProvider name="app">
                     <DrawerProvider>

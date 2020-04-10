@@ -13,9 +13,11 @@ import { transformViewToScreen } from '@flapjs/util/ViewHelper.js';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { CrossIcon } from '@flapjs/components/icons/Icons.js';
 
+import { eventConsumer } from '@flapjs/util/EventHelper.js';
+
 export default function GraphElementEditor(props)
 {
-    const { offset, onOpen } = props;
+    const { className, offset, onOpen } = props;
     const { elementType, elementId, isOpen, closeEditor } = useContext(GraphElementEditorContext);
 
     const forceUpdate = useForceUpdate();
@@ -85,7 +87,10 @@ export default function GraphElementEditor(props)
     [ isOpen, wasOpen ]);
     
     return (
-        <dialog ref={editorRef} style={{ margin: 0 }} open={isOpen}>
+        <dialog ref={editorRef}
+            className={`${Style.container} ${className}`}
+            open={isOpen}
+            onContextMenu={eventConsumer}>
             <IconButton className={Style.cancel}
                 iconClass={CrossIcon}
                 onClick={closeEditor}/>
@@ -95,6 +100,7 @@ export default function GraphElementEditor(props)
 }
 GraphElementEditor.propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     offset: PropTypes.oneOfType([
         PropTypes.shape({
             x: PropTypes.number,

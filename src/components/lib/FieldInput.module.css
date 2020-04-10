@@ -27,3 +27,7 @@
 .element input:disabled {
     opacity: 0.3;
 }
+
+.element input:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
