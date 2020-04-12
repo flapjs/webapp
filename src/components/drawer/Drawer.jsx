@@ -23,28 +23,20 @@ export default function Drawer(props)
                     const tabIndex = state.tabIndex;
                     return (
                         <SideBarLayout
-                            side="top"
+                            side={side}
                             sideBar={() => (
-                                <div>
-                                    Hi
-                                </div>
+                                <DrawerSideBar direction={direction}>
+                                    {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
+                                </DrawerSideBar>
                             )}>
-                            <SideBarLayout
+                            <DrawerLayout
                                 side={side}
-                                sideBar={() => (
-                                    <DrawerSideBar direction={direction}>
-                                        {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
-                                    </DrawerSideBar>
+                                open={state.open}
+                                drawer = {() => (
+                                    renderPanels(panelEntries, tabIndex)
                                 )}>
-                                <DrawerLayout
-                                    side={side}
-                                    open={state.open}
-                                    drawer = {() => (
-                                        renderPanels(panelEntries, tabIndex)
-                                    )}>
-                                    {props.children}
-                                </DrawerLayout>
-                            </SideBarLayout>
+                                {props.children}
+                            </DrawerLayout>
                         </SideBarLayout>
                     );
                 }
