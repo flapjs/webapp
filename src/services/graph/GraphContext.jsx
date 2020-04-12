@@ -204,7 +204,7 @@ export function GraphReducer(graphType, graphState, action)
             {
                 for(let element of Object.values(next[key]))
                 {
-                    element.onDestroy();
+                    element.onDestroy(graphType, next);
                     element.markDead();
                 }
                 next[key] = {};
@@ -213,16 +213,18 @@ export function GraphReducer(graphType, graphState, action)
         }
         case 'clearAll':
         {
+            const next = {};
+
             // Destroy all previous elements...
             for(let elementType of Object.keys(graphState))
             {
                 for(let element of Object.values(graphState[elementType]))
                 {
-                    element.onDestroy();
+                    element.onDestroy(graphType, next);
                     element.markDead();
                 }
             }
-            return {};
+            return next;
         }
         case 'forceUpdate':
         {
@@ -242,7 +244,7 @@ export function GraphReducer(graphType, graphState, action)
                 {
                     for(let element of Object.values(graphState[elementType]))
                     {
-                        element.onDestroy();
+                        element.onDestroy(graphType, state);
                         element.markDead();
                     }
                 }
