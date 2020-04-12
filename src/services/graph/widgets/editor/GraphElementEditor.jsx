@@ -14,6 +14,7 @@ import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { CrossIcon } from '@flapjs/components/icons/Icons.js';
 
 import { eventConsumer } from '@flapjs/util/EventHelper.js';
+import { useCallback } from 'react';
 
 export default function GraphElementEditor(props)
 {
@@ -72,15 +73,39 @@ export default function GraphElementEditor(props)
         }
     });
 
-    const [ wasOpen, setWasOpen ] = useState(false);
+    const onOutsideClick = useCallback(e =>
+    {
+        if (!editorRef.current || !editorRef.current.contains(e.target))
+        {
+            closeEditor(e);
+        }
+    },
+    [ closeEditor ]);
 
+    const [ wasOpen, setWasOpen ] = useState(false);
     useLayoutEffect(() =>
     {
         if (isOpen !== wasOpen)
         {
             setWasOpen(isOpen);
-            if (isOpen) onOpen();
+            if (isOpen)
+            {
+                document.addEventListener('click', onOutsideClick, true);
+                onOpen();
+            }
         }
+
+        return () =>
+        {
+            // Clean up! So no memory leak :)
+            if (isOpen !== wasOpen)
+            {
+                if (!isOpen)
+                {
+                    document.removeEventListener('click', onOutsideClick, true);
+                }
+            }
+        };
     },
     // NOTE: Although this depends on "element.label" we only care when open changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
