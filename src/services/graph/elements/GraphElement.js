@@ -42,9 +42,13 @@ export default class GraphElement
     /**
      * Called when this element is removed from the graph.
      * 
+     * Basically, when it changes from alive to dead.
+     * 
      * @abstract
+     * @param {Class<BaseGraph>} graphType The graph type.
+     * @param {object} graphState The new, mutable graph state.
      */
-    onDestroy() {}
+    onDestroy(graphType, graphState) {}
 
     markDirty(force = true) { this[DIRTY] = force; }
     isDirty() { return this[DIRTY]; }

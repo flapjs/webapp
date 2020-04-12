@@ -189,7 +189,7 @@ export function GraphReducer(graphType, graphState, action)
                 let element = nextElements[elementId];
                 delete nextElements[elementId];
                 next[key] = nextElements;
-                element.onDestroy();
+                element.onDestroy(graphType, next);
                 element.markDead();
             }
             return next;
