@@ -23,20 +23,28 @@ export default function Drawer(props)
                     const tabIndex = state.tabIndex;
                     return (
                         <SideBarLayout
-                            side={side}
-                            renderSideBar = {() => (
-                                <DrawerSideBar direction={direction}>
-                                    {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
-                                </DrawerSideBar>
+                            side="top"
+                            sideBar={() => (
+                                <div>
+                                    Hi
+                                </div>
                             )}>
-                            <DrawerLayout
+                            <SideBarLayout
                                 side={side}
-                                open={state.open}
-                                renderDrawer = {() => (
-                                    renderPanels(panelEntries, tabIndex)
+                                sideBar={() => (
+                                    <DrawerSideBar direction={direction}>
+                                        {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
+                                    </DrawerSideBar>
                                 )}>
-                                {props.children}
-                            </DrawerLayout>
+                                <DrawerLayout
+                                    side={side}
+                                    open={state.open}
+                                    drawer = {() => (
+                                        renderPanels(panelEntries, tabIndex)
+                                    )}>
+                                    {props.children}
+                                </DrawerLayout>
+                            </SideBarLayout>
                         </SideBarLayout>
                     );
                 }

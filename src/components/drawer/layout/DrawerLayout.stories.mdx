@@ -1,4 +1,4 @@
-import { Meta, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import DrawerLayout from './DrawerLayout.jsx';
 
 <Meta title="@flapjs/components/drawer/layout/DrawerLayout"
@@ -6,7 +6,46 @@ import DrawerLayout from './DrawerLayout.jsx';
 
 # DrawerLayout
 
-A React component that needs some love. Please describe me! :(
+A React component that adds a collapsible and flexible
+drawer with a viewport. It uses render props to delegate
+rendering outside itself, therefore separation of concerns!
 
 <Props of={DrawerLayout}/>
 
+Here's an example with a string for drawer content.
+
+<Preview>
+    <Story name="with string" height="10rem">
+        <DrawerLayout
+            drawer="Here is drawer content.">
+            <article>
+                <h2>
+                    Good morning :)
+                </h2>
+                <p>
+                    This is some other content, rendered next to it.
+                    Usually, you put your main content here.
+                </p>
+            </article>
+        </DrawerLayout>
+    </Story>
+</Preview>
+
+And here it is closed.
+
+<Preview>
+    <Story name="closed" height="10rem">
+        <DrawerLayout
+            open={false}>
+            <article>
+                <h2>
+                    Good morning :)
+                </h2>
+                <p>
+                    This is some other content, rendered next to it.
+                    Usually, you put your main content here.
+                </p>
+            </article>
+        </DrawerLayout>
+    </Story>
+</Preview>
