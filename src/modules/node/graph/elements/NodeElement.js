@@ -27,6 +27,10 @@ export default class NodeElement extends GraphElement
                 element.onDestroy(graphType, graphState);
                 element.markDead();
             }
+            else if (element.toId === this.id)
+            {
+                element.toId = 0;
+            }
         }
     }
 }
