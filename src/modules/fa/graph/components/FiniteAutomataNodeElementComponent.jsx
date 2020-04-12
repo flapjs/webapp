@@ -32,7 +32,8 @@ export default function FiniteAutomataNodeElementComponent(props)
         <NodeCircleRenderer
             x={node.x} y={node.y}
             label={node.label}
-            inner={node.final ? 8 : 0}
+            inner={node.final ? node.radius * 0.8 : 0}
+            radius={node.radius}
             maskProps={{ref: elementRef}}/>
         <MarkerTriangleRenderer
             x={node.x} y={node.y}

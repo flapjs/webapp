@@ -12,4 +12,4 @@ export default class NodeElement extends GraphElement
         this.radius = opts.radius || NodeElement.RADIUS;
     }
 }
-NodeElement.RADIUS = 10;
+NodeElement.RADIUS = 15;
