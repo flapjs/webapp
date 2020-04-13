@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './DrawerLayout.module.css';
 
+import * as SideHelper from '@flapjs/components/sidebar/SideHelper.js';
+
 // Out of 100%
 const INITIAL_DRAWER_SIZE = 30;
 
-/**
- * A React component that adds a collapsible and flexible
- * drawer with a viewport. It uses render props to delegate
- * rendering outside itself, therefore separation of concerns!
- */
 export default class DrawerLayout extends React.Component
 {
     constructor(props)
@@ -95,14 +92,12 @@ export default class DrawerLayout extends React.Component
     /** @override */
     render()
     {
-        const props = this.props;
+        const { className, drawer, side, open } = this.props;
         const state = this.state;
 
-        const side = props.side;
         const size = state.size;
-        const open = props.open;
 
-        const horizontal = side === 'left' || side === 'right';
+        const horizontal = SideHelper.isHorizontal(side);
 
         const drawerStyle = {
             width: horizontal ? `${size}%` : '100%',
@@ -126,7 +121,7 @@ export default class DrawerLayout extends React.Component
                 style={containerStyle}>
                 <div
                     className={Style.drawer
-                        + ' ' + (props.className || '')
+                        + ' ' + (className || '')
                         + ' ' + side
                         + (open ? ' open' : '')}
                     style={drawerStyle}>
@@ -135,12 +130,51 @@ export default class DrawerLayout extends React.Component
                         onMouseDown={this.onDrawerHandleDragBegin}>
                     </div>
                     <div className={Style.content}>
-                        {props.renderDrawer && props.renderDrawer(this)}
+                        {renderDrawerContent(drawer, side, open, size)}
                     </div>
                 </div>
                 <div className={Style.viewport}>
-                    {props.children}
+                    {this.props.children}
                 </div>
+            </div>
+        );
+    }
+}
+DrawerLayout.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.node,
+    open: PropTypes.bool,
+    side: PropTypes.oneOf([
+        'left',
+        'right',
+        'top',
+        'bottom',
+    ]),
+    drawer: PropTypes.func,
+    snapPoints: PropTypes.arrayOf(PropTypes.number),
+    snapBehavior: PropTypes.oneOf([
+        'nearest',
+        'range',
+    ]),
+};
+DrawerLayout.defaultProps = {
+    side: 'left',
+    open: true,
+    snapPoints: [INITIAL_DRAWER_SIZE, 50, 100],
+    snapBehavior: 'range',
+};
+
+function renderDrawerContent(drawer, side, open, size)
+{
+    if (typeof drawer === 'function')
+    {
+        return drawer(side, open, size);
+    }
+    else
+    {
+        return (
+            <div>
+                {drawer}
             </div>
         );
     }
@@ -174,26 +208,3 @@ function applySnapPointsNearest(value, snapPoints)
     }
     return minValue;
 }
-DrawerLayout.propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
-    open: PropTypes.bool,
-    side: PropTypes.oneOf([
-        'left',
-        'right',
-        'top',
-        'bottom',
-    ]),
-    renderDrawer: PropTypes.func,
-    snapPoints: PropTypes.arrayOf(PropTypes.number),
-    snapBehavior: PropTypes.oneOf([
-        'nearest',
-        'range',
-    ]),
-};
-DrawerLayout.defaultProps = {
-    side: 'left',
-    open: true,
-    snapPoints: [INITIAL_DRAWER_SIZE, 50, 100],
-    snapBehavior: 'range',
-};

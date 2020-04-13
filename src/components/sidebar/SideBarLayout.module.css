@@ -1,44 +1,66 @@
 .container {
     position: relative;
     display: flex;
-    flex-direction: row;
+
+    /** flex-direction is controlled by SideBarLayout. */
+
     width: 100%;
     height: 100%;
+    overflow: hidden;
+
+    --side-margin: auto;
+    --side-background: #333641;
 }
 
-.sidebar {
-    display: flex;
-    width: 100%;
-    height: 100%;
+.sideBar {
     z-index: 20;
-    background: #333641;
-    padding: 0 0.3rem;
+    background: var(--side-background);
+    overflow: auto;
+    flex-shrink: 0;
 
     /**
      * HACK: Overrides the 'none' for workspace foreground input events.
      * Refer to WorkspaceLayout for more info.
-     **/
+     */
     pointer-events: auto;
+}
+
+.sideContent {
+    display: flex;
+
+    /** flex-direction is controlled by SideBarLayout. */
+}
+
+.sideContent > * {
+    padding: 0.3rem;
 }
 
 .viewport {
     flex: 1;
+    overflow: hidden;
+
+    /** This makes sure that the viewport's overflow respects this container's height */
     width: 100%;
     height: 100%;
 }
 
-.sidebar:global(.left) {
-    width: 2rem;
+/** Disable the scroll bar */
+.sideBar::-webkit-scrollbar {
+    display: none;
 }
 
-.sidebar:global(.right) {
-    width: 2rem;
+.sideBar:global(.left) {
+    width: var(--side-margin);
 }
 
-.sidebar:global(.top) {
-    height: 2rem;
+.sideBar:global(.right) {
+    width: var(--side-margin);
 }
 
-.sidebar:global(.bottom) {
-    height: 2rem;
+.sideBar:global(.top) {
+    height: var(--side-margin);
+}
+
+.sideBar:global(.bottom) {
+    height: var(--side-margin);
 }

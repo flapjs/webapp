@@ -2,58 +2,80 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './SideBarLayout.module.css';
 
-/**
- * A React component that adds a sidebar with a viewport.
- */
-class SideBarLayout extends React.Component
+import * as SideHelper from './SideHelper.js';
+
+export default function SideBarLayout(props)
 {
-    constructor(props)
+    const { className, style, side, sideBar, sideMargin, viewOverflow } = props;
+
+    const containerFlexDirection = (
+        side === 'left'
+            ? 'row'
+            : side === 'right'
+                ? 'row-reverse'
+                : side === 'top'
+                    ? 'column'
+                    : 'column-reverse'
+    );
+
+    const contentFlexDirection = (
+        SideHelper.isHorizontal(side)
+            ? 'column'
+            : 'row'
+    );
+
+    const cssVars = {
+        '--side-margin': sideMargin,
+    };
+
+    return (
+        <div className={`${Style.container} ${className || ''}`}
+            style={{ flexDirection: containerFlexDirection, ...cssVars, ...style }}>
+
+            <div className={`${Style.sideBar} ${side}`}>
+                <div className={`${Style.sideContent}`}
+                    style={{ flexDirection: contentFlexDirection }}>
+                    
+                    {renderSideBarContent(sideBar, side)}
+
+                </div>
+            </div>
+
+            <div className={Style.viewport}
+                style={{ overflow: viewOverflow }}>
+                {props.children}
+            </div>
+            
+        </div>
+    );
+}
+SideBarLayout.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    children: PropTypes.node,
+    sideBar: PropTypes.func,
+    side: PropTypes.oneOf(['left', 'right', 'up', 'down']),
+    sideMargin: PropTypes.number,
+    viewOverflow: PropTypes.oneOf(['hidden', 'auto']),
+};
+SideBarLayout.defaultProps = {
+    side: 'left',
+    sideMargin: 'auto',
+    viewOverflow: 'hidden',
+};
+
+function renderSideBarContent(sideBar, side)
+{
+    if (typeof sideBar === 'function')
     {
-        super(props);
+        return sideBar(side);
     }
-
-    /** @override */
-    render()
+    else
     {
-        const props = this.props;
-
-        const side = props.side;
-        
-        const horizontal = side === 'left' || side === 'right';
-
-        const containerFlexDirection = (
-            side === 'left' ? 'row' :
-                side === 'right' ? 'row-reverse' :
-                    side === 'top' ? 'column' :
-                        'column-reverse'
-        );
-        
         return (
-            <div className={Style.container + ' ' + (props.className || '')} style={{ flexDirection: containerFlexDirection }}>
-                <div className={Style.sidebar + ' ' + side}>
-                    {props.renderSideBar && props.renderSideBar(this, horizontal)}
-                </div>
-                <div className={Style.viewport}>
-                    {props.children}
-                </div>
+            <div>
+                {sideBar}
             </div>
         );
     }
 }
-
-SideBarLayout.propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
-    renderSideBar: PropTypes.func,
-    side: PropTypes.oneOf([
-        'left',
-        'right',
-        'top',
-        'bottom',
-    ]),
-};
-SideBarLayout.defaultProps = {
-    side: 'left',
-};
-
-export default SideBarLayout;

@@ -1,4 +1,4 @@
-import { Meta, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import SideBarLayout from './SideBarLayout.jsx';
 
 <Meta title="@flapjs/components/sidebar/SideBarLayout"
@@ -6,7 +6,164 @@ import SideBarLayout from './SideBarLayout.jsx';
 
 # SideBarLayout
 
-A React component that needs some love. Please describe me! :(
+A React component that adds a sidebar with a viewport. The sidebar can be positioned
+on any side of the viewport. The viewport rendered would be its nested children. If
+you want to add an element to the sidebar itself, use the `sideBar` prop.
 
 <Props of={SideBarLayout}/>
 
+Here is an example string sidebar content.
+
+<Preview>
+    <Story name="with string" height="10rem">
+        <SideBarLayout
+            sideBar="Hello">
+            <article>
+                <h2>
+                    Good morning :)
+                </h2>
+                <p>
+                    This is some other content, rendered next to it.
+                    Usually, you put your main content here.
+                </p>
+            </article>
+        </SideBarLayout>
+    </Story>
+</Preview>
+
+More likely, you would want to render something more complex.
+Maybe even stuff that overflows the bar? Just scroll to reach
+the hidden elements.
+
+<Preview>
+    <Story name="with function" height="10rem">
+        <SideBarLayout
+            sideBar={(side) => (
+                <React.Fragment>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                    <div>Hello</div>
+                </React.Fragment>
+            )}>
+            <article>
+                <h2>
+                    Good afternoon :)
+                </h2>
+                <p>
+                    This is some other content, rendered next to it.
+                    Usually, you put your main content here.
+                </p>
+            </article>
+        </SideBarLayout>
+    </Story>
+</Preview>
+
+Maybe even sideways.
+
+<Preview>
+    <Story name="sideways" height="10rem">
+        <SideBarLayout
+            side="top"
+            sideBar={(side) => (
+                <React.Fragment>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                    <div>Hi</div>
+                </React.Fragment>
+            )}>
+            <article>
+                <h2>
+                    Good night :)
+                </h2>
+                <p>
+                    This is some other content, rendered next to it.
+                    Usually, you put your main content here.
+                </p>
+            </article>
+        </SideBarLayout>
+    </Story>
+</Preview>
+
+You can even nest a bunch of them!
+
+<Preview>
+    <Story name="nested" height="10rem">
+        <SideBarLayout
+            style={{ '--side-background': 'dodgerblue' }}
+            side="top"
+            sideBar="1">
+            <SideBarLayout
+                style={{ '--side-background': 'green' }}
+                side="left"
+                sideBar="2">
+                <SideBarLayout
+                    style={{ '--side-background': 'gold' }}
+                    side="bottom"
+                    sideBar="3">
+                    <SideBarLayout
+                        style={{ '--side-background': 'saddlebrown' }}
+                        side="right"
+                        sideBar="4">
+                        <SideBarLayout
+                            style={{ '--side-background': 'violet' }}
+                            side="top"
+                            sideBar="5">
+                            <article>
+                                <h2>This is it. The apocalypse.</h2>
+                            </article>
+                        </SideBarLayout>
+                    </SideBarLayout>
+                </SideBarLayout>
+            </SideBarLayout>
+        </SideBarLayout>
+    </Story>
+</Preview>
+
+But what if you want to have scrollable content in the viewport? By default,
+it just hides overflow (or `hidden`). If you want to scroll, you should set
+`viewOverflow` to `auto`.
+
+<Preview>
+    <Story name="viewport overflow" height="10rem">
+        <SideBarLayout
+            style={{ '--side-background': 'dodgerblue' }}
+            side="top"
+            sideBar="Title">
+            <SideBarLayout
+                style={{ '--side-background': 'gold' }}
+                side="bottom"
+                sideBar="Credits">
+                <SideBarLayout
+                    style={{ '--side-background': 'violet' }}
+                    side="top"
+                    sideBar="Subtitle"
+                    viewOverflow="auto">
+                    <article>
+                        <h2>This is it. The apocalypse.</h2>
+                        <p>Yep. ;)</p>
+                        <p>Yep. ;)</p>
+                        <p>Yep. ;)</p>
+                        <p>Yep. ;)</p>
+                        <p>Yep. ;)</p>
+                        <p>Yep. ;)</p>
+                        <p>There it is.</p>
+                    </article>
+                </SideBarLayout>
+            </SideBarLayout>
+        </SideBarLayout>
+    </Story>
+</Preview>
