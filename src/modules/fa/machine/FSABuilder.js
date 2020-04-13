@@ -6,6 +6,8 @@ import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { EMPTY_SYMBOL } from './Symbols.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
 
+import { hashCode } from '@flapjs/modules/fa/graph/FiniteAutomataHash.js';
+
 export default class FSABuilder extends GraphMachineBuilder
 {
     /** @override */
@@ -142,6 +144,16 @@ export default class FSABuilder extends GraphMachineBuilder
         this.sourceMap = new Map();
         this.errors = [];
         this.warnings = [];
+
+        this.prevSourceHash = 0;
+    }
+
+    shouldMachineUpdate(machine, source)
+    {
+        const hash = hashCode(source);
+        const prevHash = this.prevSourceHash;
+        this.prevSourceHash = hash;
+        return hash !== prevHash;
     }
 
     /** @override */
@@ -149,7 +161,12 @@ export default class FSABuilder extends GraphMachineBuilder
     {
         if (opts.machineOnly)
         {
-            return;
+            return true;
+        }
+
+        if (!this.shouldMachineUpdate(machine, source))
+        {
+            return false;
         }
 
         const graphType = FiniteAutomataGraph;
@@ -381,5 +398,7 @@ export default class FSABuilder extends GraphMachineBuilder
             return null;
         }
         */
+
+        return true;
     }
 }

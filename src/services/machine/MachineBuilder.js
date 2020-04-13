@@ -41,6 +41,7 @@ export default class MachineBuilder
      * @param {object} machine The machine to update.
      * @param {object} source The source to update from.
      * @param {object} opts Any additional arguments.
+     * @returns {boolean} Whether any changes were made to the machine.
      */
     updateMachineFromSource(machine, source, opts = {})
     {
@@ -85,8 +86,13 @@ export default class MachineBuilder
         if (opts) opts.builder = this;
         
         // Apply to source...
-        this.updateMachineFromSource(this._machine, source, opts);
-        this._buildId = this.getNextBuildId();
+        const result = this.updateMachineFromSource(this._machine, source, opts);
+
+        // Exit early if the machine was not built (or simply unchanged)
+        if (result)
+        {
+            this._buildId = this.getNextBuildId();
+        }
 
         // Resolve previous promises...
         let resolve = this._resolveCallback;

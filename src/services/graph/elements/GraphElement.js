@@ -13,9 +13,6 @@ const DIRTY = Symbol('dirty');
  * must be able to be instantiated with only an "id" argument. Any additional args will not be provided
  * nor stored by the serializer. Additional arguments will only be used when instantiating during active
  * app use. This feature is mainly used by state serializers to load/save graphs.
- * 
- * Also, the class name MUST BE UNIQUE. It is used as the key to access its instances.
- * Refer to BaseGraph.computeElementTypeKey() for more information.
  */
 export default class GraphElement
 {
