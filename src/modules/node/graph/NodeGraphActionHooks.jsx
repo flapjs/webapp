@@ -8,7 +8,7 @@ import EdgeElement from './elements/EdgeElement.js';
 /**
  * This is basically a wrapper for certain GraphReducer actions.
  * 
- * @returns {[Function, Function, Function]} An array of callback functions.
+ * @returns {object} An object map of callback functions.
  */
 export function useNodeGraphActions()
 {
