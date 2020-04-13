@@ -28,7 +28,8 @@ export default function TransitionTable(props)
                 <tbody>
                     <tr>
                         <th>
-                            <FieldSwitch inplace={true}
+                            <FieldSwitch id='transitionTableAxisToggle'
+                                inplace={true}
                                 checked={isRowAxis}
                                 on={'Q/\u03A3'}
                                 off={'Q/Q'}

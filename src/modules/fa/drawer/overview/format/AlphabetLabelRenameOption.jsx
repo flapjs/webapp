@@ -46,7 +46,8 @@ export default function AlphabetLabelRenameOption(props)
             <select ref={fromSymbolSelectorRef} id={labelId}>
                 {alphabet.map(symbol => <option key={symbol} value={symbol}>{symbol}</option>)}
             </select>
-            <FieldInput style={{ width: '3rem' }}
+            <FieldInput id="alphabetRenameTo"
+                style={{ width: '3rem' }}
                 value={toSymbol}
                 placeholder={'Symbol'}
                 onChange={e => setToSymbol(e.target.value)}>

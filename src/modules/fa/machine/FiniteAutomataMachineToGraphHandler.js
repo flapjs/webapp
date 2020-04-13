@@ -4,6 +4,8 @@ import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 import { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from './FSA.js';
 import { EMPTY_SYMBOL } from './Symbols.js';
 
+import FiniteAutomataMachineValidator from './FiniteAutomataMachineValidator.js';
+
 export function buildMachineFromGraph(machineBuilder, machine, graphType, graphState, opts)
 {
     const nodeTypeKey = graphType.getElementTypeKeyForElementType(NodeElement);
@@ -13,16 +15,12 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
     machineBuilder.errors.length = 0;
     machineBuilder.warnings.length = 0;
 
-    // const deterministic = machine.isDeterministic();
+    const deterministic = machine.isDeterministic();
     machine.clear();
 
-    const nodeToStateMap = new Map();
+    const validator = new FiniteAutomataMachineValidator().setDeterministic(deterministic);
 
-    const nodeLabels = new Map();
-    const nodeOutgoings = new Map();
-    const edgeSymbols = new Set();
-    const edgePlaceholders = [];
-    const edgeEmpties = [];
+    const nodeToStateMap = new Map();
 
     if (graphState[nodeTypeKey])
     {
@@ -45,14 +43,10 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
             if (initial)
             {
                 machine.setStartState(state);
+                validator.setStartState(nodeId, state);
             }
 
-            // Check for duplicate states
-            if (nodeLabels.has(label)) nodeLabels.get(label).push(state);
-            else nodeLabels.set(label, [state]);
-
-            // For duplicate transitions
-            nodeOutgoings.set(state, new Map());
+            validator.addState(nodeId, state);
         }
     }
 
@@ -66,7 +60,7 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
             
             if (!toId)
             {
-                edgePlaceholders.push(edgeId);
+                validator.addPlaceholder(edgeId);
                 continue;
             }
             else if (fromId && toId)
@@ -84,17 +78,6 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
                 {
                     if (!symbol) continue;
 
-                    if (symbol === EMPTY_SYMBOL)
-                    {
-                        // For empties
-                        edgeEmpties.push(edgeId);
-                    }
-                    else
-                    {
-                        // For used symbol
-                        edgeSymbols.add(symbol);
-                    }
-
                     // Translate all labels to symbols
                     let transitionSymbol;
                     switch (symbol)
@@ -106,133 +89,17 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
                             transitionSymbol = symbol;
                     }
 
-                    // For duplicate/missing transitions
-                    let outSymbols = nodeOutgoings.get(srcState);
-                    let outEdges = outSymbols.get(transitionSymbol);
-                    if (!outEdges) outSymbols.set(transitionSymbol, outEdges = new Array());
-                    outEdges.push(edgeId);
-
                     // Add to machine...
                     machine.addTransition(srcState, dstState, transitionSymbol);
+
+                    // NOTE: This validates the user-input symbols, not the translated symbols.
+                    validator.addSymbolForEdge(edgeId, symbol);
+                    // This prepares to validate the entire transition.
+                    validator.addTransition(srcState, dstState, transitionSymbol);
                 }
             }
         }
     }
-
-    /*
-    machineBuilder.errors.push('There is nothing here.');
-    // console.log('ERROR!', machineBuilder.errors);
-
-    //Check for duplicate node labels
-    for (const [nodeLabel, sharedStates] of nodeLabels.entries())
-    {
-        if (sharedStates.length > 1)
-        {
-            machineBuilder.errors.push(`Found duplicate states for ${sharedStates.length} states.`);
-        }
-    }
-
-    //Check for incomplete edge
-    if (edgePlaceholders.length > 0)
-    {
-        errors.push({
-            name: ERROR_INCOMPLETE_TRANSITION,
-            edges: edgePlaceholders
-        });
-    }
-
-    /*
-    //Check for duplicate node labels
-    for (const [nodeLabel, sharedStates] of nodeLabels.entries())
-    {
-        if (sharedStates.length > 1)
-        {
-            errors.push({
-                name: ERROR_DUPLICATE_STATE,
-                label: nodeLabel,
-                nodes: sharedStates.map(e => e.getSource())
-            });
-        }
-    }
-
-    //Check for incomplete edge
-    if (edgePlaceholders.length > 0)
-    {
-        errors.push({
-            name: ERROR_INCOMPLETE_TRANSITION,
-            edges: edgePlaceholders
-        });
-    }
-
-    //Check for unreachable nodes
-    const unreachables = getUnreachableNodes(graph);
-    if (unreachables && unreachables.length > 0)
-    {
-        warnings.push({
-            name: ERROR_UNREACHABLE_STATE,
-            nodes: unreachables
-        });
-    }
-
-    if (deterministic)
-    {
-        //Check for empty transitions
-        if (edgeEmpties.length > 0)
-        {
-            errors.push({
-                name: ERROR_EMPTY_TRANSITION,
-                edges: edgeEmpties
-            });
-        }
-
-        //Check for duplicate edge labels
-        //Check for missing edge labels
-        const missingSymbols = [];
-        for (const [state, edgeMapping] of nodeOutgoings.entries())
-        {
-            for (const symbol of edgeSymbols)
-            {
-                const edges = edgeMapping.get(symbol);
-                if (edges)
-                {
-                    if (edges.length !== 1)
-                    {
-                        errors.push({
-                            name: ERROR_DUPLICATE_TRANSITION,
-                            edges: edges,
-                            symbol: symbol
-                        });
-                    }
-                }
-                else
-                {
-                    missingSymbols.push(symbol);
-                }
-            }
-
-            if (missingSymbols.length > 0)
-            {
-                errors.push({
-                    name: ERROR_MISSING_TRANSITION,
-                    node: state.getSource(),
-                    symbols: missingSymbols.slice()
-                });
-                missingSymbols.length = 0;
-            }
-        }
-    }
-
-    if (errors.length <= 0)
-    {
-        //Errors should be empty
-        return dst;
-    }
-    else
-    {
-        //Reasons are stored in errors
-        return null;
-    }
-    */
-
-    return true;
+    
+    return validator.validate(graphType, graphState);
 }

@@ -48,6 +48,7 @@ export default class FSABuilder extends GraphMachineBuilder
         this.warnings = [];
 
         this.prevSourceHash = 0;
+        this.prevDeterminism = null;
     }
 
     shouldMachineUpdate(machine, source)
@@ -55,12 +56,20 @@ export default class FSABuilder extends GraphMachineBuilder
         const hash = hashCode(source);
         const prevHash = this.prevSourceHash;
         this.prevSourceHash = hash;
-        return hash !== prevHash;
+
+        const determinism = machine.isDeterministic();
+        const prevDeterminism = this.prevDeterminism;
+        this.prevDeterminism = determinism;
+
+        return hash !== prevHash || determinism !== prevDeterminism;
     }
 
     /** @override */
     updateMachineFromSource(machine, source, opts = {})
     {
+        // TODO: This is used when switching determinism, we don't want to rebuild everything. Cause nothing changes.
+        // HOWEVER! We do want to update the validator, so unfortunately we can only choose all or nothing right now.
+        // Until we can separate the validator from the builder...
         if (opts.machineOnly)
         {
             return true;
@@ -71,7 +80,13 @@ export default class FSABuilder extends GraphMachineBuilder
             return false;
         }
 
-        buildMachineFromGraph(this, machine, FiniteAutomataGraph, source, opts);
+        const { errors, warnings } = buildMachineFromGraph(this, machine, FiniteAutomataGraph, source, opts);
+
+        this.errors.length = 0;
+        this.warnings.length = 0;
+        if (errors) this.errors.push(...errors);
+        if (warnings) this.warnings.push(...warnings);
+
         return true;
     }
 }

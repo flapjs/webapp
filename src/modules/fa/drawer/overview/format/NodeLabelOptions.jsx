@@ -12,7 +12,7 @@ export default function NodeLabelOptions(props)
     return (
         <Options title={'Node Label'} disabled={true}>
             <div>
-                <FieldInput id="prefix" style={{ width: '3rem' }}>
+                <FieldInput id="prefix" style={{ width: '3rem' }} onChange={() => {}}>
                     Prefix
                 </FieldInput>
             </div>
