@@ -5,7 +5,7 @@ import Pane from '@flapjs/components/pane/Pane.jsx';
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
 import { NotifyDispatchContext } from '@flapjs/services/notify/NotifyContext.jsx';
 import NFAToDFAConversionMessage from '@flapjs/modules/fa/messages/NFAToDFAConversionMessage.jsx';
@@ -15,7 +15,7 @@ import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
 
 export default function ComputePanel(props)
 {
-    const machineBuilder = useGraphMachineBuilder(FSABuilder);
+    const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
     const machine = machineBuilder.getMachine();
 
     const notifyDispatch = useContext(NotifyDispatchContext);

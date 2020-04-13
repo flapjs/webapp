@@ -3,11 +3,12 @@ import GraphMachineBuilder from '@flapjs/services/graphmachine/GraphMachineBuild
 import FSA from '@flapjs/modules/fa/machine/FSA.js';
 
 import { hashCode } from '@flapjs/modules/fa/graph/FiniteAutomataHash.js';
-import { buildGraphFromMachine } from './FiniteAutomataGraphToMachineHandler.js';
-import { buildMachineFromGraph } from './FiniteAutomataMachineToGraphHandler.js';
-import FiniteAutomataGraph from '../graph/FiniteAutomataGraph.js';
+import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
 
-export default class FSABuilder extends GraphMachineBuilder
+import { buildGraphFromMachine } from '@flapjs/modules/fa/graphmachine/FiniteAutomataGraphToMachineHandler.js';
+import { buildMachineFromGraph } from '@flapjs/modules/fa/graphmachine/FiniteAutomataMachineToGraphHandler.js';
+
+export default class FiniteAutomataBuilder extends GraphMachineBuilder
 {
     /** @override */
     static build(from = null, opts = {})

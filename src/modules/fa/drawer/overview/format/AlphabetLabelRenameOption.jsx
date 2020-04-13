@@ -8,13 +8,13 @@ import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 import { useGraphElements } from '@flapjs/services/graph/elements/GraphElementHooks.jsx';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
 import FieldInput from '@flapjs/components/lib/FieldInput.jsx';
 
 export default function AlphabetLabelRenameOption(props)
 {
-    const machineBuilder = useGraphMachineBuilder(FSABuilder);
+    const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
     const machine = machineBuilder.getMachine();
     
     // NOTE: UPDATE - Actually, semantically, it should ONLY use machine builder. Otherwise, any rules applied by

@@ -1,8 +1,8 @@
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
-import { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from './FSA.js';
-import { EMPTY_SYMBOL } from './Symbols.js';
+import { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa/machine/FSA.js';
+import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 
 import FiniteAutomataMachineValidator from './FiniteAutomataMachineValidator.js';
 

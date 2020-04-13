@@ -4,12 +4,12 @@ import ItemListStyle from './ItemList.module.css';
 
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 import { EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 
 export default function AlphabetList(props)
 {
-    const machine = useMachine(FSABuilder, props.machineName);
+    const machine = useMachine(FiniteAutomataBuilder, props.machineName);
     const alphabet = machine.getAlphabet();
     
     return (

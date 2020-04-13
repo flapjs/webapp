@@ -1,4 +1,4 @@
-import { EMPTY_SYMBOL } from './Symbols.js';
+import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 import { getUnreachableNodes } from './FiniteAutomataGraphUnreachableHandler.js';
 
 export const ERROR_DUPLICATE_STATE = 'duplicateState';
@@ -40,7 +40,7 @@ export default class FiniteAutomataMachineValidator
      * Add a state to the machine to be validated.
      * 
      * @param {string} nodeId The id of the node in the graph.
-     * @param {import('./FSA.js').State} state The state trying to be added to the machine.
+     * @param {import('../machine/FSA.js').State} state The state trying to be added to the machine.
      * @returns {this} Self for method-chaining.
      */
     addState(nodeId, state)

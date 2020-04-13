@@ -19,7 +19,7 @@ import ExportPanel from './drawer/export/ExportPanel.jsx';
 import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource.jsx';
 import GraphMachineNotifier from '@flapjs/services/graphmachine/GraphMachineNotifier.jsx';
 import FiniteAutomataGraphEditor from './graph/widgets/editor/FiniteAutomataGraphEditor.jsx';
-import FSABuilder from './machine/FSABuilder.js';
+import FiniteAutomataBuilder from './graphmachine/FiniteAutomataBuilder.js';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -37,8 +37,8 @@ export default class FiniteAutomataModule extends BaseModule
             header: [ AutoInit, AutoSave ],
             appbar: [ FiniteAutomataToolbar ],
             playarea: [
-                [GraphMachineSource, { machineBuilderType: FSABuilder }],
-                [GraphMachineNotifier, { machineBuilderType: FSABuilder }]
+                [GraphMachineSource, { machineBuilderType: FiniteAutomataBuilder }],
+                [GraphMachineNotifier, { machineBuilderType: FiniteAutomataBuilder }]
             ],
             viewarea: [ ],
             drawer: [ OverviewPanel, ComputePanel, TestingPanel, ExportPanel ],

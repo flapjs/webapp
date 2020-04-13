@@ -5,13 +5,13 @@ import MessageContainer from '@flapjs/services/notify/components/MessageContaine
 
 import { convertToDFA } from '../machine/FSAUtils.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
-import FSABuilder from '../machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
 export default function NFAToDFAConversionMessage(props)
 {
     const { message, messageId } = props;
 
-    const machineBuilder = useGraphMachineBuilder(FSABuilder);
+    const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
 
     return (
         <MessageContainer messageId={messageId} mode={'warning'}

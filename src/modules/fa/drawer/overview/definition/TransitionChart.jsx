@@ -5,12 +5,12 @@ import Style from './TransitionChart.module.css';
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
 import { EMPTY_SYMBOL, EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
 
 export default function TransitionChart(props)
 {
-    const machine = useMachine(FSABuilder, props.machineName);
+    const machine = useMachine(FiniteAutomataBuilder, props.machineName);
 
     const deterministic = machine.isDeterministic();
 

@@ -5,7 +5,7 @@ import Style from './TransitionTable.module.css';
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
 
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
 import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
@@ -14,7 +14,7 @@ const STATE_AXIS = 'states';
 
 export default function TransitionTable(props)
 {
-    const machine = useMachine(FSABuilder, props.machineName);
+    const machine = useMachine(FiniteAutomataBuilder, props.machineName);
     const [ rowAxis, setRowAxis ] = useState(SYMBOL_AXIS);
 
     const isRowAxis = rowAxis === SYMBOL_AXIS;
