@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState, useLayoutEffect } from 'react';
+import React, { useContext, useRef, useEffect, useCallback, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Style from './GraphElementEditor.module.css';
 
@@ -14,7 +14,6 @@ import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { CrossIcon } from '@flapjs/components/icons/Icons.js';
 
 import { eventConsumer } from '@flapjs/util/EventHelper.js';
-import { useCallback } from 'react';
 
 export default function GraphElementEditor(props)
 {
@@ -90,7 +89,7 @@ export default function GraphElementEditor(props)
             setWasOpen(isOpen);
             if (isOpen)
             {
-                document.addEventListener('click', onOutsideClick, true);
+                document.addEventListener('mousedown', onOutsideClick, true);
                 onOpen();
             }
         }
@@ -102,7 +101,7 @@ export default function GraphElementEditor(props)
             {
                 if (!isOpen)
                 {
-                    document.removeEventListener('click', onOutsideClick, true);
+                    document.removeEventListener('mousedown', onOutsideClick, true);
                 }
             }
         };

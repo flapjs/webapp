@@ -1,8 +1,10 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
+import Button from '@flapjs/components/lib/Button.jsx';
+import TextArea from '@flapjs/components/lib/TextArea.jsx';
 
 export default function FiniteAutomataEdgeEditor(props)
 {
@@ -10,27 +12,28 @@ export default function FiniteAutomataEdgeEditor(props)
 
     const graphDispatch = useContext(GraphDispatchContext);
 
-    const inputRef = useRef(null);
     const [ input, setInput ] = useState(element.label);
     
     return (
         <div onContextMenu={onContextMenu}>
-            <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}/>
-            <button onClick={() =>
+            <TextArea
+                value={input}
+                onChange={e => setInput(e.target.value)}/>
+            <Button onClick={() =>
             {
                 element.label = input;
                 element.markDirty();
                 closeEditor();
             }}>
                 Submit
-            </button>
-            <button onClick={() =>
+            </Button>
+            <Button onClick={() =>
             {
                 graphDispatch({ type: 'delete', elementType: EdgeElement, elementId: element.id });
                 closeEditor();
             }}>
                 Delete This
-            </button>
+            </Button>
         </div>
     );
 }

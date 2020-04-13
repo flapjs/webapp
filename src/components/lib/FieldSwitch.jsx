@@ -5,7 +5,7 @@ import Style from './FieldSwitch.module.css';
 
 export default function FieldSwitch(props)
 {
-    const { id, className, title, disabled, checked, on, off, inplace, onClick } = props;
+    const { id, className, title, disabled, checked, on, off, inplace, onChange } = props;
 
     return (
         <div className={`${Style.element} ${inplace ? Style.inplace : ''} ${disabled ? Style.disabled : ''} ${className}`}>
@@ -20,7 +20,7 @@ export default function FieldSwitch(props)
                 aria-labelledby={id}
                 title={title}
                 disabled={disabled}
-                onClick={() => onClick && onClick(!checked)}>
+                onClick={e => onChange && onChange(!checked)}>
                 <span className={checked ? Style.checked : ''}>
                     {on}
                 </span>
@@ -35,7 +35,7 @@ FieldSwitch.propTypes = {
     id: PropTypes.string.isRequired,
     children: PropTypes.node,
     className: PropTypes.string,
-    onClick: PropTypes.func,
+    onChange: PropTypes.func,
     checked: PropTypes.bool,
     title: PropTypes.string,
     disabled: PropTypes.bool,

@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bug reporting on loading screen (if it crashes)
 - Helpful prompts if loading too long without content
 - Version on loading screen
+- Cleaner dev environment (reduce the clutter!)
 
 ### Changed
 - It's a whole new world! :D
