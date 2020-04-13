@@ -6,7 +6,6 @@ import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder';
-import { convertToNFA } from '@flapjs/modules/fa/machine/FSAUtils.js';
 
 import { NotifyDispatchContext } from '@flapjs/services/notify/NotifyContext.jsx';
 import NFAToDFAConversionMessage from '@flapjs/modules/fa/messages/NFAToDFAConversionMessage.jsx';
@@ -40,7 +39,7 @@ export default function ComputePanel(props)
                             <span>Convert to </span>
                             <span>DFA</span>
                         </FieldButton>
-                        : <FieldButton onClick={() => machineBuilder.applyChanges(machine => convertToNFA(machine, machine))}
+                        : <FieldButton onClick={() => machineBuilder.applyChanges(machine => machine.setDeterministic(false), { machineOnly: true })}
                             disabled={isEmpty}>
                             <span>Convert to </span>
                             <span>NFA</span>
