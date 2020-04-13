@@ -22,19 +22,17 @@ export default function FiniteAutomataNodeEditor(props)
             <TextArea
                 value={input}
                 onChange={e => setInput(e.target.value)}/>
-            <div>
-                <FieldSwitch
-                    id="acceptNodeSwitch"
-                    checked={accept}
-                    onChange={value =>
-                    {
-                        element.final = value;
-                        element.markDirty();
-                        setAccept(element.final);
-                    }}>
-                    Accepted
-                </FieldSwitch>
-            </div>
+            <FieldSwitch
+                id="acceptNodeSwitch"
+                checked={accept}
+                onChange={value =>
+                {
+                    element.final = value;
+                    element.markDirty();
+                    setAccept(element.final);
+                }}>
+                Accepted
+            </FieldSwitch>
             <Button
                 onClick={() =>
                 {
