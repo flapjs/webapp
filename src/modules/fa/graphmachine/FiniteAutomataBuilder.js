@@ -2,9 +2,9 @@ import GraphMachineBuilder from '@flapjs/services/graphmachine/GraphMachineBuild
 
 import FSA from '@flapjs/modules/fa/machine/FSA.js';
 
-import { hashCode } from '@flapjs/modules/fa/graph/FiniteAutomataHash.js';
 import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
 
+import { hashCode } from '@flapjs/modules/fa/graphmachine/FiniteAutomataHash.js';
 import { buildGraphFromMachine } from '@flapjs/modules/fa/graphmachine/FiniteAutomataGraphToMachineHandler.js';
 import { buildMachineFromGraph } from '@flapjs/modules/fa/graphmachine/FiniteAutomataMachineToGraphHandler.js';
 

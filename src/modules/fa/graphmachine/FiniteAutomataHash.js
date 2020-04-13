@@ -1,5 +1,5 @@
 import { stringHash } from '@flapjs/util/MathHelper.js';
-import FiniteAutomataGraph from './FiniteAutomataGraph.js';
+import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
