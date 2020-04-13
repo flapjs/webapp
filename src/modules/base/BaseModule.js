@@ -6,7 +6,10 @@ export default class BaseModule
     static get providers() { return []; }
     /** @abstract */
     static get renders() { return {}; }
-    /** @abstract */
+    /**
+     * @abstract
+     * @returns {string} The module id.
+     */
     static get moduleId() { throw new Error('Must be overriden.'); }
     /** @abstract */
     static get moduleVersion() { return '0.0.0'; }

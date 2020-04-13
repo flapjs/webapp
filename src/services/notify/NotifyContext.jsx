@@ -5,8 +5,8 @@ import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 
 import { UNSAFE_findMessagesWithConjunctiveTags, UNSAFE_addNotifyMessageToState, UNSAFE_createNotifyMessage } from './NotifyHelper.js';
 
-export const NotifyStateContext = React.createContext();
-export const NotifyDispatchContext = React.createContext();
+export const NotifyStateContext = React.createContext(null);
+export const NotifyDispatchContext = React.createContext(null);
 
 /**
  * The NotifyState contains a map of all messages. Each message is basically
@@ -22,7 +22,7 @@ export const NotifyDispatchContext = React.createContext();
  * 
  * Refer to NotifyReducer for the reducer action types.
  * 
- * @param {React.Props} props The react props.
+ * @param {object} props The react props.
  * @returns {React.ReactNode} The rendered node.
  */
 export function NotifyProvider(props)

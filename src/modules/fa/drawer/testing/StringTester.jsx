@@ -12,7 +12,8 @@ export default function StringTester(props)
     return (
         <Options title={'String Tester'} disabled={true}>
             <div>
-                <FieldButton onClick={() => setAccepted(false)}>
+                <FieldButton id="testString"
+                    onClick={() => setAccepted(false)}>
                     Test String
                 </FieldButton>
                 <output>

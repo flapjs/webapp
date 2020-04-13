@@ -12,9 +12,9 @@ export default class BaseGraph
 
     /**
      * @abstract
-     * @returns {Array<Class<GraphElement>>} An array of element types.
+     * @returns {object} An object map of element type keys to classes.
      */
-    static get elementTypes() { return []; }
+    static get elementTypes() { return {}; }
     
     /**
      * This version guards graph serialization. Any changes to the format of the data should change the
@@ -41,9 +41,8 @@ export default class BaseGraph
 
     static serialize(graphState, graphData, opts = {})
     {
-        for(let elementType of this.elementTypes)
+        for(let [key, elementType] of Object.entries(this.elementTypes))
         {
-            const key = this.computeElementTypeKey(elementType);
             // Already processed...
             if (key in graphData) continue;
             /// Not yet processed...
@@ -86,9 +85,8 @@ export default class BaseGraph
             }
         }
         
-        for(let elementType of this.elementTypes)
+        for(let [key, elementType] of Object.entries(this.elementTypes))
         {
-            const key = this.computeElementTypeKey(elementType);
             if (key in graphData)
             {
                 let elements = {};
@@ -105,33 +103,38 @@ export default class BaseGraph
     }
 
     /* ===================== Helper functions ===================== */
-
-    /**
-     * Computes the key for the given element type. This key is used to uniquely identify
-     * the graph element in the graph state. Usually, this is used as the key to get the map
-     * of elements of a given type.
-     * 
-     * @param {Class<GraphElement>} elementType The element type to compute the key for.
-     * @returns {string} The unique key for the associated element type.
-     */
-    static computeElementTypeKey(elementType)
+    
+    /** Computes the hash for the given graph. */
+    static hashCode(graphType, graphState)
     {
-        return elementType ? elementType.name : 'unknown';
+        return 0;
+    }
+
+    static getElementTypeKeyForElementType(elementType)
+    {
+        for(let [key, value] of Object.entries(this.elementTypes))
+        {
+            if (elementType === value)
+            {
+                return key;
+            }
+        }
+        return 'unknown';
     }
 
     static getElementIds(graphState, elementType)
     {
-        return Object.keys(graphState[this.computeElementTypeKey(elementType)] || {});
+        return Object.keys(graphState[this.getElementTypeKeyForElementType(elementType)] || {});
     }
 
     static getElements(graphState, elementType)
     {
-        return Object.values(graphState[this.computeElementTypeKey(elementType)] || {});
+        return Object.values(graphState[this.getElementTypeKeyForElementType(elementType)] || {});
     }
     
     static getElement(graphState, elementType, elementId)
     {
-        let graphElementMap = graphState[this.computeElementTypeKey(elementType)];
+        let graphElementMap = graphState[this.getElementTypeKeyForElementType(elementType)];
         if (graphElementMap && elementId in graphElementMap)
         {
             return graphElementMap[elementId];

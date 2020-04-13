@@ -17,8 +17,8 @@ export function createNotifyStateFromMessages(messages = [])
         let notifyMessage;
         if (typeof message === 'object')
         {
-            const { message, component, props, tags, reflect } = message;
-            notifyMessage = UNSAFE_createNotifyMessage(message, component, props, tags, reflect);
+            const { message: messageContent, component, props, tags, reflect } = message;
+            notifyMessage = UNSAFE_createNotifyMessage(messageContent, component, props, tags, reflect);
         }
         else
         {

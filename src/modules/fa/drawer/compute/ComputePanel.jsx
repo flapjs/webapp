@@ -34,12 +34,14 @@ export default function ComputePanel(props)
             <Pane title="Equivalent Conversions">
                 <div>
                     {!deterministic
-                        ? <FieldButton onClick={() => notifyDispatch({ type: 'send', component: NFAToDFAConversionMessage, message: `${stateCount} state(s) -> ${Math.pow(2, stateCount)} states`})}
+                        ? <FieldButton id="convertToDFA"
+                            onClick={() => notifyDispatch({ type: 'send', component: NFAToDFAConversionMessage, message: `${stateCount} state(s) -> ${Math.pow(2, stateCount)} states`})}
                             disabled={isEmpty}>
                             <span>Convert to </span>
                             <span>DFA</span>
                         </FieldButton>
-                        : <FieldButton onClick={() => machineBuilder.applyChanges(machine => machine.setDeterministic(false), { machineOnly: true })}
+                        : <FieldButton id="convertToNFA"
+                            onClick={() => machineBuilder.applyChanges(machine => machine.setDeterministic(false), { machineOnly: true })}
                             disabled={isEmpty}>
                             <span>Convert to </span>
                             <span>NFA</span>
@@ -47,7 +49,8 @@ export default function ComputePanel(props)
                 </div>
                 <hr/>
                 <div>
-                    <FieldButton onClick={() => {}}
+                    <FieldButton id="removeUnreachableStates"
+                        onClick={() => {}}
                         disabled={true}>
                         Remove unreachable states
                     </FieldButton>
@@ -55,7 +58,8 @@ export default function ComputePanel(props)
             </Pane>
             <Pane title="Related Conversions">
                 <div>
-                    <FieldButton onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
+                    <FieldButton id="flipAllAcceptStates"
+                        onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
                         disabled={isEmpty}>
                         Flip all accept states
                     </FieldButton>

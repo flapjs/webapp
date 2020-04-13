@@ -4,6 +4,7 @@ import FSA, { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa
 import FiniteAutomataGraph from '../graph/FiniteAutomataGraph';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { EMPTY_SYMBOL } from './Symbols.js';
+import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
 
 export default class FSABuilder extends GraphMachineBuilder
 {
@@ -30,10 +31,13 @@ export default class FSABuilder extends GraphMachineBuilder
             graphDispatch({ type: 'forceUpdate' });
             return;
         }
+        
+        const nodeTypeKey = graphType.getElementTypeKeyForElementType(NodeElement);
+        const edgeTypeKey = graphType.getElementTypeKeyForElementType(EdgeElement);
 
         let result = {
-            NodeElement: {},
-            EdgeElement: {},
+            [nodeTypeKey]: {},
+            [edgeTypeKey]: {},
         };
 
         // Compute all states...
@@ -84,7 +88,7 @@ export default class FSABuilder extends GraphMachineBuilder
                 nodeData.final = false;
             }
 
-            result.NodeElement[nodeId] = nodeData;
+            result[nodeTypeKey][nodeId] = nodeData;
         }
 
         // Compute all transitions...
@@ -123,7 +127,7 @@ export default class FSABuilder extends GraphMachineBuilder
                 label,
             };
 
-            result.EdgeElement[index++] = edge;
+            result[edgeTypeKey][index++] = edge;
         }
         
         let nextGraphState = FiniteAutomataGraph.deserialize(result, {}, { forceIgnoreVersion: true });
@@ -147,7 +151,12 @@ export default class FSABuilder extends GraphMachineBuilder
         {
             return;
         }
+
+        const graphType = FiniteAutomataGraph;
         
+        const nodeTypeKey = graphType.getElementTypeKeyForElementType(NodeElement);
+        const edgeTypeKey = graphType.getElementTypeKeyForElementType(EdgeElement);
+
         this.sourceMap.clear();
         this.errors.length = 0;
         this.warnings.length = 0;
@@ -163,11 +172,11 @@ export default class FSABuilder extends GraphMachineBuilder
         const edgePlaceholders = [];
         const edgeEmpties = [];
 
-        if (source.NodeElement)
+        if (source[nodeTypeKey])
         {
-            for (const nodeId of Object.keys(source.NodeElement))
+            for (const nodeId of Object.keys(source[nodeTypeKey]))
             {
-                const node = source.NodeElement[nodeId];
+                const node = source[nodeTypeKey][nodeId];
                 const { label, final, initial } = node;
     
                 let state = new State(label);
@@ -186,20 +195,20 @@ export default class FSABuilder extends GraphMachineBuilder
                     machine.setStartState(state);
                 }
     
-                //Check for duplicate states
+                // Check for duplicate states
                 if (nodeLabels.has(label)) nodeLabels.get(label).push(state);
                 else nodeLabels.set(label, [state]);
     
-                //For duplicate transitions
+                // For duplicate transitions
                 nodeOutgoings.set(state, new Map());
             }
         }
 
-        if (source.EdgeElement)
+        if (source[edgeTypeKey])
         {
-            for (const edgeId of Object.keys(source.EdgeElement))
+            for (const edgeId of Object.keys(source[edgeTypeKey]))
             {
-                const edge = source.EdgeElement[edgeId];
+                const edge = source[edgeTypeKey][edgeId];
     
                 const { fromId, toId, label } = edge;
                 
@@ -225,16 +234,16 @@ export default class FSABuilder extends GraphMachineBuilder
     
                         if (symbol === EMPTY_SYMBOL)
                         {
-                            //For empties
+                            // For empties
                             edgeEmpties.push(edgeId);
                         }
                         else
                         {
-                            //For used symbol
+                            // For used symbol
                             edgeSymbols.add(symbol);
                         }
     
-                        //Translate all labels to symbols
+                        // Translate all labels to symbols
                         let transitionSymbol;
                         switch (symbol)
                         {
@@ -245,17 +254,39 @@ export default class FSABuilder extends GraphMachineBuilder
                                 transitionSymbol = symbol;
                         }
     
-                        //For duplicate/missing transitions
+                        // For duplicate/missing transitions
                         let outSymbols = nodeOutgoings.get(srcState);
                         let outEdges = outSymbols.get(transitionSymbol);
                         if (!outEdges) outSymbols.set(transitionSymbol, outEdges = new Array());
                         outEdges.push(edgeId);
     
-                        //Add to machine...
+                        // Add to machine...
                         machine.addTransition(srcState, dstState, transitionSymbol);
                     }
                 }
             }
+        }
+
+        /*
+        this.errors.push('There is nothing here.');
+        // console.log('ERROR!', this.errors);
+
+        //Check for duplicate node labels
+        for (const [nodeLabel, sharedStates] of nodeLabels.entries())
+        {
+            if (sharedStates.length > 1)
+            {
+                this.errors.push(`Found duplicate states for ${sharedStates.length} states.`);
+            }
+        }
+
+        //Check for incomplete edge
+        if (edgePlaceholders.length > 0)
+        {
+            errors.push({
+                name: ERROR_INCOMPLETE_TRANSITION,
+                edges: edgePlaceholders
+            });
         }
 
         /*

@@ -156,8 +156,7 @@ function useGraphUpdateCycle(state)
  * 
  * @param {Class<BaseGraph>} graphType The type of graph for the state.
  * @param {object} graphState The previous state.
- * @param {object} action The action options to perform.
- * @param {string} action.type The type of action to perform.
+ * @param {object} action The action options to perform. Specify `type` to select which action to perform.
  * @returns {object} The resultant state. Or falsey if no changes.
  */
 export function GraphReducer(graphType, graphState, action)
@@ -169,7 +168,7 @@ export function GraphReducer(graphType, graphState, action)
             const { elementType, elementId, opts } = action;
 
             let next = { ...graphState };
-            let key = graphType.computeElementTypeKey(elementType);
+            let key = graphType.getElementTypeKeyForElementType(elementType);
             let nextElements = key in next ? {...next[key]} : {};
             let id = elementId || uuid();
             let element = new (elementType)(id, opts || {});
@@ -182,7 +181,7 @@ export function GraphReducer(graphType, graphState, action)
             const { elementType, elementId } = action;
 
             let next = { ...graphState };
-            let key = graphType.computeElementTypeKey(elementType);
+            let key = graphType.getElementTypeKeyForElementType(elementType);
             if (key in next)
             {
                 let nextElements = {...next[key]};
@@ -199,7 +198,7 @@ export function GraphReducer(graphType, graphState, action)
             const { elementType } = action;
             
             let next = { ...graphState };
-            let key = graphType.computeElementTypeKey(elementType);
+            let key = graphType.getElementTypeKeyForElementType(elementType);
             if (key in next)
             {
                 for(let element of Object.values(next[key]))

@@ -17,7 +17,7 @@ export default class FiniteAutomataGraph extends NodeGraph
                 if (action.elementType === NodeElement)
                 {
                     let [nextState, element] = GraphReducer(this, state, { type: 'add', elementType: NodeElement, opts: action.opts });
-                    let elementCount = Object.keys(nextState[this.computeElementTypeKey(NodeElement)]).length;
+                    let elementCount = Object.keys(nextState[this.getElementTypeKeyForElementType(NodeElement)]).length;
     
                     element.label = 'q' + (elementCount - 1);
     

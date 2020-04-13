@@ -1,12 +1,14 @@
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
 import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
 import Logger from '@flapjs/util/Logger';
+import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
+import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement';
 
 /**
  * The default importer to load the saved workspace session.
  * 
- * @param {Blob} fileBlob The file blob containing the serialized workspace session.
- * @returns {object} The deserialized graph state.
+ * @param {File} fileBlob The file blob containing the serialized workspace session.
+ * @returns {Promise<object>} The deserialized graph state.
  */
 export default async function FiniteAutomataImporter(fileBlob)
 {
@@ -81,9 +83,12 @@ function importFromTheOldPrototype(textData)
  */
 function importFromJFLAP(textData)
 {
+    const nodeTypeKey = FiniteAutomataGraph.getElementTypeKeyForElementType(NodeElement);
+    const edgeTypeKey = FiniteAutomataGraph.getElementTypeKeyForElementType(EdgeElement);
+    
     let graphData = {
-        NodeElement: {},
-        EdgeElement: {},
+        [nodeTypeKey]: {},
+        [edgeTypeKey]: {},
     };
 
     const xmlData = new DOMParser().parseFromString(textData, 'text/xml');
@@ -91,7 +96,7 @@ function importFromJFLAP(textData)
     const transitionElements = xmlData.getElementsByTagName('transition') || [];
 
     // Create those NodeElements...
-    let nodes = graphData.NodeElement;
+    let nodes = graphData[nodeTypeKey];
     for(let stateElement of stateElements)
     {
         if (!stateElement.hasAttribute('id')) continue;
@@ -115,7 +120,7 @@ function importFromJFLAP(textData)
 
     // Create those EdgeElements...
     let edgeDataMapping = new Map();
-    let edges = graphData.EdgeElement;
+    let edges = graphData[edgeTypeKey];
     let edgeId = 0;
     for(let transitionElement of transitionElements)
     {

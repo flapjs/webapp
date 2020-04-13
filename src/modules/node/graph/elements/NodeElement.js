@@ -23,7 +23,7 @@ export default class NodeElement extends GraphElement
         {
             if (element.fromId === this.id)
             {
-                delete graphState.EdgeElement[element.id];
+                delete graphState[graphType.getElementTypeKeyForElementType(EdgeElement)][element.id];
                 element.onDestroy(graphType, graphState);
                 element.markDead();
             }
