@@ -104,7 +104,13 @@ export default class BaseGraph
 
     /* ===================== Helper functions ===================== */
     
-    /** Computes the hash for the given graph. */
+    /**
+     * Computes the hash for the given graph.
+     * 
+     * @param {Class<BaseGraph>} graphType The type of the graph.
+     * @param {object} graphState The graph state.
+     * @returns {number} The hash code representing the state of the graph.
+     */
     static hashCode(graphType, graphState)
     {
         return 0;
