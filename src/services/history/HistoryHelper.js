@@ -25,7 +25,8 @@ export function isCurrentState(historyState, source, data, hash = stringHash(dat
     if (sourceName in historyState)
     {
         const sourceState = historyState[sourceName];
-        return sourceState.history[sourceState.historyIndex].hash === hash;
+        // As long as the source hash and the data hash are "similarly" equal, it should be accepted as current.
+        return sourceState.history[sourceState.historyIndex].hash == hash;
     }
     return false;
 }
