@@ -4,10 +4,14 @@ import React, { useState } from 'react';
 import Options from '@flapjs/components/options/Options.jsx';
 
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
+import ImportButton from './ImportButton.jsx';
+import ExportButton from './ExportButton.jsx';
 
 export default function StringTester(props)
 {
     const [ isAccepted, setAccepted ] = useState(null);
+
+    let testStringsArr = [];
 
     return (
         <Options title={'String Tester'} disabled={true}>
@@ -16,6 +20,8 @@ export default function StringTester(props)
                     onClick={() => setAccepted(false)}>
                     Test String
                 </FieldButton>
+                <ImportButton />
+                <ExportButton testStrings={testStringsArr}/>
                 <output>
                     <p>
                         {isAccepted === null
