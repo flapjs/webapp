@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Options from '@flapjs/components/options/Options.jsx';
 
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
 import Button from '@flapjs/components/lib/Button.jsx';
+//import { solveFSA } from '@flapjs/modules/fa/machine/FSAUtils.js';
+//import { useMachine } from '@flapjs/services/machine/MachineHooks';
+//import { checkPropTypes } from 'prop-types';
+
 
 /*
 class Parent
@@ -86,8 +90,9 @@ export default function StringTester(props)
 {
     // const [ isAccepted, setAccepted ] = useState(null);
     const isAccepted = false;
-    const [ tests, updateTests ] = useState([]);
-    
+    const [tests, updateTests] = useState([]);
+    //const FSA = useMachine(props.machineBuilderType, props.machineName);
+
     return (
         <Options title="String Tester">
             <div>
@@ -109,10 +114,10 @@ export default function StringTester(props)
                                 const newTests = [...tests];
                                 newTests[key] = e.target.value;
                                 updateTests(newTests);
-                            }}/>
+                            }} />
                     </p>
                 ))}
-                
+
                 <output>
                     <p>
                         {isAccepted === null
@@ -127,9 +132,12 @@ export default function StringTester(props)
     );
 }
 StringTester.propTypes = {
+    machineBuilderType: PropTypes.elementType.isRequired,
+    machineName: PropTypes.string,
 };
 StringTester.defaultProps = {
 };
+
 
 function createNewTest(tests, updateTests)
 {
