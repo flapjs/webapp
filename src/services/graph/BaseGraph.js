@@ -71,7 +71,7 @@ export default class BaseGraph
         // Version checking...
         if (!opts.forceIgnoreVersion)
         {
-            if (!('__metadata__' in graphData)) throw new Error('Missing metadata.');
+            if (!graphData || !('__metadata__' in graphData)) throw new Error('Missing metadata.');
     
             if (this.name !== graphData.__metadata__.graphType)
             {
