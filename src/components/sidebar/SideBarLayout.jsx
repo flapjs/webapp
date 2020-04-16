@@ -55,7 +55,10 @@ SideBarLayout.propTypes = {
     children: PropTypes.node,
     sideBar: PropTypes.func,
     side: PropTypes.oneOf(['left', 'right', 'up', 'down']),
-    sideMargin: PropTypes.number,
+    sideMargin: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]),
     viewOverflow: PropTypes.oneOf(['hidden', 'auto']),
 };
 SideBarLayout.defaultProps = {
