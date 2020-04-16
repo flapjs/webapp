@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Style from './FieldButton.module.css';
+
+import Button from './Button.jsx';
 
 export default function FieldButton(props)
 {
@@ -9,13 +10,12 @@ export default function FieldButton(props)
 
     return (
         <div className={`${Style.element} ${className}`}>
-            <button
-                id={id}
+            <Button id={id}
                 style={style}
                 disabled={disabled}
                 onClick={onClick}>
                 {props.children}
-            </button>
+            </Button>
         </div>
     );
 }
@@ -24,6 +24,6 @@ FieldButton.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     style: PropTypes.object,
-    onClick: PropTypes.func,
     disabled: PropTypes.bool,
+    onClick: PropTypes.func,
 };

@@ -13,9 +13,6 @@ const DIRTY = Symbol('dirty');
  * must be able to be instantiated with only an "id" argument. Any additional args will not be provided
  * nor stored by the serializer. Additional arguments will only be used when instantiating during active
  * app use. This feature is mainly used by state serializers to load/save graphs.
- * 
- * Also, the class name MUST BE UNIQUE. It is used as the key to access its instances.
- * Refer to BaseGraph.computeElementTypeKey() for more information.
  */
 export default class GraphElement
 {
@@ -42,9 +39,13 @@ export default class GraphElement
     /**
      * Called when this element is removed from the graph.
      * 
+     * Basically, when it changes from alive to dead.
+     * 
      * @abstract
+     * @param {Class<BaseGraph>} graphType The graph type.
+     * @param {object} graphState The new, mutable graph state.
      */
-    onDestroy() {}
+    onDestroy(graphType, graphState) {}
 
     markDirty(force = true) { this[DIRTY] = force; }
     isDirty() { return this[DIRTY]; }

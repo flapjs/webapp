@@ -4,12 +4,12 @@ import ItemListStyle from './ItemList.module.css';
 
 import { useMachineBuilder } from '@flapjs/services/machine/MachineHooks.jsx';
 
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 import { EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 
 export default function StateList(props)
 {
-    const machineBuilder = useMachineBuilder(FSABuilder, props.machineName);
+    const machineBuilder = useMachineBuilder(FiniteAutomataBuilder, props.machineName);
     const machine = machineBuilder.getMachine();
     const states = Array.from(machine.getStates());
 

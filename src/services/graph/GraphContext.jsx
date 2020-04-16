@@ -156,8 +156,7 @@ function useGraphUpdateCycle(state)
  * 
  * @param {Class<BaseGraph>} graphType The type of graph for the state.
  * @param {object} graphState The previous state.
- * @param {object} action The action options to perform.
- * @param {string} action.type The type of action to perform.
+ * @param {object} action The action options to perform. Specify `type` to select which action to perform.
  * @returns {object} The resultant state. Or falsey if no changes.
  */
 export function GraphReducer(graphType, graphState, action)
@@ -169,7 +168,7 @@ export function GraphReducer(graphType, graphState, action)
             const { elementType, elementId, opts } = action;
 
             let next = { ...graphState };
-            let key = graphType.computeElementTypeKey(elementType);
+            let key = graphType.getElementTypeKeyForElementType(elementType);
             let nextElements = key in next ? {...next[key]} : {};
             let id = elementId || uuid();
             let element = new (elementType)(id, opts || {});
@@ -182,14 +181,14 @@ export function GraphReducer(graphType, graphState, action)
             const { elementType, elementId } = action;
 
             let next = { ...graphState };
-            let key = graphType.computeElementTypeKey(elementType);
+            let key = graphType.getElementTypeKeyForElementType(elementType);
             if (key in next)
             {
                 let nextElements = {...next[key]};
                 let element = nextElements[elementId];
                 delete nextElements[elementId];
                 next[key] = nextElements;
-                element.onDestroy();
+                element.onDestroy(graphType, next);
                 element.markDead();
             }
             return next;
@@ -199,12 +198,12 @@ export function GraphReducer(graphType, graphState, action)
             const { elementType } = action;
             
             let next = { ...graphState };
-            let key = graphType.computeElementTypeKey(elementType);
+            let key = graphType.getElementTypeKeyForElementType(elementType);
             if (key in next)
             {
                 for(let element of Object.values(next[key]))
                 {
-                    element.onDestroy();
+                    element.onDestroy(graphType, next);
                     element.markDead();
                 }
                 next[key] = {};
@@ -213,16 +212,18 @@ export function GraphReducer(graphType, graphState, action)
         }
         case 'clearAll':
         {
+            const next = {};
+
             // Destroy all previous elements...
             for(let elementType of Object.keys(graphState))
             {
                 for(let element of Object.values(graphState[elementType]))
                 {
-                    element.onDestroy();
+                    element.onDestroy(graphType, next);
                     element.markDead();
                 }
             }
-            return {};
+            return next;
         }
         case 'forceUpdate':
         {
@@ -242,7 +243,7 @@ export function GraphReducer(graphType, graphState, action)
                 {
                     for(let element of Object.values(graphState[elementType]))
                     {
-                        element.onDestroy();
+                        element.onDestroy(graphType, state);
                         element.markDead();
                     }
                 }

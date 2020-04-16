@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
 import { useMachine, useMachineBuilder } from '@flapjs/services/machine/MachineHooks.jsx';
-import FSABuilder from '@flapjs/modules/fa/machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
 export default function DeterminismSwitch(props)
 {
     const { machineName } = props;
-    const machineBuilder = useMachineBuilder(FSABuilder, machineName);
-    const machine = useMachine(FSABuilder, machineName);
+    const machineBuilder = useMachineBuilder(FiniteAutomataBuilder, machineName);
+    const machine = useMachine(FiniteAutomataBuilder, machineName);
     const inputId = `${machineName}.deterministic`;
 
     return (

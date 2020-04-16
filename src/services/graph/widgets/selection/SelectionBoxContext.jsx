@@ -7,8 +7,8 @@ import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
-export const SelectionBoxStateContext = React.createContext();
-export const SelectionBoxDispatchContext = React.createContext();
+export const SelectionBoxStateContext = React.createContext(null);
+export const SelectionBoxDispatchContext = React.createContext(null);
 
 const { ConnectorProvider, useConnectorFromBehavior } = createConnector(
     (from, to, cursor) => (

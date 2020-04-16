@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState, useLayoutEffect } from 'react';
+import React, { useContext, useRef, useEffect, useCallback, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Style from './GraphElementEditor.module.css';
 
@@ -72,15 +72,39 @@ export default function GraphElementEditor(props)
         }
     });
 
-    const [ wasOpen, setWasOpen ] = useState(false);
+    const onOutsideClick = useCallback(e =>
+    {
+        if (!editorRef.current || !editorRef.current.contains(e.target))
+        {
+            closeEditor(e);
+        }
+    },
+    [ closeEditor ]);
 
+    const [ wasOpen, setWasOpen ] = useState(false);
     useLayoutEffect(() =>
     {
         if (isOpen !== wasOpen)
         {
             setWasOpen(isOpen);
-            if (isOpen) onOpen();
+            if (isOpen)
+            {
+                document.addEventListener('mousedown', onOutsideClick, true);
+                onOpen();
+            }
         }
+
+        return () =>
+        {
+            // Clean up! So no memory leak :)
+            if (isOpen !== wasOpen)
+            {
+                if (!isOpen)
+                {
+                    document.removeEventListener('mousedown', onOutsideClick, true);
+                }
+            }
+        };
     },
     // NOTE: Although this depends on "element.label" we only care when open changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -24,7 +24,7 @@ export default function Drawer(props)
                     return (
                         <SideBarLayout
                             side={side}
-                            renderSideBar = {() => (
+                            sideBar={() => (
                                 <DrawerSideBar direction={direction}>
                                     {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
                                 </DrawerSideBar>
@@ -32,7 +32,7 @@ export default function Drawer(props)
                             <DrawerLayout
                                 side={side}
                                 open={state.open}
-                                renderDrawer = {() => (
+                                drawer = {() => (
                                     renderPanels(panelEntries, tabIndex)
                                 )}>
                                 {props.children}

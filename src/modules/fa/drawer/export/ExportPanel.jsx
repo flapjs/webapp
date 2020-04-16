@@ -25,10 +25,10 @@ export default function ExportPanel(props)
         </header>
         <section>
             <ul style={{ padding: 0, listStyle: 'none' }}>
-                <li><FieldButton onClick={() => exportTo('graph', { graphType, graphState })}>Save to File</FieldButton></li>
-                <li><FieldButton onClick={() => exportTo('jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
-                <li><FieldButton onClick={() => exportTo('image', { svgRef })}>Export to Image</FieldButton></li>
-                <li><FieldButton onClick={() => exportTo('svg', { svgRef })}>Export to SVG</FieldButton></li>
+                <li><FieldButton id="exportGraph" onClick={() => exportTo('graph', { graphType, graphState })}>Save to File</FieldButton></li>
+                <li><FieldButton id="exportJFLAP" onClick={() => exportTo('jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
+                <li><FieldButton id="exportToImage" onClick={() => exportTo('image', { svgRef })}>Export to Image</FieldButton></li>
+                <li><FieldButton id="exportToSVG" onClick={() => exportTo('svg', { svgRef })}>Export to SVG</FieldButton></li>
             </ul>
         </section>
         </>

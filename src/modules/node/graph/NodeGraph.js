@@ -11,9 +11,9 @@ export default class NodeGraph extends BaseGraph
     /** @override */
     static get elementTypes()
     {
-        return [
-            NodeElement,
-            EdgeElement,
-        ];
+        return {
+            nodes: NodeElement,
+            edges: EdgeElement,
+        };
     }
 }

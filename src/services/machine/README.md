@@ -66,7 +66,7 @@ Being used from the UI:
 // data flow FROM a graph TO a machine. Whereas the given callback will handle flow FROM a machine TO a graph.
 // NOTE: This is because the API cannot determine where the backward data flow should end up at,
 // so it's up to the user to define it.
-useGraphForMachine(FSABuilder, 'graph', GraphStateContext, machine => graphDispatch({}));
+useGraphForMachine(FiniteAutomataBuilder, 'graph', GraphStateContext, machine => graphDispatch({}));
 ```
 
 As defined by the API:

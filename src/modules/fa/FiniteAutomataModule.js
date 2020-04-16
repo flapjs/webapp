@@ -17,8 +17,9 @@ import TestingPanel from './drawer/testing/TestingPanel.jsx';
 import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource.jsx';
-import FiniteAutomataGraphEditor from './graph/widgets/editor/FiniteAutomataGraphEditor.jsx';
-import FSABuilder from './machine/FSABuilder.js';
+import GraphMachineNotifier from '@flapjs/services/graphmachine/GraphMachineNotifier.jsx';
+import FiniteAutomataGraphEditor from './grapheditor/FiniteAutomataGraphEditor.jsx';
+import FiniteAutomataBuilder from './graphmachine/FiniteAutomataBuilder.js';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -35,7 +36,10 @@ export default class FiniteAutomataModule extends BaseModule
         return {
             header: [ AutoInit, AutoSave ],
             appbar: [ FiniteAutomataToolbar ],
-            playarea: [ [GraphMachineSource, { machineBuilderType: FSABuilder }] ],
+            playarea: [
+                [GraphMachineSource, { machineBuilderType: FiniteAutomataBuilder }],
+                [GraphMachineNotifier, { machineBuilderType: FiniteAutomataBuilder }]
+            ],
             viewarea: [ ],
             drawer: [ OverviewPanel, ComputePanel, TestingPanel, ExportPanel ],
         };

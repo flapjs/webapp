@@ -7,8 +7,8 @@ import { stringHash } from '@flapjs/util/MathHelper.js';
 
 const MAX_HISTORY_LENGTH = 1000;
 
-export const HistoryStateContext = React.createContext();
-export const HistoryDispatchContext = React.createContext();
+export const HistoryStateContext = React.createContext(null);
+export const HistoryDispatchContext = React.createContext(null);
 
 export function HistoryProvider(props)
 {

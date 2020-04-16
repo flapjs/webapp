@@ -96,7 +96,7 @@ export default function StringTester(props)
     return (
         <Options title="String Tester">
             <div>
-                <FieldButton onClick={() => createNewTest(tests, updateTests)}>
+                <FieldButton id="testStringButton" onClick={() => createNewTest(tests, updateTests)}>
                     Test String
                 </FieldButton>
 

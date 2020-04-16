@@ -17,8 +17,8 @@ export function createNotifyStateFromMessages(messages = [])
         let notifyMessage;
         if (typeof message === 'object')
         {
-            const { message, component, props, tags, reflect } = message;
-            notifyMessage = UNSAFE_createNotifyMessage(message, component, props, tags, reflect);
+            const { message: messageContent, component, props, tags, reflect } = message;
+            notifyMessage = UNSAFE_createNotifyMessage(messageContent, component, props, tags, reflect);
         }
         else
         {
@@ -69,7 +69,7 @@ export function UNSAFE_addNotifyMessageToState(notifyMessage, notifyState)
 export function UNSAFE_createNotifyMessage(message, component = null, props = {}, tags = undefined, replace = false)
 {
     let notifyTags = tags || [ ALL_TAG ];
-    let notifyMessageId = replace ? stringHash(notifyTags.sort().join('.')) : uuid();
+    let notifyMessageId = replace ? String(stringHash(notifyTags.sort().join('.'))) : uuid();
     let notifyComponent = component || null;
     let notifyProps = props || {};
     return {
