@@ -6,7 +6,7 @@ import Pane from '@flapjs/components/pane/Pane.jsx';
 
 import EquivalenceTester from './EquivalenceTester.jsx';
 import StringTester from './StringTester.jsx';
-import FSABuilder from '../../machine/FSABuilder.js';
+import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
 export default function TestingPanel(props)
 {
@@ -17,7 +17,7 @@ export default function TestingPanel(props)
             </header>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
                 <Pane title="Strings">
-                    <StringTester machineBuilderType={FSABuilder} machineName='graph' />
+                    <StringTester machineBuilderType={FiniteAutomataBuilder} machineName='graph' />
                 </Pane>
                 <Pane title="Machines">
                     <EquivalenceTester />
