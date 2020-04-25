@@ -6,7 +6,7 @@
   "main": "index.js",
   "browser": "main.js",
   "scripts": {
-    "preinstall": "npm run setup-vscode -- dev",
+    "postinstall": "npm run setup-vscode -- dev",
     "start": "webpack-dev-server --env=development --config webpack.config.js",
     "build": "webpack --env=production --config webpack.config.js",
     "build-docs": "npm run build-storybook && npm run build-coverage",

@@ -6,6 +6,9 @@
         "build": true,
         "coverage": true,
         "jsconfig.json": true,
-        "webpack.config.js": true
+        "webpack.config.js": true,
+        "declarations.d.ts": true,
+        "index.html": true,
+        "LICENSE": true
     }
 }

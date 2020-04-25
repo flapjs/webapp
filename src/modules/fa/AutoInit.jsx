@@ -13,7 +13,15 @@ export default function AutoInit()
         {
             // Load from localStorage.
             let graphData = JSON.parse(localStorage.getItem(graphType.name + '.graphData'));
-            let graphState = graphType.deserialize(graphData, {});
+            let graphState;
+            try
+            {
+                graphState = graphType.deserialize(graphData, {});
+            }
+            catch(e)
+            {
+                graphState = {};
+            }
             graphDispatch({ type: 'resetState', state: graphState });
     
             // End init.
