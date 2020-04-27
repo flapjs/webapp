@@ -1,35 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ACCEPTED_FILE_TYPES = ['.txt'];
+const ACCEPTED_FILE_TYPES = '.txt'; // '.txt, .jpg, .png, etc.' for accepting multiple file types
 
 export default function ImportButton(props) 
-{
+{ 
     let testStrings = [];
 
-    /**
-     * When the user wants to import one or more files, window file selector
-     * is displayed. After user chose the files, extract the text within those
-     * files line by line, and add them to the list of imported test strings.
-     * 
-     * NOTE: The list of imported test strings resets everytime this function
-     * is invoked so there can be no duplicates and the list does not grow too
-     * big.
-     * 
-     * @param {ImportButton} e - The onChange event
-     */
-    function handleImportChange(e) 
+    function handleImportChange(event) 
     {
-        const files = e.target.files;
-        testStrings = [];
+        const files = event.target.files;
 
         for(let i = 0; i < files.length; i++) 
         {
             const reader = new FileReader();
-            reader.onload = (e) => 
+            reader.onload = (event) => 
             {
                 try 
                 {
-                    const allTestStrings = e.target.result.split('\n');
+                    const allTestStrings = event.target.result.split('\n');
 
                     for (let testString of allTestStrings) 
                     {
@@ -37,7 +26,6 @@ export default function ImportButton(props)
                         if (testString.length > 0) 
                         {
                             testStrings.push(testString);
-                            alert(testString);
                         }
                     }
                 }
@@ -46,11 +34,12 @@ export default function ImportButton(props)
                     reader.abort();
                     alert(err + '\nError occurred while loading in file ' + files[i]);
                 }
+
+                props.onClick(testStrings);
             };
+
             reader.readAsText(files[i]);
         }
-
-        return testStrings;
     }
 
     return (
@@ -64,3 +53,7 @@ export default function ImportButton(props)
         </div>
     );
 }
+
+ImportButton.propTypes = {
+    onClick: PropTypes.func
+};

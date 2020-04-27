@@ -6,7 +6,7 @@ const TEST_STRINGS_FILENAME = 'test.txt';
 
 export default function ExportButton(props) 
 {
-    const {testStrings} = props;
+    const { testStrings } = props;
 
     function handleExportClick(e) 
     {
