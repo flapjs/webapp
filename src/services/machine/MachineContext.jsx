@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { uuid } from '@flapjs/util/MathHelper.js';
 
-export const MachineContext = React.createContext();
+export const MachineContext = React.createContext(null);
 
 export function MachineProvider(props)
 {
