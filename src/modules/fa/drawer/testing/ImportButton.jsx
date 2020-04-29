@@ -1,54 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Upload from '@flapjs/components/upload/Upload.jsx';
+import { UploadIcon } from '@flapjs/components/icons/Icons.js';
 
 const ACCEPTED_FILE_TYPES = '.txt'; // '.txt, .jpg, .png, etc.' for accepting multiple file types
 
 export default function ImportButton(props) 
 { 
-    let testStrings = [];
-
-    function handleImportChange(event) 
+    const { onClick } = props;
+    
+    function handleImportChange(files) 
     {
-        const files = event.target.files;
-
-        for(let i = 0; i < files.length; i++) 
+        let fileBlobs = [];
+        for(let fileBlob of files)
         {
-            const reader = new FileReader();
-            reader.onload = (event) => 
-            {
-                try 
-                {
-                    const allTestStrings = event.target.result.split('\n');
-
-                    for (let testString of allTestStrings) 
-                    {
-                        testString = testString.trim();
-                        if (testString.length > 0) 
-                        {
-                            testStrings.push(testString);
-                        }
-                    }
-                }
-                catch(err) 
-                {
-                    reader.abort();
-                    alert(err + '\nError occurred while loading in file ' + files[i]);
-                }
-
-                props.onClick(testStrings);
-            };
-
-            reader.readAsText(files[i]);
+            fileBlobs.push(fileBlob);
         }
+
+        let result = [];
+        let promise = fileBlobs.reduce((prev, fileBlob) =>
+        {
+            return prev.then(() => fileBlob.text())
+                .then(textData => textData.split('\n'))
+                .then(lines =>
+                {
+                    for(let line of lines)
+                    {
+                        result.push(line);
+                    }
+                });
+        },
+        Promise.resolve());
+
+        promise.then(() => onClick(result));
     }
 
     return (
         <div>
-            <input type="file" 
-                name="import_button"
+            <Upload 
+                iconClass={UploadIcon}
                 accept={ACCEPTED_FILE_TYPES}
-                onChange={handleImportChange}
-                multiple
+                onUpload={handleImportChange}
+                multiple={true}
             />
         </div>
     );
