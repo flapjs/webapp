@@ -1,69 +1,104 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import Options from '@flapjs/components/options/Options.jsx';
+import { uuid } from '@flapjs/util/MathHelper.js';
 
+import Options from '@flapjs/components/options/Options.jsx';
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
 import Button from '@flapjs/components/lib/Button.jsx';
 import { solveFSA } from '@flapjs/modules/fa/machine/FSAUtils.js';
 import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
-//import { CircleCheckIcon, CircleCrossIcon } from '@flapjs/components/icons/Icons.js';
-import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
+
+import TestString from './TestString.jsx';
+import ImportButton from './ImportButton.jsx';
+import ExportButton from './ExportButton.jsx';
 
 export default function StringTester(props)
 {
+    // NOTE: These strings MUST NEVER LEAVE THIS FUNCTION. Otherwise, bad things will happen... (desync)
     const [testStrings, setTestStrings] = useState([]);
-    const [testResults, setTestResults] = useState([]);
     const fsa = useMachine(props.machineBuilderType, props.machineName);
 
     const onNewTestString = useCallback(() =>
     {
-        setTestStrings([...testStrings, '']);
-        setTestResults([...testResults, 'none']);
+        let testString = createTestStringObject();
+        setTestStrings([...testStrings, testString]);
     },
-    [testStrings, setTestStrings, testResults, setTestResults]);
+    [testStrings, setTestStrings]);
+
+    const onImportTestStrings = useCallback((testStrings) =>
+    {
+        let newTestStrings = [];
+        for(let testString of testStrings) 
+        {
+            newTestStrings.push(createTestStringObject(testString));
+        }
+
+        // TODO: for now this overwrites the current test strings, but maybe append?
+        setTestStrings(newTestStrings);
+    },
+    [setTestStrings]);
+
+    let isEmpty = testStrings.length <= 0;
 
     return (
         <Options title="String Tester">
-            <div>
-                <FieldButton id="testStringButton"
-                    onClick={onNewTestString}>
-                    Add Test String
-                </FieldButton>
+            <ImportButton onClick={onImportTestStrings} />
+            <ExportButton testStrings={testStrings.map(testStringObject => testStringObject.value)} />
 
-                <Button disabled={testStrings.length <= 0}
-                    onClick={() =>
+            <Button disabled={isEmpty}
+                onClick={() =>
+                {
+                    let newTestStrings = [...testStrings];
+                    for(let testStringObject of newTestStrings)
                     {
-                        let results = [];
-                        for(let i = 0; i < testStrings.length; i++)
-                        {
-                            let result = solveFSA(fsa, testStrings[i]);
-                            results.push(result ? 'pass' : 'fail');
-                        }
-                        setTestResults(results);
-                    }}>
-                    Run All
-                </Button>
-                {testStrings.map((value, key) =>
-                    <TestString
-                        key={key}
-                        value={value}
-                        result={testResults[key]}
-                        onClick={e =>
-                        {
-                            let newTestResults = [...testResults];
-                            newTestResults[key] = solveFSA(fsa, value) ? 'pass' : 'fail';
-                            setTestResults(newTestResults);
-                        }}
-                        onChange={e =>
-                        {
-                            const newTests = [...testStrings];
-                            newTests[key] = e.target.value;
-                            setTestStrings(newTests);
-                        }}
-                    />
-                )}
-            </div>
+                        let solved = solveFSA(fsa, testStringObject.value);
+                        testStringObject.result = solved ? 'pass' : 'fail';
+                    }
+                    setTestStrings(newTestStrings);
+                }}>
+                Run All
+            </Button>
+            <Button disabled={isEmpty}
+                onClick={() => setTestStrings([])}>
+                Remove All Tests
+            </Button>
+            {testStrings.map((testStringObject, index) =>
+                <TestString
+                    key={testStringObject.id}
+                    value={testStringObject.value}
+                    result={testStringObject.result}
+                    onClick={e =>
+                    {
+                        let newTestStrings = [...testStrings];
+                        let testStringObject = newTestStrings[index];
+                        testStringObject.result = solveFSA(fsa, testStringObject.value) ? 'pass' : 'fail';
+                        setTestStrings(newTestStrings);
+                    }}
+                    onChange={e =>
+                    {
+                        let newTestStrings = [...testStrings];
+                        newTestStrings[index].value = e.target.value;
+                        setTestStrings(newTestStrings);
+                    }}
+                    onRemove={e =>
+                    {
+                        let newTestStrings = [...testStrings];
+                        newTestStrings.splice(index, 1);
+                        setTestStrings(newTestStrings);
+                    }}
+                />
+            )}
+            {/*
+                DESIGN QUESTION: Why is it at the bottom of the list? And not at the top?
+                ANSWER: Because usually the workflow is to edit a single test string, then make
+                a new one; only when we are testing the ui functionality do we want to create
+                multiple empty test fields at one time.
+            */}
+            <FieldButton id="testStringButton"
+                onClick={onNewTestString}>
+                Add Test String
+            </FieldButton>
         </Options>
     );
 }
@@ -74,51 +109,11 @@ StringTester.propTypes = {
 StringTester.defaultProps = {
 };
 
-function TestString(props)
+function createTestStringObject(value='',result='none')
 {
-    const { value, result, onClick, onChange } = props;
-     
-    let renderedStatus;
-    switch(result)
-    {
-        case 'pass':
-            renderedStatus = '\u2611';
-            break;
-        case 'fail':
-            renderedStatus = '\u2612';
-            break;
-        case 'none':
-            renderedStatus = '\u2610';
-            break;
-        default:
-            throw new Error(`Unknown status '${result}'.`);
-    }
-
-    return (
-        <p>
-            <Button onClick={onClick}>
-                Run
-            </Button>
-            <input type="text"
-                value={value}
-                placeholder={EMPTY_SYMBOL}
-                onChange={onChange} />
-            <label style={{ fontSize: '1.5rem' }}>
-                {renderedStatus}
-            </label>
-        </p>
-    );
+    return {
+        id: uuid(),
+        value,
+        result,
+    };
 }
-TestString.propTypes = {
-    value: PropTypes.string.isRequired,
-    result: PropTypes.oneOf([
-        'pass',
-        'fail',
-        'none',
-    ]),
-    onClick: PropTypes.func,
-    onChange: PropTypes.func,
-};
-TestString.defaultProps = {
-    result: null,
-};
