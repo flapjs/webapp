@@ -193,6 +193,26 @@ export function GraphReducer(graphType, graphState, action)
             }
             return next;
         }
+        case 'deleteAll':
+        {
+            const { elementType, elementIds } = action;
+
+            let next = { ...graphState };
+            let key = graphType.getElementTypeKeyForElementType(elementType);
+            if (key in next)
+            {
+                let nextElements = {...next[key]};
+                for(let elementId of elementIds)
+                {
+                    let element = nextElements[elementId];
+                    delete nextElements[elementId];
+                    next[key] = nextElements;
+                    element.onDestroy(graphType, next);
+                    element.markDead();
+                }
+            }
+            return next;
+        }
         case 'clear':
         {
             const { elementType } = action;

@@ -37,21 +37,21 @@ export default function NotifyStack(props)
     }
 
     return (
-        <>
-        {messages.map(messageObject =>
-        {
-            const { component, props, message, messageId, messageType } = messageObject;
-            
-            const Component = component || defaultComponent;
-            return (
-                <Component key={messageId}
-                    {...props}
-                    message={message}
-                    messageId={messageId}
-                    messageType={messageType}/>
-            );
-        })}
-        </>
+        <div style={{ maxWidth: '22rem', maxHeight: '100%', overflowY: 'auto' }}>
+            {messages.map(messageObject =>
+            {
+                const { component, props, message, messageId, messageType } = messageObject;
+                
+                const Component = component || defaultComponent;
+                return (
+                    <Component key={messageId}
+                        {...props}
+                        message={message}
+                        messageId={messageId}
+                        messageType={messageType}/>
+                );
+            })}
+        </div>
     );
 }
 NotifyStack.propTypes = {

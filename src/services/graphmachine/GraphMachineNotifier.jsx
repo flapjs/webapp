@@ -12,35 +12,27 @@ export default function GraphMachineNotifier(props)
     const notifyDispatch = useContext(NotifyDispatchContext);
 
     const errors = useRef([]);
-    const warnings = useRef([]);
 
     useEffect(() =>
     {
-        const machineErrors = machineBuilder.errors;
-        const machineWarnings = machineBuilder.warnings;
+        const messages = [ ...machineBuilder.errors, ...machineBuilder.warnings ];
 
         const errorTag = machineBuilderType.name + '.errors';
-        if (isDifferentErrors(errors.current, machineErrors))
-        {
-            errors.current = [...machineErrors];
-            notifyDispatch({
-                type: 'send',
-                message: machineErrors.join('\n'),
-                tags: [ errorTag ],
-                replace: true
-            });
-        }
+        let shouldUpdateErrors = isDifferentErrors(errors.current, messages);
 
-        if (isDifferentErrors(warnings.current, machineWarnings))
+        if (shouldUpdateErrors)
         {
-            const warningTag = machineBuilderType.name + '.warnings';
-            warnings.current = [...machineWarnings];
-            notifyDispatch({
-                type: 'send',
-                message: machineWarnings.join('\n'),
-                tags: [ warningTag ],
-                replace: true
-            });
+            notifyDispatch({ type: 'dismiss', tags: [ errorTag ]});
+
+            errors.current = [...messages];
+            for(let errorDispatchObject of errors.current)
+            {
+                errorDispatchObject.type = 'send';
+                if (!Array.isArray(errorDispatchObject.tags)) errorDispatchObject.tags = [];
+                errorDispatchObject.tags.push(errorTag);
+
+                notifyDispatch(errorDispatchObject);
+            }
         }
     });
 

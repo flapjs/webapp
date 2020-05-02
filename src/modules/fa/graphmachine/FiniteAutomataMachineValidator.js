@@ -1,12 +1,12 @@
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
-import { getUnreachableNodes } from './FiniteAutomataGraphUnreachableHandler.js';
+import { getUnreachableNodeIds } from './FiniteAutomataGraphUnreachableHandler.js';
 
-export const ERROR_DUPLICATE_STATE = 'duplicateState';
-export const ERROR_UNREACHABLE_STATE = 'unreachableState';
-export const ERROR_DUPLICATE_TRANSITION = 'duplicateTransition';
-export const ERROR_EMPTY_TRANSITION = 'emptyTransition';
-export const ERROR_INCOMPLETE_TRANSITION = 'incompleteTransition';
-export const ERROR_MISSING_TRANSITION = 'missingTransition';
+import IncompleteTransitionErrorMessage from '../messages/IncompleteTransitionErrorMessage.jsx';
+import DuplicateNodeErrorMessage from '../messages/DuplicateNodeErrorMessage.jsx';
+import UnreachableNodeErrorMessage from '../messages/UnreachableNodeErrorMessage.jsx';
+import EmptyTransitionErrorMessage from '../messages/EmptyTransitionErrorMessage.jsx';
+import DuplicateTransitionErrorMessage from '../messages/DuplicateTransitionErrorMessage.jsx';
+import MissingTransitionErrorMessage from '../messages/MissingTransitionErrorMessage.jsx';
 
 export default class FiniteAutomataMachineValidator
 {
@@ -21,6 +21,9 @@ export default class FiniteAutomataMachineValidator
         this.edgeSymbols = new Set();
         this.edgePlaceholders = [];
         this.edgeEmpties = [];
+
+        this.stateToNodeIdMap = new Map();
+        this.nodeIdToStateLabelMap = new Map();
     }
 
     setDeterministic(deterministic)
@@ -46,6 +49,9 @@ export default class FiniteAutomataMachineValidator
     addState(nodeId, state)
     {
         const label = state.getStateLabel();
+
+        this.nodeIdToStateLabelMap.set(nodeId, label);
+        this.stateToNodeIdMap.set(state, nodeId);
 
         // Check for duplicate states
         if (this.nodeLabels.has(label)) this.nodeLabels.get(label).push(state);
@@ -101,62 +107,62 @@ export default class FiniteAutomataMachineValidator
             edgeEmpties,
             nodeOutgoings,
             edgeSymbols,
+            stateToNodeIdMap,
+            nodeIdToStateLabelMap,
         } = this;
 
-        //Check for incomplete edge
+        // Check for incomplete edge
         if (edgePlaceholders.length > 0)
         {
             errors.push({
-                name: ERROR_INCOMPLETE_TRANSITION,
-                edges: edgePlaceholders
+                component: IncompleteTransitionErrorMessage,
+                message: { edgeIds: edgePlaceholders },
             });
         }
 
-        //Check for duplicate node labels
+        // Check for duplicate node labels
         for (const [nodeLabel, sharedStates] of nodeLabels.entries())
         {
             if (sharedStates.length > 1)
             {
                 errors.push({
-                    name: ERROR_DUPLICATE_STATE,
-                    label: nodeLabel,
-                    nodes: sharedStates.map(e => e.getSource())
+                    component: DuplicateNodeErrorMessage,
+                    message: {
+                        label: nodeLabel, 
+                        nodeIds: sharedStates.map(e => stateToNodeIdMap.get(e))
+                    }
                 });
             }
         }
 
-        //Check for incomplete edge
-        if (edgePlaceholders.length > 0)
-        {
-            errors.push({
-                name: ERROR_INCOMPLETE_TRANSITION,
-                edges: edgePlaceholders
-            });
-        }
-
-        //Check for unreachable nodes
-        const unreachables = getUnreachableNodes(graphType, graphState, this.startState);
+        // Check for unreachable nodes
+        const unreachables = getUnreachableNodeIds(graphType, graphState, this.startNodeId);
         if (unreachables && unreachables.length > 0)
         {
             warnings.push({
-                name: ERROR_UNREACHABLE_STATE,
-                nodes: unreachables
+                component: UnreachableNodeErrorMessage,
+                message: {
+                    labels: unreachables.map(nodeId => nodeIdToStateLabelMap.get(nodeId)),
+                    nodeIds: unreachables,
+                }
             });
         }
 
         if (deterministic)
         {
-            //Check for empty transitions
+            // Check for empty transitions
             if (edgeEmpties.length > 0)
             {
                 errors.push({
-                    name: ERROR_EMPTY_TRANSITION,
-                    edges: edgeEmpties
+                    component: EmptyTransitionErrorMessage,
+                    message: {
+                        edgeIds: edgeEmpties,
+                    }
                 });
             }
 
-            //Check for duplicate edge labels
-            //Check for missing edge labels
+            // Check for duplicate edge labels
+            // Check for missing edge labels
             const missingSymbols = [];
             for (const [state, edgeMapping] of nodeOutgoings.entries())
             {
@@ -168,9 +174,8 @@ export default class FiniteAutomataMachineValidator
                         if (edges.length !== 1)
                         {
                             errors.push({
-                                name: ERROR_DUPLICATE_TRANSITION,
-                                edges: edges,
-                                symbol: symbol
+                                component: DuplicateTransitionErrorMessage,
+                                message: { edgeIds: edges, fromNodeLabel: nodeIdToStateLabelMap.get(stateToNodeIdMap.get(state)), symbol },
                             });
                         }
                     }
@@ -183,9 +188,11 @@ export default class FiniteAutomataMachineValidator
                 if (missingSymbols.length > 0)
                 {
                     errors.push({
-                        name: ERROR_MISSING_TRANSITION,
-                        node: state.getSource(),
-                        symbols: missingSymbols.slice()
+                        component: MissingTransitionErrorMessage,
+                        message: {
+                            symbols: [ ...missingSymbols ],
+                            label: nodeIdToStateLabelMap.get(stateToNodeIdMap.get(state)),
+                        }
                     });
                     missingSymbols.length = 0;
                 }

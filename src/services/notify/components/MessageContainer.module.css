@@ -29,7 +29,7 @@
 
 .container:global(.error) {
     border-color: darkred;
-    background-color: orangered;
+    background-color: salmon;
 }
 
 .container:global(.warning) {

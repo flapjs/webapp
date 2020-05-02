@@ -95,7 +95,7 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
                     // NOTE: This validates the user-input symbols, not the translated symbols.
                     validator.addSymbolForEdge(edgeId, symbol);
                     // This prepares to validate the entire transition.
-                    validator.addTransition(srcState, dstState, transitionSymbol);
+                    validator.addTransition(edgeId, srcState, dstState, transitionSymbol);
                 }
             }
         }

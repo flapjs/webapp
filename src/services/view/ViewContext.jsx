@@ -1,7 +1,7 @@
 import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-export const ViewContext = React.createContext();
+export const ViewContext = React.createContext(null);
 
 export function ViewProvider(props)
 {
