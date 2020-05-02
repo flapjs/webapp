@@ -61,7 +61,7 @@ export function getMachineBuilderContext(machineBuilderType, machineId, mutable 
 /**
  * Assumes the machine builder for the given identification already exists.
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineId The unique id for the machine.
  * @returns {boolean} Whether the machine builder is being used. This determines whether
  * the machine builder should be automatically destroyed or not.
@@ -75,7 +75,7 @@ export function isInUse(machineBuilderType, machineId)
 /**
  * Assumes the machine builder for the given identification already exists.
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineId The unique id for the machine.
  */
 export function addRefCount(machineBuilderType, machineId)
@@ -87,7 +87,7 @@ export function addRefCount(machineBuilderType, machineId)
 /**
  * Assumes the machine builder for the given identification already exists.
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineId The unique id for the machine.
  */
 export function removeRefCount(machineBuilderType, machineId)
@@ -98,7 +98,7 @@ export function removeRefCount(machineBuilderType, machineId)
 
 /**
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineId The unique id for the machine.
  * @param {boolean} persistent Whether to persist (or ignore) deletion when unused.
  */

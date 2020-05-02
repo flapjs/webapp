@@ -38,10 +38,10 @@ export default class GraphService extends BaseService
 /**
  * Creates another GraphService with the given graph type.
  *
- * @param {Class<BaseGraph>} graphType The chosen graph type.
+ * @param {typeof BaseGraph} graphType The chosen graph type.
  * @param {React.ComponentType} [graphPlayground] The complementary playground.
  * @param {React.ComponentType} [graphEditor] The complementary graph editor.
- * @returns {Class<GraphService>} The new GraphService with reducer function.
+ * @returns {typeof GraphService} The new GraphService with reducer function.
  */
 GraphService.withGraphType = (graphType, graphPlayground = undefined, graphEditor = undefined) =>
 {

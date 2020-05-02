@@ -42,7 +42,7 @@ export default class GraphElement
      * Basically, when it changes from alive to dead.
      * 
      * @abstract
-     * @param {Class<BaseGraph>} graphType The graph type.
+     * @param {typeof BaseGraph} graphType The graph type.
      * @param {object} graphState The new, mutable graph state.
      */
     onDestroy(graphType, graphState) {}

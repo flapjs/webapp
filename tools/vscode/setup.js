@@ -21,7 +21,7 @@ main(process.argv).catch(e => { throw e; });
  * - **full**. For access to everything. Useful for admin or devops work.
  * - **dev**. For general development. Useful for developers. Less clutter.
  * 
- * @param {Array<String>} args The program arguments.
+ * @param {Array<string>} args The program arguments.
  */
 async function main(args)
 {

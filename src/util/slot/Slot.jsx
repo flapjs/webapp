@@ -60,7 +60,7 @@ export default class Slot extends React.Component
      * Injects the content into an unnamed slot or a named target slot.
      * 
      * @param {string} providerName The globally unique name of the provider for the target slot.
-     * @param {Class<React.Component>} componentClass A react component class to inject into the slot.
+     * @param {typeof React.Component} componentClass A react component class to inject into the slot.
      * @param {object} [componentProps] The props object to render with.
      * @param {string} [slotName] The name of the slot to inject into.
      * @param {string} [contentKey] The content key to uniquely identify this content from others injecting
@@ -105,7 +105,7 @@ export default class Slot extends React.Component
      * comparison on the component class itself and the between the entries of the props.
      * 
      * @param {string} providerName The globally unique name of the provider for the target slot.
-     * @param {Class<React.Component>} componentClass A react component class to check for in the slot.
+     * @param {typeof React.Component} componentClass A react component class to check for in the slot.
      * @param {object} [componentProps] The props object to check for in the slot.
      * @param {string} [slotName] The name of the target slot.
      * @param {string} [contentKey] The content key for the target slot content.

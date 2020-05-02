@@ -5,7 +5,7 @@ export function createMixinClass(mixinClassInstance, mixinConstructor)
          * Creates an eventable object.
          * 
          * @param {...any} [args] Any additional arguments passed to the constructor.
-         * @returns {Eventable} The created eventable object.
+         * @returns {object} The created eventable object.
          */
         create(...args)
         {
@@ -18,7 +18,7 @@ export function createMixinClass(mixinClassInstance, mixinConstructor)
          * 
          * @param {object} dst The object to assign with eventable properties.
          * @param {...any} [args] Any additional arguments passed to the constructor.
-         * @returns {Eventable} The resultant eventable object.
+         * @returns {object} The resultant eventable object.
          */
         assign(dst, ...args)
         {
@@ -29,9 +29,9 @@ export function createMixinClass(mixinClassInstance, mixinConstructor)
         /**
          * Mixins eventable properties into the passed-in class.
          * 
-         * @param {Class} targetClass The class to mixin eventable properties.
+         * @param {Function} targetClass The class to mixin eventable properties.
          * @param {...any} [args] Any additional arguments passed to the constructor.
-         * @returns {Class<Eventable>} The resultant eventable-mixed-in class.
+         * @returns {Function} The resultant eventable-mixed-in class.
          */
         mixin(targetClass, ...args)
         {

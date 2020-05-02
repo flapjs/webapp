@@ -8,7 +8,7 @@ import * as MachineBuilderAPI from './MachineBuilderAPI.js';
 /**
  * Gets a machine builder for the given type and name.
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineName The session-unique name for the machine.
  * @returns {MachineBuilder} The machine builder for the type and name.
  */
@@ -56,7 +56,7 @@ export function useMachineBuilder(machineBuilderType, machineName)
 /**
  * Gets a machine for the given type and name. This is simply a wrapper around useMachineBuilder().
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineName The session-unique name for the machine.
  * @returns {object} The machine for the type and name.
  */
@@ -70,7 +70,7 @@ export function useMachine(machineBuilderType, machineName)
  * Attaches a source for the machine to reflect from. This should only be used once per unique machine builder type
  * and name combination.
  * 
- * @param {Class<MachineBuilder>} machineBuilderType The machine builder type.
+ * @param {typeof MachineBuilder} machineBuilderType The machine builder type.
  * @param {string} machineName The session-unique name for the machine.
  * @param {object} sourceState The source state object. The state must be from source that triggers a re-render
  * in order to start an update. In other words, this hook DOES NOT TRIGGER RE-RENDERS. That is up to you (usually

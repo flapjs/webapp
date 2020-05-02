@@ -107,7 +107,7 @@ export default class BaseGraph
     /**
      * Computes the hash for the given graph.
      * 
-     * @param {Class<BaseGraph>} graphType The type of the graph.
+     * @param {typeof BaseGraph} graphType The type of the graph.
      * @param {object} graphState The graph state.
      * @returns {number} The hash code representing the state of the graph.
      */
@@ -156,7 +156,7 @@ export default class BaseGraph
      * Assumes the given element type has "x" and "y" as properties describing their position.
      * 
      * @param {object} graphState The graph state containing the list of current elements.
-     * @param {Class<GraphElement>} elementType The element type to look for.
+     * @param {typeof GraphElement} elementType The element type to look for.
      * @param {number} x The x position to find the element.
      * @param {number} y The y position to find the element.
      * @param {number} radius The distance from the position to consider.
@@ -182,7 +182,7 @@ export default class BaseGraph
      * Assumes the given element type has "x" and "y" as properties describing their position.
      * 
      * @param {object} graphState The graph state containing the list of current elements.
-     * @param {Class<GraphElement>} elementType The element type to look for.
+     * @param {typeof GraphElement} elementType The element type to look for.
      * @param {number} fromX The top left x position.
      * @param {number} fromY The top left y position.
      * @param {number} toX The bottom right x position.

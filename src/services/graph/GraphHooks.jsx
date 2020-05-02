@@ -9,7 +9,7 @@ import { addStateListener, removeStateListener } from './GraphStateListener.js';
 /**
  * This is here for completion. This is simply an alias for `useContext(GraphTypeContext)`.
  * 
- * @returns {Class<BaseGraph>} The currently used graph type.
+ * @returns {typeof import('./BaseGraph.js').default} The currently used graph type.
  */
 export function useGraphType() { return useContext(GraphTypeContext); }
 

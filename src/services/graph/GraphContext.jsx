@@ -154,7 +154,7 @@ function useGraphUpdateCycle(state)
 /**
  * The default graph reducer (if action was not handled by the given reducer() from the graph type).
  * 
- * @param {Class<BaseGraph>} graphType The type of graph for the state.
+ * @param {typeof import('./BaseGraph.js').default} graphType The type of graph for the state.
  * @param {object} graphState The previous state.
  * @param {object} action The action options to perform. Specify `type` to select which action to perform.
  * @returns {object} The resultant state. Or falsey if no changes.

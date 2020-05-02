@@ -4,7 +4,7 @@ import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 /**
  * Applies a circle layout to the graph.
  * 
- * @param {Class<BaseGraph>} graphType The graph type for the graph state.
+ * @param {typeof import('@flapjs/services/graph/BaseGraph.js').default} graphType The graph type for the graph state.
  * @param {object} graphState The graph state to apply the layout to.
  */
 export default function CircleLayout(graphType, graphState)

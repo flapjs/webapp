@@ -1,105 +1,105 @@
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
-export function buildGraphFromMachine(machineBuilder, machine, graphType, graphState, opts)
+import { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa/machine/FSA.js';
+import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
+
+import FiniteAutomataMachineValidator from './FiniteAutomataMachineValidator.js';
+
+export function buildMachineFromGraph(machineBuilder, machine, graphType, graphState, opts)
 {
     const nodeTypeKey = graphType.getElementTypeKeyForElementType(NodeElement);
     const edgeTypeKey = graphType.getElementTypeKeyForElementType(EdgeElement);
 
-    let result = {
-        [nodeTypeKey]: {},
-        [edgeTypeKey]: {},
-    };
+    machineBuilder.sourceMap.clear();
+    machineBuilder.errors.length = 0;
+    machineBuilder.warnings.length = 0;
 
-    // Compute all states...
-    let xy = 0;
-    for(const state of machine.getStates())
+    const deterministic = machine.isDeterministic();
+    machine.clear();
+
+    const validator = new FiniteAutomataMachineValidator().setDeterministic(deterministic);
+
+    const nodeToStateMap = new Map();
+
+    if (graphState[nodeTypeKey])
     {
-        let nodeData = {};
-        let nodeId = state.getStateID();
-
-        if (opts.builder)
+        for (const nodeId of Object.keys(graphState[nodeTypeKey]))
         {
-            nodeId = opts.builder.sourceMap.get(state.getStateID()) || nodeId;
-            let node = graphType.getElement(graphState, NodeElement, nodeId);
-            if (node)
+            const node = graphState[nodeTypeKey][nodeId];
+            const { label, final, initial } = node;
+
+            let state = new State(label);
+            machine.addState(state);
+
+            nodeToStateMap.set(nodeId, state.getStateID());
+            machineBuilder.sourceMap.set(state.getStateID(), nodeId);
+
+            if (final)
             {
-                NodeElement.serialize(node, nodeData);
+                machine.setFinalState(state, true);
             }
-            else
+
+            if (initial)
             {
-                nodeData.x = xy;
-                nodeData.y = xy;
-                xy += 10;
+                machine.setStartState(state);
+                validator.setStartState(nodeId, state);
             }
-        }
-        else
-        {
-            nodeData.x = xy;
-            nodeData.y = xy;
-            xy += 10;
-        }
 
-        nodeData.label = state.getStateLabel();
-        if (machine.isStartState(state))
-        {
-            nodeData.initial = true;
+            validator.addState(nodeId, state);
         }
-        else
-        {
-            nodeData.initial = false;
-        }
-        
-        if (machine.isFinalState(state))
-        {
-            nodeData.final = true;
-        }
-        else
-        {
-            nodeData.final = false;
-        }
-
-        result[nodeTypeKey][nodeId] = nodeData;
     }
 
-    // Compute all transitions...
-    let index = 0;
-    let source, destination;
-    let edge, fromId, toId, label;
-    for (const transition of machine.getTransitions())
+    if (graphState[edgeTypeKey])
     {
-        source = transition.getSourceState();
-        if (!source) continue;
-
-        fromId = source.getStateID();
-        if (!fromId) continue;
-
-        if (opts.builder)
+        for (const edgeId of Object.keys(graphState[edgeTypeKey]))
         {
-            fromId = opts.builder.sourceMap.get(fromId) || fromId;
+            const edge = graphState[edgeTypeKey][edgeId];
+
+            const { fromId, toId, label } = edge;
+            
+            if (!toId)
+            {
+                validator.addPlaceholder(edgeId);
+                continue;
+            }
+            else if (fromId && toId)
+            {
+                const sourceId = nodeToStateMap.get(fromId);
+                const destinationId = nodeToStateMap.get(toId);
+
+                const srcState = machine.getStateByID(sourceId);
+                const dstState = machine.getStateByID(destinationId);
+
+                if (!srcState || !dstState) throw new Error('Cannot find state for edge source/destination nodes - mismatch id');
+
+                const symbols = label.split('\n');
+                for (const symbol of symbols)
+                {
+                    if (!symbol) continue;
+
+                    // Translate all labels to symbols
+                    let transitionSymbol;
+                    switch (symbol)
+                    {
+                        case EMPTY_SYMBOL:
+                            transitionSymbol = FSA_EMPTY_SYMBOL;
+                            break;
+                        default:
+                            transitionSymbol = symbol;
+                    }
+
+                    // Add to machine...
+                    machine.addTransition(srcState, dstState, transitionSymbol);
+
+                    // NOTE: This validates the user-input symbols, not the translated symbols.
+                    validator.addSymbolForEdge(edgeId, symbol);
+                    // This prepares to validate the entire transition.
+                    validator.addTransition(srcState, dstState, transitionSymbol);
+                }
+            }
         }
-
-        label = transition.getSymbols().join('\n');
-
-        destination = transition.getDestinationState();
-        if (!destination) continue;
-
-        toId = destination.getStateID();
-        if (!toId) continue;
-
-        if (opts.builder)
-        {
-            toId = opts.builder.sourceMap.get(toId) || toId;
-        }
-
-        edge = {
-            fromId,
-            toId,
-            label,
-        };
-
-        result[edgeTypeKey][index++] = edge;
     }
-
-    return result;
+    
+    return validator.validate(graphType, graphState);
 }
