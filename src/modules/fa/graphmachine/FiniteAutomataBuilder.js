@@ -44,10 +44,9 @@ export default class FiniteAutomataBuilder extends GraphMachineBuilder
         super();
         
         this.sourceMap = new Map();
-
         this.errors = [];
         this.warnings = [];
-
+        
         this.prevSourceHash = 0;
         this.prevDeterminism = null;
     }
@@ -73,6 +72,15 @@ export default class FiniteAutomataBuilder extends GraphMachineBuilder
         // Until we can separate the validator from the builder...
         if (opts.machineOnly)
         {
+            // HACK: This will run the WHOLE REBUILD EACH TIME THIS HAPPENS. WHICH IS COSTLY.
+            // But since this is only used by the determinism switch, it is okay.
+            const { errors, warnings } = buildMachineFromGraph(this, machine, FiniteAutomataGraph, source, opts);
+    
+            this.errors.length = 0;
+            this.warnings.length = 0;
+            if (errors) this.errors.push(...errors);
+            if (warnings) this.warnings.push(...warnings);
+
             return true;
         }
 
@@ -80,7 +88,7 @@ export default class FiniteAutomataBuilder extends GraphMachineBuilder
         {
             return false;
         }
-
+        
         const { errors, warnings } = buildMachineFromGraph(this, machine, FiniteAutomataGraph, source, opts);
 
         this.errors.length = 0;
@@ -91,3 +99,5 @@ export default class FiniteAutomataBuilder extends GraphMachineBuilder
         return true;
     }
 }
+
+
