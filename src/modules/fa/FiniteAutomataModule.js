@@ -34,14 +34,14 @@ export default class FiniteAutomataModule extends BaseModule
     static get renders()
     {
         return {
-            header: [ AutoInit, AutoSave ],
-            appbar: [ FiniteAutomataToolbar ],
+            header: [AutoInit, AutoSave],
+            appbar: [FiniteAutomataToolbar],
             playarea: [
                 [GraphMachineSource, { machineBuilderType: FiniteAutomataBuilder }],
                 [GraphMachineNotifier, { machineBuilderType: FiniteAutomataBuilder }]
             ],
-            viewarea: [ ],
-            drawer: [ OverviewPanel, ComputePanel, TestingPanel, ExportPanel ],
+            viewarea: [],
+            drawer: [OverviewPanel, TestingPanel, ComputePanel, ExportPanel],
         };
     }
 
@@ -50,7 +50,7 @@ export default class FiniteAutomataModule extends BaseModule
     {
         return [
             HistoryService,
-            NotifyService.withInitialMessages([ 'Hello' ]),
+            NotifyService.withInitialMessages(['Hello']),
             GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground, FiniteAutomataGraphEditor),
             MachineService,
         ];

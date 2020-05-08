@@ -27,45 +27,45 @@ export default function ComputePanel(props)
 
     return (
         <>
-        <header>
-            <h2 style={{ margin: '1rem' }}>Computations</h2>
-        </header>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
-            <Pane title="Equivalent Conversions">
-                <div>
-                    {!deterministic
-                        ? <FieldButton id="convertToDFA"
-                            onClick={() => notifyDispatch({ type: 'send', component: NFAToDFAConversionMessage, message: `${stateCount} state(s) -> ${Math.pow(2, stateCount)} states`})}
-                            disabled={isEmpty}>
-                            <span>Convert to </span>
-                            <span>DFA</span>
+            <header>
+                <h2 style={{ margin: '1rem' }}>Transformations</h2>
+            </header>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
+                <Pane title="Equivalent Conversions">
+                    <div>
+                        {!deterministic
+                            ? <FieldButton id="convertToDFA"
+                                onClick={() => notifyDispatch({ type: 'send', component: NFAToDFAConversionMessage, message: `${stateCount} state(s) -> ${Math.pow(2, stateCount)} states` })}
+                                disabled={isEmpty}>
+                                <span>Convert to </span>
+                                <span>DFA</span>
+                            </FieldButton>
+                            : <FieldButton id="convertToNFA"
+                                onClick={() => machineBuilder.applyChanges(machine => machine.setDeterministic(false), { machineOnly: true })}
+                                disabled={isEmpty}>
+                                <span>Convert to </span>
+                                <span>NFA</span>
+                            </FieldButton>}
+                    </div>
+                    <hr />
+                    <div>
+                        <FieldButton id="removeUnreachableStates"
+                            onClick={() => { }}
+                            disabled={true}>
+                            Remove unreachable states
                         </FieldButton>
-                        : <FieldButton id="convertToNFA"
-                            onClick={() => machineBuilder.applyChanges(machine => machine.setDeterministic(false), { machineOnly: true })}
+                    </div>
+                </Pane>
+                <Pane title="Related Conversions">
+                    <div>
+                        <FieldButton id="flipAllAcceptStates"
+                            onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
                             disabled={isEmpty}>
-                            <span>Convert to </span>
-                            <span>NFA</span>
-                        </FieldButton>}
-                </div>
-                <hr/>
-                <div>
-                    <FieldButton id="removeUnreachableStates"
-                        onClick={() => {}}
-                        disabled={true}>
-                        Remove unreachable states
-                    </FieldButton>
-                </div>
-            </Pane>
-            <Pane title="Related Conversions">
-                <div>
-                    <FieldButton id="flipAllAcceptStates"
-                        onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
-                        disabled={isEmpty}>
-                        Flip all accept states
-                    </FieldButton>
-                </div>
-            </Pane>
-        </div>
+                            Flip all accept states
+                        </FieldButton>
+                    </div>
+                </Pane>
+            </div>
         </>
     );
 }
