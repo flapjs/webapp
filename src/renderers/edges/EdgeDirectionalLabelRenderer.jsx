@@ -31,7 +31,7 @@ export default function EdgeDirectionalLabelRenderer(props)
             <polygon className={RendererStyle.mask}
                 points={maskPoints}
                 {...maskProps}/>
-            {labels && labels.length > 0 && labels.map((s, i) => (
+            {labels && labels.length > 0 && labels.reverse().map((s, i) => (
                 <text key={`${s}:${i}`}
                     className={RendererStyle.decorative}
                     ref={someTextRef}

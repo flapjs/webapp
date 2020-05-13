@@ -19,13 +19,20 @@ import { GraphElementEditorContext } from '@flapjs/services/graph/widgets/editor
 
 import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/QuadraticEdgeHelper.js';
 
+import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
+
+import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
+
 export default function FiniteAutomataGraphPlayground(props)
 {
     const { openEditor } = useContext(GraphElementEditorContext);
     const { createNode, createEdge, swapInitial } = useNodeGraphActions();
 
+    const graphState = useGraphState();
+
     useViewNavigationBehavior();
     useViewDoubleTapBehavior((x, y) => createNode({ x, y }));
+
 
     return (
         <>
@@ -33,12 +40,18 @@ export default function FiniteAutomataGraphPlayground(props)
             <ProxyEdgeProvider
                 onConnect={(from, to, cursor, opts) =>
                 {
+                    
+                    let dupEdge = edgeExists(from, to, graphState);
                     if (opts.prevEdge)
                     {
                         let edge = opts.prevEdge;
                         edge.fromId = from.id;
                         edge.toId = to.id;
                         edge.markDirty();
+                    }
+                    else if(dupEdge)
+                    {
+                        openEditor(dupEdge.type, dupEdge.id);
                     }
                     else
                     {
@@ -74,3 +87,16 @@ export default function FiniteAutomataGraphPlayground(props)
 FiniteAutomataGraphPlayground.propTypes = {
     children: PropTypes.node,
 };
+
+function edgeExists(from, to, graphState)
+{
+    let edges = FiniteAutomataGraph.getElements(graphState, EdgeElement);
+    for(let edge of edges) 
+    {
+        if(edge.fromId === from.id && edge.toId === to.id) 
+        {
+            return edge;
+        }
+    }
+    return undefined;
+}
