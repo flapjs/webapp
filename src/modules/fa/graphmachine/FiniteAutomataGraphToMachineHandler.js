@@ -29,7 +29,7 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
             const node = graphState[nodeTypeKey][nodeId];
             const { label, final, initial } = node;
 
-            let state = new State(label);
+            let state = new State(label, node);
             machine.addState(state);
 
             nodeToStateMap.set(nodeId, state.getStateID());
@@ -90,7 +90,7 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
                     }
 
                     // Add to machine...
-                    machine.addTransition(srcState, dstState, transitionSymbol);
+                    machine.addTransition(srcState, dstState, transitionSymbol, edge);
 
                     // NOTE: This validates the user-input symbols, not the translated symbols.
                     validator.addSymbolForEdge(edgeId, symbol);

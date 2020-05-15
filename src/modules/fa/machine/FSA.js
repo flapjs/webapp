@@ -8,12 +8,12 @@ export const EMPTY_SYMBOL = '&empty';
 
 export class State
 {
-    constructor(label = '', src = null)
+    constructor(label = '', graphElement = null)
     {
         this._label = label;
 
-        this._src = src;
-        this._id = src && typeof src.getGraphElementID === 'function' ? src.getGraphElementID() : guid();
+        this._src = graphElement;
+        this._id = guid();
     }
 
     copy()
@@ -28,21 +28,24 @@ export class State
     getStateLabel() { return this._label; }
 
     getStateID() { return this._id; }
+
+    // @deprecated
     getSource() { return this._src; }
 
-    getHashString()
-    {
-        return this._id;
-    }
+    getAssociatedGraphElement() { return this._src; }
+
+    getHashString() { return this._id; }
 }
 
 export class Transition
 {
-    constructor(from, to, symbols = [])
+    constructor(from, to, symbols = [], graphElement = null)
     {
         this._from = from;
         this._to = to;
         this._symbols = symbols;
+
+        this._src = graphElement;
     }
 
     copy()
@@ -51,6 +54,7 @@ export class Transition
         result._from = this._from;
         result._to = this._to;
         result._symbols = this._symbols.slice();
+        result._src = this._src;
         return result;
     }
 
@@ -60,6 +64,8 @@ export class Transition
     addSymbol(symbol) { this._symbols.push(symbol); }
     hasSymbol(symbol) { return this._symbols.includes(symbol); }
     getSymbols() { return this._symbols; }
+
+    getAssociatedGraphElement() { return this._src; }
 
     getHashString()
     {
@@ -301,7 +307,7 @@ class FSA
 
     getStateCount() { return this._states.size; }
 
-    addTransition(from, to, symbol)
+    addTransition(from, to, symbol, graphElement = undefined)
     {
         if (!this.hasState(from)) throw new Error('Trying to add a transition to unknown state with label \'' + from.getStateLabel() + '\'');
         if (!this.hasState(to)) throw new Error('Trying to add a transition to unknown state with label \'' + to.getStateLabel() + '\'');
@@ -323,7 +329,7 @@ class FSA
         }
         else
         {
-            this._transitions.set(transitionKey, new Transition(from, to, [symbol]));
+            this._transitions.set(transitionKey, new Transition(from, to, [symbol], graphElement));
         }
 
         //Add to alphabet...
