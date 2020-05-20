@@ -8,5 +8,5 @@
 
 .tableEntry:not(:global(.error)):global(.disabled),
 .tableAxisHeader:global(.disabled) {
-    opacity: 0.3;
+    opacity: 0;
 }
