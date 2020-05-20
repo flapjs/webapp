@@ -42,17 +42,17 @@ export default function FiniteAutomataGraphPlayground(props)
                 {
                     
                     let dupEdge = edgeExists(from, to, graphState);
-                    if (opts.prevEdge)
+                    if(dupEdge)
+                    {
+                        openEditor(dupEdge.type, dupEdge.id);
+                    }
+                    else if (opts.prevEdge)
                     {
                         let edge = opts.prevEdge;
                         edge.fromId = from.id;
                         edge.toId = to.id;
                         edge.markDirty();
-                    }
-                    else if(dupEdge)
-                    {
-                        openEditor(dupEdge.type, dupEdge.id);
-                    }
+                    } 
                     else
                     {
                         createEdge(from, to).then(edge => openEditor(edge.type, edge.id));
