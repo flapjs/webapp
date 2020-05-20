@@ -9,14 +9,17 @@ import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomat
 import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
 import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
+
+//import React, { Component } from 'react'
+//import { Menu } from 'semantic-ui-react'
+
 const SYMBOL_AXIS = 'symbols';
 const STATE_AXIS = 'states';
 
 export default function TransitionTable(props)
 {
     const machine = useMachine(FiniteAutomataBuilder, props.machineName);
-    const [ rowAxis, setRowAxis ] = useState(SYMBOL_AXIS);
-
+    const [rowAxis, setRowAxis] = useState(SYMBOL_AXIS);
     const isRowAxis = rowAxis === SYMBOL_AXIS;
 
     return (
