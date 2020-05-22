@@ -22,7 +22,7 @@
 .emptyLabel {
     text-align: center;
     width: 100%;
-    opacity: 30%;
+    color: red;
     font-size: 1.5rem;
 }
 
