@@ -10,6 +10,7 @@ import { getElementListeners } from './elements/GraphElementListener.js';
 import { getStateListeners } from './GraphStateListener.js';
 
 import { getElementTypeListeners } from './elements/GraphElementTypeListener.js';
+import Logger from '@flapjs/util/Logger.js';
 
 const DEFAULT_GRAPH_STATE = {};
 
@@ -65,8 +66,9 @@ function GraphStateProvider(props)
     const graphType = useContext(GraphTypeContext);
     const [ currentState, dispatch ] = useAsyncReducer((state, action) =>
     {
-        const result = graphType.reducer && graphType.reducer(state, action);
-        return result || GraphReducer(graphType, state, action);
+        let result = graphType.reducer && graphType.reducer(state, action);
+        if (!result) result = GraphReducer(graphType, state, action);
+        return result;
     },
     props.graphState, true);
 
@@ -263,17 +265,15 @@ export function GraphReducer(graphType, graphState, action)
                 {
                     for(let element of Object.values(graphState[elementType]))
                     {
-                        element.onDestroy(graphType, state);
+                        element.onDestroy(graphType, graphState);
                         element.markDead();
                     }
                 }
-    
                 return state;
             }
             else
             {
-                // eslint-disable-next-line no-console
-                console.warn('Trying to resetState to null - skipping...');
+                Logger.warn('GraphContext', 'Trying to resetState to null - skipping...');
             }
 
             return;
