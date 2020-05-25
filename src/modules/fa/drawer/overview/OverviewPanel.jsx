@@ -13,8 +13,8 @@ import DeterminismSwitch from './definition/DeterminismSwitch.jsx';
 import TransitionTable from './analysis/TransitionTable.jsx';
 import GraphLayoutOptions from './format/GraphLayoutOptions.jsx';
 import AlphabetLabelOptions from './format/AlphabetLabelOptions.jsx';
-import NodeLabelOptions from './format/NodeLabelOptions.jsx';
-import EdgeCurveOptions from './format/EdgeCurveOptions.jsx';
+/* import NodeLabelOptions from './format/NodeLabelOptions.jsx';
+import EdgeCurveOptions from './format/EdgeCurveOptions.jsx'; */
 
 import Button from '@flapjs/components/lib/Button.jsx';
 
@@ -47,8 +47,8 @@ export default function OverviewPanel(props)
                 <Pane title="Format">
                     <GraphLayoutOptions />
                     <AlphabetLabelOptions />
-                    <NodeLabelOptions />
-                    <EdgeCurveOptions />
+                    {/*                     <NodeLabelOptions /> 
+                    <EdgeCurveOptions /> */}
                 </Pane>
             </div>
         </>
