@@ -12,6 +12,10 @@ import ModuleSelector from './ModuleSelector.jsx';
 
 import DebugToggle from './DebugToggle.jsx';
 
+import IconButton from './icons/IconButton.jsx';
+import { BugIcon } from './icons/Icons.js';
+
+const BUGREPORT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfqBFiGFGnxPI7QIWscv8jsIr5bj4LA3CS-is__2-YvJ_kTjQ/viewform';
 export default function AppLayout(props)
 {
     const { app } = props;
@@ -25,7 +29,8 @@ export default function AppLayout(props)
                     <Logo title="Flap.js" version={app.version}/>
                     <DebugToggle/>
                     <ModuleSelector/>
-                    <Slot name="appbar"></Slot>
+                    <Slot name="appbar"></Slot>                    
+                    <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}> </IconButton>  
                 </AppBar>
             </header>
             <main>
