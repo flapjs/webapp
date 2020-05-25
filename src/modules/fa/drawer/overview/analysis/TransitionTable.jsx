@@ -15,6 +15,7 @@ import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
 const SYMBOL_AXIS = 'symbols';
 const STATE_AXIS = 'states';
+const EMPTY_SET = '∅';
 
 export default function TransitionTable(props)
 {
@@ -60,7 +61,7 @@ function UNSAFE_renderTableEntryForSymbolAxis(machine, state, symbol)
     if (destinations.length <= 0)
     {
         if (deterministic && symbol !== FSA.EMPTY_SYMBOL) error = true;
-        transitionString = '-';
+        transitionString = EMPTY_SET;
     }
     else if (destinations.length === 1)
     {

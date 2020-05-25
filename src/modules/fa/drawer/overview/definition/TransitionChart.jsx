@@ -8,6 +8,8 @@ import { EMPTY_SYMBOL, EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 import * as FSA from '@flapjs/modules/fa/machine/FSA.js';
 
+const DELTA_TRANSITION = 'δ';
+
 export default function TransitionChart(props)
 {
     const machine = useMachine(FiniteAutomataBuilder, props.machineName);
@@ -141,7 +143,7 @@ function UNSAFE_renderTransitionEntry(machine, state, symbol)
 
     return (
         <tr key={state.getStateID() + ':' + symbol}>
-            <td className={`${Style.chartKey} ${error ? 'error' : ''}`}>{'(' + state.getStateLabel() + ',' + symbol + ')'}</td>
+            <td className={`${Style.chartKey} ${error ? 'error' : ''}`}>{DELTA_TRANSITION + '(' + state.getStateLabel() + ',' + symbol + ')'}</td>
             <td className={`${Style.chartValue} ${error ? 'error' : ''}`}>{transitionString}</td>
         </tr>
     );
