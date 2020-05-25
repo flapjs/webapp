@@ -7,7 +7,7 @@ import Options from '@flapjs/components/options/Options.jsx';
 
 import CircleLayout from './CircleLayout.js';
 import { useGraphState, useGraphType } from '@flapjs/services/graph/GraphHooks.jsx';
-import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
+/* import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx'; */
 
 export default function GraphLayoutOptions(props)
 {
@@ -26,7 +26,7 @@ export default function GraphLayoutOptions(props)
                     Apply
                 </Button>
             </div>
-            <div>
+            {/*             <div>
                 <FieldSwitch id="autolayout" disabled={true}>
                     Auto-Apply
                 </FieldSwitch>
@@ -36,7 +36,7 @@ export default function GraphLayoutOptions(props)
                 <FieldSwitch id="snapgrid" disabled={true}>
                     Snap-to-Grid
                 </FieldSwitch>
-            </div>
+            </div> */}
         </Options>
     );
 }
@@ -47,7 +47,7 @@ GraphLayoutOptions.defaultProps = {
 
 function applyLayout(layoutId, graphType, graphState)
 {
-    switch(layoutId)
+    switch (layoutId)
     {
         case 'circle':
             CircleLayout(graphType, graphState);

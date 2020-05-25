@@ -7,8 +7,8 @@ import AlphabetLabelRenameOption from './AlphabetLabelRenameOption.jsx';
 export default function AlphabetLabelOptions(props)
 {
     return (
-        <Options title={'Alphabet Label'}>
-            <AlphabetLabelRenameOption/>
+        <Options title={'Alphabet Label Editor'}>
+            <AlphabetLabelRenameOption />
         </Options>
     );
 }
