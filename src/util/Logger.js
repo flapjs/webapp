@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* global __NODE_ENV__ */
 
 const LOG_TAG_TEXT = 'flapjs';
 const LOG_TYPE_COLOR_MAP = {
@@ -22,7 +23,15 @@ function getLogTagStyle(logType)
 function print(logType, ...messages)
 {
     const logPrefix = [`%c${LOG_TAG_TEXT}`, getLogTagStyle(logType).join(';')];
-    console[logType](...logPrefix, ...messages);
+
+    if (logType === 'debug' || __NODE_ENV__ !== 'development')
+    {
+        console.log(...logPrefix, ...messages);
+    }
+    else
+    {
+        console[logType](...logPrefix, ...messages);
+    }
 }
 
 /**
@@ -40,6 +49,18 @@ class Logger
     {
         const result = '[' + tag + '] ' + message;
         print('log', result);
+    }
+    
+    /**
+     * Logs the debug info. Only prints in development environments.
+     * 
+     * @param {string} tag The tag that the message belongs to. This is usually the class name.
+     * @param {string} message The message content.
+     */
+    static debug(tag, message)
+    {
+        const result = '[' + tag + '] ' + message;
+        print('debug', result);
     }
 
     /**

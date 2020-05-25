@@ -14,7 +14,7 @@
 - [ ] Have at least 1 other person to approve it.
 - [ ] Approve the merge!
 
-- If you are releasing...
+# If you are releasing...
 - [ ] Increment the version number. (Usually, this is done at the start of a version.)
     - [ ] Make sure the version number in package.json is updated.
     - [ ] Make sure CHANGELOG.md is updated.
