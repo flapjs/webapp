@@ -1,5 +1,6 @@
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
+import { uuid } from '@flapjs/util/MathHelper.js';
 
 export function buildGraphFromMachine(machineBuilder, machine, graphType, graphState, opts)
 {
@@ -40,6 +41,13 @@ export function buildGraphFromMachine(machineBuilder, machine, graphType, graphS
             xy += 10;
         }
 
+        let associatedNode = state.getAssociatedGraphElement();
+        if (associatedNode)
+        {
+            nodeData.x = associatedNode.x;
+            nodeData.y = associatedNode.y;
+        }
+
         nodeData.label = state.getStateLabel();
         if (machine.isStartState(state))
         {
@@ -63,9 +71,9 @@ export function buildGraphFromMachine(machineBuilder, machine, graphType, graphS
     }
 
     // Compute all transitions...
-    let index = 0;
+    let edgeId;
     let source, destination;
-    let edge, fromId, toId, label;
+    let edgeData, fromId, toId, label;
     for (const transition of machine.getTransitions())
     {
         source = transition.getSourceState();
@@ -92,13 +100,27 @@ export function buildGraphFromMachine(machineBuilder, machine, graphType, graphS
             toId = opts.builder.sourceMap.get(toId) || toId;
         }
 
-        edge = {
+        edgeData = {
             fromId,
             toId,
             label,
         };
 
-        result[edgeTypeKey][index++] = edge;
+        let associatedEdge = transition.getAssociatedGraphElement();
+        if (associatedEdge)
+        {
+            edgeId = associatedEdge.id;
+            if (associatedEdge.quad)
+            {
+                edgeData.quad = associatedEdge.quad;
+            }
+        }
+        else
+        {
+            edgeId = uuid();
+        }
+
+        result[edgeTypeKey][edgeId] = edgeData;
     }
 
     return result;

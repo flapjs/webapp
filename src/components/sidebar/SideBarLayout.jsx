@@ -54,7 +54,7 @@ SideBarLayout.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     sideBar: PropTypes.func,
-    side: PropTypes.oneOf(['left', 'right', 'up', 'down']),
+    side: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
     sideMargin: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string,
