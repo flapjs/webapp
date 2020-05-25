@@ -262,6 +262,31 @@ if (__NODE_ENV__ === 'production' && 'serviceWorker' in navigator)
 {
     window.addEventListener('load', function() 
     {
+        let header = {
+            message: 'New version available! Ready to refresh?',
+            changelog: '',
+        };
+        
+        const UNRELEASED_HEADER = '## [Unreleased]';
+        const VERSION_HEADER_PREFIX = '##';
+        fetch('../CHANGELOG.md')
+            .then(response => response.text())
+            .then(value =>
+            {
+                // eslint-disable-next-line no-console
+                console.log('Changelog:', { text: value });
+
+                let i = value.indexOf(UNRELEASED_HEADER) + UNRELEASED_HEADER.length;
+                let j = value.indexOf(VERSION_HEADER_PREFIX, i);
+                let k = value.indexOf(VERSION_HEADER_PREFIX, j + VERSION_HEADER_PREFIX.length);
+    
+                return value.substring(j, k);
+            })
+            .then(value =>
+            {
+                header.changelog = value;
+            });
+
         navigator.serviceWorker.register('/webapp/build/service-worker.js').then(registration =>
         {
             // https://redfin.engineering/service-workers-break-the-browsers-refresh-button-by-default-here-s-why-56f9417694
@@ -293,34 +318,20 @@ if (__NODE_ENV__ === 'production' && 'serviceWorker' in navigator)
 
             function promptUserToRefresh(reg)
             {
-                const UNRELEASED_HEADER = '## [Unreleased]';
-                const VERSION_HEADER_PREFIX = '##';
-
-                function parseChangelog(changelogText)
+                if (header.changelog)
                 {
-                    let i = changelogText.indexOf(UNRELEASED_HEADER) + UNRELEASED_HEADER.length;
-                    let j = changelogText.indexOf(VERSION_HEADER_PREFIX, i);
-                    let k = changelogText.indexOf(VERSION_HEADER_PREFIX, j + VERSION_HEADER_PREFIX.length);
-
-                    return changelogText.substring(j, k);
+                    if (window.confirm(header.message + '\n\n' + header.changelog))
+                    {
+                        reg.waiting.postMessage('skipWaiting');
+                    }
                 }
-
-                fetch('../CHANGELOG.md').then(async response =>
+                else
                 {
-                    let changelog = parseChangelog(await response.text());
-                    let header = 'New version available! Ready to refresh?';
-
-                    if (window.confirm(header + '\n\n' + changelog))
+                    if (window.confirm(header.message))
                     {
                         reg.waiting.postMessage('skipWaiting');
                     }
-                }).catch(e =>
-                {
-                    if (window.confirm('New version available! Ready to refresh?'))
-                    {
-                        reg.waiting.postMessage('skipWaiting');
-                    }
-                });
+                }
             }
 
             listenForWaitingServiceWorker(registration, promptUserToRefresh);
