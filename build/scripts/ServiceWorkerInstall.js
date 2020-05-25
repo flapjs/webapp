@@ -36,11 +36,34 @@ if (__NODE_ENV__ === 'production' && 'serviceWorker' in navigator)
 
             function promptUserToRefresh(reg)
             {
-                // TODO: This is just an example, please do something better...
-                if (window.confirm('New version available! OK to refresh?'))
+                const UNRELEASED_HEADER = '## [Unreleased]';
+                const VERSION_HEADER_PREFIX = '##';
+
+                function parseChangelog(changelogText)
                 {
-                    reg.waiting.postMessage('skipWaiting');
+                    let i = changelogText.indexOf(UNRELEASED_HEADER) + UNRELEASED_HEADER.length;
+                    let j = changelogText.indexOf(VERSION_HEADER_PREFIX, i);
+                    let k = changelogText.indexOf(VERSION_HEADER_PREFIX, j + VERSION_HEADER_PREFIX.length);
+
+                    return changelogText.substring(j, k);
                 }
+
+                fetch('./CHANGELOG.md').then(async response =>
+                {
+                    let changelog = parseChangelog(await response.text());
+                    let header = 'New version available! Ready to refresh?';
+
+                    if (window.confirm(header + '\n\n' + changelog))
+                    {
+                        reg.waiting.postMessage('skipWaiting');
+                    }
+                }).catch(e =>
+                {
+                    if (window.confirm('New version available! Ready to refresh?'))
+                    {
+                        reg.waiting.postMessage('skipWaiting');
+                    }
+                });
             }
 
             listenForWaitingServiceWorker(registration, promptUserToRefresh);
