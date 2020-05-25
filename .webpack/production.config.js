@@ -20,7 +20,7 @@ module.exports = merge.smart(output('production'), {
         /** Add libraries here that are included externally (such as a <script> tag) */
         'react': 'React',
         'react-dom': 'ReactDOM',
-        'prop-types': 'PropTypes'
+        'prop-types': 'window.PropTypes', // NOTE: prop-types.min.js specifies it like this, sadly.
     },
     plugins: [
         new CleanWebpackPlugin()
