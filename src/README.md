@@ -81,7 +81,7 @@ One way to configure what a component renders is by passing a function through p
 ## Slots
 Like Render Props, this let's you customize a component's rendered children.
 
-Slots are not a React concept. It is taken from WebComponents (it's also in Vue). Basically, you first define a `<Slot name="somePlace">` where you want future content to be. It must have a name in order to refer back to. Then, in some point in time, you "inject" components into that slot by name (refer to `Slot.inject()` or `<Slot.Fill>` for more info). Then, that slot will now contain your new component without you having to edit the original code! How cool is that?
+Slots are not a React concept. It is taken from WebComponents (it's also in Vue). Basically, you first define a `<Slot name="somePlace">` where you want future content to be. It must have a name in order to refer back to. Then, in some point in time, you "inject" components into that slot by name (refer to `Slot.inject()` or `<SlotFill>` for more info). Then, that slot will now contain your new component without you having to edit the original code! How cool is that?
 
 NOTE: The problem this solves is modularity. We wanted modules to only edit their own code, yet be able to change components in the app "shell". This method allows a declarative (and imperative if you must) method of changing the app's contents.
 

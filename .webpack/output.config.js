@@ -47,7 +47,9 @@ module.exports = env => merge.smart(base(env),
             { from: './src/assets/images/', to: 'images' },
             { from: './src/assets/langs/', to: 'langs' },
             // NOTE: All self-hosted libs should be copied from here to build.
-            { from: './src/assets/libs/', to: 'libs' },
+            { from: './node_modules/prop-types/prop-types.min.js', to: 'libs' },
+            { from: './node_modules/react/umd/react.production.min.js', to: 'libs' },
+            { from: './node_modules/react-dom/umd/react-dom.production.min.js', to: 'libs' },
             // NOTE: Most of the scripts and styles are already inlined, so
             // this is just for externally loaded scripts.
             { from: './src/assets/scripts/', to: 'scripts' },

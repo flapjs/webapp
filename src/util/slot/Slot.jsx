@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SlotContext, SlotProviderNameContext, markDirty, SLOT_MANAGERS, DIRTY_KEY } from './SlotContext.jsx';
+import { SlotContext, markDirty, SLOT_MANAGERS, DIRTY_KEY } from './SlotContext.jsx';
 import { isSameContent } from './SlotManagerHelper.js';
 
 const DEFAULT_SLOT_NAME = '__DEFAULT__';
@@ -279,34 +279,5 @@ Slot.defaultProps = {
     name: DEFAULT_SLOT_NAME,
 };
 
-Slot.Fill = Fill;
-function Fill(props)
-{
-    const { slot, contentKey, component, props: componentProps } = props;
-    const providerName = useContext(SlotProviderNameContext);
-    useEffect(() =>
-    {
-        Slot.inject(providerName, component, componentProps, slot, contentKey);
-        return () =>
-        {
-            if (Slot.contains(providerName, component, componentProps, slot, contentKey))
-            {
-                Slot.reject(providerName, slot, contentKey);
-            }
-        };
-    });
-    return (
-        <></>
-    );
-}
-Fill.propTypes = {
-    component: PropTypes.elementType.isRequired,
-    props: PropTypes.object,
-    slot: PropTypes.string,
-    contentKey: PropTypes.string,
-};
-Fill.defaultProps = {
-    slot: DEFAULT_SLOT_NAME,
-    contentKey: DEFAULT_CONTENT_KEY,
-    props: {},
-};
+Slot.DEFAULT_SLOT_NAME = DEFAULT_SLOT_NAME;
+Slot.DEFAULT_CONTENT_KEY = DEFAULT_CONTENT_KEY;
