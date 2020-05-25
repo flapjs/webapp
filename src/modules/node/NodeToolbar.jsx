@@ -9,6 +9,7 @@ import { Undo, Redo } from '@flapjs/services/history/HistoryButtons.jsx';
 import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
 
 import { useGraphType, useGraphState, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
+import Logger from '@flapjs/util/Logger';
 
 export default function NodeToolbar(props)
 {
@@ -30,6 +31,7 @@ export default function NodeToolbar(props)
     // Auto save...
     useEffect(() =>
     {
+        Logger.debug('Toolbar', 'Performing autosave...');
         let graphData = JSON.stringify(graphType.serialize(graphState, {}));
         localStorage.setItem(graphType.name + '.graphData', graphData);
     });

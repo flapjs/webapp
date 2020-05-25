@@ -12,7 +12,7 @@ export default function EdgeDirectionalLabelRenderer(props)
 
     const someTextRef = useRef(null);
 
-    let labels = label && label.split('\n');
+    let labels = label && label.split('\n').reverse();
     let degrees = textDirection * 180 / Math.PI;
 
     let charWidth = DEFAULT_CHAR_WIDTH;

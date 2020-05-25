@@ -16,6 +16,7 @@ import { DrawerDispatchContext } from '@flapjs/components/drawer/DrawerContext.j
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
 
+
 export default function FiniteAutomataToolbar(props)
 {
     const graphType = useContext(GraphTypeContext);
@@ -35,6 +36,7 @@ export default function FiniteAutomataToolbar(props)
     // Auto save...
     useEffect(() =>
     {
+        Logger.debug('Toolbar', 'Performing autosave...');
         let graphData = graphType.serialize(graphState, {});
         localStorage.setItem(graphType.name + '.graphData', JSON.stringify(graphData));
     });
