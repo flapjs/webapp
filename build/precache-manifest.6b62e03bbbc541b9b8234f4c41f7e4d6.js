@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/build/images/logo.svg"
   },
   {
-    "revision": "babb7bc7e08a09b73f33170468445340",
+    "revision": "27f12ac1d1eb2b78d9e036ca95750e81",
     "url": "/webapp/build/index.html"
   },
   {
@@ -116,7 +116,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/build/scripts/ServiceWorker.md"
   },
   {
-    "revision": "7c5dfa34741446807481d81f71a0032b",
+    "revision": "b07410a18e84279f7f4152c5d3d929c3",
     "url": "/webapp/build/scripts/ServiceWorkerInstall.js"
   },
   {
