@@ -1,7 +1,7 @@
-/* global NODE_ENV */
+/* global __NODE_ENV__ */
 
-// NOTE: NODE_ENV is defined in `template.html` as a global.
-if (NODE_ENV === 'production' && 'serviceWorker' in navigator)
+// NOTE: __NODE_ENV__ is defined in `template.html` as a global.
+if (__NODE_ENV__ === 'production' && 'serviceWorker' in navigator)
 {
     window.addEventListener('load', function() 
     {

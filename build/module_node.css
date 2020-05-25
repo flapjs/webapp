@@ -1,0 +1,9 @@
+.src-modules-node-graph-widgets-editor-__NodeGraphLabelEditor-module__container--fOtae textarea {
+    background-color: transparent;
+    width: 100%;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid black;
+    resize: vertical;
+}
+

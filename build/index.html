@@ -135,6 +135,38 @@ body {
 }
 </style>
 
+<!-- NoFocusOutline Styles -->
+<style>
+/* SOURCE: https://jmperezperez.com/outline-focus-ring-a11y/ */
+.no-focus-outline a:focus,
+.no-focus-outline button:focus,
+.no-focus-outline input:focus,
+.no-focus-outline textarea:focus,
+.no-focus-outline select:focus {
+    outline: none;
+}
+</style>
+<script>
+/* SOURCE: https://jmperezperez.com/outline-focus-ring-a11y/ */
+document.addEventListener('DOMContentLoaded', () =>
+{
+    document.body.classList.add('no-focus-outline');
+    window.addEventListener('keyup', onFirstTabUp);
+});
+
+function onFirstTabUp(e)
+{
+    if (e.which === 9 /* The tab key */)
+    {
+        document.body.classList.remove('no-focus-outline');
+        window.removeEventListener('keyup', onFirstTabUp);
+    }
+}
+
+// KeepItSimpleSilly. Seriously, we could add back in the class to stop tabbing focus
+// but, honestly, if you are tabbing, you will tab again.
+</script>
+
     <!-- Styles -->
     <link href="/webapp/build/app.bundle.css" rel="stylesheet"></head>
 
@@ -161,7 +193,7 @@ body {
                         &nbsp;
                         v
                     </span>
-                    0.5.0
+                    0.6.0
                 </p>
                 <!-- JavaScript Support -->
                 <noscript class="_center">You need to enable JavaScript to run this app.</noscript>
@@ -217,15 +249,16 @@ function onRestartButtonClick()
 <!-- Global Variables -->
 <script>
     // NOTE: ServiceWorker will only be enabled in 'production'.
-    const NODE_ENV = 'production';
+    const __NODE_ENV__ = 'production';
+    if (__NODE_ENV__ !== 'production') document.getElementById('root').classList.add('debug');
 </script>
 
 <!-- Service Worker Install -->
 <script>
-/* global NODE_ENV */
+/* global __NODE_ENV__ */
 
-// NOTE: NODE_ENV is defined in `template.html` as a global.
-if (NODE_ENV === 'production' && 'serviceWorker' in navigator)
+// NOTE: __NODE_ENV__ is defined in `template.html` as a global.
+if (__NODE_ENV__ === 'production' && 'serviceWorker' in navigator)
 {
     window.addEventListener('load', function() 
     {
@@ -275,12 +308,12 @@ if (NODE_ENV === 'production' && 'serviceWorker' in navigator)
 
 <!-- Exit Warning -->
 <script>
-/* global NODE_ENV */
+/* global __NODE_ENV__ */
 
 window.addEventListener('beforeunload', (event) => 
 {
     // if (window.shouldExitWarning)
-    if (NODE_ENV === 'production')
+    if (__NODE_ENV__ === 'production')
     {
         const message = 'alert.warning.exit';
         event = event || window.event;
