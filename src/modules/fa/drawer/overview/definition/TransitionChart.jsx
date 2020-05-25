@@ -53,7 +53,7 @@ function UNSAFE_renderTransitionTable(machine)
     const result = [];
     const deterministic = machine.isDeterministic();
 
-    for(const state of machine.getStates())
+    for (const state of machine.getStates())
     {
         let entry = null;
 
@@ -62,7 +62,7 @@ function UNSAFE_renderTransitionTable(machine)
         if (entry) result.push(entry);
 
         //The other transitions...
-        for(const symbol of machine.getAlphabet())
+        for (const symbol of machine.getAlphabet())
         {
             entry = UNSAFE_renderTransitionEntry(machine, state, symbol);
             if (entry) result.push(entry);
@@ -122,7 +122,7 @@ function UNSAFE_renderTransitionEntry(machine, state, symbol)
         if (deterministic) error = true;
 
         let string = '';
-        for(const state of destinations)
+        for (const state of destinations)
         {
             if (string.length > 0) string += ',';
             string += state.getStateLabel();
