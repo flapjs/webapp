@@ -14,7 +14,7 @@ import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataI
 
 import { DrawerDispatchContext } from '@flapjs/components/drawer/DrawerContext.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { PageEmptyIcon, DiskSaveIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
+import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
 import Logger from '@flapjs/util/Logger';
 
 export default function FiniteAutomataToolbar(props)
@@ -30,8 +30,7 @@ export default function FiniteAutomataToolbar(props)
         let graphData = JSON.parse(data);
         let graphState = graphType.deserialize(graphData, {});
         graphDispatch({ type: 'resetState', state: graphState });
-    },
-    [ graphDispatch, graphType ]);
+    }, [graphDispatch, graphType]);
     useHistory(graphType, () => JSON.stringify(graphType.serialize(graphState, {})));
 
     // Auto save...
@@ -48,15 +47,15 @@ export default function FiniteAutomataToolbar(props)
                 iconClass={PageEmptyIcon}
                 onClick={() => graphDispatch('clearAll')}
                 title="New" />
-            <Undo source={graphType} update={graphUpdateCallback}/>
-            <Redo source={graphType} update={graphUpdateCallback}/>
+            <Undo source={graphType} update={graphUpdateCallback} />
+            <Redo source={graphType} update={graphUpdateCallback} />
             <IconButton
-                iconClass={DiskSaveIcon}
+                iconClass={DownloadIcon}
                 onClick={() => drawerDispatch({ type: 'change-tab', value: 3 })}
                 title="Save" />
             <Upload iconClass={UploadIcon} onUpload={fileBlob =>
                 FiniteAutomataImporter(fileBlob)
-                    .then(graphState => graphDispatch({ type: 'resetState', state: graphState }))}/>
+                    .then(graphState => graphDispatch({ type: 'resetState', state: graphState }))} />
         </div>
     );
 }

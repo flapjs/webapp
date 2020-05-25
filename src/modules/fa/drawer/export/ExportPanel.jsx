@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import * as Downloader from '@flapjs/util/Downloader.js';
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
@@ -11,47 +11,61 @@ import FiniteAutomataGraphExporter from '@flapjs/modules/fa/exporters/FiniteAuto
 import FiniteAutomataJFLAP7Exporter from '@flapjs/modules/fa/exporters/FiniteAutomataJFLAP7Exporter.js';
 
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
+import FieldInput from '@flapjs/components/lib/FieldInput.jsx';
+
+const UNTITLED_FILENAME = 'Untitled';
 
 export default function ExportPanel(props)
 {
     const { svgRef } = useContext(ViewContext);
     const graphType = useGraphType();
     const graphState = useGraphState();
+    const [fileName, setFileName] = useState(UNTITLED_FILENAME);
 
     return (
         <>
-        <header>
-            <h2 style={{ margin: '1rem' }}>Export</h2>
-        </header>
-        <section>
-            <ul style={{ padding: 0, listStyle: 'none' }}>
-                <li><FieldButton id="exportGraph" onClick={() => exportTo('graph', { graphType, graphState })}>Save to File</FieldButton></li>
-                <li><FieldButton id="exportJFLAP" onClick={() => exportTo('jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
-                <li><FieldButton id="exportToImage" onClick={() => exportTo('image', { svgRef })}>Export to Image</FieldButton></li>
-                <li><FieldButton id="exportToSVG" onClick={() => exportTo('svg', { svgRef })}>Export to SVG</FieldButton></li>
-            </ul>
-        </section>
+            <header>
+                <h2 style={{ margin: '1rem' }}>Export</h2>
+            </header>
+            <section>
+                <FieldInput id="fileName"
+                    value={fileName}
+                    onChange={e => setFileName(e.target.value)}>
+                    Enter filename
+                </FieldInput>
+                <ul style={{ padding: 0, listStyle: 'none' }}>
+                    <li><FieldButton id="exportGraph" onClick={() => exportTo(fileName, 'graph', { graphType, graphState })}>Save to File</FieldButton></li>
+                    <li><FieldButton id="exportJFLAP" onClick={() => exportTo(fileName, 'jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
+                    <li><FieldButton id="exportToImage" onClick={() => exportTo(fileName, 'image', { svgRef })}>Export to Image</FieldButton></li>
+                    <li><FieldButton id="exportToSVG" onClick={() => exportTo(fileName, 'svg', { svgRef })}>Export to SVG</FieldButton></li>
+                </ul>
+            </section>
         </>
     );
 }
 
 ExportPanel.Tab = createTabWithIcon(DownloadIcon);
 
-function exportTo(exportType, opts)
+function exportTo(fileName, exportType, opts)
 {
-    switch(exportType)
+    if (!fileName)
+    {
+        fileName = UNTITLED_FILENAME;
+    }
+
+    switch (exportType)
     {
         case 'image':
-            Downloader.downloadImageFromSVG('Untitled.png', Downloader.FILE_TYPE_PNG, opts.svgRef.current, 640, 480);
+            Downloader.downloadImageFromSVG(fileName + '.png', Downloader.FILE_TYPE_PNG, opts.svgRef.current, 640, 480);
             break;
         case 'svg':
-            Downloader.downloadImageFromSVG('Untitled.svg', Downloader.FILE_TYPE_SVG, opts.svgRef.current, 640, 480);
+            Downloader.downloadImageFromSVG(fileName + '.svg', Downloader.FILE_TYPE_SVG, opts.svgRef.current, 640, 480);
             break;
         case 'graph':
-            Downloader.downloadText('Untitled.fa.json', FiniteAutomataGraphExporter(opts.graphType, opts.graphState));
+            Downloader.downloadText(fileName + '.fa.json', FiniteAutomataGraphExporter(opts.graphType, opts.graphState));
             break;
         case 'jflap':
-            Downloader.downloadText('Untitled.jff', FiniteAutomataJFLAP7Exporter(opts.graphType, opts.graphState));
+            Downloader.downloadText(fileName + '.jff', FiniteAutomataJFLAP7Exporter(opts.graphType, opts.graphState));
             break;
     }
 }

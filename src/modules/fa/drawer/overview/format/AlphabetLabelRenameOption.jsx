@@ -16,7 +16,7 @@ export default function AlphabetLabelRenameOption(props)
 {
     const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
     const machine = machineBuilder.getMachine();
-    
+
     // NOTE: UPDATE - Actually, semantically, it should ONLY use machine builder. Otherwise, any rules applied by
     // the machine is lost or has to be re-implemented here. Although the sentiment to optimize is correct, it
     // shouldn't even be using the graph in the first place.
@@ -25,7 +25,7 @@ export default function AlphabetLabelRenameOption(props)
     // if it's changes to NODES. Since this only depends on EdgeElements, it would be more efficient to
     // useGraphElements(EdgeElement) instead. It would be even BETTER if we get rid of useMachineBuilder()
     // and derive the alphabet ourselves. Here's the offending statement for posterity:
-    
+
     // const graphState = useGraphState();
 
     // Here's the current solution.
@@ -36,7 +36,7 @@ export default function AlphabetLabelRenameOption(props)
     // We do it this way, because we don't care about it's value (until submit).
     const fromSymbolSelectorRef = useRef(null);
     // We care because we have other components that depend on it's value's changes.
-    const [ toSymbol, setToSymbol ] = useState('');
+    const [toSymbol, setToSymbol] = useState('');
 
     const alphabet = machine.getAlphabet().sort();
     const labelId = 'AlphabetLabelRenameOption.rename';
@@ -51,7 +51,7 @@ export default function AlphabetLabelRenameOption(props)
                 value={toSymbol}
                 placeholder={'Symbol'}
                 onChange={e => setToSymbol(e.target.value)}>
-                    Rename Alphabet
+                Rename Character
             </FieldInput>
             <Button
                 onClick={e =>
@@ -73,7 +73,7 @@ AlphabetLabelRenameOption.defaultProps = {
 
 function applyRename(fromSymbol, toSymbol, edges)
 {
-    for(let edge of edges)
+    for (let edge of edges)
     {
         let labels = edge.label.split('\n');
         let index = labels.indexOf(fromSymbol);

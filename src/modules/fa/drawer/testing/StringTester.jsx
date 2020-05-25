@@ -23,21 +23,19 @@ export default function StringTester(props)
     {
         let testString = createTestStringObject();
         setTestStrings([...testStrings, testString]);
-    },
-    [testStrings, setTestStrings]);
+    }, [testStrings, setTestStrings]);
 
     const onImportTestStrings = useCallback((testStrings) =>
     {
         let newTestStrings = [];
-        for(let testString of testStrings) 
+        for (let testString of testStrings) 
         {
             newTestStrings.push(createTestStringObject(testString));
         }
 
         // TODO: for now this overwrites the current test strings, but maybe append?
         setTestStrings(newTestStrings);
-    },
-    [setTestStrings]);
+    }, [setTestStrings]);
 
     let isEmpty = testStrings.length <= 0;
 
@@ -50,7 +48,7 @@ export default function StringTester(props)
                 onClick={() =>
                 {
                     let newTestStrings = [...testStrings];
-                    for(let testStringObject of newTestStrings)
+                    for (let testStringObject of newTestStrings)
                     {
                         let solved = solveFSA(fsa, testStringObject.value);
                         testStringObject.result = solved ? 'pass' : 'fail';
@@ -109,7 +107,7 @@ StringTester.propTypes = {
 StringTester.defaultProps = {
 };
 
-function createTestStringObject(value='',result='none')
+function createTestStringObject(value = '', result = 'none')
 {
     return {
         id: uuid(),
