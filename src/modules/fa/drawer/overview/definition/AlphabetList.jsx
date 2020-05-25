@@ -11,31 +11,53 @@ export default function AlphabetList(props)
 {
     const machine = useMachine(FiniteAutomataBuilder, props.machineName);
     const alphabet = machine.getAlphabet();
-    
+
     return (
         <fieldset>
             <legend>
                 Alphabet
             </legend>
-            <ul className={ItemListStyle.itemList}>
-                {alphabet.length <= 0
-                    ? (
+            {alphabet.length <= 0
+                ? (
+                    <ul className={ItemListStyle.itemList}>
+
                         <li>
                             <label className={ItemListStyle.emptyLabel}>
                                 {EMPTY_SET}
                             </label>
                         </li>
-                    )
-                    : (
-                        alphabet.map(e => (
+                    </ul>
+                )
+                : (
+
+
+                    <ul className={ItemListStyle.itemList}>
+
+                        <li>
+                            <label className={ItemListStyle.itemLabel}>
+                                {'{'}
+                            </label>
+                        </li>
+
+
+                        {alphabet.map((e, index) => (
                             <li key={e}>
                                 <label className={ItemListStyle.itemLabel}>
-                                    {e}
+                                    {index < alphabet.length - 1 ? e + ',' : e}
                                 </label>
                             </li>
-                        ))
-                    )}
-            </ul>
+                        ))}
+
+                        <li>
+                            <label className={ItemListStyle.itemLabel}>
+                                {'}'}
+                            </label>
+                        </li>
+                    </ul>
+
+
+                )}
+
         </fieldset>
     );
 }

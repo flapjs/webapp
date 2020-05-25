@@ -18,27 +18,46 @@ export default function StateList(props)
             <legend>
                 States
             </legend>
-            <ul className={ItemListStyle.itemList}>
-                {states.length <= 0
-                    ? (
+            {states.length <= 0
+                ? (
+                    <ul className={ItemListStyle.itemList}>
+
                         <li>
                             <label className={ItemListStyle.emptyLabel}>
                                 {EMPTY_SET}
                             </label>
                         </li>
-                    )
-                    : (
-                        states.map(state => (
+                    </ul>
+
+                )
+                : (
+                    <ul className={ItemListStyle.itemList}>
+
+
+                        <li>
+                            <label className={ItemListStyle.itemLabel}>
+                                {'{'}
+                            </label>
+                        </li>
+
+                        {states.map((state, index) => (
                             <li key={state.getStateID()}>
                                 <label
                                     className={ItemListStyle.itemLabel + ' '
                                         + (machine.isFinalState(state) ? ItemListStyle.markedLabel : '')}>
-                                    {state.getStateLabel()}
+                                    {index < states.length - 1 ? state.getStateLabel() + ',' : state.getStateLabel()}
                                 </label>
                             </li>
-                        ))
-                    )}
-            </ul>
+                        ))}
+
+                        <li>
+                            <label className={ItemListStyle.itemLabel}>
+                                {'}'}
+                            </label>
+                        </li>
+                    </ul>
+
+                )}
         </fieldset>
     );
 }
