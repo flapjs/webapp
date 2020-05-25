@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 
+import Pane from '@flapjs/components/pane/Pane.jsx';
+
 import * as Downloader from '@flapjs/util/Downloader.js';
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
@@ -27,19 +29,21 @@ export default function ExportPanel(props)
             <header>
                 <h2 style={{ margin: '1rem' }}>Export</h2>
             </header>
-            <section>
-                <FieldInput id="fileName"
-                    value={fileName}
-                    onChange={e => setFileName(e.target.value)}>
-                    Enter filename
-                </FieldInput>
-                <ul style={{ padding: 0, listStyle: 'none' }}>
-                    <li><FieldButton id="exportGraph" onClick={() => exportTo(fileName, 'graph', { graphType, graphState })}>Save to File</FieldButton></li>
-                    <li><FieldButton id="exportJFLAP" onClick={() => exportTo(fileName, 'jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
-                    <li><FieldButton id="exportToImage" onClick={() => exportTo(fileName, 'image', { svgRef })}>Export to Image</FieldButton></li>
-                    <li><FieldButton id="exportToSVG" onClick={() => exportTo(fileName, 'svg', { svgRef })}>Export to SVG</FieldButton></li>
-                </ul>
-            </section>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
+                <Pane title="Export">
+                    <FieldInput id="fileName"
+                        value={fileName}
+                        onChange={e => setFileName(e.target.value)}>
+                        Enter filename
+                    </FieldInput>
+                    <ul style={{ padding: 0, listStyle: 'none' }}>
+                        <li><FieldButton id="exportGraph" onClick={() => exportTo(fileName, 'graph', { graphType, graphState })}>Save to File</FieldButton></li>
+                        <li><FieldButton id="exportJFLAP" onClick={() => exportTo(fileName, 'jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
+                        <li><FieldButton id="exportToImage" onClick={() => exportTo(fileName, 'image', { svgRef })}>Export to Image</FieldButton></li>
+                        <li><FieldButton id="exportToSVG" onClick={() => exportTo(fileName, 'svg', { svgRef })}>Export to SVG</FieldButton></li>
+                    </ul>
+                </Pane>
+            </div>
         </>
     );
 }

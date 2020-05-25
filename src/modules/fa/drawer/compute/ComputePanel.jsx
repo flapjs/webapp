@@ -57,13 +57,11 @@ export default function ComputePanel(props)
                     </div>
                 </Pane>
                 <Pane title="Related Conversions">
-                    <div>
-                        <FieldButton id="flipAllAcceptStates"
-                            onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
-                            disabled={isEmpty}>
-                            Flip all accept states
-                        </FieldButton>
-                    </div>
+                    <FieldButton id="flipAllAcceptStates"
+                        onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
+                        disabled={isEmpty}>
+                        Flip all accept states
+                    </FieldButton>
                 </Pane>
             </div>
         </>

@@ -7,7 +7,7 @@ import * as ModuleLoader from './ModuleLoader.js';
 
 const FALLBACK_MODULE_ID = null;
 
-export const ModuleContext = React.createContext();
+export const ModuleContext = React.createContext(null);
 
 export function ModuleProvider(props)
 {

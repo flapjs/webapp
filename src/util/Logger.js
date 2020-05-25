@@ -24,7 +24,7 @@ function print(logType, ...messages)
 {
     const logPrefix = [`%c${LOG_TAG_TEXT}`, getLogTagStyle(logType).join(';')];
 
-    if (logType === 'debug' || __NODE_ENV__ !== 'development')
+    if (logType === 'debug' && __NODE_ENV__ === 'development')
     {
         console.log(...logPrefix, ...messages);
     }
