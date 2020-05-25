@@ -48,7 +48,7 @@ if (__NODE_ENV__ === 'production' && 'serviceWorker' in navigator)
                     return changelogText.substring(j, k);
                 }
 
-                fetch('./CHANGELOG.md').then(async response =>
+                fetch('../CHANGELOG.md').then(async response =>
                 {
                     let changelog = parseChangelog(await response.text());
                     let header = 'New version available! Ready to refresh?';
