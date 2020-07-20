@@ -1,4 +1,3 @@
-
 export const OPEN = '(';
 export const CLOSE = ')';
 export const UNION = '\u222A';
@@ -46,7 +45,7 @@ function areParenthesisBalanced(expressionString)
     return count == 0;
 }
 
-export function injectConcatSymbols(expressionString)
+function injectConcatSymbols(expressionString)
 {
     let result = '';
     for (let i = 0; i < expressionString.length; i++)
@@ -89,7 +88,7 @@ function createScopeNode(node, symbol, index)
 
 function createUnaryOpNode(node, symbol, index)
 {
-    let newNode = new ScopeNode(symbol, index).setParent(node);
+    let newNode = new UnaryOpNode(symbol, index);
     makeParentOf(node, newNode);
     return newNode;
 }
@@ -153,6 +152,7 @@ export class RegularExpression
     static parse(expressionString)
     {
         let validationResult = this.validate(expressionString);
+        let expression = injectConcatSymbols(expressionString);
 
         if (validationResult.errors.length <= 0 && validationResult.warnings.length <= 0)
         {
@@ -162,7 +162,7 @@ export class RegularExpression
             let openScopeStack = [];
             let current = null;
             let index = -1;
-            for(let symbol of expressionString)
+            for(let symbol of expression)
             {
                 ++index;
 

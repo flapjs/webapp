@@ -21,7 +21,7 @@ export const re = {
     name: 'Regular Expression',
     version: '3.0.0',
     description: 'Here is a step towards something new.',
-    disabled: true,
+    disabled: false,
     fetch: () => import(/* webpackChunkName: "module_re" */ './re/RegularExpressionModule.js'),
 };
 
