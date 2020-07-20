@@ -1,8 +1,12 @@
 import BaseModule from '../base/BaseModule.js';
-import GraphService from '@flapjs/services/graph/GraphService.js';
 import NotifyService from '@flapjs/services/notify/NotifyService.js';
 import HistoryService from '@flapjs/services/history/HistoryService.js';
 import MachineService from '@flapjs/services/machine/MachineService.js';
+
+import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
+import ComputePanel from './drawer/compute/ComputePanel.jsx';
+import TestingPanel from './drawer/testing/TestingPanel.jsx';
+import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 export default class RegularExpressionModule extends BaseModule
 {
@@ -17,11 +21,16 @@ export default class RegularExpressionModule extends BaseModule
     static get renders()
     {
         return {
-            header: [ ],
-            appbar: [ ],
-            playarea: [ ],
-            viewarea: [ ],
-            drawer: [ ],
+            header: [],
+            appbar: [],
+            playarea: [],
+            viewarea: [],
+            drawer: [
+                OverviewPanel,
+                TestingPanel,
+                ComputePanel,
+                ExportPanel,
+            ],
         };
     }
 
@@ -31,7 +40,6 @@ export default class RegularExpressionModule extends BaseModule
         return [
             HistoryService,
             NotifyService.withInitialMessages([ 'Hello' ]),
-            GraphService,
             MachineService,
         ];
     }
