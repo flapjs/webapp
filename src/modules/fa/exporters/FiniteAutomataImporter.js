@@ -1,8 +1,11 @@
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
 import FiniteAutomataGraph from '@flapjs/modules/fa/graph/FiniteAutomataGraph.js';
-import Logger from '@flapjs/util/Logger';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement';
+
+import { Logger } from '@flapjs/util/Logger.js';
+
+const LOGGER = new Logger('FiniteAutomataImporter');
 
 /**
  * The default importer to load the saved workspace session.
@@ -49,7 +52,7 @@ export default async function FiniteAutomataImporter(fileBlob)
     }
     catch(e)
     {
-        Logger.error('FiniteAutomataImporter', 'Failed to import file.', e);
+        LOGGER.error('Failed to import file.', e);
     }
 
     return graphState;

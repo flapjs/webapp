@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import PDA, {EMPTY_SYMBOL} from '@flapjs/deprecated/modules/pda/machine/PDA.js';
 import { EMPTY } from '@flapjs/deprecated/modules/re/machine/RE.js';
 

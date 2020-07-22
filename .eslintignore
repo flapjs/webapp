@@ -1,7 +1,7 @@
-/build/
+/dist/
 /docs/
-/coverage/
 /out/
-/deprecated/
+
+# Source files that should not be linted
 /src/assets/libs/
 /src/deprecated/

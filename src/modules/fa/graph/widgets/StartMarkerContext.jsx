@@ -9,7 +9,7 @@ const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = 
     const target = to || cursor || null;
     return (
         <>
-        {target &&
+            {target &&
         <MarkerTriangleRenderer
             x={target.x}
             y={target.y}

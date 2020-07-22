@@ -27,45 +27,45 @@ export default function NodeGraphPlayground(props)
 
     return (
         <>
-        <SelectionBoxProvider>
-            <ProxyEdgeProvider
-                onConnect={(from, to, cursor, opts) =>
-                {
-                    if (opts.prevEdge)
+            <SelectionBoxProvider>
+                <ProxyEdgeProvider
+                    onConnect={(from, to, cursor, opts) =>
                     {
-                        let edge = opts.prevEdge;
-                        edge.fromId = from.id;
-                        edge.toId = to.id;
-                        edge.markDirty();
-                    }
-                    else
+                        if (opts.prevEdge)
+                        {
+                            let edge = opts.prevEdge;
+                            edge.fromId = from.id;
+                            edge.toId = to.id;
+                            edge.markDirty();
+                        }
+                        else
+                        {
+                            createEdge(from, to);
+                        }
+                    }}
+                    onCancel={(from, to, cursor, opts) =>
                     {
-                        createEdge(from, to);
-                    }
-                }}
-                onCancel={(from, to, cursor, opts) =>
-                {
-                    if (opts.prevEdge)
-                    {
-                        let edge = opts.prevEdge;
-                        edge.toId = 0;
+                        if (opts.prevEdge)
+                        {
+                            let edge = opts.prevEdge;
+                            edge.toId = 0;
 
-                        // NOTE: This allows the edge to revert to placeholder form if the
-                        // "current" edge is using a proxy as its endpoint.
-                        QuadraticEdgeHelper.changeEndPoint(null, from, cursor, edge);
-                        edge.markDirty();
-                    }
-                }}>
-                <NodeGraphTooltip/>
-                <GraphElementComponentLayer elementType={NodeElement}>
-                    {element => <NodeElementComponent element={element}/>}
-                </GraphElementComponentLayer>
-                <GraphElementComponentLayer elementType={EdgeElement}>
-                    {element => <EdgeElementComponent element={element}/>}
-                </GraphElementComponentLayer>
-                {props.children}
-            </ProxyEdgeProvider>
-        </SelectionBoxProvider>
+                            // NOTE: This allows the edge to revert to placeholder form if the
+                            // "current" edge is using a proxy as its endpoint.
+                            QuadraticEdgeHelper.changeEndPoint(null, from, cursor, edge);
+                            edge.markDirty();
+                        }
+                    }}>
+                    <NodeGraphTooltip/>
+                    <GraphElementComponentLayer elementType={NodeElement}>
+                        {element => <NodeElementComponent element={element}/>}
+                    </GraphElementComponentLayer>
+                    <GraphElementComponentLayer elementType={EdgeElement}>
+                        {element => <EdgeElementComponent element={element}/>}
+                    </GraphElementComponentLayer>
+                    {props.children}
+                </ProxyEdgeProvider>
+            </SelectionBoxProvider>
         </>
     );
 }

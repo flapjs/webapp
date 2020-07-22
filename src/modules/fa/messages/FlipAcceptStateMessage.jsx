@@ -18,13 +18,13 @@ export default function FlipAcceptStateMessage(props)
             message={'Careful! Flipping the states in an NFA does not produce a logically equivalent inverse.\n' + message}
             renderControls={dismiss => (
                 <>
-                <button onClick={() =>
-                {
-                    machineBuilder.applyChanges(machine => invertDFA(machine, machine));
-                    dismiss();
-                }}>
+                    <button onClick={() =>
+                    {
+                        machineBuilder.applyChanges(machine => invertDFA(machine, machine));
+                        dismiss();
+                    }}>
                     Apply
-                </button>
+                    </button>
                 </>
             )}>
         </MessageContainer>

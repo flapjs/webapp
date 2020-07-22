@@ -10,5 +10,5 @@
         },
         "checkJs": true
     },
-    "exclude": ["node_modules", "build", "docs", "coverage", "out"]
+    "exclude": ["node_modules", "dist", "docs", "out"]
 }

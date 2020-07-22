@@ -6,7 +6,7 @@ import ControlledEdgeElementComponent from '../components/ControlledEdgeElementC
 
 const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector((from, to, cursor, opts) =>
     <>
-    {from &&
+        {from &&
     <ControlledEdgeElementComponent
         from={from}
         to={to || cursor}

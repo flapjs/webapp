@@ -1,7 +1,7 @@
-import Logger from '@flapjs/util/Logger.js';
+import { Logger } from '@flapjs/util/Logger.js';
 import LanguageMap from './LanguageMap.js';
 
-const LOGGER_TAG = 'Localization';
+const LOGGER = new Logger('Localization');
 const BASE_URL = 'langs/';
 
 const LOCAL_STORAGE_KEY = '__localeCode';
@@ -177,7 +177,7 @@ export function loadLocale(localeCode)
             })
             .catch(error =>
             {
-                Logger.error(LOGGER_TAG, `Could not find language file for locale '${localeCode}'.`, error);
+                LOGGER.error(`Could not find language file for locale '${localeCode}'.`, error);
 
                 // Reset back to default...
                 LOCALE_MAPPING.delete(localeCode);

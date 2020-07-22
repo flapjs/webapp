@@ -10,7 +10,9 @@ import { getElementListeners } from './elements/GraphElementListener.js';
 import { getStateListeners } from './GraphStateListener.js';
 
 import { getElementTypeListeners } from './elements/GraphElementTypeListener.js';
-import Logger from '@flapjs/util/Logger.js';
+import { Logger } from '@flapjs/util/Logger.js';
+
+const LOGGER = new Logger('GraphContext');
 
 const DEFAULT_GRAPH_STATE = {};
 
@@ -273,7 +275,7 @@ export function GraphReducer(graphType, graphState, action)
             }
             else
             {
-                Logger.warn('GraphContext', 'Trying to resetState to null - skipping...');
+                LOGGER.warn('Trying to resetState to null - skipping...');
             }
 
             return;

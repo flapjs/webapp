@@ -19,7 +19,7 @@ module.exports = {
     // cacheDirectory: "/private/var/folders/n6/fj5pclh92gd2sdrqw3bz152m0000gn/T/jest_dx",
 
     // Automatically clear mock calls and instances between every test
-    clearMocks: true,
+    // clearMocks: true,
 
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
@@ -28,14 +28,10 @@ module.exports = {
     // collectCoverageFrom: null,
 
     // The directory where Jest should output its coverage files
-    coverageDirectory: 'coverage',
+    // coverageDirectory: 'docs/coverage',
 
     // An array of regexp pattern strings used to skip coverage collection
-    coveragePathIgnorePatterns: [
-        '/node_modules/',
-        '/.storybook/',
-        '^.+\\.stories.js'
-    ],
+    // coveragePathIgnorePatterns: ['/node_modules/'],
 
     // A list of reporter names that Jest uses when writing coverage reports
     // coverageReporters: [
@@ -83,8 +79,6 @@ module.exports = {
 
     // A map from regular expressions to module names that allow to stub out resources with a single module
     moduleNameMapper: {
-        '\\.css$': 'identity-obj-proxy',
-        '\\.svg$': '<rootDir>/.jest/__mocks__/svgrMock.js',
         /** Add any aliases that need to be resolved by Jest here. Refer to webpack and eslint config as well. */
         '^@flapjs(.*)$': '<rootDir>/src$1'
     },
@@ -139,12 +133,10 @@ module.exports = {
     // setupFilesAfterEnv: [],
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-    snapshotSerializers: [
-        'enzyme-to-json/serializer'
-    ],
+    // snapshotSerializers: [],
 
     // The test environment that will be used for testing
-    testEnvironment: 'jsdom',
+    testEnvironment: 'node',
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},

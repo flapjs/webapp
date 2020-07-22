@@ -29,18 +29,18 @@ export default function FiniteAutomataNodeElementComponent(props)
     const isStart = node.initial && !draggingStartMarker;
     return (
         <>
-        <NodeCircleRenderer
-            x={node.x} y={node.y}
-            label={node.label}
-            inner={node.final ? node.radius * 0.8 : 0}
-            radius={node.radius}
-            maskProps={{ref: elementRef}}/>
-        <MarkerTriangleRenderer
-            x={node.x} y={node.y}
-            offset={node.radius}
-            childProps={{style: {visibility: isStart ? 'unset' : 'hidden'}}}
-            maskProps={{ref: startMarkerRef, pointerEvents: isStart ? 'auto' : 'none'}}/>
-        {props.children}
+            <NodeCircleRenderer
+                x={node.x} y={node.y}
+                label={node.label}
+                inner={node.final ? node.radius * 0.8 : 0}
+                radius={node.radius}
+                maskProps={{ref: elementRef}}/>
+            <MarkerTriangleRenderer
+                x={node.x} y={node.y}
+                offset={node.radius}
+                childProps={{style: {visibility: isStart ? 'unset' : 'hidden'}}}
+                maskProps={{ref: startMarkerRef, pointerEvents: isStart ? 'auto' : 'none'}}/>
+            {props.children}
         </>
     );
 }

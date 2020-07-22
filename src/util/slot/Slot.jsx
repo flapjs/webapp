@@ -236,18 +236,19 @@ export default class Slot extends React.Component
                         slots[name][DIRTY_KEY] = false;
                         return (
                             <>
-                            {mode === 'consumer'
-                                ? props.children.call(undefined, Object.values(slots[name]))
-                                : mode === 'wrapped'
-                                    ? Object.values(slots[name]).reduceRight((prev, { component: Component, props }) =>
-                                    {
-                                        return ( <Component {...props}> {prev} </Component> );
-                                    },
-                                    props.children)
-                                    : Object.entries(slots[name]).map(([key, { component: Component, props }]) =>
-                                    {
-                                        return ( <Component key={key} {...props}/> );
-                                    })}
+                                {mode === 'consumer'
+                                // @ts-ignore => It expects a function as it's child.
+                                    ? props.children.call(undefined, Object.values(slots[name]))
+                                    : mode === 'wrapped'
+                                        ? Object.values(slots[name]).reduceRight((prev, { component: Component, props }) =>
+                                        {
+                                            return ( <Component {...props}> {prev} </Component> );
+                                        },
+                                        props.children)
+                                        : Object.entries(slots[name]).map(([key, { component: Component, props }]) =>
+                                        {
+                                            return ( <Component key={key} {...props}/> );
+                                        })}
                             </>
                         );
                     }
@@ -255,9 +256,10 @@ export default class Slot extends React.Component
                     {
                         return (
                             <>
-                            {mode === 'consumer'
-                                ? props.children.call(undefined, [])
-                                : props.children || ''}
+                                {mode === 'consumer'
+                                // @ts-ignore => It expects a function as it's child.
+                                    ? props.children.call(undefined, [])
+                                    : props.children || ''}
                             </>
                         );
                     }

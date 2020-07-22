@@ -18,13 +18,13 @@ export default function NFAToDFAConversionMessage(props)
             message={'Careful! This conversion will exponentially increase the number of states.\n' + message}
             renderControls={dismiss => (
                 <>
-                <button onClick={() =>
-                {
-                    machineBuilder.applyChanges(machine => convertToDFA(machine, machine));
-                    dismiss();
-                }}>
+                    <button onClick={() =>
+                    {
+                        machineBuilder.applyChanges(machine => convertToDFA(machine, machine));
+                        dismiss();
+                    }}>
                     Convert
-                </button>
+                    </button>
                 </>
             )}>
             

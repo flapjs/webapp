@@ -15,7 +15,10 @@ import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataI
 import { DrawerDispatchContext } from '@flapjs/components/drawer/DrawerContext.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
-import Logger from '@flapjs/util/Logger';
+
+import { Logger } from '@flapjs/util/Logger.js';
+
+const LOGGER = new Logger('FiniteAutomataToolbar');
 
 export default function FiniteAutomataToolbar(props)
 {
@@ -36,7 +39,7 @@ export default function FiniteAutomataToolbar(props)
     // Auto save...
     useEffect(() =>
     {
-        Logger.debug('Toolbar', 'Performing autosave...');
+        LOGGER.debug('Performing autosave...');
         let graphData = graphType.serialize(graphState, {});
         localStorage.setItem(graphType.name + '.graphData', JSON.stringify(graphData));
     });

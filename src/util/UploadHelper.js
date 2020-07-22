@@ -1,6 +1,6 @@
 /**
- * @param {FileBlob} fileBlob The file blob to transform.
- * @returns {string} The text from that file blob.
+ * @param {Blob} fileBlob The file blob to transform.
+ * @returns {Promise<string>} The text from that file blob.
  */
 export async function transformFileBlobToText(fileBlob)
 {
@@ -26,8 +26,8 @@ export async function transformFileBlobToText(fileBlob)
 }
 
 /**
- * @param {FileBlob} fileBlob The file blob to transform.
- * @returns {object} The object from that file blob.
+ * @param {Blob} fileBlob The file blob to transform.
+ * @returns {Promise<object>} The object from that file blob.
  */
 export async function transformFileBlobToJSON(fileBlob)
 {

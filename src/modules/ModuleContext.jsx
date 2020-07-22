@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import Logger from '@flapjs/util/Logger.js';
+import { Logger } from '@flapjs/util/Logger.js';
 import * as URLHelper from '@flapjs/util/URLHelper.js';
 import * as ModuleLoader from './ModuleLoader.js';
+
+const LOGGER = new Logger('ModuleProvider');
 
 const FALLBACK_MODULE_ID = null;
 
@@ -22,7 +24,7 @@ export function ModuleProvider(props)
         if (shouldAsyncUpdate.current !== moduleId)
         {
             shouldAsyncUpdate.current = moduleId;
-            Logger.out('ModuleProvider', `Preparing for module '${moduleId}'...`);
+            LOGGER.info(`Preparing for module '${moduleId}'...`);
             ModuleLoader.fetchModuleClassById(moduleId)
                 .then(result =>
                 {
@@ -36,7 +38,7 @@ export function ModuleProvider(props)
                 })
                 .catch(e =>
                 {
-                    Logger.error('ModuleProvider', `Unable to fetch module '${moduleId}'; there was nothing I could do, dude.`, e);
+                    LOGGER.error(`Unable to fetch module '${moduleId}'; there was nothing I could do, dude.`, e);
                 });
             return () =>
             {
@@ -51,7 +53,7 @@ export function ModuleProvider(props)
     {
         if (moduleClass)
         {
-            Logger.out('ModuleProvider', `Preparing for module class '${moduleClass.name}'...`);
+            LOGGER.info(`Preparing for module class '${moduleClass.name}'...`);
             try
             {
                 const [currentModule, loader] = ModuleLoader.loadModule(moduleClass);
@@ -70,13 +72,13 @@ export function ModuleProvider(props)
                     }
                     catch(e)
                     {
-                        Logger.error('ModuleManager', `Failed to unload module '${currentModule.constructor.moduleId}'. No can do.`, e);
+                        LOGGER.error('ModuleManager', `Failed to unload module '${currentModule.constructor.moduleId}'. No can do.`, e);
                     }
                 };
             }
             catch(e)
             {
-                Logger.error('ModuleProvider', `Failed to load module class '${moduleClass.name}'. I'm sorry.`, e);
+                LOGGER.error('ModuleProvider', `Failed to load module class '${moduleClass.name}'. I'm sorry.`, e);
             }
         }
     },

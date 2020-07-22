@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
-import Logger from '@flapjs/util/Logger';
+
+import { Logger } from '@flapjs/util/Logger.js';
+
+const LOGGER = new Logger('EventListenerHook');
 
 /**
  * Adds and removes event listeners for the element.
  * 
- * @param {React.Ref} elementRef The target element to listen to.
+ * @param {{ current: object }} elementRef The target element to listen to.
  * @param {object} eventListenerMap An object map of event types to listeners. In other words,
  * the keys should be valid event names, such as "onMouseDown", and the values should be
  * callback functions to handle that event.
@@ -19,7 +22,7 @@ export function useEventListeners(elementRef, eventListenerMap = {})
         if (!element)
         {
             // eslint-disable-next-line no-console
-            Logger.warn('EventListenerHook', 'Found null element from ref for listened events: '
+            LOGGER.warn('Found null element from ref for listened events: '
                 + Object.keys(eventListenerMap).join(', ')
                 + '. There must be some mistake with the ref setup.');
             return;

@@ -1,8 +1,6 @@
 import BaseModule from '../base/BaseModule.js';
-import GraphService from '@flapjs/services/graph/GraphService.js';
-import NotifyService from '@flapjs/services/notify/NotifyService.js';
-import HistoryService from '@flapjs/services/history/HistoryService.js';
-import MachineService from '@flapjs/services/machine/MachineService.js';
+
+import RegularExpressionPlayground from './RegularExpressionPlayArea.jsx';
 
 export default class RegularExpressionModule extends BaseModule
 {
@@ -17,22 +15,9 @@ export default class RegularExpressionModule extends BaseModule
     static get renders()
     {
         return {
-            header: [ ],
-            appbar: [ ],
-            playarea: [ ],
-            viewarea: [ ],
-            drawer: [ ],
+            viewarea: [
+                { component: RegularExpressionPlayground, props: {} }
+            ],
         };
-    }
-
-    /** @override */
-    static get services()
-    {
-        return [
-            HistoryService,
-            NotifyService.withInitialMessages([ 'Hello' ]),
-            GraphService,
-            MachineService,
-        ];
     }
 }

@@ -50,7 +50,7 @@ class BSTNode
         {
             if (curNode.parent === null)
             {
-                alert('No successor in tree');
+                // // alert('No successor in tree');
                 return null;
             }
             curNode = curNode.parent;
@@ -63,7 +63,7 @@ class BSTNode
                 curNode = curNode.parent;
                 lagNode = lagNode.parent;
             }
-            alert('No successor in tree');
+            // // alert('No successor in tree');
             return null;
         }
     }
@@ -93,7 +93,7 @@ class BSTNode
         {
             if (curNode.parent === null)
             {
-                alert('No successor in tree');
+                // // alert('No successor in tree');
                 return null;
             }
             curNode = curNode.parent;
@@ -106,7 +106,7 @@ class BSTNode
                 curNode = curNode.parent;
                 lagNode = lagNode.parent;
             }
-            alert('No successor in tree');
+            // // alert('No successor in tree');
             return null;
         }
     }

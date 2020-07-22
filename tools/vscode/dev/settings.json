@@ -1,0 +1,23 @@
+{
+    "liveServer.settings.root": "/dist",
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "javascript.preferences.quoteStyle": "single",
+    "editor.detectIndentation": false,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "files.exclude": {
+        "node_modules": true,
+        "package-lock.json": true,
+        ".*[^vscode]*": true,
+        "dist": true,
+        "jsconfig.json": true,
+        "webpack.config.js": true,
+        "declarations.d.ts": true,
+        "index.html": true,
+        "LICENSE": true
+    }
+}

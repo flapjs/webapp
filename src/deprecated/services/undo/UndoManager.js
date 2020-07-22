@@ -1,6 +1,6 @@
-import Logger from '@flapjs/util/Logger.js';
+import { Logger } from '@flapjs/util/Logger.js';
 
-const LOGGER_TAG = 'UndoManager';
+const LOGGER = new Logger('UndoManager');
 
 const MAX_HISTORY_LENGTH = 1000;
 
@@ -36,7 +36,7 @@ class UndoManager
         }
         else
         {
-            Logger.error(LOGGER_TAG, 'Missing default undo event handler for event capture');
+            LOGGER.error('Missing default undo event handler for event capture');
         }
     }
 

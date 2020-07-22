@@ -50,11 +50,11 @@ class LanguageSelector extends React.Component
                 {
                     return (
                         <>
-                        {this.renderLocaleOptions(
-                            props.languages,
-                            context.localeCode,
-                            nextLocaleCode => context.changeLocale(nextLocaleCode)
-                        )}
+                            {this.renderLocaleOptions(
+                                props.languages,
+                                context.localeCode,
+                                nextLocaleCode => context.changeLocale(nextLocaleCode)
+                            )}
                         </>
                     );
                 }}

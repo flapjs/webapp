@@ -21,16 +21,16 @@ export default function MarkerTriangleRenderer(props)
     
     return (
         <>
-        <path className={RendererStyle.decorative}
-            d={`M${x} ${y}`
+            <path className={RendererStyle.decorative}
+                d={`M${x} ${y}`
                 + ` L${x + diameterX} ${y + Math.sin(angle + Math.PI / 2) * size * SIZE_RATIO}`
                 + ` L${x + diameterX} ${y - Math.sin(angle + Math.PI / 2) * size * SIZE_RATIO}`
                 + ' Z'}
-            fill="transparent"
-            {...childProps}/>
-        <circle className={RendererStyle.mask}
-            cx={x + radiusX} cy={y} r={size + MASK_RADIUS_OFFSET}
-            {...maskProps}/>
+                fill="transparent"
+                {...childProps}/>
+            <circle className={RendererStyle.mask}
+                cx={x + radiusX} cy={y} r={size + MASK_RADIUS_OFFSET}
+                {...maskProps}/>
         </>
     );
 }

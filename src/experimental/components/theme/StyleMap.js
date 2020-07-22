@@ -4,7 +4,7 @@ class StyleMap
      * Creates a StyleMap from the theme file at the url.
      *
      * @param {string} url The url to fetch the theme file from.
-     * @returns {StyleMap} The created style map with the parsed file contents.
+     * @returns {Promise<StyleMap>} The created style map with the parsed file contents.
      */
     static fetchFromURL(url)
     {

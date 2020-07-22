@@ -6,7 +6,7 @@ import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
-import NodeGraphExporter from '../../exporters/NodeGraphExporter';
+import NodeGraphExporter from '../../exporters/NodeGraphExporter.js';
 
 export default function ExportPanel(props)
 {
@@ -17,16 +17,16 @@ export default function ExportPanel(props)
 
     return (
         <>
-        <header>
-            <h2>Export</h2>
-        </header>
-        <section>
-            <ul>
-                <li><button onClick={() => exportTo('graph', { graphState, graphType })}>Save to File</button></li>
-                <li><button onClick={() => exportTo('image', { svgRef })}>Export to Image</button></li>
-                <li><button onClick={() => exportTo('svg', { svgRef })}>Export to SVG</button></li>
-            </ul>
-        </section>
+            <header>
+                <h2>Export</h2>
+            </header>
+            <section>
+                <ul>
+                    <li><button onClick={() => exportTo('graph', { graphState, graphType })}>Save to File</button></li>
+                    <li><button onClick={() => exportTo('image', { svgRef })}>Export to Image</button></li>
+                    <li><button onClick={() => exportTo('svg', { svgRef })}>Export to SVG</button></li>
+                </ul>
+            </section>
         </>
     );
 }

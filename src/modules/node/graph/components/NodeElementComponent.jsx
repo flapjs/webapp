@@ -21,14 +21,14 @@ export default function NodeElementComponent(props)
 
     return (
         <>
-        <NodeCircleRenderer
-            x={node.x} y={node.y}
-            label={node.label}
-            childProps={{
-                style: { outline: selected ? '0.1rem dashed gray' : 'none' }
-            }}
-            maskProps={{ref: elementRef}}/>
-        {props.children}
+            <NodeCircleRenderer
+                x={node.x} y={node.y}
+                label={node.label}
+                childProps={{
+                    style: { outline: selected ? '0.1rem dashed gray' : 'none' }
+                }}
+                maskProps={{ref: elementRef}}/>
+            {props.children}
         </>
     );
 }
