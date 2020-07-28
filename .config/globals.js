@@ -16,12 +16,15 @@ const pkg = require('../package.json');
  * and by "globals" in .jest/config.js.
  */
 module.exports = {
-    '__VERSION__': `"${pkg.version}"`,
-    '__BUG_REPORT_URL__': `"${pkg.bugs.url}"`,
-    '__PROJECT_NAME__': `"${pkg.name}"`,
-
-    // This is computed and added by `.webpack/common/defineGlobals.js`.
-    // '__NODE_ENV__': `"${env}"`,
-    // This is used ONLY by the service worker and added by `./src/assets/template.html`.
-    // '__SERVICE_WORKER_ENV__': ...
+    getGlobalVariables(env = 'development')
+    {
+        return {
+            '__VERSION__': `"${pkg.version}"`,
+            '__BUG_REPORT_URL__': `"${pkg.bugs.url}"`,
+            '__PROJECT_NAME__': `"${pkg.name}"`,
+            '__NODE_ENV__': `"${env}"`,
+            // This is used ONLY by the service worker and added by `./src/assets/template.html`.
+            // '__SERVICE_WORKER_ENV__': ...
+        };
+    }
 };

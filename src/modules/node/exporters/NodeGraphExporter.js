@@ -1,4 +1,4 @@
 export default function NodeGraphExporter(graphType, graphState)
 {
-    return graphType.serialize(graphState, {});
+    return JSON.stringify(graphType.serialize(graphState, {}));
 }

@@ -4,7 +4,7 @@ const path = require('path');
 const { DefinePlugin } = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const globals = require('../.config/globals.js');
+const globals = require('../.config/globals.js').getGlobalVariables();
 
 const pkg = require('../package.json');
 const PROJECT_ALIAS = `@${pkg.name}`;

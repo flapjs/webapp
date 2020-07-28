@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-const globals = require('../.config/globals.js');
+const globals = require('../.config/globals.js').getGlobalVariables();
 
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html

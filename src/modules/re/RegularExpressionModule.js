@@ -1,6 +1,6 @@
 import BaseModule from '../base/BaseModule.js';
 
-import RegularExpressionPlayground from './RegularExpressionPlayArea.jsx';
+import RegularExpressionWorkspace from './RegularExpressionWorkspace.jsx';
 
 export default class RegularExpressionModule extends BaseModule
 {
@@ -15,8 +15,8 @@ export default class RegularExpressionModule extends BaseModule
     static get renders()
     {
         return {
-            viewarea: [
-                { component: RegularExpressionPlayground, props: {} }
+            foreground: [
+                RegularExpressionWorkspace,
             ],
         };
     }

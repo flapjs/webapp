@@ -18,9 +18,7 @@ export function startUp(env, version)
     {
         LOGGER.info('='.repeat(40));
         
-        // NOTE: __NODE_ENV__ is defined in `template.html` as a global.
         LOGGER.info(`Preparing app for ${env} environment...`);
-        // NOTE: __VERSION__ is defined by Webpack with the DefinePlugin.
         LOGGER.info(`Loading app version '${version}'...`);
 
         // Do anything you want here...

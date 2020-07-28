@@ -16,6 +16,18 @@ import IconButton from './icons/IconButton.jsx';
 import { BugIcon } from './icons/Icons.js';
 
 const BUGREPORT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfqBFiGFGnxPI7QIWscv8jsIr5bj4LA3CS-is__2-YvJ_kTjQ/viewform';
+
+/**
+ * Defines these slots:
+ * - header
+ * - - appbar
+ * - drawer
+ * - footer
+ * - splash
+ * - workspace
+ * - - background
+ * - - foreground
+ */
 export default function AppLayout(props)
 {
     const { app } = props;
