@@ -4,8 +4,8 @@
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
+// @ts-ignore
 const { prompt } = require('enquirer');
-const chalk = require('chalk');
 
 const VSCODE_DIR = './.vscode/';
 const VSCODE_SETTINGS_FILENAME = 'settings.json';
@@ -25,44 +25,29 @@ main(process.argv).catch(e => { throw e; });
  */
 async function main(args)
 {
-    let mode = args[2];
-
-    console.log('Preparing to setup workspace...');
-
-    if (!mode)
-    {
-        console.log('No mode defined. Using \'full\' mode...');
-        mode = 'full';
-    }
+    console.log('Setting up workspace...');
     
-    let settings = {};
-    await loadSettings('./tools/vscode/base-settings.json', settings);
-    
-    switch(mode)
-    {
-        case 'dev':
-            await loadSettings('./tools/vscode/dev-settings.json', settings);
-            break;
-        case 'full':
-            /** Do nothing. The default settings is the full settings. */
-            break;
-        default:
-            throw new Error(`Unknown mode '${mode}'.`);
-    }
+    const defaultSettings = await loadSettings('.vscode/settings.json.default');
 
-    try
+    const { answer } = await prompt({
+        type: 'confirm',
+        name: 'answer',
+        message: 'Do you want to enable \'dev\' workspace mode?',
+    });
+
+    if (answer)
     {
-        await writeSettings(settings);
+        try
+        {
+            await writeSettings(defaultSettings);
+        }
+        catch(e)
+        {
+            console.log();
+            console.log(e);
+            process.exit(0);
+        }
     }
-    catch(e)
-    {
-        console.log();
-        console.log(e);
-        process.exit(0);
-    }
-    
-    console.log();
-    console.log(`Workspace prepared for ${mode} mode. ` + chalk.green.bold('Happy coding :)'));
 }
 
 async function writeSettings(settings)
