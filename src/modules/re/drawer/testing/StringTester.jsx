@@ -6,19 +6,21 @@ import { uuid } from '@flapjs/util/MathHelper.js';
 import Options from '@flapjs/components/options/Options.jsx';
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
 import Button from '@flapjs/components/lib/Button.jsx';
+
 import { solveFSA } from '@flapjs/modules/fa/machine/FSAUtils.js';
-import { convertToNFA } from '@flapjs/modules/re/machine/ConvertRE';
-import { useMachine } from '@flapjs/services/machine/MachineHooks.jsx';
+import { convertToNFA } from '@flapjs/modules/re/machine/ConvertRE.js';
 
 import TestString from '@flapjs/modules/fa/drawer/testing/TestString.jsx';
 import ImportButton from '@flapjs/modules/fa/drawer/testing/ImportButton.jsx';
 import ExportButton from '@flapjs/modules/fa/drawer/testing/ExportButton.jsx';
-//RE TESTER
+
+import { useMachine } from '../../machinebuilder/RegularExpressionContext.jsx';
+
 export default function StringTester(props)
 {
     // NOTE: These strings MUST NEVER LEAVE THIS FUNCTION. Otherwise, bad things will happen... (desync)
     const [testStrings, setTestStrings] = useState([]);
-    const re = useMachine(props.machineBuilderType, props.machineName);
+    const re = useMachine();
     const nfa = convertToNFA(re);
 
     const onNewTestString = useCallback(() =>

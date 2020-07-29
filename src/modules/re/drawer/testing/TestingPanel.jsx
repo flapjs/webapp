@@ -5,9 +5,7 @@ import { RunningManIcon } from '@flapjs/components/icons/Icons.js';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
-import StringTester from '@flapjs/modules/fa/drawer/testing/StringTester.jsx';
-import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
-
+import StringTester from './StringTester.jsx';
 
 export default function TestingPanel(props)
 {
@@ -18,7 +16,7 @@ export default function TestingPanel(props)
             </header>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
                 <Pane title="Strings">
-                    <StringTester machineBuilderType={FiniteAutomataBuilder} machineName='graph' />
+                    <StringTester />
 
                 </Pane>
                 <Pane title="Machines">

@@ -20,6 +20,11 @@ export function convertToNFA(reMachine)
 
 function AST2NFA(astNode, re)
 {
+    if (!astNode)
+    {
+        return new FSA(false);
+    }
+
     // Base case, terminal nodes are characters in the alphabet OR
     // the EmptySet or Sigma
     if (astNode instanceof TerminalNode)
@@ -34,6 +39,7 @@ function AST2NFA(astNode, re)
                 return character(astNode.symbol);
         }
     }
+    
     switch (astNode.symbol)
     {
         case KLEENE:
