@@ -1,6 +1,8 @@
 import BaseModule from '../base/BaseModule.js';
 
 import RegularExpressionWorkspace from './RegularExpressionWorkspace.jsx';
+import { MachineProvider } from './machinebuilder/RegularExpressionContext.jsx';
+import ExamplePanel from './drawer/ExamplePanel.jsx';
 
 export default class RegularExpressionModule extends BaseModule
 {
@@ -10,11 +12,20 @@ export default class RegularExpressionModule extends BaseModule
     static get moduleVersion() { return '3.0.0'; }
 
     /** @override */
-    static get providers() { return []; }
+    static get providers()
+    {
+        return [
+            MachineProvider
+        ];
+    }
+
     /** @override */
     static get renders()
     {
         return {
+            drawer: [
+                ExamplePanel,
+            ],
             foreground: [
                 RegularExpressionWorkspace,
             ],
