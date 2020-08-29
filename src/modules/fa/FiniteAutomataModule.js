@@ -1,9 +1,9 @@
 import BaseModule from '../base/BaseModule.js';
 import GraphService from '@flapjs/services/graph/GraphService.js';
-import HistoryService from '@flapjs/services/history/HistoryService.js';
 import MachineService from '@flapjs/services/machine/MachineService.js';
 
 import * as NotificationService from '@flapjs/services/notification/NotificationService.js';
+import * as HistoryService from '@flapjs/services/history/HistoryService.js';
 
 import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './graph/FiniteAutomataGraph.js';
@@ -18,7 +18,6 @@ import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource
 import GraphMachineNotifier from '@flapjs/services/graphmachine/GraphMachineNotifier.jsx';
 import FiniteAutomataGraphEditor from './grapheditor/FiniteAutomataGraphEditor.jsx';
 import FiniteAutomataBuilder from './graphmachine/FiniteAutomataBuilder.js';
-import { FiniteAutomataAutoSaver } from './FiniteAutomataAutoSaver.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -32,6 +31,7 @@ export default class FiniteAutomataModule extends BaseModule
     {
         return [
             NotificationService.NotificationProvider,
+            HistoryService.HistoryProvider,
         ];
     }
 
@@ -39,7 +39,7 @@ export default class FiniteAutomataModule extends BaseModule
     static get renders()
     {
         return {
-            header: [FiniteAutomataAutoSaver],
+            header: [],
             appbar: [FiniteAutomataToolbar],
             playarea: [
                 [GraphMachineSource, { machineBuilderType: FiniteAutomataBuilder }],
@@ -57,7 +57,7 @@ export default class FiniteAutomataModule extends BaseModule
     static get services()
     {
         return [
-            HistoryService,
+
             GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground, FiniteAutomataGraphEditor),
             MachineService,
         ];

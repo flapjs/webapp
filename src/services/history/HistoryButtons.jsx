@@ -1,53 +1,38 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { HistoryStateContext, HistoryDispatchContext } from './HistoryContext.jsx';
-import { canUndo, canRedo } from './HistoryHelper.js';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
+
 import { UndoIcon, RedoIcon } from '@flapjs/components/icons/Icons.js';
 
-export function Undo(props)
+export function UndoButton(props)
 {
-    const { source, update } = props;
-    
-    const historyState = useContext(HistoryStateContext);
-    const historyDispatch = useContext(HistoryDispatchContext);
-
+    const { onClick, canClick } = props;
     return (
         <IconButton
             iconClass={UndoIcon}
-            onClick={() => historyDispatch({ type: 'undo', source, update })}
-            disabled={!canUndo(historyState, source)}
+            onClick={onClick}
+            disabled={!canClick()}
             title="Undo"/>
     );
 }
-Undo.propTypes = {
-    source: PropTypes.oneOfType([
-        PropTypes.elementType,
-        PropTypes.string,
-    ]).isRequired,
-    update: PropTypes.func.isRequired,
+UndoButton.propTypes = {
+    onClick: PropTypes.func,
+    canClick: PropTypes.func,
 };
 
-export function Redo(props)
+export function RedoButton(props)
 {
-    const { source, update } = props;
-
-    const historyState = useContext(HistoryStateContext);
-    const historyDispatch = useContext(HistoryDispatchContext);
-    
+    const { onClick, canClick } = props;
     return (
         <IconButton
             iconClass={RedoIcon}
-            onClick={() => historyDispatch({ type: 'redo', source, update })}
-            disabled={!canRedo(historyState, source)}
+            onClick={onClick}
+            disabled={!canClick()}
             title="Redo"/>
     );
 }
-Redo.propTypes = {
-    source: PropTypes.oneOfType([
-        PropTypes.elementType,
-        PropTypes.string,
-    ]).isRequired,
-    update: PropTypes.func.isRequired,
+RedoButton.propTypes = {
+    onClick: PropTypes.func,
+    canClick: PropTypes.func,
 };

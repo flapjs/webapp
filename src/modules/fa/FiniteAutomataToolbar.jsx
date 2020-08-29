@@ -1,49 +1,58 @@
-import React, { useContext, useCallback } from 'react';
+import React from 'react';
 // import Style from './FiniteAutomataToolbar.module.css';
 
-import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
-
 import Upload from '@flapjs/components/upload/Upload.jsx';
-
-import { Undo, Redo } from '@flapjs/services/history/HistoryButtons.jsx';
-import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
-
-import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
-
 import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataImporter.js';
 
+import { useFiniteAutomataSerializer, useFiniteAutomataDeserializer } from './FiniteAutomataSerializer.jsx';
+
 import { useDrawer } from '@flapjs/services/drawer/DrawerService.js';
+import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/HistoryService.js';
+import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
+import { useGraphType, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export default function FiniteAutomataToolbar()
 {
-    const graphType = useContext(GraphTypeContext);
-    const graphState = useGraphState();
-    const graphDispatch = useContext(GraphDispatchContext);
-    const drawer = useDrawer();
+    const graphType = useGraphType();
+    const graphDispatch = useGraphDispatch();
+    const graphAutoSaveKey = graphType.name + '.autoSave';
+    const graphHistoryKey = graphType.name + '.history';
 
-    // History setup...
-    const graphUpdateCallback = useCallback(data =>
-    {
-        let graphData = JSON.parse(data);
-        let graphState = graphType.deserialize(graphData, {});
-        graphDispatch({ type: 'resetState', state: graphState });
-    }, [graphDispatch, graphType]);
-    useHistory(graphType, () => JSON.stringify(graphType.serialize(graphState, {})));
+    const serializer = useFiniteAutomataSerializer();
+    const deserializer = useFiniteAutomataDeserializer();
+
+    useAutoSave(graphAutoSaveKey, serializer, deserializer);
+
+    const {
+        doUndoHistory,
+        canUndoHistory,
+        doRedoHistory,
+        canRedoHistory,
+        clearHistory,
+    } = useHistory(graphHistoryKey, serializer, deserializer);
+
+    const {
+        changeDrawerTab,
+    } = useDrawer();
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <IconButton
                 iconClass={PageEmptyIcon}
-                onClick={() => graphDispatch('clearAll')}
+                onClick={() =>
+                {
+                    clearHistory();
+                    graphDispatch('clearAll');
+                }}
                 title="New" />
-            <Undo source={graphType} update={graphUpdateCallback} />
-            <Redo source={graphType} update={graphUpdateCallback} />
+            <UndoButton onClick={doUndoHistory} canClick={canUndoHistory} />
+            <RedoButton onClick={doRedoHistory} canClick={canRedoHistory} />
             <IconButton
                 iconClass={DownloadIcon}
-                onClick={() => drawer.changeDrawerTab(3)}
+                onClick={() => changeDrawerTab(3)}
                 title="Save" />
             <Upload iconClass={UploadIcon} onUpload={fileBlob =>
                 FiniteAutomataImporter(fileBlob)

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
-import { getSourceName } from './HistoryHelper.js';
 import { stringHash } from '@flapjs/util/MathHelper.js';
+
+import { getSourceName } from './HistoryHelper.js';
 
 const MAX_HISTORY_LENGTH = 1000;
 
@@ -130,7 +131,7 @@ function HistoryReducer(state, action)
             if (sourceState.history.length <= 0) return;
 
             sourceState.history.length = 0;
-            sourceState.historyIndex = 0;
+            sourceState.historyIndex = -1;
 
             return { ...state };
         }

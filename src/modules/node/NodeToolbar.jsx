@@ -5,8 +5,7 @@ import Upload from '@flapjs/components/upload/Upload.jsx';
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
 import { useView } from '@flapjs/services/view/ViewContext.jsx';
 
-import { Undo, Redo } from '@flapjs/services/history/HistoryButtons.jsx';
-import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
+import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/HistoryService.js';
 
 import { useGraphType, useGraphState, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 
@@ -14,7 +13,7 @@ import { Logger } from '@flapjs/util/Logger.js';
 
 const LOGGER = new Logger('NodeToolbar');
 
-export default function NodeToolbar(props)
+export default function NodeToolbar()
 {
     const graphType = useGraphType();
     const graphDispatch = useGraphDispatch();
@@ -22,14 +21,21 @@ export default function NodeToolbar(props)
 
     const graphState = useGraphState();
 
-    useHistory(graphType, () => JSON.stringify(graphType.serialize(graphState, {})));
-    const graphUpdateCallback = useCallback(data =>
+    const serializer = useCallback(data =>
     {
-        let graphData = JSON.parse(data);
+        return graphType.serialize(graphState, {});
+    },
+    [graphState, graphType]);
+
+    const deserializer = useCallback(data =>
+    {
+        let graphData = data;
         let graphState = graphType.deserialize(graphData, {});
         graphDispatch({ type: 'resetState', state: graphState });
     },
     [ graphDispatch, graphType ]);
+    
+    const { doUndoHistory, canUndoHistory, doRedoHistory, canRedoHistory } = useHistory(graphType.name, serializer, deserializer);
 
     // Auto save...
     useEffect(() =>
@@ -42,8 +48,8 @@ export default function NodeToolbar(props)
     return (
         <>
             <fieldset>
-                <Undo source={graphType} update={graphUpdateCallback}/>
-                <Redo source={graphType} update={graphUpdateCallback}/>
+                <UndoButton onClick={doUndoHistory} canClick={canUndoHistory}/>
+                <RedoButton onClick={doRedoHistory} canClick={canRedoHistory}/>
             </fieldset>
             <fieldset>
                 <button onClick={() => graphDispatch('clearAll')}>

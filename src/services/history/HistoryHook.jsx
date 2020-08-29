@@ -1,25 +1,36 @@
 import { useContext, useEffect, useCallback } from 'react';
-import { HistoryStateContext, HistoryDispatchContext } from './HistoryContext.jsx';
 import { stringHash } from '@flapjs/util/MathHelper.js';
-import { isCurrentState } from './HistoryHelper.js';
 
-export function useHistory(source, dataCallback, recheckTimeInterval = 300, commitImmediately = false)
+import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
+
+import { HistoryStateContext, HistoryDispatchContext } from './HistoryContext.jsx';
+import { isCurrentState, getSourceName } from './HistoryHelper.js';
+import { useHistoryDeserializer, useHistorySerializer } from './HistorySerializer.jsx';
+
+export function useHistory(historyKey, serializer, deserializer, recheckTimeInterval = 300, commitImmediately = false)
 {
     const historyState = useContext(HistoryStateContext);
     const historyDispatch = useContext(HistoryDispatchContext);
 
+    const historySerializer = useHistorySerializer(historyKey);
+    const historyDeserializer = useHistoryDeserializer(historyKey);
+    useAutoSave(historyKey, historySerializer, historyDeserializer);
+
     const historyCommitCallback = useCallback(() =>
     {
-        const data = dataCallback();
-        const dataHash = stringHash(data);
+        let data = {};
+        serializer(data);
+
+        const dataString = JSON.stringify(data);
+        const dataHash = stringHash(dataString);
 
         // NOTE: This is important to stop infinite loops.
-        if (!isCurrentState(historyState, source, data, dataHash))
+        if (!isCurrentState(historyState, historyKey, dataString, dataHash))
         {
-            historyDispatch({ type: 'commit', source, data, hash: dataHash });
+            historyDispatch({ type: 'commit', source: historyKey, data: dataString, hash: dataHash });
         }
     },
-    [ dataCallback, historyState, historyDispatch, source ]);
+    [ serializer, historyState, historyDispatch, historyKey ]);
 
     useEffect(() =>
     {
@@ -53,4 +64,46 @@ export function useHistory(source, dataCallback, recheckTimeInterval = 300, comm
             };
         }
     });
+
+    const doUndoHistory = useCallback(function doUndoHistory()
+    {
+        historyDispatch({ type: 'undo', source: historyKey, update: data => deserializer(JSON.parse(data)) });
+    },
+    [deserializer, historyDispatch, historyKey]);
+
+    const canUndoHistory = useCallback(function canUndoHistory()
+    {
+        const sourceName = getSourceName(historyKey);
+        if (!(sourceName in historyState)) return false;
+        return historyState[sourceName].historyIndex > 0;
+    },
+    [historyState, historyKey]);
+
+    const doRedoHistory = useCallback(function doRedoHistory()
+    {
+        historyDispatch({ type: 'redo', source: historyKey, update: data => deserializer(JSON.parse(data)) });
+    },
+    [deserializer, historyDispatch, historyKey]);
+    
+    const canRedoHistory = useCallback(function canRedoHistory()
+    {
+        const sourceName = getSourceName(historyKey);
+        if (!(sourceName in historyState)) return false;
+        return historyState[sourceName].historyIndex < historyState[sourceName].history.length - 1;
+    },
+    [historyState, historyKey]);
+
+    const clearHistory = useCallback(function clearHistory()
+    {
+        historyDispatch({ type: 'clear', source: historyKey });
+    },
+    [historyDispatch, historyKey]);
+
+    return {
+        doUndoHistory,
+        canUndoHistory,
+        doRedoHistory,
+        canRedoHistory,
+        clearHistory,
+    };
 }

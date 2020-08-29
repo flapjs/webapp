@@ -10,12 +10,6 @@ const LOGGER = new Logger('AutoSaveService');
  * 
  * @callback DeserializerFunction
  * @param {Object} src The data object to deserialize from.
- * 
- * @callback SerializerHook
- * @returns {SerializerFunction} The serializer function to be called on save.
- * 
- * @callback DeserializerHook
- * @returns {DeserializerFunction} The deserializer function to be called on load.
  */
 
 /**
@@ -24,46 +18,49 @@ const LOGGER = new Logger('AutoSaveService');
  * If no state changes occur, no saves will be performed.
  * 
  * @param {String} saveKey The unique key to save to in localStorage.
- * @param {SerializerHook} useSerializer The hook to return a serializer function to be called on save.
- * @param {DeserializerHook} useDeserializer The hook to return a deserializer function to be called on load.
+ * @param {SerializerFunction} serializer The serializer function to be called on save.
+ * @param {DeserializerFunction} deserializer The deserializer function to be called on load.
  * @param {Object} opts Any additional options.
  * @param {Number} [opts.debounceMillis=1000] The number of milliseconds to wait after state change before saving.
+ * @param {Boolean} [opts.autosave=true] Whether to automatically save on state update.
+ * @param {Boolean} [opts.autoload=true] Whether to automatically load on mount.
  */
-export function useAutoSave(saveKey, useSerializer, useDeserializer, opts = {})
+export function useAutoSave(saveKey, serializer, deserializer, opts = {})
 {
-    const { debounceMillis = 1000 } = opts;
+    const { debounceMillis = 1000, autosave = true, autoload = true } = opts;
 
     const [ init, setInit ] = useState(false);
-    const serializer = useSerializer();
-    const deserializer = useDeserializer();
 
     // Auto saving/loading
     useEffect(() =>
     {
-        if (!init)
+        if (!init && autoload)
         {
-            LOGGER.trace(`Auto loading '${saveKey}' data from localStorage...`);
-            let saveDataString = localStorage.getItem(saveKey);
-            try
+            LOGGER.debug(`Auto loading '${saveKey}' data from localStorage...`);
+            const saveDataString = localStorage.getItem(saveKey);
+            if (saveDataString)
             {
-                let saveData = JSON.parse(saveDataString);
-                deserializer(saveData);
-            }
-            catch(e)
-            {
-                LOGGER.error('Failed to deserialize save data.', e);
+                try
+                {
+                    let saveData = JSON.parse(saveDataString);
+                    deserializer(saveData);
+                }
+                catch(e)
+                {
+                    LOGGER.error('Failed to deserialize save data.', e);
+                }
             }
 
             setInit(true);
         }
-        else
+        else if (autosave)
         {
             let shouldPerformSave = true;
             const timeoutHandle = setTimeout(() =>
             {
                 if (shouldPerformSave)
                 {
-                    LOGGER.trace(`Auto saving '${saveKey}' data to localStorage...`);
+                    LOGGER.debug(`Auto saving '${saveKey}' data to localStorage...`);
                     try
                     {
                         let saveData = {};
@@ -85,5 +82,5 @@ export function useAutoSave(saveKey, useSerializer, useDeserializer, opts = {})
             };
         }
     },
-    [debounceMillis, deserializer, init, saveKey, serializer]);
+    [autoload, autosave, debounceMillis, deserializer, init, saveKey, serializer]);
 }
