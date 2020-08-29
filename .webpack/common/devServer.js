@@ -1,5 +1,7 @@
 /* eslint-env node */
 
+// TODO: Currently react-refresh still causes issues with our project. Until it is fixed, it should be disabled.
+
 // const { HotModuleReplacementPlugin } = require('webpack');
 
 // const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
