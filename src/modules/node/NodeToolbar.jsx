@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 
+import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
 import * as Downloader from '@flapjs/util/Downloader.js';
 import Upload from '@flapjs/components/upload/Upload.jsx';
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
@@ -42,7 +43,7 @@ export default function NodeToolbar()
     {
         LOGGER.debug('Performing autosave...');
         let graphData = JSON.stringify(graphType.serialize(graphState, {}));
-        localStorage.setItem(graphType.name + '.graphData', graphData);
+        LocalStorage.setItem(graphType.name + '.graphData', graphData);
     });
 
     return (

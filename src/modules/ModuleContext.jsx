@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Logger } from '@flapjs/util/Logger.js';
+import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
 import * as URLHelper from '@flapjs/util/URLHelper.js';
 import * as ModuleLoader from './ModuleLoader.js';
 
@@ -60,7 +61,7 @@ export function ModuleProvider(props)
                 moduleInstanceRef.current = currentModule;
 
                 // ...save it as recent...
-                localStorage.setItem('recentModuleId', moduleClass.moduleId);
+                LocalStorage.setItem('recentModuleId', moduleClass.moduleId);
 
                 // ...and here is the unmount procedure...
                 return () =>
@@ -103,7 +104,7 @@ function getDefaultModuleId()
     }
 
     // Was there a recent module used?
-    let prevModuleId = localStorage.getItem('recentModuleId');
+    let prevModuleId = LocalStorage.getItem('recentModuleId');
     if (prevModuleId)
     {
         return prevModuleId;

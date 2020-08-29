@@ -1,5 +1,5 @@
 import React from 'react';
-// import Style from './FiniteAutomataToolbar.module.css';
+import Style from './FiniteAutomataToolbar.module.css';
 
 import Upload from '@flapjs/components/upload/Upload.jsx';
 import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataImporter.js';
@@ -18,6 +18,7 @@ export default function FiniteAutomataToolbar()
 {
     const graphType = useGraphType();
     const graphDispatch = useGraphDispatch();
+    
     const graphAutoSaveKey = graphType.name + '.autoSave';
     const graphHistoryKey = graphType.name + '.history';
 
@@ -39,7 +40,7 @@ export default function FiniteAutomataToolbar()
     } = useDrawer();
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className={Style.container}>
             <IconButton
                 iconClass={PageEmptyIcon}
                 onClick={() =>

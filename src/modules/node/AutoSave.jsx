@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
+
 import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export default function AutoInit()
@@ -18,7 +20,7 @@ export default function AutoInit()
             if (canUpdate)
             {
                 let graphData = graphType.serialize(graphState, {});
-                localStorage.setItem(graphDataKey, JSON.stringify(graphData));
+                LocalStorage.setItem(graphDataKey, JSON.stringify(graphData));
             }
         },
         3000);

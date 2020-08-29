@@ -4,6 +4,7 @@ export { useHistory } from './HistoryHook.jsx';
 
 /**
  * @module HistoryService
+ * @requires AutoSaveService
  * 
  * ## Setup
  * - Requires HistoryProvider to be the top-level parent. All history actions must be

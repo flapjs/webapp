@@ -1,3 +1,4 @@
+import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
 import { Logger } from '@flapjs/util/Logger.js';
 import LanguageMap from './LanguageMap.js';
 
@@ -131,7 +132,7 @@ export function changeLocale(provider, localeCode = undefined)
         if (!provider.shouldUpdateAsync) return;
 
         // Update local storage...
-        localStorage.setItem(LOCAL_STORAGE_KEY, localeCode);
+        LocalStorage.setItem(LOCAL_STORAGE_KEY, localeCode);
 
         // When it is done, force a re-render...
         if (!result)
@@ -193,7 +194,7 @@ export function loadLocale(localeCode)
 
 export function getDefaultLocaleCode()
 {
-    return localStorage.getItem(LOCAL_STORAGE_KEY) || FALLBACK_LOCALE_CODE;
+    return LocalStorage.getItem(LOCAL_STORAGE_KEY) || FALLBACK_LOCALE_CODE;
 }
 
 export function getLanguageAssetURL(localeCode)
