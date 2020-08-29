@@ -17,7 +17,10 @@ export function NotificationList()
                 const { id, message } = notification;
                 if (typeof message === 'function')
                 {
-                    return message.call(null, notification);
+                    const MessageComponent = message;
+                    return (
+                        <MessageComponent key={id} {...notification}/>
+                    );
                 }
                 else
                 {

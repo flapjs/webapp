@@ -93,11 +93,10 @@ export function NotificationProvider(props)
             [notificationId]: notification,
         };
         
-        setState({
-            notifications: nextNotifications
-        });
+        state.notifications = nextNotifications;
+        setState({ notifications: nextNotifications });
     },
-    [state.notifications]);
+    [state]);
 
     /** Removes a notification by id. */
     const removeNotification = useCallback(function removeNotification(notificationId)
@@ -110,35 +109,36 @@ export function NotificationProvider(props)
                 ...nextNotifications
             } = state.notifications;
 
-            setState({
-                notifications: nextNotifications
-            });
+            state.notifications = nextNotifications;
+            setState({ notifications: nextNotifications });
         }
     },
-    [state.notifications]);
+    [state]);
 
     /** Removes all notifications. */
     const clearNotifications = useCallback(function clearNotifications(tag = undefined)
     {
         if (tag)
         {
-            const remainder = notificationList.filter(value => !value.tags.includes(tag));
+            const remainder = Object.values(state.notifications).filter(value => !value.tags.includes(tag));
             const nextNotifications = remainder.reduce((result, notification) =>
             {
                 result[notification.id] = notification;
             },
             {});
 
-            setState({
-                notifications: nextNotifications
-            });
+            state.notifications = nextNotifications;
+            setState({ notifications: nextNotifications });
         }
         else
         {
-            setState({ notifications: {} });
+            const nextNotifications = {};
+
+            state.notifications = nextNotifications;
+            setState({ notifications: nextNotifications });
         }
     },
-    [notificationList]);
+    [state]);
 
     /** Updates notification by id. */
     const updateNotification = useCallback(function updateNotification(notificationId, notificationProps)
@@ -151,12 +151,12 @@ export function NotificationProvider(props)
             const nextNotifications = {
                 ...state.notifications,
             };
-            setState({
-                notifications: nextNotifications
-            });
+            
+            state.notifications = nextNotifications;
+            setState({ notifications: nextNotifications });
         }
     },
-    [state.notifications]);
+    [state]);
 
     const notificationProviderValues = {
         addNotification,
