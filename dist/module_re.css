@@ -1,11 +1,11 @@
-.src-modules-re-__RegularExpressionWorkspace-module__workspace--2pH6a {
+.src-modules-re-__RegularExpressionWorkspace-module__workspace--3M1DI {
     width: 100%;
     height: 100%;
     text-align: center;
     font-size: 15vmin;
 }
 
-.src-components-lib-__Button-module__element--1Yk_U {
+.src-components-lib-__Button-module__element--2Wp44 {
     background-color: transparent;
     border-radius: 1rem;
     border: 0.2rem solid currentColor;
@@ -14,11 +14,11 @@
     color: currentColor;
 }
 
-.src-components-lib-__Button-module__element--1Yk_U:disabled {
+.src-components-lib-__Button-module__element--2Wp44:disabled {
     opacity: 0.3;
 }
 
-.src-components-lib-__Button-module__element--1Yk_U:hover:not(:disabled) {
+.src-components-lib-__Button-module__element--2Wp44:hover:not(:disabled) {
     border-color: rgba(255, 255, 255, 0.5);
 }
 

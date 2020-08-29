@@ -1,0 +1,32 @@
+/** Currently used by SVGPlayground as default style */
+svg.viewarea circle {
+    fill: white;
+    stroke: black;
+}
+
+svg.viewarea path {
+    stroke: black;
+}
+
+/** Must at least match the specificity of default styles^^^ */
+svg.viewarea .src-renderers-__Renderer-module__decorative--1ezN7 {
+    pointer-events: none;
+    -webkit-user-select: none;
+            user-select: none;
+}
+
+svg.viewarea .src-renderers-__Renderer-module__mask--zinTz {
+    fill: transparent;
+    stroke: transparent;
+}
+
+/** Debug styles */
+#root.debug svg.viewarea .src-renderers-__Renderer-module__mask--zinTz {
+    stroke: yellowgreen;
+    opacity: 0.5;
+}
+
+#root.debug svg *:hover {
+    outline: 1px dashed rgba(0, 0, 0, 0.3);
+}
+

@@ -1,4 +1,4 @@
-.src-components-pane-__Pane-module__container--3LUuP {
+.src-components-pane-__Pane-module__container--20rTp {
     margin: 0 1rem;
     padding: 0.2rem 0;
 
@@ -10,25 +10,25 @@
     --pane-outline-important: var(--accent, #FFD700);
 }
 
-.src-components-pane-__Pane-module__container--3LUuP fieldset {
+.src-components-pane-__Pane-module__container--20rTp fieldset {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-.src-components-pane-__Pane-module__innerContainer--2SrWx {
+.src-components-pane-__Pane-module__innerContainer--12Wb8 {
     border-bottom: 4px solid var(--pane-outline);
 }
 
-.src-components-pane-__Pane-module__container--3LUuP.open > .src-components-pane-__Pane-module__innerContainer--2SrWx {
+.src-components-pane-__Pane-module__container--20rTp.open > .src-components-pane-__Pane-module__innerContainer--12Wb8 {
     border-color: var(--pane-outline-important);
     padding-bottom: 1rem;
 }
 
-.src-components-pane-__Pane-module__container--3LUuP > .src-components-pane-__Pane-module__innerContainer--2SrWx > header {
+.src-components-pane-__Pane-module__container--20rTp > .src-components-pane-__Pane-module__innerContainer--12Wb8 > header {
     width: 100%;
     height: 3rem;
 }
 
-.src-components-pane-__Pane-module__container--3LUuP > .src-components-pane-__Pane-module__innerContainer--2SrWx > main {
+.src-components-pane-__Pane-module__container--20rTp > .src-components-pane-__Pane-module__innerContainer--12Wb8 > main {
     display: none;
     width: 100%;
     height: 100%;
@@ -38,7 +38,7 @@
     /* border-bottom: 4px solid var(--pane-outline-important); */
 }
 
-.src-components-pane-__Pane-module__dropdown--1SA9L {
+.src-components-pane-__Pane-module__dropdown--_V-fr {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -54,50 +54,50 @@
     cursor: pointer;
 }
 
-.src-components-pane-__Pane-module__dropdown--1SA9L:hover {
+.src-components-pane-__Pane-module__dropdown--_V-fr:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.src-components-pane-__Pane-module__dropdown--1SA9L > .src-components-pane-__Pane-module__title--_MqlS {
+.src-components-pane-__Pane-module__dropdown--_V-fr > .src-components-pane-__Pane-module__title--3gKmL {
     flex: 1;
     font-size: 1.2rem;
     text-align: left;
 }
 
-.src-components-pane-__Pane-module__container--3LUuP > .src-components-pane-__Pane-module__innerContainer--2SrWx > header > .src-components-pane-__Pane-module__dropdown--1SA9L > .icon {
+.src-components-pane-__Pane-module__container--20rTp > .src-components-pane-__Pane-module__innerContainer--12Wb8 > header > .src-components-pane-__Pane-module__dropdown--_V-fr > .icon {
     transform: rotate(0);
 }
 
-.src-components-pane-__Pane-module__container--3LUuP.open > .src-components-pane-__Pane-module__innerContainer--2SrWx > header > .src-components-pane-__Pane-module__dropdown--1SA9L > .icon {
+.src-components-pane-__Pane-module__container--20rTp.open > .src-components-pane-__Pane-module__innerContainer--12Wb8 > header > .src-components-pane-__Pane-module__dropdown--_V-fr > .icon {
     transform: rotate(180deg);
 }
 
-.src-components-pane-__Pane-module__container--3LUuP.open > .src-components-pane-__Pane-module__innerContainer--2SrWx > main {
+.src-components-pane-__Pane-module__container--20rTp.open > .src-components-pane-__Pane-module__innerContainer--12Wb8 > main {
     display: block;
     overflow: auto;
 }
 
-.src-components-options-__Options-module__container--1O4mR[disabled] {
+.src-components-options-__Options-module__container--37e3X[disabled] {
     color: gray;
 }
 
-.src-components-options-__Options-module__container--1O4mR input[disabled] ~ label[for] {
+.src-components-options-__Options-module__container--37e3X input[disabled] ~ label[for] {
     color: gray;
 }
 
-.src-components-lib-__FieldInput-module__element--rh70p {
+.src-components-lib-__FieldInput-module__element--3_Hpw {
     display: flex;
     padding: 0.2rem 0;
     margin: 0.2rem;
 }
 
-.src-components-lib-__FieldInput-module__element--rh70p > label {
+.src-components-lib-__FieldInput-module__element--3_Hpw > label {
     padding-right: 1rem;
     white-space: nowrap;
     flex: 1;
 }
 
-.src-components-lib-__FieldInput-module__element--rh70p input {
+.src-components-lib-__FieldInput-module__element--3_Hpw input {
     background-color: transparent;
     padding: 0.1rem 0.5rem;
     margin: 0.1rem 0.3rem;
@@ -106,25 +106,25 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.src-components-lib-__FieldInput-module__element--rh70p > span {
+.src-components-lib-__FieldInput-module__element--3_Hpw > span {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.src-components-lib-__FieldInput-module__element--rh70p input:disabled {
+.src-components-lib-__FieldInput-module__element--3_Hpw input:disabled {
     opacity: 0.3;
 }
 
-.src-components-lib-__FieldInput-module__element--rh70p input:hover:not(:disabled) {
+.src-components-lib-__FieldInput-module__element--3_Hpw input:hover:not(:disabled) {
     background-color: rgba(255, 255, 255, 0.1);
     outline: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.src-components-lib-__FieldButton-module__element--3mt5M {
+.src-components-lib-__FieldButton-module__element--1gnw1 {
     display: flex;
 }
 
-.src-components-lib-__FieldButton-module__element--3mt5M button {
+.src-components-lib-__FieldButton-module__element--1gnw1 button {
     flex: 1;
 }
 

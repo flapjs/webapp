@@ -1,106 +1,32 @@
-.src-components-__App-module__container--EvjUd {
+.src-components-__App-module__container--14FNh {
     display: grid;
     grid-template-rows: 4rem;
     width: 100%;
     height: 100%;
 }
 
-.src-components-__App-module__container--EvjUd header {
+.src-components-__App-module__container--14FNh header {
     width: 100%;
     height: 4rem;
     overflow: hidden;
 }
 
-.src-components-__App-module__container--EvjUd main {
+.src-components-__App-module__container--14FNh main {
     width: 100%;
     height: 100%;
 }
 
-.src-components-__App-module__container--EvjUd footer:empty {
+.src-components-__App-module__container--14FNh footer:empty {
     display: none;
 }
 
-.src-components-__App-module__theme--2vkZ_ {
+.src-components-__App-module__theme--2efFc {
     --theme-color-primary: #333641;
     --theme-color-text: white;
     --theme-color-surface: gray;
 }
 
-.src-components-appbar-__AppBar-module__container--1t7NE {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    height: 100%;
-    background: #333641;
-    color: #FFFFFF;
-}
-
-.src-components-appbar-__AppBar-module__container--1t7NE > * {
-    margin-right: 1rem;
-}
-
-.src-components-appbar-__AppBar-module__container--1t7NE::-webkit-scrollbar {
-    display: none;
-}
-
-.src-components-layout-__FlexibleOrientationLayout-module__container--Y7WgW {
-    width: 100%;
-    height: 100%;
-}
-
-.src-components-layout-__FlexibleOrientationLayout-module__container--Y7WgW.resizing * {
-    /** Disable transitions while resizing in a flexible orientation layout */
-    transition: none !important;
-}
-
-.src-components-workspace-__WorkspaceLayout-module__container--CLz1g {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.src-components-workspace-__WorkspaceLayout-module__background--1tGj1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    /**
-     * HACK: Overrides the input events for workspace background.
-     * This let's you actually click workspace stuff. BUT, you
-     * will need to enable pointer-events for everything that
-     * you want to be able to click. :(
-     *
-     * Refer to DrawerLayer and SideBarLayout for how this is done.
-     **/
-    pointer-events: none;
-}
-
-.src-components-workspace-__WorkspaceLayout-module__foreground--19Bj6 {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    /**
-     * HACK: Overrides the input events for workspace foreground.
-     * This let's you actually click background stuff. BUT, you
-     * will need to enable pointer-events for everything that
-     * you want to be able to click. :(
-     *
-     * Refer to DrawerLayer and SideBarLayout for how this is done.
-     **/
-    pointer-events: none;
-}
-
-.src-components-sidebar-__SideBarLayout-module__container--IRmyy {
+.src-components-sidebar-__SideBarLayout-module__container--1RGMP {
     position: relative;
     display: flex;
 
@@ -114,7 +40,7 @@
     --side-background: #333641;
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideBar--2IVz4 {
+.src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH {
     z-index: 20;
     background: var(--side-background);
     overflow: auto;
@@ -127,17 +53,17 @@
     pointer-events: auto;
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideContent--2RNqM {
+.src-components-sidebar-__SideBarLayout-module__sideContent--3kPga {
     display: flex;
 
     /** flex-direction is controlled by SideBarLayout. */
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideContent--2RNqM > * {
+.src-components-sidebar-__SideBarLayout-module__sideContent--3kPga > * {
     padding: 0.3rem;
 }
 
-.src-components-sidebar-__SideBarLayout-module__viewport--YrPLf {
+.src-components-sidebar-__SideBarLayout-module__viewport--15hdu {
     flex: 1;
     overflow: hidden;
 
@@ -147,27 +73,27 @@
 }
 
 /** Disable the scroll bar */
-.src-components-sidebar-__SideBarLayout-module__sideBar--2IVz4::-webkit-scrollbar {
+.src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH::-webkit-scrollbar {
     display: none;
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideBar--2IVz4.left {
+.src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH.left {
     width: var(--side-margin);
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideBar--2IVz4.right {
+.src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH.right {
     width: var(--side-margin);
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideBar--2IVz4.top {
+.src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH.top {
     height: var(--side-margin);
 }
 
-.src-components-sidebar-__SideBarLayout-module__sideBar--2IVz4.bottom {
+.src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH.bottom {
     height: var(--side-margin);
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__container--3MR1r {
+.src-services-drawer-layout-__DrawerLayout-module__container--1g3ba {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -179,7 +105,7 @@
     --drawer-layout-text: var(--primary-text, #FFFFFF);
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__viewport--2t6VQ {
+.src-services-drawer-layout-__DrawerLayout-module__viewport--2umQ- {
     flex: 1;
     width: 100%;
     height: 100%;
@@ -188,7 +114,7 @@
     overflow: hidden;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY {
     position: relative;
     width: 100%;
     height: 100%;
@@ -207,39 +133,39 @@
     transition: transform 0.3s ease;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY .src-services-drawer-layout-__DrawerLayout-module__content--17Aoa {
     width: 100%;
     height: 100%;
     overflow: auto;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm::-webkit-scrollbar {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY .src-services-drawer-layout-__DrawerLayout-module__content--17Aoa::-webkit-scrollbar {
     display: none;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm,
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.left .src-services-drawer-layout-__DrawerLayout-module__content--17Aoa,
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.right .src-services-drawer-layout-__DrawerLayout-module__content--17Aoa {
     /** It's being blocked by the handle. */
     margin-left: calc(6px);
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm,
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom .src-components-drawer-layout-__DrawerLayout-module__content--2rQdm {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.top .src-services-drawer-layout-__DrawerLayout-module__content--17Aoa,
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.bottom .src-services-drawer-layout-__DrawerLayout-module__content--17Aoa {
     /** It's being blocked by the handle. */
     margin-top: calc(6px);
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left,
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.left,
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.right {
     min-width: 20rem;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top,
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.top,
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.bottom {
     min-height: 20rem;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx:not(.open) {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY:not(.open) {
     /** Forces drawer to exit the flow. */
     position: absolute;
 
@@ -248,26 +174,26 @@
 }
 
 /** Sliiiide to the left! */
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left:not(.open) {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.left:not(.open) {
     transform: translateX(-100%);
 }
 
 /** Sliiiide to the right! */
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right:not(.open) {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.right:not(.open) {
     transform: translateX(100%);
 }
 
 /** Sliiiide to the top! */
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top:not(.open) {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.top:not(.open) {
     transform: translateY(-100%);
 }
 
 /** Sliiiide to the bottom! */
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom:not(.open) {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.bottom:not(.open) {
     transform: translateY(100%);
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+.src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -279,45 +205,45 @@
     pointer-events: auto;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx:not(.open) .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY:not(.open) .src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     pointer-events: none;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.left .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.left .src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     right: 0;
     width: 6px;
     transform: translateX(calc(6px / 2));
     cursor: col-resize;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.right .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.right .src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     left: 0;
     width: 6px;
     transform: translateX(calc(6px / -2));
     cursor: col-resize;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.bottom .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.bottom .src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     top: 0;
     height: 6px;
     transform: translateY(calc(6px / -2));
     cursor: row-resize;
 }
 
-.src-components-drawer-layout-__DrawerLayout-module__drawer--1xNfx.top .src-components-drawer-layout-__DrawerLayout-module__handle--3DhVj {
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY.top .src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     bottom: 0;
     height: 6px;
     transform: translateY(calc(6px / -2));
     cursor: row-resize;
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5 {
     display: flex;
     color: white;
     text-align: center;
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv > * {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5 > * {
     padding: 0;
     margin: 0;
     background: none;
@@ -328,29 +254,29 @@
     color: white;
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv > *:focus {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5 > *:focus {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv.horizontal {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5.horizontal {
     flex-direction: column;
     height: 100%;
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv.vertical {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5.vertical {
     flex-direction: row;
     width: 100%;
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv.horizontal > * {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5.horizontal > * {
     margin: 0.2rem 0;
 }
 
-.src-components-drawer-__DrawerSideBar-module__sidetab--33BFv.vertical > * {
+.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5.vertical > * {
     margin: 0 0.2rem;
 }
 
-.src-components-icons-__IconButton-module__container--Nr-e0 {
+.src-components-icons-__IconButton-module__container--3AYpC {
     padding: 0;
     margin: 0;
     background: none;
@@ -363,7 +289,7 @@
     color: white;
 }
 
-.src-components-icons-__IconButton-module__icon--57JHa {
+.src-components-icons-__IconButton-module__icon--3yNRJ {
     background: none;
     border: none;
     width: 2rem;
@@ -373,28 +299,102 @@
     color: currentColor;
 }
 
-.src-components-icons-__IconButton-module__container--Nr-e0:disabled {
+.src-components-icons-__IconButton-module__container--3AYpC:disabled {
     opacity: 0.5;
     pointer-events: none;
 }
 
-.src-components-viewport-__Viewport-module__container--EzMwJ {
+.src-components-appbar-__AppBar-module__container--2jfDY {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    background: #333641;
+    color: #FFFFFF;
+}
+
+.src-components-appbar-__AppBar-module__container--2jfDY > * {
+    margin-right: 1rem;
+}
+
+.src-components-appbar-__AppBar-module__container--2jfDY::-webkit-scrollbar {
+    display: none;
+}
+
+.src-components-layout-__FlexibleOrientationLayout-module__container--1bGSN {
+    width: 100%;
+    height: 100%;
+}
+
+.src-components-layout-__FlexibleOrientationLayout-module__container--1bGSN.resizing * {
+    /** Disable transitions while resizing in a flexible orientation layout */
+    transition: none !important;
+}
+
+.src-components-workspace-__WorkspaceLayout-module__container--2YkID {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.src-components-workspace-__WorkspaceLayout-module__background--2Q3aD {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /**
+     * HACK: Overrides the input events for workspace background.
+     * This let's you actually click workspace stuff. BUT, you
+     * will need to enable pointer-events for everything that
+     * you want to be able to click. :(
+     *
+     * Refer to DrawerLayer and SideBarLayout for how this is done.
+     **/
+    pointer-events: none;
+}
+
+.src-components-workspace-__WorkspaceLayout-module__foreground--2Dmd8 {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /**
+     * HACK: Overrides the input events for workspace foreground.
+     * This let's you actually click background stuff. BUT, you
+     * will need to enable pointer-events for everything that
+     * you want to be able to click. :(
+     *
+     * Refer to DrawerLayer and SideBarLayout for how this is done.
+     **/
+    pointer-events: none;
+}
+
+.src-components-viewport-__Viewport-module__container--PgBwC {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.src-components-viewport-__Viewport-module__container--EzMwJ > * {
+.src-components-viewport-__Viewport-module__container--PgBwC > * {
     pointer-events: auto;
 }
 
-.src-components-logo-__Logo-module__container--2GWTk {
+.src-components-logo-__Logo-module__container--33Xrv {
     display: inline-block;
     margin-left: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.src-components-logo-__Logo-module__logo--Y2mwP {
+.src-components-logo-__Logo-module__logo--2e8Bt {
     padding: 0 0.3rem;
     border-radius: 0.5rem;
     transition: background-color 0.3s ease;
@@ -402,17 +402,17 @@
             user-select: none;
 }
 
-.src-components-logo-__Logo-module__logo--Y2mwP:hover {
+.src-components-logo-__Logo-module__logo--2e8Bt:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.src-components-logo-__Logo-module__title--3ldMw {
+.src-components-logo-__Logo-module__title--37GKA {
     display: inline;
     margin: 0;
     padding: 0;
 }
 
-.src-components-logo-__Logo-module__version--15CTe {
+.src-components-logo-__Logo-module__version--TIZdj {
     display: inline;
     margin: 0;
     padding: 0;
@@ -422,12 +422,12 @@
     bottom: 0;
 }
 
-.src-components-__ModuleSelector-module__container--3WlTJ {
+.src-components-__ModuleSelector-module__container--3STXK {
     position: relative;
     display: inline-block;
 }
 
-.src-components-__ModuleSelector-module__launcher--1aD3Q {
+.src-components-__ModuleSelector-module__launcher--Pbywp {
     width: 5rem;
     opacity: 1;
     transition: width 0.2s ease, opacity 0.4s ease;
@@ -435,12 +435,12 @@
     overflow: hidden;
 }
 
-.src-components-__ModuleSelector-module__launcher--1aD3Q:disabled {
+.src-components-__ModuleSelector-module__launcher--Pbywp:disabled {
     width: 0;
     opacity: 0;
 }
 
-.src-components-__ModuleSelector-module__cancel--3Uv3X {
+.src-components-__ModuleSelector-module__cancel--3gZe7 {
     width: 5rem;
     opacity: 1;
     transition: width 0.2s ease, opacity 0.4s ease;
@@ -448,12 +448,12 @@
     overflow: hidden;
 }
 
-.src-components-__ModuleSelector-module__cancel--3Uv3X:disabled {
+.src-components-__ModuleSelector-module__cancel--3gZe7:disabled {
     width: 0;
     opacity: 0;
 }
 
-.src-components-__ModuleSelector-module__selector--2nqBy {
+.src-components-__ModuleSelector-module__selector--3uGBw {
     margin: 0 0.5rem;
 }
 

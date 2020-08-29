@@ -55,6 +55,6 @@ export const tree = {
     name: 'Tree',
     version: '1.0.0',
     description: 'Almost there!',
-    disabled: false,
+    disabled: true,
     fetch: () => import(/* webpackChunkName: "module_tree" */ './tree/TreeModule.js'),
 };
