@@ -2,17 +2,17 @@
 
 // const { HotModuleReplacementPlugin } = require('webpack');
 
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+// const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = env => ({
     mode: 'development', // It must be in development mode to work.
     devtool: 'eval-source-map',
     plugins: [
         // new HotModuleReplacementPlugin(),
-        new ReactRefreshWebpackPlugin(),
+        // new ReactRefreshWebpackPlugin(),
     ],
     devServer: {
-        // hot: true,
+        // hot: false,
         open: true,
         overlay: true,
         contentBase: './dist',

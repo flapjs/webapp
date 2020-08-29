@@ -1,12 +1,12 @@
 /* eslint-env node */
 
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const OUTPUT_CONFIG = require('./output.config.js');
 
-module.exports = env => merge.smart(
+module.exports = env => merge(
     OUTPUT_CONFIG(env),         // Adds file output configs.
     // Adds production-only configs.
     {

@@ -1,37 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MessageContainer from '@flapjs/services/notify/components/MessageContainer.jsx';
+import { NotificationElementContainer } from '@flapjs/services/notification/NotificationService.js';
 
 import { convertToDFA } from '../machine/FSAUtils.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
-export default function NFAToDFAConversionMessage(props)
+export function NFAToDFAConversionNotification(props)
 {
-    const { message, messageId } = props;
+    const { id, stateCount } = props;
 
     const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
 
     return (
-        <MessageContainer messageId={messageId} mode={'warning'}
-            message={'Careful! This conversion will exponentially increase the number of states.\n' + message}
-            renderControls={dismiss => (
+        <NotificationElementContainer
+            id={id}
+            message={`Warning: This conversion will exponentially increase the number of states.\n${stateCount} state(s) -> ${Math.pow(2, stateCount)} states.`}
+            controls={dismiss => (
                 <>
                     <button onClick={() =>
                     {
                         machineBuilder.applyChanges(machine => convertToDFA(machine, machine));
                         dismiss();
                     }}>
-                    Convert
+                        Convert
                     </button>
                 </>
             )}>
             
-        </MessageContainer>
+        </NotificationElementContainer>
     );
 }
-NFAToDFAConversionMessage.propTypes = {
-    messageId: PropTypes.string.isRequired,
-    message: PropTypes.string,
+NFAToDFAConversionNotification.propTypes = {
+    id: PropTypes.string.isRequired,
+    stateCount: PropTypes.number.isRequired,
 };

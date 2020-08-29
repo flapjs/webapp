@@ -1,12 +1,14 @@
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 import { getUnreachableNodeIds } from './FiniteAutomataGraphUnreachableHandler.js';
 
-import IncompleteTransitionErrorMessage from '../messages/IncompleteTransitionErrorMessage.jsx';
-import DuplicateNodeErrorMessage from '../messages/DuplicateNodeErrorMessage.jsx';
-import UnreachableNodeErrorMessage from '../messages/UnreachableNodeErrorMessage.jsx';
-import EmptyTransitionErrorMessage from '../messages/EmptyTransitionErrorMessage.jsx';
-import DuplicateTransitionErrorMessage from '../messages/DuplicateTransitionErrorMessage.jsx';
-import MissingTransitionErrorMessage from '../messages/MissingTransitionErrorMessage.jsx';
+import {
+    IncompleteTransitionErrorNotification,
+    DuplicateNodeErrorNotification,
+    UnreachableNodeErrorNotification,
+    EmptyTransitionErrorNotification,
+    DuplicateTransitionErrorNotification,
+    MissingTransitionErrorNotification,
+} from '../FiniteAutomataNotifications.jsx';
 
 export default class FiniteAutomataMachineValidator
 {
@@ -115,8 +117,8 @@ export default class FiniteAutomataMachineValidator
         if (edgePlaceholders.length > 0)
         {
             errors.push({
-                component: IncompleteTransitionErrorMessage,
-                message: { edgeIds: edgePlaceholders },
+                message: IncompleteTransitionErrorNotification,
+                opts: { edgeIds: edgePlaceholders },
             });
         }
 
@@ -126,8 +128,8 @@ export default class FiniteAutomataMachineValidator
             if (sharedStates.length > 1)
             {
                 errors.push({
-                    component: DuplicateNodeErrorMessage,
-                    message: {
+                    message: DuplicateNodeErrorNotification,
+                    opts: {
                         label: nodeLabel, 
                         nodeIds: sharedStates.map(e => stateToNodeIdMap.get(e))
                     }
@@ -140,8 +142,8 @@ export default class FiniteAutomataMachineValidator
         if (unreachables && unreachables.length > 0)
         {
             warnings.push({
-                component: UnreachableNodeErrorMessage,
-                message: {
+                message: UnreachableNodeErrorNotification,
+                opts: {
                     labels: unreachables.map(nodeId => nodeIdToStateLabelMap.get(nodeId)),
                     nodeIds: unreachables,
                 }
@@ -154,8 +156,8 @@ export default class FiniteAutomataMachineValidator
             if (edgeEmpties.length > 0)
             {
                 errors.push({
-                    component: EmptyTransitionErrorMessage,
-                    message: {
+                    message: EmptyTransitionErrorNotification,
+                    opts: {
                         edgeIds: edgeEmpties,
                     }
                 });
@@ -174,8 +176,8 @@ export default class FiniteAutomataMachineValidator
                         if (edges.length !== 1)
                         {
                             errors.push({
-                                component: DuplicateTransitionErrorMessage,
-                                message: { edgeIds: edges, fromNodeLabel: nodeIdToStateLabelMap.get(stateToNodeIdMap.get(state)), symbol },
+                                message: DuplicateTransitionErrorNotification,
+                                opts: { edgeIds: edges, fromNodeLabel: nodeIdToStateLabelMap.get(stateToNodeIdMap.get(state)), symbol },
                             });
                         }
                     }
@@ -188,8 +190,8 @@ export default class FiniteAutomataMachineValidator
                 if (missingSymbols.length > 0)
                 {
                     errors.push({
-                        component: MissingTransitionErrorMessage,
-                        message: {
+                        message: MissingTransitionErrorNotification,
+                        opts: {
                             symbols: [ ...missingSymbols ],
                             label: nodeIdToStateLabelMap.get(stateToNodeIdMap.get(state)),
                         }

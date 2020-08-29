@@ -1,16 +1,16 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useGraphMachineBuilder } from './GraphMachineHooks.jsx';
-import { NotifyDispatchContext } from '@flapjs/services/notify/NotifyContext.jsx';
+import { useNotifications } from '@flapjs/services/notification/NotificationService.js';
 
 export default function GraphMachineNotifier(props)
 {
     const { machineBuilderType } = props;
 
     const machineBuilder = useGraphMachineBuilder(machineBuilderType);
-    const notifyDispatch = useContext(NotifyDispatchContext);
-
+    const { addNotification, clearNotifications } = useNotifications();
+    
     const errors = useRef([]);
 
     useEffect(() =>
@@ -22,16 +22,15 @@ export default function GraphMachineNotifier(props)
 
         if (shouldUpdateErrors)
         {
-            notifyDispatch({ type: 'dismiss', tags: [ errorTag ]});
+            clearNotifications(errorTag);
 
             errors.current = [...messages];
-            for(let errorDispatchObject of errors.current)
+            for(let { message, opts } of errors.current)
             {
-                errorDispatchObject.type = 'send';
-                if (!Array.isArray(errorDispatchObject.tags)) errorDispatchObject.tags = [];
-                errorDispatchObject.tags.push(errorTag);
-
-                notifyDispatch(errorDispatchObject);
+                if (!('tags' in opts)) opts.tags = [];
+                opts.tags.push(errorTag);
+                
+                addNotification(message, opts);
             }
         }
     });

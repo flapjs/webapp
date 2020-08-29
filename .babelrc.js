@@ -5,7 +5,7 @@ module.exports = api => {
         plugins: [
             ...(api.env('development') ? [
                 // Development-only plugins
-                'react-refresh/babel'
+                // 'react-refresh/babel'
             ]
             : [
                 // Production-only plugins

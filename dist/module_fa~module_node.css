@@ -1,6 +1,7 @@
 .src-renderers-decors-__TooltipRenderer-module__container--3bFU6 {
     text-anchor: middle;
-    user-select: none;
+    -webkit-user-select: none;
+            user-select: none;
     pointer-events: none;
     animation: src-renderers-decors-__TooltipRenderer-module__fadein--3MZif 10s forwards;
 }
@@ -46,7 +47,8 @@ svg.viewarea path {
 /** Must at least match the specificity of default styles^^^ */
 svg.viewarea .src-renderers-__Renderer-module__decorative--2SDDp {
     pointer-events: none;
-    user-select: none;
+    -webkit-user-select: none;
+            user-select: none;
 }
 
 svg.viewarea .src-renderers-__Renderer-module__mask--1tCSm {

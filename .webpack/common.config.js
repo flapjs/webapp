@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 const pkg = require('../package.json');
 const PROJECT_ALIAS = `@${pkg.name}`;
@@ -11,7 +11,7 @@ const CSS_MODULES_CONFIG = require('./common/cssModules.js');
 
 // NOTE: Why is this a function, not an object?
 // https://webpack.js.org/guides/environment-variables/
-module.exports = env => merge.smart(
+module.exports = env => merge(
     DEFINE_GLOBALS_CONFIG(env), // Adds global defines
     CSS_MODULES_CONFIG(env),    // Adds css module configs
     // Adds config shared by all configs

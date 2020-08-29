@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
@@ -9,7 +9,7 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const COMMON_CONFIG = require('./common.config.js');
 const HTML_WEBPACK_CONFIG = require('./common/htmlWebpack.js');
 
-module.exports = env => merge.smart(
+module.exports = env => merge(
     COMMON_CONFIG(env),         // Adds configs shared by all other configs.
     HTML_WEBPACK_CONFIG(env),   // Adds html generation configs.
     // Adds file output configs.

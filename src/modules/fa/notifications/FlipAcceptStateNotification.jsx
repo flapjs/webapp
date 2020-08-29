@@ -1,36 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MessageContainer from '@flapjs/services/notify/components/MessageContainer.jsx';
+import { NotificationElementContainer } from '@flapjs/services/notification/NotificationService.js';
 
 import { invertDFA } from '../machine/FSAUtils.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
-export default function FlipAcceptStateMessage(props)
+export function FlipAcceptStateNotification(props)
 {
-    const { message, messageId } = props;
+    const { id, content } = props;
 
     const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
 
     return (
-        <MessageContainer messageId={messageId} mode={'warning'}
-            message={'Careful! Flipping the states in an NFA does not produce a logically equivalent inverse.\n' + message}
-            renderControls={dismiss => (
+        <NotificationElementContainer id={id}
+            message={'Warning: Flipping the states in an NFA does not produce a logically equivalent inverse.\n' + content}
+            controls={dismiss => (
                 <>
                     <button onClick={() =>
                     {
                         machineBuilder.applyChanges(machine => invertDFA(machine, machine));
                         dismiss();
                     }}>
-                    Apply
+                        Apply
                     </button>
                 </>
             )}>
-        </MessageContainer>
+        </NotificationElementContainer>
     );
 }
-FlipAcceptStateMessage.propTypes = {
-    messageId: PropTypes.string.isRequired,
-    message: PropTypes.string,
+FlipAcceptStateNotification.propTypes = {
+    id: PropTypes.string.isRequired,
+    content: PropTypes.string,
 };
