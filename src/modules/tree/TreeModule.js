@@ -4,6 +4,7 @@ import { ViewProvider } from '@flapjs/services/view/ViewService.js';
 import { GraphProvider, GraphList } from './graph/GraphService.js';
 import { DrawerPanel } from './DrawerPanel.jsx';
 import { GraphPlayground } from './graph/GraphPlayground.jsx';
+import { GraphAutoSaver } from './GraphAutoSaver.jsx';
 
 export default class TreeModule extends BaseModule
 {
@@ -25,7 +26,9 @@ export default class TreeModule extends BaseModule
     static get renders()
     {
         return {
-            header: [ ],
+            header: [
+                GraphAutoSaver,
+            ],
             appbar: [ ],
             foreground: [
             ],

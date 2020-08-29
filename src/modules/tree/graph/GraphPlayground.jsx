@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { ViewArea } from '@flapjs/services/view/ViewService.js';
-import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
 import { useGraph } from './GraphContext.jsx';
 
+import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer.jsx';
+import TreeNodeElement from './TreeNodeElement.jsx';
+
 export function GraphPlayground(props)
 {
-    const { addNode, nodeList } = useGraph();
+    const { addNode, getNode, nodeList, edgeList } = useGraph();
 
     useViewNavigationBehavior();
     useViewDoubleTapBehavior((x, y) => addNode({ x, y }));
@@ -17,8 +19,16 @@ export function GraphPlayground(props)
             {nodeList.map(node =>
             {
                 return (
-                    <NodeCircleRenderer key={node.id} x={node.x} y={node.y} radius={10} inner={8} label={node.label} childProps={{}} maskProps={{}} />
+                    <TreeNodeElement key={node.id} element={node} />
                 ); 
+            })}
+            {edgeList.map(edge =>
+            {
+                const fromNode = getNode(edge.fromNodeId);
+                const toNode = getNode(edge.toNodeId);
+                return (
+                    <EdgeQuadraticRenderer key={edge.id} start={fromNode} end={toNode} />
+                );
             })}
         </ViewArea>
     );

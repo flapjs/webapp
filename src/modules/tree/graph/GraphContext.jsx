@@ -68,10 +68,18 @@ export function GraphProvider(props)
     },
     [state]);
 
+    const getNode = useCallback(function getNode(nodeId)
+    {
+        return state.nodes[nodeId];
+    },
+    [state]);
+
     const addEdge = useCallback(function addEdge(fromNodeId, toNodeId, edgeProps = {})
     {
         const edgeId = edgeProps.id || uuid();
         if (edgeId in state.edges) return;
+        if (typeof fromNodeId !== 'string') throw new Error('Invalid from node id.');
+        if (typeof toNodeId !== 'string') throw new Error('Invalid to node id.');
 
         const edge = createEdgeObject(edgeId, fromNodeId, toNodeId, edgeProps);
 
@@ -119,6 +127,12 @@ export function GraphProvider(props)
     },
     [state]);
 
+    const getEdge = useCallback(function getEdge(edgeId)
+    {
+        return state.edges[edgeId];
+    },
+    [state]);
+
     const clearGraph = useCallback(function clearGraph()
     {
         state.nodes = {};
@@ -127,15 +141,16 @@ export function GraphProvider(props)
     },
     [state]);
 
-
     const graphProviderValues = {
         addNode,
         removeNode,
         updateNode,
+        getNode,
         addEdge,
         removeEdge,
         updateEdge,
         clearGraph,
+        getEdge,
         nodeList,
         edgeList,
     };

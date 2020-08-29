@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* global __NODE_ENV__ */
 
 // Log levels
 const TRACE = 5;
@@ -84,7 +85,7 @@ function prependMessageTags(out, name, domain, level)
 const LEVEL = Symbol('level');
 const DOMAIN = Symbol('domain');
 const LOGGERS = { /** To be populated by logger instances. */ };
-let DEFAULT_LEVEL = WARN;
+let DEFAULT_LEVEL = __NODE_ENV__ === 'development' ? TRACE : WARN;
 let DEFAULT_DOMAIN = 'app';
 export class Logger
 {

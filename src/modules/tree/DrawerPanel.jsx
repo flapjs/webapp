@@ -7,7 +7,6 @@ export function DrawerPanel()
 
     return (
         <div>
-            WOOT!
             <button onClick={() =>
             {
                 graph.addNode({ x: 0, y: 0, label: 'A' });
@@ -19,7 +18,7 @@ export function DrawerPanel()
                 let firstNode = graph.nodeList[Math.floor(Math.random() * graph.nodeList.length)];
                 let secondNode = graph.nodeList[Math.floor(Math.random() * graph.nodeList.length)];
                 
-                graph.addEdge(firstNode, secondNode, { label: 'B' });
+                graph.addEdge(firstNode.id, secondNode.id, { label: 'B' });
             }}>
                 Connect an Edge
             </button>
