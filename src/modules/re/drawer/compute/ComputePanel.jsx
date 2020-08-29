@@ -2,7 +2,6 @@ import React from 'react';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
-import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
@@ -33,5 +32,4 @@ export default function ComputePanel(props)
         </>
     );
 }
-
-ComputePanel.Tab = createTabWithIcon(PencilIcon);
+ComputePanel.tabIcon = PencilIcon;

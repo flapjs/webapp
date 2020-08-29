@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import FlexibleOrientationLayout from '@flapjs/components/layout/FlexibleOrientationLayout.jsx';
 import WorkspaceLayout from './WorkspaceLayout.jsx';
 
-import Drawer from '../drawer/Drawer.jsx';
+import { Drawer } from '@flapjs/services/drawer/DrawerService.js';
 
 export default function Workspace(props)
 {

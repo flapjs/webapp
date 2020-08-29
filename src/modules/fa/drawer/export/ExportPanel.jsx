@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
 import * as Downloader from '@flapjs/util/Downloader.js';
-import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 
 import { useView } from '@flapjs/services/view/ViewService.js';
@@ -47,8 +46,7 @@ export default function ExportPanel(props)
         </>
     );
 }
-
-ExportPanel.Tab = createTabWithIcon(DownloadIcon);
+ExportPanel.tabIcon = DownloadIcon;
 
 function exportTo(fileName, exportType, opts)
 {

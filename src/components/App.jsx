@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Style from './App.module.css';
 
 import { SlotProvider } from '@flapjs/util/slot/SlotContext.jsx';
-import { DrawerProvider } from './drawer/DrawerContext.jsx';
+
+import { DrawerProvider } from '@flapjs/services/drawer/DrawerService.js';
 
 import AppLayout from './AppLayout.jsx';
 

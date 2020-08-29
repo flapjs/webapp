@@ -7,6 +7,8 @@ module.exports = {
         'function-calc-no-unspaced-operator': true,
         'property-no-vendor-prefix': true,
         'string-quotes': 'single',
+        /** HACK: Play nice with PostCSS */
+        'value-keyword-case': null,
         /** Add support for some CSS module features */
         'selector-pseudo-class-no-unknown': [
             true,

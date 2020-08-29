@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PageContentIcon } from '@flapjs/components/icons/Icons.js';
 
 import { UNION, CONCAT, KLEENE, PLUS, EMPTY, SIGMA, EMPTY_SET } from '@flapjs/modules/re/machine/RegularExpression.js';
@@ -39,5 +38,4 @@ export default function OverviewPanel(props)
         </>
     );
 }
-
-OverviewPanel.Tab = createTabWithIcon(PageContentIcon);
+OverviewPanel.tabIcon = PageContentIcon;

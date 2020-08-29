@@ -2,46 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SideBarLayout from '@flapjs/components/sidebar/SideBarLayout.jsx';
-import DrawerLayout from '@flapjs/components/drawer/layout/DrawerLayout.jsx';
-import { DrawerConsumer } from './DrawerContext.jsx';
+import DrawerLayout from './layout/DrawerLayout.jsx';
 import DrawerSideBar from './DrawerSideBar.jsx';
 import { transformPanelToDrawerPanel, transformPanelToDrawerTab, } from './DrawerHelper.js';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
 
-export default function Drawer(props)
+import { useDrawer } from './DrawerService.js';
+
+export function Drawer(props)
 {
-    const { side, direction, panels } = props;
+    const { children, side, direction, panels } = props;
     const panelEntries = panels.map(panel => transformPanelToDrawerPanel(panel));
     const tabEntries = panels.map(panel => transformPanelToDrawerTab(panel));
+
+    const { changeDrawerTab, drawerTabIndex, drawerOpen } = useDrawer();
+
     return (
-        <DrawerConsumer>
-            {
-                (state, dispatch) =>
-                {
-                    const tabIndex = state.tabIndex;
-                    return (
-                        <SideBarLayout
-                            side={side}
-                            sideBar={() => (
-                                <DrawerSideBar direction={direction}>
-                                    {renderTabs(tabEntries, tabIndex => dispatch({ type: 'toggle-tab', value: tabIndex }), tabIndex)}
-                                </DrawerSideBar>
-                            )}>
-                            <DrawerLayout
-                                side={side}
-                                open={state.open}
-                                drawer = {() => (
-                                    renderPanels(panelEntries, tabIndex)
-                                )}>
-                                {props.children}
-                            </DrawerLayout>
-                        </SideBarLayout>
-                    );
-                }
-            }
-        </DrawerConsumer>
+        <SideBarLayout
+            side={side}
+            sideBar={() => (
+                <DrawerSideBar direction={direction}>
+                    {renderTabs(tabEntries, changeDrawerTab)}
+                </DrawerSideBar>
+            )}>
+            <DrawerLayout
+                side={side}
+                open={drawerOpen}
+                drawer = {() => renderPanels(panelEntries, drawerTabIndex)}>
+                {children}
+            </DrawerLayout>
+        </SideBarLayout>
     );
 }
 Drawer.propTypes = {
@@ -78,6 +70,11 @@ function renderPanels(panels, tabIndex = 0)
         let component;
         let props;
 
+        const panelContainerStyle = {
+            /* stylelint-disable */
+            display: tabIndex === index ? 'unset' : 'none'
+        };
+
         if (typeof panel === 'function')
         {
             component = panel;
@@ -92,7 +89,7 @@ function renderPanels(panels, tabIndex = 0)
         else
         {
             return (
-                <div key={index + ':' + key} style={{ display: tabIndex === index ? 'unset' : 'none'}}>
+                <div key={index + ':' + key} style={panelContainerStyle}>
                     {panel}
                 </div>
             );
@@ -100,7 +97,7 @@ function renderPanels(panels, tabIndex = 0)
         
         if (!component) return null;
         return (
-            <div key={index + ':' + key} style={{ display: tabIndex === index ? 'unset' : 'none'}}>
+            <div key={index + ':' + key} style={panelContainerStyle}>
                 {React.createElement(component, props)}
             </div>
         );

@@ -12,16 +12,17 @@ import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataImporter.js';
 
-import { DrawerDispatchContext } from '@flapjs/components/drawer/DrawerContext.jsx';
+import { useDrawer } from '@flapjs/services/drawer/DrawerService.js';
+
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
 
-export default function FiniteAutomataToolbar(props)
+export default function FiniteAutomataToolbar()
 {
     const graphType = useContext(GraphTypeContext);
     const graphState = useGraphState();
     const graphDispatch = useContext(GraphDispatchContext);
-    const drawerDispatch = useContext(DrawerDispatchContext);
+    const drawer = useDrawer();
 
     // History setup...
     const graphUpdateCallback = useCallback(data =>
@@ -42,7 +43,7 @@ export default function FiniteAutomataToolbar(props)
             <Redo source={graphType} update={graphUpdateCallback} />
             <IconButton
                 iconClass={DownloadIcon}
-                onClick={() => drawerDispatch({ type: 'change-tab', value: 3 })}
+                onClick={() => drawer.changeDrawerTab(3)}
                 title="Save" />
             <Upload iconClass={UploadIcon} onUpload={fileBlob =>
                 FiniteAutomataImporter(fileBlob)

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { RunningManIcon } from '@flapjs/components/icons/Icons.js';
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
@@ -26,5 +25,4 @@ export default function TestingPanel(props)
         </>
     );
 }
-
-TestingPanel.Tab = createTabWithIcon(RunningManIcon);
+TestingPanel.tabIcon = RunningManIcon;

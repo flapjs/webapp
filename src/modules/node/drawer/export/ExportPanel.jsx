@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useView } from '@flapjs/services/view/ViewContext.jsx';
 import * as Downloader from '@flapjs/util/Downloader.js';
 
-import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
 import { useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
@@ -30,8 +29,7 @@ export default function ExportPanel(props)
         </>
     );
 }
-
-ExportPanel.Tab = createTabWithIcon(DownloadIcon);
+ExportPanel.tabIcon = DownloadIcon;
 
 function exportTo(exportType, opts)
 {

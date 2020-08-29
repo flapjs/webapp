@@ -2,7 +2,6 @@ import React from 'react';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
-import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
@@ -67,4 +66,4 @@ export default function ComputePanel()
         </>
     );
 }
-ComputePanel.Tab = createTabWithIcon(PencilIcon);
+ComputePanel.tabIcon = PencilIcon;
