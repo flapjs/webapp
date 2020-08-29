@@ -71,7 +71,6 @@ function renderPanels(panels, tabIndex = 0)
         let props;
 
         const panelContainerStyle = {
-            /* stylelint-disable */
             display: tabIndex === index ? 'unset' : 'none'
         };
 

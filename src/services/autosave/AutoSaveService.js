@@ -1,4 +1,4 @@
-export { useAutoSave } from './AutoSave.jsx';
+export { useAutoSave } from './AutoSaveContext.jsx';
 
 /**
  * @module AutoSaveService
