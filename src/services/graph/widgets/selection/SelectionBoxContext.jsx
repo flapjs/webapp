@@ -1,8 +1,8 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useAsyncReducer } from '@flapjs/hooks/AsyncReducerHook.jsx';
 import { createConnector } from '@flapjs/behaviors/ConnectBehaviorFactory.jsx';
-import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
+import { useView } from '@flapjs/services/view/ViewContext.jsx';
 
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
@@ -44,7 +44,7 @@ function SelectionBoxStateProvider(props)
     const graphType = useGraphType();
     const graphState = useGraphState();
 
-    const { svgRef, pos } = useContext(ViewContext);
+    const { svgRef, pos } = useView();
     const fromRef = useRef({ x: 0, y: 0 });
     useConnectorFromBehavior(svgRef, fromRef.current, {
         useButton: 2,

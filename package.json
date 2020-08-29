@@ -14,7 +14,7 @@
     "lint-js": "eslint \"src/\" --ext \".js\" --ext \".jsx\"",
     "lint-css": "stylelint \"src/**/*.css\"",
     "storybook": "start-storybook",
-    "setup:vscode": "node tools/vscode/setup.js"
+    "setup-vscode": "node tools/vscode/setup.js"
   },
   "repository": {
     "type": "git",

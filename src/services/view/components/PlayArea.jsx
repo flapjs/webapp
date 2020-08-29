@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ViewContext } from '../ViewContext.jsx';
+import { useView } from '../ViewContext.jsx';
 
 import SVGPlayground from '../svg/SVGPlayground.jsx';
 
 export default function PlayArea(props)
 {
-    const { svgRef, pos, scale } = useContext(ViewContext);
+    const { svgRef, pos, scale } = useView();
 
     return (
         <SVGPlayground className="viewport"

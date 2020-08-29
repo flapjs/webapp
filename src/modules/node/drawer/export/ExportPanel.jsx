@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
+import { useView } from '@flapjs/services/view/ViewContext.jsx';
 import * as Downloader from '@flapjs/util/Downloader.js';
 
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
@@ -10,7 +10,7 @@ import NodeGraphExporter from '../../exporters/NodeGraphExporter.js';
 
 export default function ExportPanel(props)
 {
-    const { svgRef } = useContext(ViewContext);
+    const { svgRef } = useView();
 
     const graphType = useContext(GraphTypeContext);
     const graphState = useGraphState();

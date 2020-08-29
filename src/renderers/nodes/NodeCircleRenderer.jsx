@@ -22,7 +22,7 @@ export default function NodeCircleRenderer(props)
                     key={`${s}:${i}`}
                     x={x} y={y + 3}
                     transform={`translate(0 ${(i * -15)})`}
-                    style={{ fontSize: `${magicFontSize(s.length)}em` }}
+                    style={{ fontSize: `${magicfontsize(s.length)}em` }}
                     textAnchor="middle">
                     {s}
                 </text>
@@ -50,7 +50,7 @@ NodeCircleRenderer.defaultProps = {
     maskProps: {},
 };
 
-function magicFontSize(labelLength)
+function magicfontsize(labelLength)
 {
     return (1 - Math.min(Math.max(labelLength, 0) / 6, 0.5));
 }

@@ -1,6 +1,4 @@
-import { useContext } from 'react';
-
-import { ViewContext } from './ViewContext.jsx';
+import { useView } from './ViewContext.jsx';
 
 import { useEventListeners } from '@flapjs/hooks/EventListenerHook.jsx';
 
@@ -13,7 +11,7 @@ import { transformScreenToView } from '@flapjs/util/ViewHelper.js';
 
 export function useViewTapBehavior(callback)
 {
-    const { svgRef, pos } = useContext(ViewContext);
+    const { svgRef, pos } = useView();
     
     useTapBehavior(svgRef, false, e =>
     {
@@ -24,7 +22,7 @@ export function useViewTapBehavior(callback)
 
 export function useViewDoubleTapBehavior(callback)
 {
-    const { svgRef, pos } = useContext(ViewContext);
+    const { svgRef, pos } = useView();
     
     useDoubleTapBehavior(svgRef, false, e =>
     {
@@ -35,7 +33,7 @@ export function useViewDoubleTapBehavior(callback)
 
 export function useViewNavigationBehavior(dragOpts = {})
 {
-    const { svgRef, pos, setPos, scale, setScale } = useContext(ViewContext);
+    const { svgRef, pos, setPos, scale, setScale } = useView();
 
     // NOTE: This makes sure that the svg area will obtain focus. Otherwise,
     // clicking "empty" space will not blur() focused elements (like the

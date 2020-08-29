@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect, useCallback, useState, useLayoutE
 import PropTypes from 'prop-types';
 import Style from './GraphElementEditor.module.css';
 
-import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
+import { useView } from '@flapjs/services/view/ViewContext.jsx';
 import { GraphElementEditorContext } from './GraphElementEditorContext.jsx';
 
 import { useGraphElement } from '@flapjs/services/graph/elements/GraphElementHooks.jsx';
@@ -24,7 +24,7 @@ export default function GraphElementEditor(props)
     const element = useGraphElement(elementType, elementId, forceUpdate);
 
     const editorRef = useRef(null);
-    const { svgRef, pos } = useContext(ViewContext);
+    const { svgRef, pos } = useView();
 
     useEffect(() =>
     {

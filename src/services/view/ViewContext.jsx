@@ -1,7 +1,9 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-export const ViewContext = React.createContext(null);
+const ViewContext = React.createContext(null);
+
+export const ViewConsumer = ViewContext.Consumer;
 
 export function ViewProvider(props)
 {
@@ -27,3 +29,8 @@ export function ViewProvider(props)
 ViewProvider.propTypes = {
     children: PropTypes.node,
 };
+
+export function useView()
+{
+    return useContext(ViewContext);
+}

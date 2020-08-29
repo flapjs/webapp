@@ -1,9 +1,9 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import * as Downloader from '@flapjs/util/Downloader.js';
 import Upload from '@flapjs/components/upload/Upload.jsx';
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
-import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
+import { useView } from '@flapjs/services/view/ViewContext.jsx';
 
 import { Undo, Redo } from '@flapjs/services/history/HistoryButtons.jsx';
 import { useHistory } from '@flapjs/services/history/HistoryHook.jsx';
@@ -18,7 +18,7 @@ export default function NodeToolbar(props)
 {
     const graphType = useGraphType();
     const graphDispatch = useGraphDispatch();
-    const { svgRef } = useContext(ViewContext);
+    const { svgRef } = useView();
 
     const graphState = useGraphState();
 

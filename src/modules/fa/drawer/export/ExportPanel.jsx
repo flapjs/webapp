@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
@@ -6,7 +6,7 @@ import * as Downloader from '@flapjs/util/Downloader.js';
 import { createTabWithIcon } from '@flapjs/components/drawer/DrawerHelper.js';
 import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 
-import { ViewContext } from '@flapjs/services/view/ViewContext.jsx';
+import { useView } from '@flapjs/services/view/ViewService.js';
 import { useGraphType, useGraphState } from '@flapjs/services/graph/GraphHooks.jsx';
 
 import FiniteAutomataGraphExporter from '@flapjs/modules/fa/exporters/FiniteAutomataGraphExporter.js';
@@ -19,7 +19,7 @@ const UNTITLED_FILENAME = 'Untitled';
 
 export default function ExportPanel(props)
 {
-    const { svgRef } = useContext(ViewContext);
+    const { svgRef } = useView();
     const graphType = useGraphType();
     const graphState = useGraphState();
     const [fileName, setFileName] = useState(UNTITLED_FILENAME);

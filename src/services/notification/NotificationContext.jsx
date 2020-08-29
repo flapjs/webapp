@@ -33,39 +33,6 @@ import { uuid } from '@flapjs/util/MathHelper.js';
  * @property {Array<NotificationObject>} notificationList
  */
 
-/**
- * Creates a notification object.
- * 
- * @param {String} id 
- * @param {Array<String>} tags 
- * @param {String|Function} message 
- * @param {Object} props
- * @returns {NotificationObject} A new notification object.
- */
-function createNotificationObject(id, tags, message, props)
-{
-    return {
-        id,
-        tags,
-        message,
-        ...props,
-    };
-}
-
-/**
- * Updates the values of a notification object.
- * 
- * @param {NotificationObject} prevNotification The original notification object.
- * @param {Object} nextNotification New values to overwrite the notification with.
- */
-function updateNotificationObject(prevNotification, nextNotification)
-{
-    return {
-        ...prevNotification,
-        ...nextNotification,
-    };
-}
-
 const NotificationContext = React.createContext(null);
 
 export const NotificationConsumer = NotificationContext.Consumer;
@@ -146,10 +113,11 @@ export function NotificationProvider(props)
         if (notificationId in state.notifications)
         {
             const notification = state.notifications[notificationId];
-            updateNotificationObject(notification, notificationProps);
+            const nextNotification = updateNotificationObject(notification, notificationProps);
 
             const nextNotifications = {
                 ...state.notifications,
+                [notificationId]: nextNotification,
             };
             
             state.notifications = nextNotifications;
@@ -184,8 +152,41 @@ export function useNotifications()
 
     if (!ctx)
     {
-        throw Error('useNotifications() must be called from a descendent of "NotificationContext"');
+        throw Error('useNotifications() must be called from a descendent of "NotificationProvider"');
     }
 
     return ctx;
+}
+
+/**
+ * Creates a notification object.
+ * 
+ * @param {String} id 
+ * @param {Array<String>} tags 
+ * @param {String|Function} message 
+ * @param {Object} props
+ * @returns {NotificationObject} A new notification object.
+ */
+function createNotificationObject(id, tags, message, props)
+{
+    return {
+        id,
+        tags,
+        message,
+        ...props,
+    };
+}
+
+/**
+ * Updates the values of a notification object.
+ * 
+ * @param {NotificationObject} prevNotification The original notification object.
+ * @param {Object} props New values to overwrite the notification with.
+ */
+function updateNotificationObject(prevNotification, props)
+{
+    return {
+        ...prevNotification,
+        ...props,
+    };
 }

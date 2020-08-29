@@ -1,5 +1,10 @@
 import BaseModule from '../base/BaseModule.js';
 
+import { ViewProvider } from '@flapjs/services/view/ViewService.js';
+import { GraphProvider, GraphList } from './graph/GraphService.js';
+import { DrawerPanel } from './DrawerPanel.jsx';
+import { GraphPlayground } from './graph/GraphPlayground.jsx';
+
 export default class TreeModule extends BaseModule
 {
     /** @override */
@@ -8,23 +13,29 @@ export default class TreeModule extends BaseModule
     static get moduleVersion() { return '1.0.0'; }
 
     /** @override */
-    static get providers() { return []; }
+    static get providers()
+    {
+        return [
+            GraphProvider,
+            ViewProvider,
+        ];
+    }
+
     /** @override */
     static get renders()
     {
         return {
             header: [ ],
             appbar: [ ],
-            playarea: [ ],
-            viewarea: [ ],
-            drawer: [ ],
+            foreground: [
+            ],
+            background: [
+                GraphPlayground
+            ],
+            drawer: [
+                DrawerPanel,
+                GraphList
+            ],
         };
-    }
-
-    /** @override */
-    static get services()
-    {
-        return [
-        ];
     }
 }
