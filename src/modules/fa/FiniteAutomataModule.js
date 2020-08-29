@@ -9,9 +9,6 @@ import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './graph/FiniteAutomataGraph.js';
 import FiniteAutomataGraphPlayground from './graph/FiniteAutomataGraphPlayground.jsx';
 
-import AutoInit from './AutoInit.jsx';
-import AutoSave from './AutoSave.jsx';
-
 import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
 import ComputePanel from './drawer/compute/ComputePanel.jsx';
 import TestingPanel from './drawer/testing/TestingPanel.jsx';
@@ -21,6 +18,7 @@ import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource
 import GraphMachineNotifier from '@flapjs/services/graphmachine/GraphMachineNotifier.jsx';
 import FiniteAutomataGraphEditor from './grapheditor/FiniteAutomataGraphEditor.jsx';
 import FiniteAutomataBuilder from './graphmachine/FiniteAutomataBuilder.js';
+import { FiniteAutomataAutoSaver } from './FiniteAutomataAutoSaver.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -41,7 +39,7 @@ export default class FiniteAutomataModule extends BaseModule
     static get renders()
     {
         return {
-            header: [AutoInit, AutoSave],
+            header: [FiniteAutomataAutoSaver],
             appbar: [FiniteAutomataToolbar],
             playarea: [
                 [GraphMachineSource, { machineBuilderType: FiniteAutomataBuilder }],
