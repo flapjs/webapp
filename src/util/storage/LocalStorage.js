@@ -5,12 +5,16 @@ export class LocalStorage
 {
     static setItem(key, value)
     {
+        if (typeof value !== 'string')
+        {
+            throw new Error('LocalStorage item value must be a string.');
+        }
         if (!this.isSupported()) return;
         
         // Don't save anything if hidden...
         if (document.hidden) return;
 
-        if (value !== null)
+        if (value)
         {
             localStorage.setItem(key, value);
         }

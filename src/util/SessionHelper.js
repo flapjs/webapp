@@ -1,10 +1,11 @@
 import { uuid } from '@flapjs/util/MathHelper.js';
 import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
+import { SessionStorage } from '@flapjs/util/storage/SessionStorage.js';
 
 export function createSession()
 {
     let sessionKey = uuid();
-    sessionStorage.setItem('sessionKey', sessionKey);
+    SessionStorage.setItem('sessionKey', sessionKey);
     LocalStorage.setItem('session#' + sessionKey + '.active', 'true');
     return sessionKey;
 }
@@ -12,7 +13,7 @@ export function createSession()
 export function releaseSession(sessionKey)
 {
     LocalStorage.setItem('session#' + sessionKey + '.active', 'false');
-    sessionStorage.removeItem('sessionKey');
+    SessionStorage.setItem('sessionKey', null);
 }
 
 export function adoptSession()
