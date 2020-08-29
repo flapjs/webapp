@@ -4,7 +4,7 @@ export { useAutoSave } from './AutoSaveContext.jsx';
  * @module AutoSaveService
  * 
  * ## Setup
- * None needed.
+ * - None needed.
  * 
  * ## Usage
  * - Use the hook useAutoSave() with the required parameters to enable auto saving/loading.
