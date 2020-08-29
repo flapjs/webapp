@@ -1,8 +1,4 @@
 import BaseModule from '../base/BaseModule.js';
-import GraphService from '@flapjs/services/graph/GraphService.js';
-import NotifyService from '@flapjs/services/notify/NotifyService.js';
-import HistoryService from '@flapjs/services/history/HistoryService.js';
-import MachineService from '@flapjs/services/machine/MachineService.js';
 
 export default class TuringMachineModule extends BaseModule
 {
@@ -28,11 +24,6 @@ export default class TuringMachineModule extends BaseModule
     /** @override */
     static get services()
     {
-        return [
-            HistoryService,
-            NotifyService.withInitialMessages([ 'Hello' ]),
-            GraphService,
-            MachineService,
-        ];
+        return [];
     }
 }

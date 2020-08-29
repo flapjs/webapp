@@ -58,20 +58,9 @@ class HtmlWebpackScriptAttributesPlugin
 
     onAlterAssetTags(data, cb = null)
     {
-        for(const headTag of data.head)
+        for(let scriptTag of data.assetTags.scripts)
         {
-            if (headTag.tagName === 'script')
-            {
-                this.applyAttributesToTagObject(headTag);
-            }
-        }
-
-        for(const bodyTag of data.body)
-        {
-            if (bodyTag.tagName === 'script')
-            {
-                this.applyAttributesToTagObject(bodyTag);
-            }
+            this.applyAttributesToTagObject(scriptTag);
         }
 
         if (cb)

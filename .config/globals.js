@@ -1,17 +1,30 @@
 const pkg = require('../package.json');
 
 /**
- * This is where global variables are declared to be used by all source files (including test files).
- * Don't forget to put `global GLOBAL_VARIABLE_NAME` as a block comment at the top of the file.
+ * **IMPORTANT: If this is required anywhere, please update this!**
  * 
- * Also, any globals defined here must also be declared in the `declarations.d.ts` file at the root.
- * Please don't forget this as you will get confusing type errors!
+ * This is where global variables are declared to be used by
+ * all source files (including test files). Don't forget to
+ * put `global NAME_OF_GLOBAL_VARIABLE` as a block comment
+ * at the top of the file to satisfy the linters.
  * 
- * **NOTE:** This is used by DefinePlugin in `base.config.js` and by "globals" in .jest/config.js.
+ * Also, any globals defined here must also be declared in
+ * the `declarations.d.ts` file at the root. Please don't
+ * forget this as you will get confusing type errors!
  * 
- * **NOTE:** If this is required anywhere else, please update the above!
+ * **NOTE:** This is used by DefinePlugin in `common.config.js`
+ * and by "globals" in .jest/config.js.
  */
 module.exports = {
-    '__VERSION__': `"${pkg.version}"`,
-    '__BUG_REPORT_URL__': `"${pkg.bugs.url}"`,
+    getGlobalVariables(env = 'development')
+    {
+        return {
+            '__VERSION__': `"${pkg.version}"`,
+            '__BUG_REPORT_URL__': `"${pkg.bugs.url}"`,
+            '__PROJECT_NAME__': `"${pkg.name}"`,
+            '__NODE_ENV__': `"${env}"`,
+            // This is used ONLY by the service worker and added by `./src/assets/template.html`.
+            // '__SERVICE_WORKER_ENV__': ...
+        };
+    }
 };

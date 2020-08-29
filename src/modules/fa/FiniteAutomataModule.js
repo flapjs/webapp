@@ -1,15 +1,13 @@
 import BaseModule from '../base/BaseModule.js';
 import GraphService from '@flapjs/services/graph/GraphService.js';
-import NotifyService from '@flapjs/services/notify/NotifyService.js';
 import HistoryService from '@flapjs/services/history/HistoryService.js';
 import MachineService from '@flapjs/services/machine/MachineService.js';
+
+import * as NotificationService from '@flapjs/services/notification/NotificationService.js';
 
 import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './graph/FiniteAutomataGraph.js';
 import FiniteAutomataGraphPlayground from './graph/FiniteAutomataGraphPlayground.jsx';
-
-import AutoInit from './AutoInit.jsx';
-import AutoSave from './AutoSave.jsx';
 
 import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
 import ComputePanel from './drawer/compute/ComputePanel.jsx';
@@ -20,6 +18,7 @@ import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource
 import GraphMachineNotifier from '@flapjs/services/graphmachine/GraphMachineNotifier.jsx';
 import FiniteAutomataGraphEditor from './grapheditor/FiniteAutomataGraphEditor.jsx';
 import FiniteAutomataBuilder from './graphmachine/FiniteAutomataBuilder.js';
+import { FiniteAutomataAutoSaver } from './FiniteAutomataAutoSaver.jsx';
 
 export default class FiniteAutomataModule extends BaseModule
 {
@@ -29,16 +28,25 @@ export default class FiniteAutomataModule extends BaseModule
     static get moduleVersion() { return '4.0.0'; }
 
     /** @override */
-    static get providers() { return []; }
+    static get providers()
+    {
+        return [
+            NotificationService.NotificationProvider,
+        ];
+    }
+
     /** @override */
     static get renders()
     {
         return {
-            header: [AutoInit, AutoSave],
+            header: [FiniteAutomataAutoSaver],
             appbar: [FiniteAutomataToolbar],
             playarea: [
                 [GraphMachineSource, { machineBuilderType: FiniteAutomataBuilder }],
                 [GraphMachineNotifier, { machineBuilderType: FiniteAutomataBuilder }]
+            ],
+            foreground: [
+                NotificationService.NotificationList,
             ],
             viewarea: [],
             drawer: [OverviewPanel, TestingPanel, ComputePanel, ExportPanel],
@@ -50,7 +58,6 @@ export default class FiniteAutomataModule extends BaseModule
     {
         return [
             HistoryService,
-            NotifyService.withInitialMessages(['Hello']),
             GraphService.withGraphType(FiniteAutomataGraph, FiniteAutomataGraphPlayground, FiniteAutomataGraphEditor),
             MachineService,
         ];

@@ -7,5 +7,7 @@ declare module '*.svg';
 
 // Globals defined in `.config/globals.js` should also be defined here for autocomplete.
 
-declare const __NODE_ENV__ : string;
 declare const __VERSION__ : string;
+declare const __BUG_REPORT_URL__ : string;
+declare const __PROJECT_NAME__ : string;
+declare const __NODE_ENV__ : string;

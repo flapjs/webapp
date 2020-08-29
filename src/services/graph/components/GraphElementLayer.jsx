@@ -6,7 +6,7 @@ export default function GraphElementLayer(props)
     const { elementType, elementIds } = props;
     return (
         <>
-        {elementIds.map(elementId => props.children(elementType, elementId))}
+            {elementIds.map(elementId => props.children(elementType, elementId))}
         </>
     );
 }

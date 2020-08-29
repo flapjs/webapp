@@ -10,10 +10,14 @@ class Tree
     }
 
     clear()
-    {alert('clear hasnt been overridden');}
+    {
+        throw new Error('clear hasnt been overridden');
+    }
 
     validate()
-    {alert('validate hasnt been overridden');}
+    {
+        throw new Error('validate hasnt been overridden');
+    }
 
     isValid()
     { return this._errors.length === 0; }
@@ -31,13 +35,13 @@ class Tree
     { return this.size === 0;}
 
     insert()
-    {alert('insert hasnt been overridden');}
+    {throw new Error('insert hasnt been overridden');}
 
     find()
-    {alert('find hasnt been overridden');}
+    {throw new Error('find hasnt been overridden');}
 
     delete()
-    {alert('delete hasnt been overridden');}
+    {throw new Error('delete hasnt been overridden');}
 
 }
 

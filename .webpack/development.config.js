@@ -1,26 +1,15 @@
 /* eslint-env node */
 
-const merge = require('webpack-merge');
-const output = require('./output.config.js');
+const { merge } = require('webpack-merge');
 
-const { HotModuleReplacementPlugin } = require('webpack');
+const OUTPUT_CONFIG = require('./output.config.js');
+const DEV_SERVER_CONFIG = require('./common/devServer.js');
 
-const result = merge.smart(output('development'), {
-    mode: 'development',
-    devtool: 'eval-source-map',
-    plugins: [
-        new HotModuleReplacementPlugin()
-    ],
-    devServer: {
-        hot: true,
-        open: true,
-        overlay: true,
-        contentBase: './build',
-        port: 8004,
-        quiet: true,
-        // NOTE: This disables the security warning on dev server startup
-        https: false,
-    },
-});
-
-module.exports = result;
+module.exports = env => merge(
+    OUTPUT_CONFIG(env),         // Adds file output configs.
+    DEV_SERVER_CONFIG(env),     // Adds webpack-dev-server configs.
+    // Adds development-only configs
+    {
+        mode: 'development',
+    }
+);

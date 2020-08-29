@@ -19,10 +19,10 @@ export function createConnector(renderConnector)
 
         return (
             <>
-            <ConnectorContext.Provider value={{ updateSource, setTarget, isActive }}>
-                {props.children}
-                {renderConnector(opts.from, opts.to, opts.cursor, opts.opts)}
-            </ConnectorContext.Provider>
+                <ConnectorContext.Provider value={{ updateSource, setTarget, isActive }}>
+                    {props.children}
+                    {renderConnector(opts.from, opts.to, opts.cursor, opts.opts)}
+                </ConnectorContext.Provider>
             </>
         );
     }

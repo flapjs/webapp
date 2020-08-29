@@ -7,6 +7,7 @@
  * 
  * Although any further webpack configs may be in a different directory,
  * they will all be processed at the project directory, NOT at the config
- * file directory. This means that you can access the src folder at './src'.
+ * file directory. This means that you should access the 'src' folder at
+ * './src'.
  */
-module.exports = (env) => require(`./.webpack/${env}.config.js`);
+module.exports = env => require(`./.webpack/${env}.config.js`)(env);

@@ -10,11 +10,11 @@ export default function EdgeEndpointNoneRenderer(props)
     const { x, y, angle, length, maskProps } = props;
     return (
         <>
-        <circle className={RendererStyle.mask}
-            cx={x - (length * Math.cos(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
-            cy={y - (length * Math.sin(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
-            r={length}
-            {...maskProps} />
+            <circle className={RendererStyle.mask}
+                cx={x - (length * Math.cos(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
+                cy={y - (length * Math.sin(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
+                r={length}
+                {...maskProps} />
         </>
     );
 }

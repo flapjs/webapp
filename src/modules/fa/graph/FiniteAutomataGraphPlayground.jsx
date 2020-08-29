@@ -36,51 +36,51 @@ export default function FiniteAutomataGraphPlayground(props)
 
     return (
         <>
-        <StartMarkerProvider onConnect={swapInitial}>
-            <ProxyEdgeProvider
-                onConnect={(from, to, cursor, opts) =>
-                {
+            <StartMarkerProvider onConnect={swapInitial}>
+                <ProxyEdgeProvider
+                    onConnect={(from, to, cursor, opts) =>
+                    {
                     
-                    let dupEdge = edgeExists(from, to, graphState);
-                    if(dupEdge)
+                        let dupEdge = edgeExists(from, to, graphState);
+                        if(dupEdge)
+                        {
+                            openEditor(dupEdge.type, dupEdge.id);
+                        }
+                        else if (opts.prevEdge)
+                        {
+                            let edge = opts.prevEdge;
+                            edge.fromId = from.id;
+                            edge.toId = to.id;
+                            edge.markDirty();
+                        } 
+                        else
+                        {
+                            createEdge(from, to).then(edge => openEditor(edge.type, edge.id));
+                        }
+                    }}
+                    onCancel={(from, to, cursor, opts) =>
                     {
-                        openEditor(dupEdge.type, dupEdge.id);
-                    }
-                    else if (opts.prevEdge)
-                    {
-                        let edge = opts.prevEdge;
-                        edge.fromId = from.id;
-                        edge.toId = to.id;
-                        edge.markDirty();
-                    } 
-                    else
-                    {
-                        createEdge(from, to).then(edge => openEditor(edge.type, edge.id));
-                    }
-                }}
-                onCancel={(from, to, cursor, opts) =>
-                {
-                    if (opts.prevEdge)
-                    {
-                        let edge = opts.prevEdge;
-                        edge.toId = 0;
+                        if (opts.prevEdge)
+                        {
+                            let edge = opts.prevEdge;
+                            edge.toId = 0;
 
-                        // NOTE: This allows the edge to revert to placeholder form if the
-                        // "current" edge is using a proxy as its endpoint.
-                        QuadraticEdgeHelper.changeEndPoint(null, from, cursor, edge);
-                        edge.markDirty();
-                    }
-                }}>
-                <FiniteAutomataTooltip/>
-                <GraphElementComponentLayer elementType={NodeElement}>
-                    {element => <FiniteAutomataNodeElementComponent element={element}/>}
-                </GraphElementComponentLayer>
-                <GraphElementComponentLayer elementType={EdgeElement}>
-                    {element => <FiniteAutomataEdgeElementComponent element={element}/>}
-                </GraphElementComponentLayer>
-                {props.children}
-            </ProxyEdgeProvider>
-        </StartMarkerProvider>
+                            // NOTE: This allows the edge to revert to placeholder form if the
+                            // "current" edge is using a proxy as its endpoint.
+                            QuadraticEdgeHelper.changeEndPoint(null, from, cursor, edge);
+                            edge.markDirty();
+                        }
+                    }}>
+                    <FiniteAutomataTooltip/>
+                    <GraphElementComponentLayer elementType={NodeElement}>
+                        {element => <FiniteAutomataNodeElementComponent element={element}/>}
+                    </GraphElementComponentLayer>
+                    <GraphElementComponentLayer elementType={EdgeElement}>
+                        {element => <FiniteAutomataEdgeElementComponent element={element}/>}
+                    </GraphElementComponentLayer>
+                    {props.children}
+                </ProxyEdgeProvider>
+            </StartMarkerProvider>
         </>
     );
 }

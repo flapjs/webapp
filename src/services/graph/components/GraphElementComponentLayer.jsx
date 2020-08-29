@@ -38,7 +38,7 @@ function GraphElementComponent(props)
 
     return (
         <>
-        {props.children(element)}
+            {props.children(element)}
         </>
     );
 }

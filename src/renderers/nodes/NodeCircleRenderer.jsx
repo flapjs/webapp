@@ -11,25 +11,25 @@ export default function NodeCircleRenderer(props)
     let labels = label && label.split('\n');
     return (
         <>
-        <circle className={RendererStyle.decorative}
-            cx={x} cy={y} r={radius}
-            {...childProps}/>
-        { inner &&
+            <circle className={RendererStyle.decorative}
+                cx={x} cy={y} r={radius}
+                {...childProps}/>
+            { inner &&
             <circle className={RendererStyle.decorative}
                 cx={x} cy={y} r={inner}/> }
-        {labels && labels.length > 0 && labels.map((s, i) => (
-            <text className={RendererStyle.decorative}
-                key={`${s}:${i}`}
-                x={x} y={y + 3}
-                transform={`translate(0 ${(i * -15)})`}
-                style={{ fontSize: `${magicFontSize(s.length)}em` }}
-                textAnchor="middle">
-                {s}
-            </text>
-        ))}
-        <circle className={RendererStyle.mask}
-            cx={x} cy={y} r={radius + MASK_RADIUS_OFFSET}
-            {...maskProps}/>
+            {labels && labels.length > 0 && labels.map((s, i) => (
+                <text className={RendererStyle.decorative}
+                    key={`${s}:${i}`}
+                    x={x} y={y + 3}
+                    transform={`translate(0 ${(i * -15)})`}
+                    style={{ fontSize: `${magicFontSize(s.length)}em` }}
+                    textAnchor="middle">
+                    {s}
+                </text>
+            ))}
+            <circle className={RendererStyle.mask}
+                cx={x} cy={y} r={radius + MASK_RADIUS_OFFSET}
+                {...maskProps}/>
         </>
     );
 }

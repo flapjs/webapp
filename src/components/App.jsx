@@ -11,14 +11,12 @@ import { ModuleProvider } from '@flapjs/modules/ModuleContext.jsx';
 
 export default function App(props)
 {
-    const { app } = props;
-
     return (
         <div className={`${Style.container} ${Style.theme}`}>
             <ModuleProvider>
                 <SlotProvider name="app">
                     <DrawerProvider>
-                        <AppLayout app={app}/>
+                        <AppLayout app={props}/>
                     </DrawerProvider>
                 </SlotProvider>
             </ModuleProvider>
@@ -26,5 +24,9 @@ export default function App(props)
     );
 }
 App.propTypes = {
-    app: PropTypes.object,
+    env: PropTypes.oneOf([
+        'development',
+        'production'
+    ]),
+    version: PropTypes.string,
 };

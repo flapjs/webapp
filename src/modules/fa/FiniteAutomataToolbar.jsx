@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useContext, useCallback } from 'react';
 // import Style from './FiniteAutomataToolbar.module.css';
 
 import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
@@ -15,7 +15,6 @@ import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataI
 import { DrawerDispatchContext } from '@flapjs/components/drawer/DrawerContext.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
-import Logger from '@flapjs/util/Logger';
 
 export default function FiniteAutomataToolbar(props)
 {
@@ -32,14 +31,6 @@ export default function FiniteAutomataToolbar(props)
         graphDispatch({ type: 'resetState', state: graphState });
     }, [graphDispatch, graphType]);
     useHistory(graphType, () => JSON.stringify(graphType.serialize(graphState, {})));
-
-    // Auto save...
-    useEffect(() =>
-    {
-        Logger.debug('Toolbar', 'Performing autosave...');
-        let graphData = graphType.serialize(graphState, {});
-        localStorage.setItem(graphType.name + '.graphData', JSON.stringify(graphData));
-    });
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>

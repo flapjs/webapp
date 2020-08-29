@@ -1,28 +1,26 @@
 # Flap.js
 
 <h1 align="center">
-  <br>
-  <a href="https://flapjs.github.io/welcome">
-    <img src="https://flapjs.github.io/webapp/docs/logo/logo-dark.png" alt="flapjs">
-  </a>
-  <br>
-  Explore what it means to be computable.
-  <br>
-  <br>
+    <br>
+    <a href="https://flapjs.github.io/welcome">
+        <img src="https://flapjs.github.io/webapp/docs/logo/logo-dark.png" alt="flapjs">
+    </a>
+    <br>
+    Explore what it means to be computable.
+    <br>
+    <br>
 </h1>
 
 Also known as *Formal Languages and Automata Package dot JavaScript*.
 
 [![Build Status](https://travis-ci.org/flapjs/webapp.svg?branch=master)](https://travis-ci.org/flapjs/webapp)
 
-> By the students. For the students.
-
-**ANNOUNCEMENT:** We are always looking for interested contributors and new members for the team! If you have any interest in web development, UI/UX design, computation theory, or general graphing systems, please contact us. We encourage you to play around with our repo and try out its features! (For more info, go to the bottom of this page.)
+> By UCSD students, for all of you.
 
 ---
 
 ## Purpose
-To make a program that is more accessible and intuitive to use, so we can all become a [JFLAP](http://www.jflap.org/)-free homework group for Professor Minnes’s class (CSE 105).
+To make a program that is more accessible and intuitive to use, so we can all become a [JFLAP](http://www.jflap.org/)-free homework group for Professor Minnes' class (CSE 105 - Theory of Computation).
 
 ## Table of Contents
 * [Features](#features)
@@ -31,6 +29,10 @@ To make a program that is more accessible and intuitive to use, so we can all be
 * [Running the Tests](#running-the-tests)
 * [Getting Started](#getting-started)
 * [Conclusion](#conclusion)
+
+---
+
+TODO: This is **UNDER CONSTRUCTION**. Please stand by.
 
 ---
 

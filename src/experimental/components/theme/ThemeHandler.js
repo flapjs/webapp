@@ -1,7 +1,9 @@
-import Logger from '@flapjs/util/Logger.js';
 import StyleMap from './StyleMap.js';
 
-const LOGGER_TAG = 'Theme';
+import { Logger } from '@flapjs/util/Logger.js';
+
+const LOGGER = new Logger('Theme');
+
 const BASE_URL = 'themes/';
 
 /**
@@ -20,7 +22,7 @@ THEME_MAPPING.set(DEFAULT_THEME_NAME, DEFAULT_STYLE_MAP);
 /**
  * Checks whether there exists a value for the style in the current theme.
  *
- * @param {ThemeProvider} provider The theme provider to check the theme for. Usually this is bound by the context.
+ * @param {import('./ThemeContext.jsx').ThemeProvider} provider The theme provider to check the theme for. Usually this is bound by the context.
  * @param {string} styleName The style name to look for.
  * @returns {boolean} Whether the style exists for the current theme.
  */
@@ -47,7 +49,7 @@ export function hasStyle(provider, styleName)
 /**
  * Get the value for the style name given the current theme.
  *
- * @param {ThemeProvider} provider The theme provider to check the theme for. Usually this is bound by the context.
+ * @param {import('./ThemeContext.jsx').ThemeProvider} provider The theme provider to check the theme for. Usually this is bound by the context.
  * @param {string} styleName The style name to get the value for.
  * @returns {string} The style value.
  */
@@ -86,7 +88,7 @@ export function getStyle(provider, styleName)
 /**
  * Change the current theme.
  *
- * @param {ThemeProvider} provider The theme provider to change. Usually this is bound by the context.
+ * @param {import('./ThemeContext.jsx').ThemeProvider} provider The theme provider to change. Usually this is bound by the context.
  * @param {string} themeName The theme name to change to.
  */
 export function changeTheme(provider, themeName)
@@ -147,7 +149,7 @@ export function loadTheme(themeName)
             })
             .catch(error =>
             {
-                Logger.error(LOGGER_TAG, `Could not find theme file for theme '${themeName}'.`, error);
+                LOGGER.error(`Could not find theme file for theme '${themeName}'.`, error);
 
                 // Reset back to default...
                 THEME_MAPPING.delete(themeName);

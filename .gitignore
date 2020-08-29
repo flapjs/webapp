@@ -1,4 +1,4 @@
-/node_modules/
+node_modules
 /out/
 .DS_Store
 
@@ -15,4 +15,5 @@
 .eslintcache
 
 # VSCode setting files
-/.vscode/
+/.vscode/*
+!/.vscode/settings.json.default

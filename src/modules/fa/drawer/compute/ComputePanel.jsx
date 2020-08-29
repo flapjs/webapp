@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
 
@@ -7,18 +7,18 @@ import { PencilIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphMachineBuilder } from '@flapjs/services/graphmachine/GraphMachineHooks.jsx';
 import FiniteAutomataBuilder from '@flapjs/modules/fa/graphmachine/FiniteAutomataBuilder.js';
 
-import { NotifyDispatchContext } from '@flapjs/services/notify/NotifyContext.jsx';
-import NFAToDFAConversionMessage from '@flapjs/modules/fa/messages/NFAToDFAConversionMessage.jsx';
-import FlipAcceptStateMessage from '@flapjs/modules/fa/messages/FlipAcceptStateMessage.jsx';
+import { useNotifications } from '@flapjs/services/notification/NotificationService.js';
+import { NFAToDFAConversionNotification } from '@flapjs/modules/fa/notifications/NFAToDFAConversionNotification.jsx';
+import { FlipAcceptStateNotification } from '@flapjs/modules/fa/notifications/FlipAcceptStateNotification.jsx';
 
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
 
-export default function ComputePanel(props)
+export default function ComputePanel()
 {
     const machineBuilder = useGraphMachineBuilder(FiniteAutomataBuilder);
     const machine = machineBuilder.getMachine();
 
-    const notifyDispatch = useContext(NotifyDispatchContext);
+    const { addNotification } = useNotifications();
 
     const deterministic = machine.isDeterministic();
     const stateCount = machine.getStateCount();
@@ -35,7 +35,7 @@ export default function ComputePanel(props)
                     <div>
                         {!deterministic
                             ? <FieldButton id="convertToDFA"
-                                onClick={() => notifyDispatch({ type: 'send', component: NFAToDFAConversionMessage, message: `${stateCount} state(s) -> ${Math.pow(2, stateCount)} states` })}
+                                onClick={() => addNotification(NFAToDFAConversionNotification, { stateCount })}
                                 disabled={isEmpty}>
                                 <span>Convert to </span>
                                 <span>DFA</span>
@@ -58,7 +58,7 @@ export default function ComputePanel(props)
                 </Pane>
                 <Pane title="Related Conversions">
                     <FieldButton id="flipAllAcceptStates"
-                        onClick={() => notifyDispatch({ type: 'send', component: FlipAcceptStateMessage })}
+                        onClick={() => addNotification(FlipAcceptStateNotification)}
                         disabled={isEmpty}>
                         Flip all accept states
                     </FieldButton>
@@ -67,5 +67,4 @@ export default function ComputePanel(props)
         </>
     );
 }
-
 ComputePanel.Tab = createTabWithIcon(PencilIcon);

@@ -1,7 +1,7 @@
 import { uuid } from '@flapjs/util/MathHelper.js';
-import Logger from '@flapjs/util/Logger.js';
+import { Logger } from '@flapjs/util/Logger.js';
 
-const LOGGER_TAG = 'SessionHandler';
+const LOGGER = new Logger('SessionHandler');
 
 /**
  * This is used by App.jsx to handle all Module session provider logic. Most of its
@@ -30,7 +30,7 @@ class SessionHandler
         }
         catch(e)
         {
-            Logger.error(LOGGER_TAG, 'Module failed preload() for session', e);
+            LOGGER.error('Module failed preload() for session', e);
         }
     }
 
@@ -46,7 +46,7 @@ class SessionHandler
         }
         catch(e)
         {
-            Logger.error(LOGGER_TAG, 'Module failed load() for session', e);
+            LOGGER.error('Module failed load() for session', e);
         }
     }
 
@@ -64,7 +64,7 @@ class SessionHandler
         }
         catch(e)
         {
-            Logger.error(LOGGER_TAG, 'Module failed onSessionMount() for session', e);
+            LOGGER.error('Module failed onSessionMount() for session', e);
         }
     }
 
@@ -82,7 +82,7 @@ class SessionHandler
         }
         catch(e)
         {
-            Logger.error(LOGGER_TAG, 'Module failed onSessionUnmount() for session', e);
+            LOGGER.error('Module failed onSessionUnmount() for session', e);
         }
     }
 
@@ -100,7 +100,7 @@ class SessionHandler
         }
         catch(e)
         {
-            Logger.error(LOGGER_TAG, 'Module failed unload() for session', e);
+            LOGGER.error('Module failed unload() for session', e);
         }
     }
 }

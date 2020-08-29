@@ -18,7 +18,7 @@ class BST extends Tree
         if (!(this.validateData(data)))
         {
             //TODO: Throw error for invalid node
-            alert('Invalid data');
+            // alert('Invalid data');
             return;
         }
 
@@ -33,7 +33,7 @@ class BST extends Tree
             if (curNode.data === data)
             {
                 //TODO: how to throw error?
-                alert('ERROR: Duplicate data inserted');
+                // alert('ERROR: Duplicate data inserted');
                 return;
             }
             //TODO: Maybe have a custom comparator object???
@@ -72,7 +72,7 @@ class BST extends Tree
         if (!(this.validateData(data)))
         {
             //TODO: Throw error for invalid node
-            alert('Invalid data');
+            // alert('Invalid data');
             return;
         }
         let curNode = this.root;
@@ -100,7 +100,7 @@ class BST extends Tree
         if (!(this.validateData(data)))
         {
             //TODO: Throw error for invalid node
-            alert('Invalid data');
+            // alert('Invalid data');
             return;
         }
         const bst = this;
@@ -109,7 +109,7 @@ class BST extends Tree
         {
             if (curNode === null)
             {
-                alert('Attempting to delete nonexistant node');
+                // alert('Attempting to delete nonexistant node');
             }
 
             if (curNode.data === data) 
@@ -193,7 +193,7 @@ class BST extends Tree
                 }
                 else
                 {
-                    alert('Invalid delete of a non-existent node');
+                    // alert('Invalid delete of a non-existent node');
                 }
             }
             else
@@ -204,7 +204,7 @@ class BST extends Tree
                 }
                 else
                 {
-                    alert('Invalid delete of a non-existent node');
+                    // alert('Invalid delete of a non-existent node');
                 }
             }
         }
@@ -348,7 +348,7 @@ class BST extends Tree
 
         if (this.root === null)
         {
-            alert('No root in tree');
+            // // alert('No root in tree');
             return [];
         }
 

@@ -1,112 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Metadata -->
-        <meta charset="utf-8">
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="theme-color" content="#07889B">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <!-- Web Manifest -->
-        <link rel="manifest" href="<%= webpackConfig.output.publicPath %>manifest.webmanifest">
-        
-        <!-- Search Metadata (Needs to be short!) -->
-        <meta name="description" content="An intuitive web app to help you explore and construct formal languages and automata with real-time analysis and error checking.">
-        <!-- An intuitive web app to help you explore what it means to be computable. Experiment and construct formal languages from finite automata to Turing machines with real-time analysis and error checking. From its humble beginnings as a small tool built by a determined CSE 105 homework group at UC San Diego inspired by JFLAP, it has continued to still be developed by the students, for the students. -->
-        <meta name="keywords" content="flap,flapjs,FLAPJS,JFLAP,Computation Theory,CSE 105,UCSD">
+<head>
+    <!-- Metadata -->
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#07889B">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <!-- Title -->
-        <title id="window-title">Flap.js - Formal Languages and Automata Package in JavaScript</title>
+    <!-- Web Manifest -->
+    <link rel="manifest" href="<%= webpackConfig.output.publicPath %>manifest.webmanifest">
+    
+    <!-- Search Metadata (Needs to be short!) -->
+    <meta name="description" content="An intuitive web app to help you explore and construct formal languages and automata with real-time analysis and error checking.">
+    <!-- An intuitive web app to help you explore what it means to be computable. Experiment and construct formal languages from finite automata to Turing machines with real-time analysis and error checking. From its humble beginnings as a small tool built by a determined CSE 105 homework group at UC San Diego inspired by JFLAP, it has continued to still be developed by the students, for the students. -->
+    <meta name="keywords" content="flap,flapjs,FLAPJS,JFLAP,Computation Theory,CSE 105,UCSD">
 
-        <!-- Import Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Overpass+Mono" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <!-- Title -->
+    <title id="window-title">Flap.js - Formal Languages and Automata Package in JavaScript</title>
 
-<!-- Default Styles -->
-<link inline rel="stylesheet" href="./styles/Default.css">
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overpass+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
 
-<!-- Loading Styles -->
-<link inline rel="stylesheet" href="./styles/Loading.css">
+    <!-- Default Styles -->
+    <link inline rel="stylesheet" href="./styles/Default.css">
 
-<!-- Error Styles -->
-<link inline rel="stylesheet" href="./styles/Error.css">
+    <!-- Loading Styles -->
+    <link inline rel="stylesheet" href="./styles/Loading.css">
 
-<!-- NoFocusOutline Styles -->
-<link inline rel="stylesheet" href="./styles/NoFocusOutline.css">
-<script inline src="./scripts/NoFocusOutline.js"></script>
+    <!-- Error Styles -->
+    <link inline rel="stylesheet" href="./styles/Error.css">
+
+    <!-- NoFocusOutline Styles -->
+    <link inline rel="stylesheet" href="./styles/NoFocusOutline.css">
+    <script inline src="./scripts/NoFocusOutline.js"></script>
 
     <!-- Styles -->
-    </head>
-
-    <body>
-        <!-- CSS Support -->
-        <div style="display: none;">
+</head>
+<body>
+    <!-- CSS Support -->
+    <div style="display: none;">
+        <p>
             Please enable CSS to run this app.
-            We don't support no-css yet (please post a feature request).
-        </div>
-        
-        <!-- React Root (must be next to loading spinner) -->
-        <div id="root"></div>
+        </p>
+        <p>
+            We do not support no-css yet, but let us know if you use this feature.
+        </p>
+    </div>
 
-        <!-- Loading Spinner (must be next to React root) -->
-        <div class="_center" id="loading">
-            <div class="_spinner"><div></div><div></div><div></div></div>
+    <!-- JavaScript Support -->
+    <noscript>
+        <p>
+            Please enable JavaScript to run this app.
+        </p>
+        <p>
+            We do not support no-js yet, but let us know if you use this feature.
+        </p>
+    </noscript>
 
-            <!-- Error Support -->
-            <div id="error">
-                <!-- Version Info -->
-                <p class="_center" id="version">
-                    <%= htmlWebpackPlugin.options.package.description %>
-                    <span>
-                        &nbsp;
-                        v
-                    </span>
-                    <%= htmlWebpackPlugin.options.package.version %>
+    <!-- React mount point -->
+    <div id="root"></div>
+
+    <!-- Loading Spinner (must be next to React root) -->
+    <div class="_center" id="loading">
+        <div class="_spinner"><div></div><div></div><div></div></div>
+
+        <!-- Error Support -->
+        <div id="error">
+            <!-- Version Info -->
+            <p class="_center" id="version">
+                <%= htmlWebpackPlugin.options.package.description %>
+                <span>
+                    &nbsp;
+                    v
+                </span>
+                <%= htmlWebpackPlugin.options.package.version %>
+            </p>
+            <!-- JavaScript Support -->
+            <noscript class="_center">You need to enable JavaScript to run this app.</noscript>
+            <!-- Refresh Prompt -->
+            <div class="_center" id="restart" disabled>
+                <p>
+                    Taking too long?
                 </p>
-                <!-- JavaScript Support -->
-                <noscript class="_center">You need to enable JavaScript to run this app.</noscript>
-                <!-- Refresh Prompt -->
-                <div class="_center" id="restart" disabled>
-                    <p>
-                        Taking too long?
-                    </p>
-                    <p>
-                        On slower connections, this may take up to a minute or two.
-                    </p>
-                    <p>
-                        Otherwise, try refreshing (or <a href=<%= htmlWebpackPlugin.options.package.bugs.url %>>report the bug</a>).
-                        &nbsp;
-                        <button id="restartButton">Refresh Now</button>
-                    </p>
-                </div>
-                <!-- Too Long Restart Prompt -->
-                <script inline src="./scripts/TooLongRestartPrompt.js"></script>
+                <p>
+                    On slower connections, this may take up to a minute or two.
+                </p>
+                <p>
+                    Otherwise, try refreshing (or <a href=<%= htmlWebpackPlugin.options.package.bugs.url %>>report the bug</a>).
+                    &nbsp;
+                    <button id="restartButton">Refresh Now</button>
+                </p>
             </div>
+            <!-- Too Long Restart Prompt -->
+            <script inline src="./scripts/TooLongRestartPrompt.js"></script>
         </div>
+    </div>
+    
+    <!-- Setup __SERVICE_WORKER_ENV__ for Service Worker -->
+    <script>
+        // NOTE: ServiceWorker will only be enabled in 'production'.
+        const __SERVICE_WORKER_ENV__ = '<%= webpackConfig.mode %>';
+        if (__SERVICE_WORKER_ENV__ !== 'production') document.getElementById('root').classList.add('debug');
+    </script>
+    <!-- Service Worker Install -->
+    <script inline src="./scripts/ServiceWorkerInstall.js"></script>
 
-<!-- Global Variables -->
-<script>
-    // NOTE: ServiceWorker will only be enabled in 'production'.
-    const __NODE_ENV__ = '<%= webpackConfig.mode %>';
-    if (__NODE_ENV__ !== 'production') document.getElementById('root').classList.add('debug');
-</script>
+    <!-- Exit Warning -->
+    <script inline src="./scripts/ExitWarning.js"></script>
 
-<!-- Service Worker Install -->
-<script inline src="./scripts/ServiceWorkerInstall.js"></script>
+    <!-- Library Files -->
+    <!-- <script crossorigin> https://unpkg.com/react@16/umd/react.production.min.js -->
+    <script defer src="<%= webpackConfig.output.publicPath %>libs/react.production.min.js"></script>
+    <!-- <script crossorigin> https://unpkg.com/react-dom@16/umd/react-dom.production.min.js -->
+    <script defer src="<%= webpackConfig.output.publicPath %>libs/react-dom.production.min.js"></script>
+    <!-- <script crossorigin> https://unpkg.com/prop-types@15.6/prop-types.min.js -->
+    <script defer src="<%= webpackConfig.output.publicPath %>libs/prop-types.min.js"></script>
 
-<!-- Exit Warning -->
-<script inline src="./scripts/ExitWarning.js"></script>
+    <!-- App entry point -->
+</body>
 
-        <!-- Library Files -->
-        <!-- <script crossorigin> https://unpkg.com/react@16/umd/react.production.min.js -->
-        <script defer src="<%= webpackConfig.output.publicPath %>libs/react.production.min.js"></script>
-        <!-- <script crossorigin> https://unpkg.com/react-dom@16/umd/react-dom.production.min.js -->
-        <script defer src="<%= webpackConfig.output.publicPath %>libs/react-dom.production.min.js"></script>
-        <!-- <script crossorigin> https://unpkg.com/prop-types@15.6/prop-types.min.js -->
-        <script defer src="<%= webpackConfig.output.publicPath %>libs/prop-types.min.js"></script>
-
-    <!-- Bundles -->
-    </body>
 </html>

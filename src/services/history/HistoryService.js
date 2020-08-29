@@ -2,7 +2,7 @@ import BaseService from '@flapjs/services/base/BaseService.js';
 
 import { HistoryProvider } from './HistoryContext.jsx';
 
-export default class NotifyService extends BaseService
+export default class HistoryService extends BaseService
 {
     /** @override */
     static get providers() { return [ HistoryProvider ]; }

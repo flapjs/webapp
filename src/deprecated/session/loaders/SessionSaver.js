@@ -1,7 +1,8 @@
 import AbstractAutoSaveHandler from '@flapjs/deprecated/services/autosave/AbstractAutoSaveHandler.js';
 
-import Logger from '@flapjs/util/Logger.js';
-const LOGGER_TAG = 'SessionSaver';
+import { Logger } from '@flapjs/util/Logger.js';
+
+const LOGGER = new Logger('SessionSaver');
 
 class SessionSaver extends AbstractAutoSaveHandler
 {
@@ -25,7 +26,7 @@ class SessionSaver extends AbstractAutoSaveHandler
         catch(e)
         {
             // Ignore error
-            Logger.error(LOGGER_TAG, 'Unable to autoload session', e);
+            LOGGER.error('Unable to autoload session', e);
         }
     }
 
@@ -39,7 +40,7 @@ class SessionSaver extends AbstractAutoSaveHandler
         catch(e)
         {
             // Ignore error
-            Logger.error(LOGGER_TAG, 'Unable to autosave session', e);
+            LOGGER.error('Unable to autosave session', e);
         }
     }
 

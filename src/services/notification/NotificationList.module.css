@@ -1,0 +1,5 @@
+.container {
+    max-width: 22rem;
+    max-height: 100%;
+    overflow-y: auto;
+}

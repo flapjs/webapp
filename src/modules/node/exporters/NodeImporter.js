@@ -1,13 +1,15 @@
-import Logger from '@flapjs/util/Logger.js';
+import { Logger } from '@flapjs/util/Logger.js';
 
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
 import NodeGraph from '@flapjs/modules/node/graph/NodeGraph.js';
 
+const LOGGER = new Logger('NodeImporter');
+
 /**
  * The default importer to load the saved workspace session.
  * 
- * @param {Blob} fileBlob The file blob containing the serialized workspace session.
- * @returns {object} The deserialized graph state.
+ * @param {File} fileBlob The file blob containing the serialized workspace session.
+ * @returns {Promise<object>} The deserialized graph state.
  */
 export default async function NodeImporter(fileBlob)
 {
@@ -30,7 +32,7 @@ export default async function NodeImporter(fileBlob)
     }
     catch(e)
     {
-        Logger.error('NodeImporter', 'Failed to import file.', e);
+        LOGGER.error('Failed to import file.', e);
     }
 
     return graphState;

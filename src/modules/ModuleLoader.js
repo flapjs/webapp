@@ -1,13 +1,19 @@
-import Logger from '@flapjs/util/Logger.js';
-import SemanticVersion from '@flapjs/util/SemanticVersion.js';
-import Slot from '@flapjs/util/slot/Slot.jsx';
+import { Logger } from '@flapjs/util/Logger.js';
 import { topoSort } from '@flapjs/util/TopologicalSort.js';
+import SemanticVersion from '@flapjs/util/SemanticVersion.js';
+
+import Slot from '@flapjs/util/slot/Slot.jsx';
+
+// eslint-disable-next-line no-unused-vars
+import BaseModule from './base/BaseModule.js';
 
 import * as ModuleRegistry from './ModuleRegistry.js';
 
+const LOGGER = new Logger('ModuleLoader');
+
 export async function fetchModuleClassById(moduleId, expectedModuleVersion = undefined)
 {
-    Logger.out('ModuleLoader', `...fetching module with id '${moduleId}'...`);
+    LOGGER.info(`...fetching module with id '${moduleId}'...`);
 
     if (moduleId in ModuleRegistry)
     {
@@ -59,12 +65,12 @@ export async function fetchModuleClassById(moduleId, expectedModuleVersion = und
  * - Mount the services.
  * - Mount the module.
  * 
- * @param {Class} moduleClass The module class.
+ * @param {typeof BaseModule} moduleClass The module class.
  * @returns {object} Instance of the loaded module class.
  */
 export function loadModule(moduleClass)
 {
-    Logger.out('ModuleLoader', `...loading module class '${moduleClass.name}'...`);
+    LOGGER.info('ModuleLoader', `...loading module class '${moduleClass.name}'...`);
 
     const slotProviderName = 'app';
     Slot.clearAll(slotProviderName);
@@ -81,7 +87,7 @@ export function loadModule(moduleClass)
     let services = [];
     if ('services' in moduleClass) services.push(...moduleClass.services);
 
-    Logger.out('ModuleLoader', `...found ${services.length} service(s)...`);
+    LOGGER.info(`...found ${services.length} service(s)...`);
     
     // Resolve service dependencies...
     let orderedServices = resolveServiceDependencies(services);
@@ -109,11 +115,11 @@ export function loadModule(moduleClass)
     mergeContributionsToSlotComponents(loader.slotComponents, moduleContribs);
     totalContributions += countContributions(moduleContribs);
 
-    Logger.out('ModuleLoader', `...injecting ${totalContributions} slot component(s)...`);
+    LOGGER.info(`...injecting ${totalContributions} slot component(s)...`);
     // Now, inject the components...
     injectSlotComponents(slotProviderName, loader.slotComponents);
 
-    Logger.out('ModuleLoader', `...mounting ${orderedServices.length} service(s) and '${moduleClass.name}'...`);
+    LOGGER.info(`...mounting ${orderedServices.length} service(s) and '${moduleClass.name}'...`);
     // Now, mount!
     for(let serviceClass of orderedServices)
     {
@@ -122,7 +128,7 @@ export function loadModule(moduleClass)
     }
     if ('mount' in currentModule) currentModule.mount(loader.serviceContexts);
 
-    Logger.out('ModuleLoader', '...hello!');
+    LOGGER.info('...hello!');
 
     return [ currentModule, loader ];
 }
@@ -131,7 +137,7 @@ export function unloadModule(currentModule, loader)
 {
     const slotProviderName = 'app';
 
-    Logger.out('ModuleLoader', `...unmounting '${currentModule.constructor.name}' and services...`);
+    LOGGER.info(`...unmounting '${currentModule.constructor.name}' and services...`);
 
     if ('unmount' in currentModule) currentModule.unmount(loader.serviceContexts);
     let services = Array.from(loader.serviceContexts.keys()).reverse();
@@ -141,7 +147,7 @@ export function unloadModule(currentModule, loader)
         if ('unmount' in serviceInstance) serviceInstance.unmount(loader.serviceContexts);
     }
 
-    Logger.out('ModuleLoader', '...clearing slot components...');
+    LOGGER.info('...clearing slot components...');
     Slot.clearAll(slotProviderName);
     loader.slotComponents = { providers: [] };
     
@@ -154,7 +160,7 @@ export function unloadModule(currentModule, loader)
     if ('destroy' in currentModule) currentModule.destroy(loader);
     loader.moduleClass = null;
 
-    Logger.out('ModuleLoader', '...good-bye!');
+    LOGGER.info('...good-bye!');
 }
 
 function resolveServiceDependencies(services, dst = [])
@@ -235,7 +241,7 @@ function injectSlotComponents(slotProviderName, slotComponents)
         for(let slotComponent of slotComponents[slotName])
         {
             if (typeof slotComponent !== 'object') throw new Error(`Expected slot component object in the form of { component, props }, but found ${slotComponent}.`);
-            Slot.inject(slotProviderName, slotComponent.component, slotComponent.props, slotName, i++);
+            Slot.inject(slotProviderName, slotComponent.component, slotComponent.props, slotName, String(i++));
         }
     }
 }

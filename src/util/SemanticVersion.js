@@ -48,16 +48,9 @@ class SemanticVersion
         if (components.length != 3) throw new Error('Invalid format for SemanticVersion');
 
         let major, minor, patch;
-        try
-        {
-            major = Number.parseInt(components[MAJOR_INDEX]);
-            minor = Number.parseInt(components[MINOR_INDEX]);
-            patch = Number.parseInt(components[PATCH_INDEX]);
-        }
-        catch (e)
-        {
-            throw e;
-        }
+        major = Number.parseInt(components[MAJOR_INDEX]);
+        minor = Number.parseInt(components[MINOR_INDEX]);
+        patch = Number.parseInt(components[PATCH_INDEX]);
 
         return new SemanticVersion(major, minor, patch);
     }

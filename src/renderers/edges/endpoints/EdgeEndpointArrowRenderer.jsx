@@ -11,19 +11,19 @@ export default function EdgeEndpointArrowRenderer(props)
     const { x, y, angle, length, childProps, maskProps } = props;
     return (
         <>
-        <path className={RendererStyle.decorative}
-            d={`M ${(x - (length * Math.sin(angle - SIXTH_PI)))}` +
+            <path className={RendererStyle.decorative}
+                d={`M ${(x - (length * Math.sin(angle - SIXTH_PI)))}` +
                 ` ${(y - (length * Math.cos(angle - SIXTH_PI)))}` +
                 ` L ${x} ${y}` +
                 ` L ${(x - (length * Math.sin(angle + SIXTH_PI)))}` +
                 ` ${(y - (length * Math.cos(angle + SIXTH_PI)))}`}
-            fill="none"
-            {...childProps} />
-        <circle className={RendererStyle.mask}
-            cx={x - (length * Math.cos(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
-            cy={y - (length * Math.sin(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
-            r={length}
-            {...maskProps} />
+                fill="none"
+                {...childProps} />
+            <circle className={RendererStyle.mask}
+                cx={x - (length * Math.cos(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
+                cy={y - (length * Math.sin(-angle + HALF_PI) * MASK_OFFSET_RATIO)}
+                r={length}
+                {...maskProps} />
         </>
     );
 }

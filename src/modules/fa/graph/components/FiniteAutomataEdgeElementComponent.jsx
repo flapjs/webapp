@@ -33,32 +33,32 @@ export default function FiniteAutomataEdgeElementComponent(props)
 
     return (
         <>
-        <EdgeQuadraticRenderer
-            start={start}
-            end={end}
-            center={center}
-            label={edge.label}
-            labelDirection={normal}
-            labelKeepUp={true}
-            maskProps={{ ref: elementRef }}
-            labelProps={{ ref: labelRef }}
-            hidden={moving}
-            renderEndpoint={(point, angle, direction) =>
-            {
-                if (direction === 'forward')
+            <EdgeQuadraticRenderer
+                start={start}
+                end={end}
+                center={center}
+                label={edge.label}
+                labelDirection={normal}
+                labelKeepUp={true}
+                maskProps={{ ref: elementRef }}
+                labelProps={{ ref: labelRef }}
+                hidden={moving}
+                renderEndpoint={(point, angle, direction) =>
                 {
-                    return <EdgeEndpointArrowRenderer
-                        x={point.x} y={point.y} angle={angle}
-                        maskProps={{ref: forwardEndpointRef}}/>;
-                }
-                else
-                {
-                    return <EdgeEndpointNoneRenderer 
-                        x={point.x} y={point.y} angle={angle}
-                        maskProps={{style: {pointerEvents: 'none'}}}/>;
-                }
-            }}/>
-        {props.children}
+                    if (direction === 'forward')
+                    {
+                        return <EdgeEndpointArrowRenderer
+                            x={point.x} y={point.y} angle={angle}
+                            maskProps={{ref: forwardEndpointRef}}/>;
+                    }
+                    else
+                    {
+                        return <EdgeEndpointNoneRenderer 
+                            x={point.x} y={point.y} angle={angle}
+                            maskProps={{style: {pointerEvents: 'none'}}}/>;
+                    }
+                }}/>
+            {props.children}
         </>
     );
 }

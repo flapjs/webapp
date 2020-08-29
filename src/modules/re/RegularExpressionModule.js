@@ -1,8 +1,13 @@
 import BaseModule from '../base/BaseModule.js';
-import GraphService from '@flapjs/services/graph/GraphService.js';
-import NotifyService from '@flapjs/services/notify/NotifyService.js';
-import HistoryService from '@flapjs/services/history/HistoryService.js';
-import MachineService from '@flapjs/services/machine/MachineService.js';
+
+import RegularExpressionWorkspace from './RegularExpressionWorkspace.jsx';
+import { MachineProvider } from './machinebuilder/RegularExpressionContext.jsx';
+import ExamplePanel from './drawer/ExamplePanel.jsx';
+
+import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
+import ComputePanel from './drawer/compute/ComputePanel.jsx';
+import TestingPanel from './drawer/testing/TestingPanel.jsx';
+import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 export default class RegularExpressionModule extends BaseModule
 {
@@ -12,27 +17,27 @@ export default class RegularExpressionModule extends BaseModule
     static get moduleVersion() { return '3.0.0'; }
 
     /** @override */
-    static get providers() { return []; }
+    static get providers()
+    {
+        return [
+            MachineProvider
+        ];
+    }
+
     /** @override */
     static get renders()
     {
         return {
-            header: [ ],
-            appbar: [ ],
-            playarea: [ ],
-            viewarea: [ ],
-            drawer: [ ],
+            drawer: [
+                ExamplePanel,
+                OverviewPanel,
+                TestingPanel,
+                ComputePanel,
+                ExportPanel,
+            ],
+            foreground: [
+                RegularExpressionWorkspace,
+            ],
         };
-    }
-
-    /** @override */
-    static get services()
-    {
-        return [
-            HistoryService,
-            NotifyService.withInitialMessages([ 'Hello' ]),
-            GraphService,
-            MachineService,
-        ];
     }
 }
