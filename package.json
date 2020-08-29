@@ -1,7 +1,7 @@
 {
   "name": "flapjs",
   "version": "0.5.0",
-  "description": "A web app to help you compute your theories.",
+  "description": "Flap.js Web App",
   "private": true,
   "browser": "main.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "lint-js": "eslint \"src/\" --ext \".js\" --ext \".jsx\"",
     "lint-css": "stylelint \"src/**/*.css\"",
     "storybook": "start-storybook",
-    "postinstall": "node tools/vscode/setup.js"
+    "setup:vscode": "node tools/vscode/setup.js"
   },
   "repository": {
     "type": "git",
