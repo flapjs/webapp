@@ -1,6 +1,3 @@
-import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
-import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
-
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 
 import { IncompleteTransitionErrorNotification } from '../notifications/IncompleteTransitionErrorNotification.jsx';
@@ -10,15 +7,8 @@ import { EmptyTransitionErrorNotification } from '../notifications/EmptyTransiti
 import { MissingTransitionErrorNotification } from '../notifications/MissingTransitionErrorNotification.jsx';
 import { DuplicateTransitionErrorNotification } from '../notifications/DuplicateTransitionErrorNotification.jsx';
 
-export function validate(graphType, graphState, opts = {})
+export function validate(nodes, edges, determinism)
 {
-    const nodeTypeKey = graphType.getElementTypeKeyForElementType(NodeElement);
-    const edgeTypeKey = graphType.getElementTypeKeyForElementType(EdgeElement);
-
-    const determinism = opts.determinism;
-    const nodes = graphState[nodeTypeKey] || {};
-    const edges = graphState[edgeTypeKey] || {};
-
     const startNodeIds = getStartNodeIds(nodes);
     const unreachableNodeIds = getUnreachableNodeIds(startNodeIds[0], nodes, edges);
 

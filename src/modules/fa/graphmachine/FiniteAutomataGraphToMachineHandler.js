@@ -89,8 +89,10 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
             }
         }
     }
-
-    let result = validate(graphType, graphState, { determinism: deterministic });
+    
+    const nodes = graphState[nodeTypeKey] || {};
+    const edges = graphState[edgeTypeKey] || {};
+    let result = validate(nodes, edges, deterministic);
     return {
         errors: result,
         warnings: [],
