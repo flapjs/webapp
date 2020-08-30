@@ -3,6 +3,9 @@ import { useCallback, useState, useMemo } from 'react';
 import { uuid } from '@flapjs/util/MathHelper.js';
 
 /**
+ * @typedef ElementsState
+ * @property {Object} elements An object map of element ids to element objects.
+ * 
  * @callback AddElementFunction
  * @param {...any} args
  * @returns {Object} The new element to be added.
@@ -21,7 +24,7 @@ import { uuid } from '@flapjs/util/MathHelper.js';
  * @returns {Object} The element with the given id.
  * 
  * @callback ResetStateFunction
- * @param {Object} state The new state to replace the current one.
+ * @param {ElementsState} state The new state to replace the current one.
  * 
  * @typedef ElementActions
  * @property {AddElementFunction} add
@@ -139,7 +142,6 @@ export function useElements(elementFactory)
     {
         setState({
             elements: {},
-            metadata: {},
             ...state,
         });
     },

@@ -3,7 +3,20 @@ import PropTypes from 'prop-types';
 
 import { uuid } from '@flapjs/util/MathHelper.js';
 
-import { useElements } from './GraphHelper.jsx';
+import { useElements } from './GraphContextHelper.jsx';
+
+/**
+ * @typedef MetadataState
+ * @property {Object} metadata The object map of metadata keys to values.
+ * 
+ * @callback UpdateMetadataFunction
+ * @param {Object} values
+ * 
+ * @callback ResetMetadataFunction
+ * @param {MetadataState} state The new state to replace the current one.
+ * 
+ * @callback ClearMetadataFunction
+ */
 
 /**
  * @typedef WithNodeList
@@ -12,16 +25,17 @@ import { useElements } from './GraphHelper.jsx';
  * @typedef WithEdgeList
  * @property {Array<Object>} edgeList
  * 
- * @typedef {import('./GraphHelper.jsx').ElementActions & WithNodeList} NodesAPI
- * @typedef {import('./GraphHelper.jsx').ElementActions & WithEdgeList} EdgesAPI
+ * @typedef {import('./GraphContextHelper.jsx').ElementActions & WithNodeList} NodesAPI
+ * @typedef {import('./GraphContextHelper.jsx').ElementActions & WithEdgeList} EdgesAPI
  * 
  * @typedef GraphContextAPI
  * @property {String} graphId
  * @property {NodesAPI} nodes
  * @property {EdgesAPI} edges
  * @property {Readonly<Object>} metadata
- * @property {Function} updateMetadata
- * @property {Function} clearMetadata
+ * @property {UpdateMetadataFunction} updateMetadata
+ * @property {ClearMetadataFunction} clearMetadata
+ * @property {ResetMetadataFunction} resetMetadata
  * @property {Function} clearGraph
  */
 const GraphContext = React.createContext(null);
@@ -69,6 +83,14 @@ export function GraphProvider(props)
         });
     },
     []);
+    const resetMetadata = useCallback(function resetMetadata(state)
+    {
+        setState({
+            metadata: {},
+            ...state,
+        });
+    },
+    []);
     const clearMetadata = useCallback(function clearMetadata()
     {
         setState(state =>
@@ -91,6 +113,7 @@ export function GraphProvider(props)
         },
         metadata,
         updateMetadata,
+        resetMetadata,
         clearMetadata,
         clearGraph,
     };
