@@ -1,7 +1,8 @@
 import BaseModule from '../base/BaseModule.js';
 
 import { ViewProvider } from '@flapjs/services/view/ViewService.js';
-import { GraphProvider, GraphList } from './graph/GraphService.js';
+import { GraphList } from './graph/GraphList.jsx';
+import { GraphProvider } from '@flapjs/services/graph2/GraphService.js';
 import { DrawerPanel } from './DrawerPanel.jsx';
 import { GraphPlayground } from './graph/GraphPlayground.jsx';
 

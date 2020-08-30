@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGraph } from './GraphContext.jsx';
+import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 export function GraphList()
 {

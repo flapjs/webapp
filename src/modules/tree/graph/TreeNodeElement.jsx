@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 
 import NodeCircleRenderer from '@flapjs/renderers/nodes/NodeCircleRenderer.jsx';
-import { useGraph } from './GraphContext.jsx';
+import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 export default function TreeNodeElement(props)
 {

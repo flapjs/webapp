@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGraph } from './graph/GraphService.js';
+import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 export function DrawerPanel()
 {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ViewArea } from '@flapjs/services/view/ViewService.js';
 import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/services/view/ViewBehaviors.jsx';
-import { useGraph } from './GraphContext.jsx';
+import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer.jsx';
 import TreeNodeElement from './TreeNodeElement.jsx';
