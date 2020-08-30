@@ -45,6 +45,8 @@ NodeCircleRenderer.propTypes = {
 NodeCircleRenderer.defaultProps = {
     x: 0,
     y: 0,
+    inner: 0,
+    label: '',
     radius: 15,
     childProps: {},
     maskProps: {},

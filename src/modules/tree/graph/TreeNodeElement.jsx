@@ -10,22 +10,19 @@ export default function TreeNodeElement(props)
 {
     const { element: node } = props;
 
-    const { updateNode } = useGraph();
+    const { nodes } = useGraph();
 
     // Reference to the rendered element.
     const elementRef = useRef(null);
 
     // The node handling behaviors.
+    function updatePosition(position)
+    {
+        nodes.update(node.id, position);
+    }
 
     // Left drag to move node...
-    useDragBehavior(elementRef, node, ({ x, y }) =>
-    {
-        node.x = x;
-        node.y = y;
-        updateNode(node.id, node);
-        // node.markDirty();
-    },
-    { useButton: 0 });
+    useDragBehavior(elementRef, node, updatePosition, { useButton: 0 });
     
     /*
     // Right drag to start proxy edge creation plan...
@@ -38,8 +35,6 @@ export default function TreeNodeElement(props)
         <NodeCircleRenderer
             x={node.x} y={node.y}
             label={node.label}
-            inner={8}
-            radius={10}
             maskProps={{ref: elementRef}}/>
     );
 }

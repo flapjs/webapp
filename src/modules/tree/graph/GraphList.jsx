@@ -4,16 +4,16 @@ import { useGraph } from './GraphContext.jsx';
 
 export function GraphList()
 {
-    const { updateNode, updateEdge, nodeList, edgeList } = useGraph();
+    const { nodes, edges } = useGraph();
     
     return (
         <div>
-            {nodeList.map(node =>
+            {nodes.nodeList.map(node =>
             {
                 return (
                     <button key={node.id} onClick={() =>
                     {
-                        updateNode(node.id, {
+                        nodes.update(node.id, {
                             x: Math.floor(Math.random() * 100),
                             y: Math.floor(Math.random() * 100),
                         });
@@ -22,12 +22,12 @@ export function GraphList()
                     </button>
                 );
             })}
-            {edgeList.map(edge =>
+            {edges.edgeList.map(edge =>
             {
                 return (
                     <button key={edge.id} onClick={() =>
                     {
-                        updateEdge(edge.id, {
+                        edges.update(edge.id, {
                             x: Math.floor(Math.random() * 100),
                             y: Math.floor(Math.random() * 100),
                         });

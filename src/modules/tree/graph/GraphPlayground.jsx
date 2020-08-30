@@ -6,30 +6,31 @@ import { useGraph } from './GraphContext.jsx';
 
 import EdgeQuadraticRenderer from '@flapjs/renderers/edges/EdgeQuadraticRenderer.jsx';
 import TreeNodeElement from './TreeNodeElement.jsx';
+import { GraphElements } from './renderer/GraphElements.jsx';
 
 export function GraphPlayground(props)
 {
-    const { addNode, getNode, nodeList, edgeList } = useGraph();
+    const { nodes, edges } = useGraph();
 
     useViewNavigationBehavior();
-    useViewDoubleTapBehavior((x, y) => addNode({ x, y }));
+    useViewDoubleTapBehavior((x, y) => nodes.add({ x, y }));
 
     return (
         <ViewArea>
-            {nodeList.map(node =>
+            <GraphElements elementList={nodes.nodeList} renderer={node =>
             {
                 return (
                     <TreeNodeElement key={node.id} element={node} />
-                ); 
-            })}
-            {edgeList.map(edge =>
+                );
+            }}/>
+            <GraphElements elementList={edges.edgeList} renderer={edge =>
             {
-                const fromNode = getNode(edge.fromNodeId);
-                const toNode = getNode(edge.toNodeId);
+                const fromNode = nodes.get(edge.fromNodeId);
+                const toNode = nodes.get(edge.toNodeId);
                 return (
                     <EdgeQuadraticRenderer key={edge.id} start={fromNode} end={toNode} />
                 );
-            })}
+            }}/>
         </ViewArea>
     );
 }
