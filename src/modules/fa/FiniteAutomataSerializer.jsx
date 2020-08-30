@@ -1,10 +1,9 @@
-import { useContext, useCallback } from 'react';
-import { GraphTypeContext } from '@flapjs/services/graph/GraphContext.jsx';
+import { useCallback } from 'react';
 import { useGraphType, useGraphState, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 
 export function useFiniteAutomataSerializer()
 {
-    const graphType = useContext(GraphTypeContext);
+    const graphType = useGraphType();
     const graphState = useGraphState();
     
     const serializer = useCallback(function serializer(dst)

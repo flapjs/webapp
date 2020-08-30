@@ -1,34 +1,13 @@
-import { useGraph } from '@flapjs/services/graph2/GraphService.js';
+import { useGraphSerializer, useGraphDeserializer } from '@flapjs/services/graph2/GraphSerializer.jsx';
 
 export function useTreeSerializer()
 {
-    const { nodes, edges } = useGraph();
-
-    return function serializer(dst)
-    {
-        dst.data = {
-            nodes: nodes.nodeList,
-            edges: edges.edgeList,
-        };
-    };
+    const graphSerializer = useGraphSerializer();
+    return graphSerializer;
 }
 
 export function useTreeDeserializer()
 {
-    const { nodes, edges, clearGraph } = useGraph();
-
-    return function deserializer(src)
-    {
-        clearGraph();
-
-        for(let nodeData of src.data.nodes)
-        {
-            nodes.add(nodeData);
-        }
-
-        for(let edgeData of src.data.edges)
-        {
-            edges.add(edgeData.fromNodeId, edgeData.toNodeId, edgeData);
-        }
-    };
+    const graphDeserializer = useGraphDeserializer();
+    return graphDeserializer;
 }

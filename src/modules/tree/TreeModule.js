@@ -1,8 +1,10 @@
 import BaseModule from '../base/BaseModule.js';
 
 import { ViewProvider } from '@flapjs/services/view/ViewService.js';
-import { GraphList } from './graph/GraphList.jsx';
+import { HistoryProvider } from '@flapjs/services/history/HistoryService.js';
 import { GraphProvider } from '@flapjs/services/graph2/GraphService.js';
+
+import { GraphList } from './graph/GraphList.jsx';
 import { DrawerPanel } from './DrawerPanel.jsx';
 import { GraphPlayground } from './graph/GraphPlayground.jsx';
 
@@ -21,6 +23,7 @@ export default class TreeModule extends BaseModule
         return [
             GraphProvider,
             ViewProvider,
+            HistoryProvider,
         ];
     }
 

@@ -12,6 +12,11 @@ export function useHistory(historyKey, serializer, deserializer, recheckTimeInte
     const historyState = useContext(HistoryStateContext);
     const historyDispatch = useContext(HistoryDispatchContext);
 
+    if (!historyState || !historyDispatch)
+    {
+        throw new Error('Missing HistoryProvider.');
+    }
+
     const historySerializer = useHistorySerializer(historyKey);
     const historyDeserializer = useHistoryDeserializer(historyKey);
     useAutoSave(historyKey, historySerializer, historyDeserializer);
