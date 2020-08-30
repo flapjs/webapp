@@ -1,14 +1,6 @@
-import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
 import { useGraph } from './graph/GraphService.js';
 
-export function GraphAutoSaver()
-{
-    useAutoSave('graphData', useSerializer, useDeserializer);
-
-    return null;
-}
-
-function useSerializer()
+export function useTreeSerializer()
 {
     const { nodeList, edgeList } = useGraph();
 
@@ -21,7 +13,7 @@ function useSerializer()
     };
 }
 
-function useDeserializer()
+export function useTreeDeserializer()
 {
     const { addNode, addEdge, clearGraph } = useGraph();
 
