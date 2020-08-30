@@ -55,7 +55,7 @@ export function GraphProvider(props)
 {
     const { children } = props;
 
-    // TODO: Make this great again. Right now, it doesn't matter.
+    // TODO: Make this great again. Right now, it doesn't matter anywhere.
     const graphId = 'graph_001';
 
     const [state, setState] = useState({ metadata: {} });
