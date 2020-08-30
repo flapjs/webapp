@@ -1,5 +1,35 @@
 .container {
+    position: relative;
     max-width: 22rem;
-    max-height: 100%;
+    max-height: calc(100% - 1rem);
     overflow-y: auto;
+    margin-top: 0.5rem;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.container:global(.empty) {
+    opacity: 0;
+}
+
+.toggle {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-top: 8px solid black;
+    width: calc(100% - 1rem);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    z-index: 10;
+}
+
+.toggleLabel {
+    flex: 1;
+}
+
+.toggleIcon {
+    width: 1rem;
 }

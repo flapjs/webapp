@@ -11,7 +11,7 @@ export function GraphProvider(props)
 {
     const { children } = props;
 
-    const [state, setState] = useState({ nodes: {}, edges: {} });
+    const [state, setState] = useState({ nodes: {}, edges: {}, metadata: {} });
 
     // Make sure these are never modified.
     const nodeList = Object.freeze(Object.values(state.nodes));
@@ -133,6 +133,16 @@ export function GraphProvider(props)
     },
     [state]);
 
+    const updateGraphMetadata = useCallback(function updateGraphMetadata(opts)
+    {
+        state.metadata = {
+            ...state.metadata,
+            ...opts,
+        };
+        setState({...state});
+    },
+    [state]);
+
     const clearGraph = useCallback(function clearGraph()
     {
         state.nodes = {};
@@ -149,10 +159,12 @@ export function GraphProvider(props)
         addEdge,
         removeEdge,
         updateEdge,
-        clearGraph,
         getEdge,
+        updateGraphMetadata,
+        clearGraph,
         nodeList,
         edgeList,
+        metadata: state.metadata,
     };
     return (
         <GraphContext.Provider value={graphProviderValues}>

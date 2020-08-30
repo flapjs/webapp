@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Style from './NotificationList.module.css';
 
 import { useNotifications } from './NotificationContext.jsx';
 import { NotificationElementContainer } from './NotificationElementContainer.jsx';
+import { ExpandDownIcon } from '@flapjs/components/icons/Icons';
 
 export function NotificationList()
 {
     const { notificationList } = useNotifications();
+    const [visible, setVisible] = useState(true);
 
     const notifications = formatNotificationList(notificationList);
+    const notificationCount = notifications.length;
+    const empty = notificationCount <= 0;
 
     return (
-        <div className={Style.container}>
-            {notifications.map(notification =>
+        <div className={`${Style.container} ${empty ? 'empty' : ''}`}>
+            <button className={Style.toggle}
+                onClick={() => setVisible(!visible)}>
+                <span className={Style.toggleLabel}>
+                    Issues ({notificationCount})
+                </span>
+                <ExpandDownIcon className={Style.toggleIcon}/>
+            </button>
+            {visible && notifications.map(notification =>
             {
                 const { id, message } = notification;
                 if (typeof message === 'function')
