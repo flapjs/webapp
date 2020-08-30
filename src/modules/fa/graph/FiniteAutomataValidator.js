@@ -7,6 +7,13 @@ import { EmptyTransitionErrorNotification } from '../notifications/EmptyTransiti
 import { MissingTransitionErrorNotification } from '../notifications/MissingTransitionErrorNotification.jsx';
 import { DuplicateTransitionErrorNotification } from '../notifications/DuplicateTransitionErrorNotification.jsx';
 
+/**
+ * Validates the finite automata graph.
+ * 
+ * @param {Object} nodes A map of node ids to node objects.
+ * @param {Object} edges A map of edge ids to edge objects.
+ * @param {Boolean} determinism Whether it is deterministic.
+ */
 export function validate(nodes, edges, determinism)
 {
     const startNodeIds = getStartNodeIds(nodes);
@@ -147,6 +154,10 @@ export function validateDeterminismForEmptyTransitions(determinism, edges)
                 edgeIds: empties,
             },
         }];
+    }
+    else
+    {
+        return [];
     }
 }
 
