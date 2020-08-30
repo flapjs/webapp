@@ -4,7 +4,7 @@ import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 import { EMPTY_SYMBOL as FSA_EMPTY_SYMBOL, State } from '@flapjs/modules/fa/machine/FSA.js';
 import { EMPTY_SYMBOL } from '@flapjs/modules/fa/machine/Symbols.js';
 
-import FiniteAutomataMachineValidator from './FiniteAutomataMachineValidator.js';
+import { validate } from '../graph/FiniteAutomataValidator.js';
 
 export function buildMachineFromGraph(machineBuilder, machine, graphType, graphState, opts)
 {
@@ -17,8 +17,6 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
 
     const deterministic = machine.isDeterministic();
     machine.clear();
-
-    const validator = new FiniteAutomataMachineValidator().setDeterministic(deterministic);
 
     const nodeToStateMap = new Map();
 
@@ -43,10 +41,7 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
             if (initial)
             {
                 machine.setStartState(state);
-                validator.setStartState(nodeId, state);
             }
-
-            validator.addState(nodeId, state);
         }
     }
 
@@ -60,7 +55,6 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
             
             if (!toId)
             {
-                validator.addPlaceholder(edgeId);
                 continue;
             }
             else if (fromId && toId)
@@ -91,15 +85,14 @@ export function buildMachineFromGraph(machineBuilder, machine, graphType, graphS
 
                     // Add to machine...
                     machine.addTransition(srcState, dstState, transitionSymbol, edge);
-
-                    // NOTE: This validates the user-input symbols, not the translated symbols.
-                    validator.addSymbolForEdge(edgeId, symbol);
-                    // This prepares to validate the entire transition.
-                    validator.addTransition(edgeId, srcState, dstState, transitionSymbol);
                 }
             }
         }
     }
-    
-    return validator.validate(graphType, graphState);
+
+    let result = validate(graphType, graphState, { determinism: deterministic });
+    return {
+        errors: result,
+        warnings: [],
+    };
 }
