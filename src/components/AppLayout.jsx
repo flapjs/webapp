@@ -9,7 +9,7 @@ import Viewport from './viewport/Viewport.jsx';
 
 import Logo from './logo/Logo.jsx';
 import ModuleSelector from './ModuleSelector.jsx';
-import { useWelcome, WelcomeScreen } from '@flapjs/services/welcome/WelcomeService.js';
+import { useWelcome, WelcomeScreen } from './welcome/WelcomeService.js';
 
 import DebugToggle from './DebugToggle.jsx';
 
@@ -41,7 +41,7 @@ export default function AppLayout(props)
         <>
             <Slot mode="wrapped" name="providers">
                 <header>
-                    <WelcomeScreen>
+                    <WelcomeScreen footer={(<>Made with ❤️ by the <a href={HOME_URL} target="_blank" rel="noopener noreferrer">Flap.js Team</a>.</>)}>
                         <Logo title="Flap.js" version={app.version} onClick={() => window.open(HOME_URL, '_blank')}/>
                         <ModuleSelector/>
                     </WelcomeScreen>

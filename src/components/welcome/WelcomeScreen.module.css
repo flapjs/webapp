@@ -66,3 +66,19 @@
     right: 0;
     color: white;
 }
+
+.footer {
+    color: gray;
+    flex: 0;
+    font-size: 0.5em;
+    padding: 0;
+    margin: 0;
+}
+
+.footer a {
+    color: silver;
+}
+
+.footer a:visited {
+    color: gold;
+}

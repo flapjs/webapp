@@ -8,7 +8,7 @@ import { useWelcome } from './WelcomeContext.jsx';
 
 export function WelcomeScreen(props)
 {
-    const { children } = props;
+    const { children, footer } = props;
     const { open, hideWelcome } = useWelcome();
 
     return (
@@ -25,6 +25,9 @@ export function WelcomeScreen(props)
                     <button className={Style.button} onClick={hideWelcome}>
                         Continue to Workspace
                     </button>
+                    <p className={Style.footer}>
+                        {footer}
+                    </p>
                 </div>
             </dialog>
         </div>
@@ -32,4 +35,5 @@ export function WelcomeScreen(props)
 }
 WelcomeScreen.propTypes = {
     children: PropTypes.node,
+    footer: PropTypes.node,
 };

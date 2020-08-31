@@ -4,12 +4,11 @@ import Style from './App.module.css';
 
 import { SlotProvider } from '@flapjs/util/slot/SlotContext.jsx';
 
+import { ModuleProvider } from '@flapjs/modules/ModuleContext.jsx';
 import { DrawerProvider } from '@flapjs/services/drawer/DrawerService.js';
 
 import AppLayout from './AppLayout.jsx';
-
-import { ModuleProvider } from '@flapjs/modules/ModuleContext.jsx';
-import { WelcomeProvider } from '@flapjs/services/welcome/WelcomeContext.jsx';
+import { WelcomeProvider } from './welcome/WelcomeContext.jsx';
 
 export default function App(props)
 {
