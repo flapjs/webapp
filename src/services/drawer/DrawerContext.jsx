@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const DrawerContext = React.createContext(null);
@@ -9,6 +9,7 @@ export function DrawerProvider(props)
 {
     const { children } = props;
     const [state, setState] = useState({ open: true, tabIndex: 0 });
+    const drawerRef = useRef();
 
     const drawerTabIndex = state.tabIndex;
     const drawerOpen = state.open;
@@ -49,16 +50,17 @@ export function DrawerProvider(props)
     },
     [state]);
 
-    const drawerProviderValues = {
+    const drawerContextAPI = {
         openDrawer,
         closeDrawer,
         toggleDrawer,
         changeDrawerTab,
         drawerTabIndex,
         drawerOpen,
+        drawerRef,
     };
     return (
-        <DrawerContext.Provider value={drawerProviderValues}>
+        <DrawerContext.Provider value={drawerContextAPI}>
             {children}
         </DrawerContext.Provider>
     );
@@ -70,11 +72,9 @@ DrawerProvider.propTypes = {
 export function useDrawer()
 {
     const ctx = useContext(DrawerContext);
-
     if (!ctx)
     {
         throw Error('useDrawer() must be called from a descendent of "DrawerProvider"');
     }
-
     return ctx;
 }

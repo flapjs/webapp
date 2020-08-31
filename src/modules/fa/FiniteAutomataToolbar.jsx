@@ -13,6 +13,7 @@ import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphType, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
+import { DrawerViewMover } from '@flapjs/components/DrawerViewMover.jsx';
 
 export default function FiniteAutomataToolbar()
 {
@@ -41,6 +42,7 @@ export default function FiniteAutomataToolbar()
 
     return (
         <div className={Style.container}>
+            <DrawerViewMover/>
             <IconButton
                 iconClass={PageEmptyIcon}
                 onClick={() =>

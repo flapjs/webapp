@@ -19,6 +19,7 @@ export default class DrawerLayout extends React.Component
         };
 
         this.container = React.createRef();
+        this.drawer = React.createRef();
 
         this.onDrawerHandleDragBegin = this.onDrawerHandleDragBegin.bind(this);
         this.onDrawerHandleDragMove = this.onDrawerHandleDragMove.bind(this);
@@ -119,7 +120,7 @@ export default class DrawerLayout extends React.Component
             <div ref={this.container}
                 className={Style.container}
                 style={containerStyle}>
-                <div
+                <div ref={this.drawer}
                     className={Style.drawer
                         + ' ' + (className || '')
                         + ' ' + side

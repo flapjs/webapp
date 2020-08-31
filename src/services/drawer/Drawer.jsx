@@ -17,7 +17,7 @@ export function Drawer(props)
     const panelEntries = panels.map(panel => transformPanelToDrawerPanel(panel));
     const tabEntries = panels.map(panel => transformPanelToDrawerTab(panel));
 
-    const { changeDrawerTab, drawerTabIndex, drawerOpen } = useDrawer();
+    const { changeDrawerTab, drawerTabIndex, drawerOpen, drawerRef } = useDrawer();
 
     return (
         <SideBarLayout
@@ -28,6 +28,7 @@ export function Drawer(props)
                 </DrawerSideBar>
             )}>
             <DrawerLayout
+                ref={drawerRef}
                 side={side}
                 open={drawerOpen}
                 drawer = {() => renderPanels(panelEntries, drawerTabIndex)}>

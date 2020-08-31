@@ -20,8 +20,16 @@ export function ViewProvider(props)
     },
     [ setPos ]);
 
+    const viewContextAPI = {
+        svgRef,
+        pos,
+        setPos,
+        scale,
+        setScale,
+        setLookAt,
+    };
     return (
-        <ViewContext.Provider value={{ svgRef, pos, setPos, scale, setScale, setLookAt }}>
+        <ViewContext.Provider value={viewContextAPI}>
             {props.children}
         </ViewContext.Provider>
     );
@@ -32,5 +40,7 @@ ViewProvider.propTypes = {
 
 export function useView()
 {
-    return useContext(ViewContext);
+    const ctx = useContext(ViewContext);
+    if (!ctx) throw new Error('Missing ViewProvider.');
+    return ctx;
 }
