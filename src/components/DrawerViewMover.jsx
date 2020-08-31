@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useView } from '@flapjs/services/view/ViewService.js';
 import { useDrawer } from '@flapjs/services/drawer/DrawerService.js';
 
+// TODO: Please do this properly. This is just a bandage on the real problem.
 export function DrawerViewMover()
 {
     const view = useView();
