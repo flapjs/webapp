@@ -8,7 +8,7 @@ export const DrawerConsumer = DrawerContext.Consumer;
 export function DrawerProvider(props)
 {
     const { children } = props;
-    const [state, setState] = useState({ open: false, tabIndex: 0 });
+    const [state, setState] = useState({ open: true, tabIndex: 0 });
 
     const drawerTabIndex = state.tabIndex;
     const drawerOpen = state.open;
