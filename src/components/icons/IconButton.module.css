@@ -11,6 +11,15 @@
     color: white;
 }
 
+.container:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.container:focus {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .icon {
     background: none;
     border: none;
@@ -19,9 +28,4 @@
 
     /** Inherits the color from the container */
     color: currentColor;
-}
-
-.container:disabled {
-    opacity: 0.5;
-    pointer-events: none;
 }

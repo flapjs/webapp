@@ -112,6 +112,7 @@ This is a required dependency for `@pmmmwh/react-refresh-webpack-plugin`.
 
 ## @babel/core
 ## @babel/preset-react
+
 ## babel-loader
 
 ---

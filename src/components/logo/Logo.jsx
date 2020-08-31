@@ -8,7 +8,9 @@ export default function Logo(props)
     return (
         <div className={Style.container} style={style}>
             <span className={Style.logo} onClick={onClick}>
-                <h1 className={Style.title}>{title}</h1>
+                <h1 className={Style.title}>
+                    {title}
+                </h1>
                 <p className={Style.version}>{version}</p>
             </span>
         </div>

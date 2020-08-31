@@ -15,10 +15,6 @@
     color: white;
 }
 
-.sidetab > *:focus {
-    background: rgba(255, 255, 255, 0.1);
-}
-
 .sidetab:global(.horizontal) {
     flex-direction: column;
     height: 100%;

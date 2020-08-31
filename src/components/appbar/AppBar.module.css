@@ -7,8 +7,8 @@
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-left: 1rem;
-    width: 100%;
+    padding: 0 0.4rem;
+    width: calc(100% - 0.8rem);
     height: 100%;
     background: COLOR_BACKGROUND;
     color: COLOR_TEXT;

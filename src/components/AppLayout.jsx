@@ -15,6 +15,7 @@ import DebugToggle from './DebugToggle.jsx';
 
 import IconButton from './icons/IconButton.jsx';
 import { BugIcon } from './icons/Icons.js';
+import LogoImage from '../assets/images/logo-192.png';
 
 const HOME_URL = 'https://github.com/flapjs/webapp';
 const BUGREPORT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfqBFiGFGnxPI7QIWscv8jsIr5bj4LA3CS-is__2-YvJ_kTjQ/viewform';
@@ -47,10 +48,12 @@ export default function AppLayout(props)
                     <Slot name="header"></Slot>
                     <AppBar>
                         <DebugToggle/>
-                        <Slot name="appbar"></Slot>                    
-                        <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}/>
+                        <img src={LogoImage} alt="Flap.js Logo" style={{ flex: 0, height: '70%', borderRadius: '0.5em' }} onClick={() => showWelcome()}/>
                         <Logo title="Flap.js" version={app.version} onClick={() => showWelcome()}/>
+                        <Slot name="appbar"></Slot>
+                        <div style={{flex: 1}}></div>
                         <ModuleSelector/>
+                        <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}/>
                     </AppBar>
                 </header>
                 <main>
