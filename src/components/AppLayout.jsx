@@ -9,12 +9,14 @@ import Viewport from './viewport/Viewport.jsx';
 
 import Logo from './logo/Logo.jsx';
 import ModuleSelector from './ModuleSelector.jsx';
+import { useWelcome, WelcomeScreen } from '@flapjs/services/welcome/WelcomeService.js';
 
 import DebugToggle from './DebugToggle.jsx';
 
 import IconButton from './icons/IconButton.jsx';
 import { BugIcon } from './icons/Icons.js';
 
+const HOME_URL = 'https://github.com/flapjs/webapp';
 const BUGREPORT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfqBFiGFGnxPI7QIWscv8jsIr5bj4LA3CS-is__2-YvJ_kTjQ/viewform';
 
 /**
@@ -32,17 +34,23 @@ export default function AppLayout(props)
 {
     const { app } = props;
 
+    const { showWelcome } = useWelcome();
+
     return (
         <>
             <Slot mode="wrapped" name="providers">
                 <header>
+                    <WelcomeScreen>
+                        <Logo title="Flap.js" version={app.version} onClick={() => window.open(HOME_URL, '_blank')}/>
+                        <ModuleSelector/>
+                    </WelcomeScreen>
                     <Slot name="header"></Slot>
                     <AppBar>
-                        <Logo title="Flap.js" version={app.version}/>
                         <DebugToggle/>
-                        <ModuleSelector/>
                         <Slot name="appbar"></Slot>                    
-                        <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}> </IconButton>
+                        <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}/>
+                        <Logo title="Flap.js" version={app.version} onClick={() => showWelcome()}/>
+                        <ModuleSelector/>
                     </AppBar>
                 </header>
                 <main>

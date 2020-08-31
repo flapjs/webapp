@@ -101,6 +101,22 @@
     transform: translateY(100%);
 }
 
+/** TODO: Fix this. There's a random space between drawer and sidebar when tabbing. */
+.drawer:not(:global(.open)):global(.left):focus-within,
+.drawer:not(:global(.open)):global(.right):focus-within {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+    right: MIN_DRAWER_SIZE;
+}
+
+/** TODO: Fix this. There's a random space between drawer and sidebar when tabbing. */
+.drawer:not(:global(.open)):global(.top):focus-within,
+.drawer:not(:global(.open)):global(.bottom):focus-within {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+    bottom: MIN_DRAWER_SIZE;
+}
+
 .handle {
     position: absolute;
     width: 100%;

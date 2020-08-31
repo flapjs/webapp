@@ -9,6 +9,7 @@ import { DrawerProvider } from '@flapjs/services/drawer/DrawerService.js';
 import AppLayout from './AppLayout.jsx';
 
 import { ModuleProvider } from '@flapjs/modules/ModuleContext.jsx';
+import { WelcomeProvider } from '@flapjs/services/welcome/WelcomeContext.jsx';
 
 export default function App(props)
 {
@@ -17,7 +18,9 @@ export default function App(props)
             <ModuleProvider>
                 <SlotProvider name="app">
                     <DrawerProvider>
-                        <AppLayout app={props}/>
+                        <WelcomeProvider>
+                            <AppLayout app={props}/>
+                        </WelcomeProvider>
                     </DrawerProvider>
                 </SlotProvider>
             </ModuleProvider>

@@ -25,7 +25,7 @@
 
 .container:global(.info) {
     border-color: black;
-    background-color: dodgerblue;
+    background-color: darkgray;
 }
 
 .container:global(.error) {
