@@ -1,13 +1,15 @@
 .container {
     margin: 0;
     border-radius: 1rem;
-    background-color: gray;
-    border-color: gray;
+    background-color: var(--primary-dark);
+    border-color: var(--primary);
+    border-width: 8px;
+    color: var(--primary-text);
 }
 
 .cancel {
     position: absolute;
     top: 0;
     right: 0;
-    color: black;
+    color: var(--primary-text);
 }

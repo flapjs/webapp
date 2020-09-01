@@ -5,13 +5,15 @@ import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
 import TextArea from '@flapjs/components/lib/TextArea.jsx';
 
+import { EMPTY_SYMBOL } from '../machine/Symbols.js';
+
 export default function FiniteAutomataEdgeEditor(props)
 {
     const { element, closeEditor } = props;
 
     const graphDispatch = useContext(GraphDispatchContext);
 
-    const [ input, setInput ] = useState(element.label);
+    const [ input, setInput ] = useState(element.label || EMPTY_SYMBOL);
     
     return (
         <div onContextMenu={onContextMenu}>

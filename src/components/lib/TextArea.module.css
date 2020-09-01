@@ -23,6 +23,7 @@
     opacity: 0.3;
 }
 
+.element textarea:focus,
 .element textarea:hover:not(:disabled) {
     background-color: var(--primary-focus);
     outline: 1px solid var(--primary-focus);
