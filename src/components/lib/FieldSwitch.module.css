@@ -44,5 +44,5 @@
 }
 
 .element button:hover:not(:disabled) {
-    border-color: var(--primary-hover);
+    border-color: var(--primary-active);
 }

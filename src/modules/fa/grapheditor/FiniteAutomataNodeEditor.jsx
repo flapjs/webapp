@@ -5,7 +5,6 @@ import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
 
 import TextArea from '@flapjs/components/lib/TextArea.jsx';
-import Button from '@flapjs/components/lib/Button.jsx';
 import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 
 export default function FiniteAutomataNodeEditor(props)
@@ -33,7 +32,7 @@ export default function FiniteAutomataNodeEditor(props)
                 }}>
                 Accepted
             </FieldSwitch>
-            <Button
+            <button
                 onClick={() =>
                 {
                     element.label = input;
@@ -41,15 +40,15 @@ export default function FiniteAutomataNodeEditor(props)
                     closeEditor();
                 }}>
                 Change Label
-            </Button>
-            <Button
+            </button>
+            <button
                 onClick={() =>
                 {
                     graphDispatch({ type: 'delete', elementType: NodeElement, elementId: element.id });
                     closeEditor();
                 }}>
                 Delete This
-            </Button>
+            </button>
         </div>
     );
 }

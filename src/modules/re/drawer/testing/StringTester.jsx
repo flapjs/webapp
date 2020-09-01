@@ -5,7 +5,6 @@ import { uuid } from '@flapjs/util/MathHelper.js';
 
 import Options from '@flapjs/components/options/Options.jsx';
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
-import Button from '@flapjs/components/lib/Button.jsx';
 
 import { solveFSA } from '@flapjs/modules/fa/machine/FSAUtils.js';
 import { convertToNFA } from '@flapjs/modules/re/machine/ConvertRE.js';
@@ -48,7 +47,7 @@ export default function StringTester(props)
             <ImportButton onClick={onImportTestStrings} />
             <ExportButton testStrings={testStrings.map(testStringObject => testStringObject.value)} />
 
-            <Button disabled={isEmpty}
+            <button disabled={isEmpty}
                 onClick={() =>
                 {
                     let newTestStrings = [...testStrings];
@@ -60,11 +59,11 @@ export default function StringTester(props)
                     setTestStrings(newTestStrings);
                 }}>
                 Run All
-            </Button>
-            <Button disabled={isEmpty}
+            </button>
+            <button disabled={isEmpty}
                 onClick={() => setTestStrings([])}>
                 Remove All Tests
-            </Button>
+            </button>
             {testStrings.map((testStringObject, index) =>
                 <TestString
                     key={testStringObject.id}

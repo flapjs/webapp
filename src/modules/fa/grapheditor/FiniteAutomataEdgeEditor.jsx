@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement';
-import Button from '@flapjs/components/lib/Button.jsx';
 import TextArea from '@flapjs/components/lib/TextArea.jsx';
 
 export default function FiniteAutomataEdgeEditor(props)
@@ -19,21 +18,21 @@ export default function FiniteAutomataEdgeEditor(props)
             <TextArea
                 value={input}
                 onChange={e => setInput(e.target.value)}/>
-            <Button onClick={() =>
+            <button onClick={() =>
             {
                 element.label = input;
                 element.markDirty();
                 closeEditor();
             }}>
                 Submit
-            </Button>
-            <Button onClick={() =>
+            </button>
+            <button onClick={() =>
             {
                 graphDispatch({ type: 'delete', elementType: EdgeElement, elementId: element.id });
                 closeEditor();
             }}>
                 Delete This
-            </Button>
+            </button>
         </div>
     );
 }

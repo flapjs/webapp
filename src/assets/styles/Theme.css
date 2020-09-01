@@ -4,9 +4,7 @@ body {
     --primary-dark: #1D1E22;
     --primary-text: #FFFFFF;
     --primary-focus: rgba(255, 255, 255, 0.1);
-    --primary-hover: #888888;
-    --primary-active: #DDAD00;
-    --primary-disabled: rgba(0, 0, 0, 0.2);
+    --primary-active: rgb(199, 179, 63);
     --secondary: #FFD700;
     --secondary-dark: #FFD70088;
     --success: olivedrab;
@@ -43,4 +41,27 @@ body {
     --light: #666666;
     --dark: #000000;
     */
+}
+
+button {
+    background-color: transparent;
+    border-radius: 0.3em;
+    border: 0.1em solid currentColor;
+    border-bottom-width: 0.2em;
+    padding: 0.2em 0.5em;
+    margin: 0.1em;
+    color: currentColor;
+}
+
+button:disabled {
+    opacity: 0.3;
+}
+
+button:hover {
+    color: var(--primary-active);
+}
+
+button:active {
+    border-top-width: 0.2em;
+    border-bottom-width: 0.1em;
 }
