@@ -4,7 +4,7 @@ body {
     --primary-dark: #1D1E22;
     --primary-text: #FFFFFF;
     --primary-focus: rgba(255, 255, 255, 0.1);
-    --primary-active: rgb(199, 179, 63);
+    --primary-active: rgb(150, 135, 49);
     --secondary: #FFD700;
     --secondary-dark: #FFD70088;
     --success: olivedrab;
@@ -55,10 +55,6 @@ button {
 
 button:disabled {
     opacity: 0.3;
-}
-
-button:hover {
-    color: var(--primary-active);
 }
 
 button:active {

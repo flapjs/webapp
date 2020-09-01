@@ -42,7 +42,3 @@
     display: none;
     padding: 0;
 }
-
-.element button:hover:not(:disabled) {
-    border-color: var(--primary-active);
-}
