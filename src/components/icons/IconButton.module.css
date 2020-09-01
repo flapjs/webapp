@@ -7,8 +7,8 @@
     border-radius: 0.5rem;
     cursor: pointer;
 
-    /** DEBUG: This should inherit from its parent instead */
-    color: white;
+    /* Should be inherited from parent. */
+    color: var(--primary-text, white);
 }
 
 .container:disabled {
@@ -17,7 +17,7 @@
 }
 
 .container:focus {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: var(--primary-focus, rgba(255, 255, 255, 0.1));
 }
 
 .icon {

@@ -5,6 +5,4 @@
  * Danger
  * Warning
  * Info
- * Light
- * Dark
  */

@@ -13,7 +13,7 @@ import { WelcomeProvider } from './welcome/WelcomeContext.jsx';
 export default function App(props)
 {
     return (
-        <div className={`${Style.container} ${Style.theme}`}>
+        <div className={`${Style.container}`}>
             <ModuleProvider>
                 <SlotProvider name="app">
                     <DrawerProvider>

@@ -3,7 +3,7 @@
 }
 
 .tableEntry:global(.error) {
-    color: red;
+    color: var(--danger);
 }
 
 .tableEntry:not(:global(.error)):global(.disabled),

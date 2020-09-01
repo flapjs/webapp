@@ -4,6 +4,20 @@ import { Logger } from '@flapjs/util/Logger.js';
 
 const LOGGER = new Logger('EventListenerHook');
 
+export function useEventListener(elementRef, eventName, callback)
+{
+    const element = elementRef.current;
+    useEffect(() =>
+    {
+        element.addEventListener(eventName, callback);
+        return () =>
+        {
+            element.removeEventListener(eventName, callback);
+        };
+    },
+    [element, eventName, callback]);
+}
+
 /**
  * Adds and removes event listeners for the element.
  * 

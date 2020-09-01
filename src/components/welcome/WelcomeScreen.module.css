@@ -7,7 +7,9 @@
     font-size: 2rem;
     background-color: rgba(0, 0, 0, 0.8);
 
-    --welcome-layout-background: var(--primary-dark, #1D1E22);
+    --welcome-layout-background: var(--primary);
+    --welcome-layout-text: var(--primary-text);
+    --welcome-layout-focus: var(--primary-focus);
 }
 
 .container:global(.hidden) {
@@ -21,7 +23,7 @@
     text-align: center;
     width: 100%;
     height: 100%;
-    color: white;
+    color: var(--welcome-layout-text);
 }
 
 .content > * {
@@ -33,15 +35,15 @@
     margin: 1rem;
     padding: 1rem;
     font-size: 1.5rem;
-    border: 4px solid white;
+    border: 4px solid var(--welcome-layout-text);
     border-radius: 2rem;
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
-    background-color: rgba(0, 0, 0, 0);
-    color: white;
+    background-color: transparent;
+    color: var(--welcome-layout-text);
 }
 
 .button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--welcome-layout-focus);
 }
 
 .dialog {
