@@ -119,6 +119,7 @@ export default class DrawerLayout extends React.Component
         return (
             <div ref={this.container}
                 className={Style.container}
+                // @ts-ignore
                 style={containerStyle}>
                 <div ref={this.drawer}
                     className={Style.drawer

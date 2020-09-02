@@ -39,6 +39,6 @@ export function createMixinClass(mixinClassInstance, mixinConstructor)
             Object.assign(targetPrototype, mixinClassInstance);
             if (mixinConstructor) mixinConstructor.apply(targetPrototype, args);
             return targetPrototype;
-        }        
+        }
     };
 }
