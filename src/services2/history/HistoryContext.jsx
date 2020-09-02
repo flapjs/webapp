@@ -13,6 +13,10 @@ function HistoryContextAPI(props)
 {
     const [state, setState] = useState({ history: {} });
 
+    /**
+     * Whether there exists a snapshot at the offset for the given history key
+     * to be restored to.
+     */
     const canRestore = useCallback(
         function canRestore(historyKey, historyIndexOffset)
         {
@@ -30,6 +34,9 @@ function HistoryContextAPI(props)
         },
         [state.history]);
     
+    /**
+     * Restores the state to an earlier or later snapshot (determined by the offset).
+     */
     const restore = useCallback(
         function restore(historyKey, historyIndexOffset, snapshotDeserializer)
         {
@@ -58,6 +65,9 @@ function HistoryContextAPI(props)
         },
         []);
 
+    /**
+     * Commits a snapshot and record it in the history.
+     */
     const commit = useCallback(
         function commit(historyKey, snapshotSerializer)
         {
@@ -107,9 +117,12 @@ function HistoryContextAPI(props)
                     },
                 };
             });
-        }
-        ,[]);
+        },
+        []);
 
+    /**
+     * Clears the history for the given history key.
+     */
     const clear = useCallback(
         function clear(historyKey)
         {
@@ -126,6 +139,9 @@ function HistoryContextAPI(props)
         },
         []);
     
+    /**
+     * Gets the state of the history for the given history key.
+     */
     const getState = useCallback(
         function getState(historyKey)
         {
@@ -133,6 +149,9 @@ function HistoryContextAPI(props)
         },
         [state]);
 
+    /**
+     * Resets the state of the history for the given history key.
+     */
     const resetState = useCallback(
         function resetState(historyKey, historyState)
         {
