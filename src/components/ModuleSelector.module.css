@@ -32,7 +32,7 @@
 .selector {
     font-size: 1em;
     width: 80%;
-    background-color: transparent;
+    background-color: var(--primary);
     color: var(--primary-text);
     border: none;
 }

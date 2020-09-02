@@ -35,3 +35,7 @@
 .toggleIcon {
     width: 1rem;
 }
+
+.toggle:hover {
+    background-color: var(--primary-dark);
+}
