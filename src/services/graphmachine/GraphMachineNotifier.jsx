@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useGraphMachineBuilder } from './GraphMachineHooks.jsx';
 import { useNotifications } from '@flapjs/services/notification/NotificationService.js';
 
+/** Validates and notifies the errors that resulted from the graph machine builder. */
 export default function GraphMachineNotifier(props)
 {
     const { machineBuilderType } = props;
