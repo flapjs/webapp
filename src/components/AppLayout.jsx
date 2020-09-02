@@ -16,6 +16,7 @@ import DebugToggle from './DebugToggle.jsx';
 import IconButton from './icons/IconButton.jsx';
 import { BugIcon } from './icons/Icons.js';
 import LogoImage from '../assets/images/logo-192.png';
+import { LocaleSelector } from '@flapjs/services2/i18n/LocaleSelector.jsx';
 
 const HOME_URL = 'https://github.com/flapjs/webapp';
 const BUGREPORT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfqBFiGFGnxPI7QIWscv8jsIr5bj4LA3CS-is__2-YvJ_kTjQ/viewform';
@@ -53,6 +54,7 @@ export default function AppLayout(props)
                         <Slot name="appbar"></Slot>
                         <div style={{flex: 1}}></div>
                         <ModuleSelector/>
+                        <LocaleSelector/>
                         <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}/>
                     </AppBar>
                 </header>

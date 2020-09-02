@@ -10,6 +10,7 @@ import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/His
 import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 import { useTreeDeserializer, useTreeSerializer } from './TreeSerializer.jsx';
+import { useLocale } from '@flapjs/services2/i18n/I18NService.js';
 
 export function TreeToolbar()
 {
@@ -19,6 +20,7 @@ export function TreeToolbar()
     const exportedImageFileName = 'Untitled.png';
     const savedFileName = 'Untitled.tree.json';
 
+    const { getLocaleString } = useLocale();
     const { svgRef } = useView();
 
     const graph = useGraph();
@@ -44,22 +46,22 @@ export function TreeToolbar()
                 graph.clearGraph();
                 clearHistory();
             }}>
-                New
+                {getLocaleString('action.workspace.new')}
             </button>
             <button onClick={() =>
             {
                 Downloader.downloadImageFromSVG(exportedImageFileName, Downloader.FILE_TYPE_PNG, svgRef.current, 640, 480);
             }}>
-                Export
+                {getLocaleString('action.workspace.export')}
             </button>
             <button onClick={() =>
             {
                 let graphData = serializer({});
                 Downloader.downloadText(savedFileName, JSON.stringify(graphData));
             }}>
-                Save
+                {getLocaleString('action.workspace.save')}
             </button>
-            <Upload onUpload={fileBlob =>
+            <Upload title={getLocaleString('action.workspace.upload')} onUpload={fileBlob =>
             {
                 transformFileBlobToText(fileBlob)
                     .then(data => deserializer(JSON.parse(data)));

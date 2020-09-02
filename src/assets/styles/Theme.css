@@ -61,3 +61,10 @@ button:active {
     border-top-width: 0.2em;
     border-bottom-width: 0.1em;
 }
+
+select {
+    display: block;
+    background-color: var(--primary);
+    color: var(--primary-text);
+    border: none;
+}
