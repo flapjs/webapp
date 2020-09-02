@@ -6,7 +6,7 @@ import Upload from '@flapjs/components/upload/Upload.jsx';
 import { transformFileBlobToText } from '@flapjs/util/UploadHelper.js';
 import { useView } from '@flapjs/services/view/ViewContext.jsx';
 
-import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/HistoryService.js';
+import { useHistory, UndoButton, RedoButton } from '@flapjs/services2/history/HistoryService.js';
 
 import { useGraphType, useGraphState, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 

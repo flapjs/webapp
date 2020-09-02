@@ -6,7 +6,7 @@ import Upload from '@flapjs/components/upload/Upload.jsx';
 
 import { useView } from '@flapjs/services/view/ViewContext.jsx';
 import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
-import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/HistoryService.js';
+import { useHistory, UndoButton, RedoButton } from '@flapjs/services2/history/HistoryService.js';
 import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 import { useTreeDeserializer, useTreeSerializer } from './TreeSerializer.jsx';

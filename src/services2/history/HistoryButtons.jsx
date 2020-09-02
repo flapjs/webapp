@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
-
 import { UndoIcon, RedoIcon } from '@flapjs/components/icons/Icons.js';
 
 export function UndoButton(props)

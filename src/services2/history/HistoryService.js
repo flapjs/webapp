@@ -1,6 +1,6 @@
 export { HistoryProvider } from './HistoryContext.jsx';
+export { useHistory } from './HistoryHooks.jsx';
 export { UndoButton, RedoButton } from './HistoryButtons.jsx';
-export { useHistory } from './HistoryHook.jsx';
 
 /**
  * @module HistoryService
@@ -13,5 +13,5 @@ export { useHistory } from './HistoryHook.jsx';
  * ## Usage
  * - Use the hook useHistory() to interact with the stored history.
  * - You can use UndoButton and RedoButton, but these are simply pure components for
- * easy access/testing.
+ * easy access/testing. They do not implement any history logic.
  */

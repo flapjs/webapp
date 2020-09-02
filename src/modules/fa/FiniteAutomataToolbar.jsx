@@ -7,7 +7,7 @@ import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataI
 import { useFiniteAutomataSerializer, useFiniteAutomataDeserializer } from './FiniteAutomataSerializer.jsx';
 
 import { useDrawer } from '@flapjs/services/drawer/DrawerService.js';
-import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/HistoryService.js';
+import { useHistory, UndoButton, RedoButton } from '@flapjs/services2/history/HistoryService.js';
 import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';

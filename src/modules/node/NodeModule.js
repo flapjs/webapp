@@ -1,7 +1,7 @@
 import BaseModule from '../base/BaseModule.js';
 import GraphService from '@flapjs/services/graph/GraphService.js';
 
-import * as HistoryService from '@flapjs/services/history/HistoryService.js';
+import * as HistoryService from '@flapjs/services2/history/HistoryService.js';
 import * as NotificationService from '@flapjs/services/notification/NotificationService.js';
 
 import ExportPanel from './drawer/export/ExportPanel.jsx';

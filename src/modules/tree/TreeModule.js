@@ -1,7 +1,7 @@
 import BaseModule from '../base/BaseModule.js';
 
 import { ViewProvider } from '@flapjs/services/view/ViewService.js';
-import { HistoryProvider } from '@flapjs/services/history/HistoryService.js';
+import { HistoryProvider } from '@flapjs/services2/history/HistoryService.js';
 import { GraphProvider } from '@flapjs/services/graph2/GraphService.js';
 
 import { GraphList } from './graph/GraphList.jsx';
