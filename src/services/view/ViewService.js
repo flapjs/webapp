@@ -13,7 +13,9 @@ export {
     PlayArea as ViewArea,
 };
 
-// NOTE: Maybe this should be called PlaygroundService?
+/**
+ * Contains services and getters available for View context 
+ */
 export default class ViewService extends BaseService
 {
     /** @override */

@@ -5,6 +5,15 @@ const ViewContext = React.createContext(null);
 
 export const ViewConsumer = ViewContext.Consumer;
 
+/**
+ * Creates a context provider for the View context so the children of the
+ * context provider can consume View context's value.
+ * 
+ * @param {Object} props The props of ViewProvider passed down from a parent
+ * component, if there is a parent component.
+ * @returns {React.ReactNode} A context provider component wrapped around its
+ * children components.
+ */
 export function ViewProvider(props)
 {
     const svgRef = useRef(null);
@@ -30,6 +39,11 @@ ViewProvider.propTypes = {
     children: PropTypes.node,
 };
 
+/**
+ * Returns the View context value via useContext hook call.
+ * 
+ * @returns {any} The current value of the View context
+ */
 export function useView()
 {
     return useContext(ViewContext);

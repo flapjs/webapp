@@ -4,6 +4,13 @@ import Style from './SVGPlayground.module.css';
 
 const DEFAULT_VIEWBOX_SIZE = 300;
 
+/**
+ * Creates an SVG container that wraps around a group of children SVG elements.
+ * 
+ * @param {Object} props Props passed down to SVGPlayground from its parent
+ * component, if there is any.
+ * @returns {JSX.Element} An SVG container with a group of children SVG elements in it.
+ */
 export default function SVGPlayground(props)
 {
     const { offsetX, offsetY, scale, childProps } = props;
