@@ -37,6 +37,15 @@ const NotificationContext = React.createContext(null);
 
 export const NotificationConsumer = NotificationContext.Consumer;
 
+/**
+ * Creates a provider of notification context, which supplies consumers with
+ * functions to add, remove, update, clear notifications, as well as a list
+ * of current notifications.
+ * 
+ * @param {Object} props Props passed down to NotificationProvider from its 
+ * parent component, if there is one.
+ * @returns {JSX.Element} Notification context provider.
+ */
 export function NotificationProvider(props)
 {
     const { children } = props;
@@ -144,6 +153,8 @@ NotificationProvider.propTypes = {
 };
 
 /**
+ * Gives the current value that NotificationContext contains
+ * 
  * @returns {NotificationContextValues}
  */
 export function useNotifications()

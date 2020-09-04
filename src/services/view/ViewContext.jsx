@@ -11,7 +11,7 @@ export const ViewConsumer = ViewContext.Consumer;
  * 
  * @param {Object} props The props of ViewProvider passed down from a parent
  * component, if there is a parent component.
- * @returns {React.ReactNode} A context provider component wrapped around its
+ * @returns {JSX.Element} A context provider component wrapped around its
  * children components.
  */
 export function ViewProvider(props)

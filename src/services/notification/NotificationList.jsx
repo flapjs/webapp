@@ -4,6 +4,12 @@ import Style from './NotificationList.module.css';
 import { useNotifications } from './NotificationContext.jsx';
 import { NotificationElementContainer } from './NotificationElementContainer.jsx';
 
+/**
+ * Renders the list of all current notifications.
+ * 
+ * @returns {JSX.Element} A component containing children components to render
+ * the notifications.
+ */
 export function NotificationList()
 {
     const { notificationList } = useNotifications();
@@ -33,6 +39,14 @@ export function NotificationList()
     );
 }
 
+/**
+ * Takes all notifications and sort/group them by tags (or at least make sure 
+ * that notifications with the same first tag are together) in a 1-D array.
+ * 
+ * @param {Array} notificationList An array containing all current notifications.
+ * @returns {Array} An array containing all notifications sorted by tags
+ * (or grouped together).
+ */
 function formatNotificationList(notificationList)
 {
     const notificationsByTag = notificationList.reduce(function(result, notification)

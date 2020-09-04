@@ -4,6 +4,14 @@ import Style from './NotificationElementContainer.module.css';
 
 import { useNotifications } from './NotificationContext.jsx';
 
+/**
+ * Returns the display of the notification popup containing the notification
+ * message and a dismiss button that removes the message.
+ * 
+ * @param {Object} props Props passed down to NotificationElementContainer
+ * from its parent component, if there is one.
+ * @returns {JSX.Element} The notification popup.
+ */
 export function NotificationElementContainer(props)
 {
     const { id, message, controls, children } = props;
@@ -41,6 +49,13 @@ NotificationElementContainer.defaultProps = {
     controls: function(dismiss) { return null; },
 };
 
+/**
+ * Determines the type of the notification in order to render its appearance
+ * appropriately.
+ * 
+ * @param {string | any} message The message of the notification.
+ * @returns {string} The type of the notification.
+ */
 function getAppearanceFromMessage(message)
 {
     if (typeof message !== 'string') return 'info';
@@ -57,6 +72,12 @@ function getAppearanceFromMessage(message)
     }
 }
 
+/**
+ * Puts the content of the notification's message into HTML's p tag.
+ * 
+ * @param {string | any} message The message of the notification.
+ * @returns The message content wrapped by HTML's p tag.
+ */
 function renderMessage(message)
 {
     if (typeof message === 'string')
