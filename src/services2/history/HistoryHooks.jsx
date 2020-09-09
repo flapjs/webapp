@@ -257,6 +257,5 @@ function isCurrentSnapshot(historyState, nextSnapshot)
 {
     if (!historyState || historyState.index < 0) return false;
     const currentSnapshot = historyState.snapshots[historyState.index];
-    console.log(historyState.index);
     return currentSnapshot.hash === nextSnapshot.hash;
 }
