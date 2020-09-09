@@ -5,6 +5,12 @@ import IconButton from '@flapjs/components/icons/IconButton.jsx';
 
 const PANEL_TAB = Symbol('panelTab');
 
+/**
+ * A helper function to get the drawer tab option for the panel option.
+ * 
+ * @param {Object} panel The panel option.
+ * @returns {Object} The tab option derived from the given panel option.
+ */
 export function transformPanelToDrawerTab(panel)
 {
     // May need to reach into the panel class slot object to find the tab...
@@ -32,11 +38,24 @@ export function transformPanelToDrawerTab(panel)
     return '?';
 }
 
+/**
+ * A helper function to get the drawer panel option for the panel option.
+ * 
+ * @param {Object} panel The panel option.
+ * @returns {Object} The panel option.
+ */
 export function transformPanelToDrawerPanel(panel)
 {
+    // Although it just returns itself, it is here to complement transformPanelToDrawerTab().
     return panel;
 }
 
+/**
+ * Creates a tab component for the given icon.
+ * 
+ * @param {typeof React.Component} iconClass The icon component.
+ * @returns {import('react').ReactNode} The rendered content.
+ */
 export function createTabWithIcon(iconClass)
 {
     function Tab(props)

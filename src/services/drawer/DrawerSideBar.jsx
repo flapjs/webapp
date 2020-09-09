@@ -7,6 +7,7 @@ import { DrawerExpander } from './DrawerExpander.jsx';
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { TinyDownIcon } from '@flapjs/components/icons/Icons.js';
 
+/** A component that contains the tabs for the drawer layout. */
 export default function DrawerSideBar(props)
 {
     const { direction } = props;
