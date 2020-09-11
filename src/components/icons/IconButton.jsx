@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './IconButton.module.css';
 
-function IconButton(props)
+/** A button that shows an icon instead of text. */
+export default function IconButton(props)
 {
     const IconClass = props.iconClass;
 
@@ -31,5 +32,3 @@ IconButton.propTypes = {
     // TODO: Should be ...isRequired, but PropTypes in production doesn't recognize it.
     iconClass: PropTypes.elementType,
 };
-
-export default IconButton;
