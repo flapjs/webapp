@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { NotificationElementContainer } from '@flapjs/services/notification/NotificationService.js';
 
+/** A React component that is a notification box for the Duplicate Transitions error. */
 export function DuplicateTransitionErrorNotification(props)
 {
     const { id, edgeIds, fromNodeLabel, symbol } = props;
@@ -14,6 +15,7 @@ export function DuplicateTransitionErrorNotification(props)
         </NotificationElementContainer>
     );
 }
+
 DuplicateTransitionErrorNotification.propTypes = {
     id: PropTypes.string,
     edgeIds: PropTypes.arrayOf(PropTypes.string),

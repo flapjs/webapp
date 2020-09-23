@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { NotificationElementContainer } from '@flapjs/services/notification/NotificationService.js';
 
+/** A React component that is a notification box for the Duplicate States/Nodes error. */ 
 export function DuplicateNodeErrorNotification(props)
 {
     const { id, nodeIds, label } = props;
@@ -14,6 +15,7 @@ export function DuplicateNodeErrorNotification(props)
         </NotificationElementContainer>
     );
 }
+
 DuplicateNodeErrorNotification.propTypes = {
     id: PropTypes.string,
     nodeIds: PropTypes.arrayOf(PropTypes.string),

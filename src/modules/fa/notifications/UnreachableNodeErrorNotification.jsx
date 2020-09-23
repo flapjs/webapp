@@ -6,6 +6,12 @@ import { NotificationElementContainer } from '@flapjs/services/notification/Noti
 import { useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 import { doGraphDeleteNodes } from '../FiniteAutomataGraphActions.js';
 
+/** 
+ * A React component that is a notification box for the Unreachable States warning 
+ * (as in there are states that cannot be reached from the starting state on the
+ * current graph, which are still allowed). This component also allows for the 
+ * deletion of those unreachable states via a button.
+ */
 export function UnreachableNodeErrorNotification(props)
 {
     const { id, nodeIds, labels } = props;
@@ -30,6 +36,7 @@ export function UnreachableNodeErrorNotification(props)
         </NotificationElementContainer>
     );
 }
+
 UnreachableNodeErrorNotification.propTypes = {
     id: PropTypes.string.isRequired,
     nodeIds: PropTypes.arrayOf(PropTypes.string),

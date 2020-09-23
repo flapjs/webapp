@@ -6,6 +6,11 @@ import { NotificationElementContainer } from '@flapjs/services/notification/Noti
 import { useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 import { doGraphDeleteEdges } from '../FiniteAutomataGraphActions.js';
 
+/** 
+ * A React component that is a notification box for the Incomplete Transition(s) error.
+ * This component also allows for the deletion of incomplete transitions/edges via a 
+ * button.
+ */
 export function IncompleteTransitionErrorNotification(props)
 {
     const { id, edgeIds } = props;
@@ -29,6 +34,7 @@ export function IncompleteTransitionErrorNotification(props)
         </NotificationElementContainer>
     );
 }
+
 IncompleteTransitionErrorNotification.propTypes = {
     id: PropTypes.string.isRequired,
     edgeIds: PropTypes.arrayOf(PropTypes.string),

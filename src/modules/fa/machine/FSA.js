@@ -168,6 +168,11 @@ class FSA
     setDeterministic(deterministic) { this._deterministic = deterministic; }
     isDeterministic() { return this._deterministic; }
 
+    /**
+     * Checks if the current FSA is a valid one.
+     * 
+     * @returns {boolean} Whether the current FSA is valid.
+     */
     validate()
     {
         //Reset errors
@@ -459,7 +464,7 @@ class FSA
         this._alphabet.set(newSymbol, count);
         this._alphabet.delete(symbol);
 
-        //Check if custom symbol...
+        //Check if deleted symbol is also custom symbol...
         if (this._customSymbols.has(symbol))
         {
             this._customSymbols.delete(symbol);
@@ -579,7 +584,9 @@ class FSA
         }
         this._startState = state;
     }
+
     isStartState(state) { return this._startState === state; }
+
     getStartState() { return this._startState; }
 
     setFinalState(state, final = true)
@@ -604,9 +611,23 @@ class FSA
             this._finalStates.delete(state);
         }
     }
+
     isFinalState(state) { return this._finalStates.has(state); }
+
     getFinalStates() { return this._finalStates; }
 
+    /**
+     * Gets 1 (determinism) or more (nondeterminism) transitions matching inputted symbol from
+     * the specified state.
+     * 
+     * @param {State} state The state whose transitions matching inputted symbol is to be obtained.
+     * @param {string} symbol The symbol that can appear on a transition.
+     * @param {boolean} forceNondeterminism To force nondeterminism when finding transitions (finding multiple
+     * transitions matching symbol instead of just 1).
+     * @param {Array<State>} dst Data structure containing matching transition(s).
+     * @returns {Array<State>} An array containing all possible transitions 
+     * matching the inputted symbol from a specified state.
+     */
     doTransition(state, symbol, forceNondeterminism = false, dst = [])
     {
         if (!state) return dst;

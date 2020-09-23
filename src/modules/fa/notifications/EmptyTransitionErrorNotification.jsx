@@ -6,6 +6,13 @@ import { NotificationElementContainer } from '@flapjs/services/notification/Noti
 import { useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
 import { doGraphDeleteEdges } from '../FiniteAutomataGraphActions.js';
 
+/** 
+ * A React component that is a notification box for the Empty Transition(s) error 
+ * (as in edges/transitions that do not have any value assigned to them). This
+ * component also allows for the deletion of those empty transitions via a button.
+ * 
+ * Note that this should only used on deterministic Finite Automata.
+ */
 export function EmptyTransitionErrorNotification(props)
 {
     const { id, edgeIds } = props;
@@ -30,6 +37,7 @@ export function EmptyTransitionErrorNotification(props)
         </NotificationElementContainer>
     );
 }
+
 EmptyTransitionErrorNotification.propTypes = {
     id: PropTypes.string.isRequired,
     edgeIds: PropTypes.arrayOf(PropTypes.string),
