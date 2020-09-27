@@ -1,7 +1,7 @@
 # What you need to know
 
 ## React Hooks
-The components that uses hooks are known as React component functions. They are stil components, though they look different. They are basically the same as React component classes, but they maintain better semantics and style (at a debateable cost of efficiency depending on circumstance). They look like this:
+The components that uses hooks are known as React component functions (or functional components). They are stil components, though they look different. They are basically the same as React component classes, but they maintain better semantics and style (at a debateable cost of efficiency depending on circumstance). They look like this:
 
 ```javascript
 function SomeReactComponent(props)
@@ -106,5 +106,3 @@ These refer to Flap.js's module system (not related to the general import/export
 ## Services
 These are like modules, except they are "bundled" with the app itself and available to be used across modules. They have their own providers, renders, the same lifecycle callbacks, and even their own list of dependent services (the dependency tree is solved for you). They simply encapsulate a functionality that is used across modules. They use all the methods above to give an interface for your module.
 
-## UNSAFE_Functions
-Functions that start with `UNSAFE_...()` should not be used if you don't know what you are doing. This is mostly because these functions do not update itself when its' arguments change (which all React components and hooks do). They rely on their caller to re-call these functions when the arguments change.

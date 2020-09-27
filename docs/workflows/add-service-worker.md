@@ -1,4 +1,7 @@
-# ServiceWorker
+# ServiceWorker - INCOMPLETE
+
+> NOTE: Unfortunately, Service Workers is a huge beast that cannot possibly be covered in a single document. So here's some tidbits to help you work with Service Workers in this project particularly. Please look online for actual full-length tutorials on this subject.
+
 Hopefully this will help you figure out what the heck the service worker is doing.
 
 The service worker file is in `./src/assets/scripts/ServiceWorker.js` and the installer at `./src/assets/scripts/ServiceWorkerInstall.js`.

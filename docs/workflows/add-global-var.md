@@ -71,7 +71,7 @@ with `declarations.d.ts`, please update the above to match your added changes. O
 
 These "links" can be seen in `.webpack/base.config.js` (used by the DefinePlugin) and `.jest/config.js` (under "globals"). Hope that helps!
 
-## Conclusino
+## Conclusion
 Thank you for reading!
 
 > Brought to you by Andrew Kuo

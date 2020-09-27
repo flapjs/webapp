@@ -1,5 +1,7 @@
-# Flap.js Components
-Here lies the components that form the foundation of Flap.js.
+# Zero to Hero - INCOMPLETE
+Here lies the setup steps that created the foundation of Flap.js.
+
+At the moment, this document is incomplete. It remains here for posterity sake as it could be useful to get a better insight on how to setup a project like this. Perhaps you can finish it?
 
 # Getting Started
 
