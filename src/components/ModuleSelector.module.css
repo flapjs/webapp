@@ -30,5 +30,6 @@
 }
 
 .selector {
-    margin: 0 0.5rem;
+    font-size: 1em;
+    width: 80%;
 }

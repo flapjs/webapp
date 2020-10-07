@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGraph } from './graph/GraphService.js';
+import { useGraph } from '@flapjs/services/graph2/GraphService.js';
 
 export function DrawerPanel()
 {
@@ -9,16 +9,16 @@ export function DrawerPanel()
         <div>
             <button onClick={() =>
             {
-                graph.addNode({ x: 0, y: 0, label: 'A' });
+                graph.nodes.add({ x: 0, y: 0, label: 'A' });
             }}>
                 Add Node
             </button>
             <button onClick={() =>
             {
-                let firstNode = graph.nodeList[Math.floor(Math.random() * graph.nodeList.length)];
-                let secondNode = graph.nodeList[Math.floor(Math.random() * graph.nodeList.length)];
+                let firstNode = graph.nodes.nodeList[Math.floor(Math.random() * graph.nodes.nodeList.length)];
+                let secondNode = graph.nodes.nodeList[Math.floor(Math.random() * graph.nodes.nodeList.length)];
                 
-                graph.addEdge(firstNode.id, secondNode.id, { label: 'B' });
+                graph.edges.add(firstNode.id, secondNode.id, { label: 'B' });
             }}>
                 Connect an Edge
             </button>

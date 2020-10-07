@@ -1,10 +1,14 @@
 import BaseModule from '../base/BaseModule.js';
 
 import { ViewProvider } from '@flapjs/services/view/ViewService.js';
-import { GraphProvider, GraphList } from './graph/GraphService.js';
+import { HistoryProvider } from '@flapjs/services2/history/HistoryService.js';
+import { GraphProvider } from '@flapjs/services/graph2/GraphService.js';
+
+import { GraphList } from './graph/GraphList.jsx';
 import { DrawerPanel } from './DrawerPanel.jsx';
 import { GraphPlayground } from './graph/GraphPlayground.jsx';
-import { GraphAutoSaver } from './GraphAutoSaver.jsx';
+
+import { TreeToolbar } from './TreeToolbar.jsx';
 
 export default class TreeModule extends BaseModule
 {
@@ -19,6 +23,7 @@ export default class TreeModule extends BaseModule
         return [
             GraphProvider,
             ViewProvider,
+            HistoryProvider,
         ];
     }
 
@@ -26,10 +31,10 @@ export default class TreeModule extends BaseModule
     static get renders()
     {
         return {
-            header: [
-                GraphAutoSaver,
+            header: [],
+            appbar: [
+                TreeToolbar,
             ],
-            appbar: [ ],
             foreground: [
             ],
             background: [

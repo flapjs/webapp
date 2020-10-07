@@ -1,5 +1,5 @@
 /**
- * I solemnly swear I have read 'How to use Graph Actions'.
+ * I solemnly swear I have read 'How to use Graph Actions' in GraphActions.js
  */
 
 import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';

@@ -77,6 +77,11 @@ module.exports = env => merge(
                         }
                     ]
                 },
+                /** This is to load files into strings. */
+                {
+                    test: /\.(txt|json|lang|md)$/i,
+                    use: 'raw-loader',
+                },
             ]
         },
     }

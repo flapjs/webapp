@@ -1,5 +1,6 @@
 .element {
     display: flex;
+    color: var(--primary-text);
 }
 
 .element textarea {
@@ -8,7 +9,7 @@
     margin: 0.1rem 0.3rem;
     color: currentColor;
     border: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid var(--primary-focus);
     text-align: center;
     resize: vertical;
 }
@@ -22,7 +23,8 @@
     opacity: 0.3;
 }
 
+.element textarea:focus,
 .element textarea:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 0.1);
-    outline: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: var(--primary-focus);
+    outline: 1px solid var(--primary-focus);
 }

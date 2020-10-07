@@ -13,7 +13,6 @@
     padding: 0.1rem;
     margin: 0.1rem 0.3rem;
     color: currentColor;
-    text-shadow: 1px 1px 3px black;
 }
 
 .element button span {
@@ -23,7 +22,7 @@
 
 .element button span.checked {
     opacity: 1;
-    background-color: gray;
+    background-color: var(--primary-active);
     border-radius: 1rem;
 }
 
@@ -42,8 +41,4 @@
 .inplace span:not(.checked) {
     display: none;
     padding: 0;
-}
-
-.element button:hover:not(:disabled) {
-    border-color: rgba(255, 255, 255, 0.5);
 }

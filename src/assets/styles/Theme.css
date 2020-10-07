@@ -1,0 +1,70 @@
+body {
+    /* Default theme colors */
+    --primary: #333641;
+    --primary-dark: #1D1E22;
+    --primary-text: #FFFFFF;
+    --primary-focus: rgba(255, 255, 255, 0.1);
+    --primary-active: rgb(150, 135, 49);
+    --secondary: #FFD700;
+    --secondary-dark: #FFD70088;
+    --success: olivedrab;
+    --success-dark: green;
+    --danger: salmon;
+    --danger-dark: darkred;
+    --warning: yellow;
+    --warning-dark: gold;
+    --info: #AAAAAA;
+    --info-dark: #666666;
+    --light: transparent;
+    --dark: #000000;
+
+    background-color: var(--light);
+    color: var(--dark);
+
+    /*
+    --primary: #FF0000;
+    --primary-dark: #AA0000;
+    --primary-text: #00FF00;
+    --primary-focus: rgba(0, 0, 0, 0.1);
+    --primary-active: #FFAF00;
+    --primary-disabled: rgba(0, 0, 0, 0.2);
+    --secondary: #000000;
+    --secondary-dark: #FF0000;
+    --success: #00FF00;
+    --success-dark: #00AA00;
+    --danger: #00FF00;
+    --danger-dark: #00AA00;
+    --warning: #00FF00;
+    --warning-dark: #00AA00;
+    --info: #00FF00;
+    --info-dark: #00AA00;
+    --light: #666666;
+    --dark: #000000;
+    */
+}
+
+button {
+    background-color: transparent;
+    border-radius: 0.3em;
+    border: 0.1em solid currentColor;
+    border-bottom-width: 0.2em;
+    padding: 0.2em 0.5em;
+    margin: 0.2em;
+    color: currentColor;
+}
+
+button:disabled {
+    opacity: 0.3;
+}
+
+button:active {
+    border-top-width: 0.2em;
+    border-bottom-width: 0.1em;
+}
+
+select {
+    display: block;
+    background-color: var(--primary);
+    color: var(--primary-text);
+    border: none;
+}

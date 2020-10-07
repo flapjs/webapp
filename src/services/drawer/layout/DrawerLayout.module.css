@@ -8,9 +8,9 @@
     width: 100%;
     height: 100%;
 
-    --drawer-layout-handle: var(--primary, #333641);
-    --drawer-layout-background: var(--primary-dark, #1D1E22);
-    --drawer-layout-text: var(--primary-text, #FFFFFF);
+    --drawer-layout-handle: var(--primary);
+    --drawer-layout-background: var(--primary-dark);
+    --drawer-layout-text: var(--primary-text);
 }
 
 .viewport {
@@ -99,6 +99,22 @@
 /** Sliiiide to the bottom! */
 .drawer:global(.bottom):not(:global(.open)) {
     transform: translateY(100%);
+}
+
+/** TODO: Fix this. There's a random space between drawer and sidebar when tabbing. */
+.drawer:not(:global(.open)):global(.left):focus-within,
+.drawer:not(:global(.open)):global(.right):focus-within {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+    right: MIN_DRAWER_SIZE;
+}
+
+/** TODO: Fix this. There's a random space between drawer and sidebar when tabbing. */
+.drawer:not(:global(.open)):global(.top):focus-within,
+.drawer:not(:global(.open)):global(.bottom):focus-within {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+    bottom: MIN_DRAWER_SIZE;
 }
 
 .handle {

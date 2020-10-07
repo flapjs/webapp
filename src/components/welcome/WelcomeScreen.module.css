@@ -1,0 +1,90 @@
+.container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    opacity: 1;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    --welcome-layout-background: var(--primary);
+    --welcome-layout-text: var(--primary-text);
+    --welcome-layout-focus: var(--primary-focus);
+}
+
+.container:global(.hidden) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: var(--welcome-layout-text);
+}
+
+.content > * {
+    flex: 1;
+}
+
+.button {
+    flex: 0;
+    margin: 1rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    border: 4px solid var(--welcome-layout-text);
+    border-radius: 2rem;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    color: var(--welcome-layout-text);
+}
+
+.button:hover {
+    background-color: var(--welcome-layout-focus);
+}
+
+.button:active {
+    border: 4px solid var(--welcome-layout-text);
+}
+
+.dialog {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 80vmin;
+    height: 60vmin;
+    padding: 0.5rem;
+    border-top: 1rem solid;
+    border-color: black;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+    background-color: var(--welcome-layout-background);
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+}
+
+.footer {
+    color: gray;
+    flex: 0;
+    font-size: 0.5em;
+    padding: 0;
+    margin: 0;
+}
+
+.footer a {
+    color: silver;
+}
+
+.footer a:visited {
+    color: gold;
+}

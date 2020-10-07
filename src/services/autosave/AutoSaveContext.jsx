@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
+
 import { Logger } from '@flapjs/util/Logger.js';
 
 const LOGGER = new Logger('AutoSaveService');
@@ -37,7 +39,7 @@ export function useAutoSave(saveKey, serializer, deserializer, opts = {})
         if (!init && autoload)
         {
             LOGGER.debug(`Auto loading '${saveKey}' data from localStorage...`);
-            const saveDataString = localStorage.getItem(saveKey);
+            const saveDataString = LocalStorage.getItem(saveKey);
             if (saveDataString)
             {
                 try
@@ -65,7 +67,7 @@ export function useAutoSave(saveKey, serializer, deserializer, opts = {})
                     {
                         let saveData = {};
                         serializer(saveData);
-                        localStorage.setItem(saveKey, JSON.stringify(saveData));
+                        LocalStorage.setItem(saveKey, JSON.stringify(saveData));
                     }
                     catch(e)
                     {

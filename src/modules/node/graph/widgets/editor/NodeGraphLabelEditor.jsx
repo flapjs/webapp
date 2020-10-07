@@ -9,8 +9,6 @@ import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import GraphElementEditor from '@flapjs/services/graph/widgets/editor/GraphElementEditor.jsx';
 
-import Button from '@flapjs/components/lib/Button.jsx';
-
 export default function NodeGraphLabelEditor(props)
 {
     const { elementType, elementId, closeEditor } = useContext(GraphElementEditorContext);
@@ -32,21 +30,21 @@ export default function NodeGraphLabelEditor(props)
             <textarea ref={inputRef}
                 value={input}
                 onChange={e => setInput(e.target.value)}/>
-            <Button onClick={() =>
+            <button onClick={() =>
             {
                 element.label = input;
                 element.markDirty();
                 closeEditor();
             }}>
                 Submit
-            </Button>
-            <Button onClick={() =>
+            </button>
+            <button onClick={() =>
             {
                 graphDispatch({ type: 'delete', elementType, elementId });
                 closeEditor();
             }}>
                 Delete This
-            </Button>
+            </button>
         </GraphElementEditor>
     );
 }

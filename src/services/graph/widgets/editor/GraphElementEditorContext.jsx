@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-export const GraphElementEditorContext = React.createContext();
+export const GraphElementEditorContext = React.createContext(null);
 
 export function GraphElementEditorProvider(props)
 {

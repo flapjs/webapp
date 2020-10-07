@@ -36,14 +36,9 @@ export default function ImportButton(props)
     }
 
     return (
-        <div>
-            <Upload 
-                iconClass={UploadIcon}
-                accept={ACCEPTED_FILE_TYPES}
-                onUpload={handleImportChange}
-                multiple={true}
-            />
-        </div>
+        <Upload accept={ACCEPTED_FILE_TYPES}
+            onUpload={handleImportChange}
+            multiple={true}/>
     );
 }
 

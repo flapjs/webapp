@@ -1,5 +1,5 @@
 import React from 'react';
-// import Style from './FiniteAutomataToolbar.module.css';
+import Style from './FiniteAutomataToolbar.module.css';
 
 import Upload from '@flapjs/components/upload/Upload.jsx';
 import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataImporter.js';
@@ -7,17 +7,19 @@ import FiniteAutomataImporter from '@flapjs/modules/fa/exporters/FiniteAutomataI
 import { useFiniteAutomataSerializer, useFiniteAutomataDeserializer } from './FiniteAutomataSerializer.jsx';
 
 import { useDrawer } from '@flapjs/services/drawer/DrawerService.js';
-import { useHistory, UndoButton, RedoButton } from '@flapjs/services/history/HistoryService.js';
+import { useHistory, UndoButton, RedoButton } from '@flapjs/services2/history/HistoryService.js';
 import { useAutoSave } from '@flapjs/services/autosave/AutoSaveService.js';
 
 import IconButton from '@flapjs/components/icons/IconButton.jsx';
 import { PageEmptyIcon, DownloadIcon, UploadIcon } from '@flapjs/components/icons/Icons.js';
 import { useGraphType, useGraphDispatch } from '@flapjs/services/graph/GraphHooks.jsx';
+import { DrawerViewMover } from '@flapjs/components/DrawerViewMover.jsx';
 
 export default function FiniteAutomataToolbar()
 {
     const graphType = useGraphType();
     const graphDispatch = useGraphDispatch();
+    
     const graphAutoSaveKey = graphType.name + '.autoSave';
     const graphHistoryKey = graphType.name + '.history';
 
@@ -39,7 +41,8 @@ export default function FiniteAutomataToolbar()
     } = useDrawer();
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className={Style.container}>
+            <DrawerViewMover/>
             <IconButton
                 iconClass={PageEmptyIcon}
                 onClick={() =>

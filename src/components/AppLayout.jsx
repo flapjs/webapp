@@ -9,12 +9,16 @@ import Viewport from './viewport/Viewport.jsx';
 
 import Logo from './logo/Logo.jsx';
 import ModuleSelector from './ModuleSelector.jsx';
+import { useWelcome, WelcomeScreen } from './welcome/WelcomeService.js';
 
 import DebugToggle from './DebugToggle.jsx';
 
 import IconButton from './icons/IconButton.jsx';
 import { BugIcon } from './icons/Icons.js';
+import LogoImage from '../assets/images/logo-192.png';
+import { LocaleSelector } from '@flapjs/services2/i18n/LocaleSelector.jsx';
 
+const HOME_URL = 'https://github.com/flapjs/webapp';
 const BUGREPORT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfqBFiGFGnxPI7QIWscv8jsIr5bj4LA3CS-is__2-YvJ_kTjQ/viewform';
 
 /**
@@ -32,17 +36,26 @@ export default function AppLayout(props)
 {
     const { app } = props;
 
+    const { showWelcome } = useWelcome();
+
     return (
         <>
             <Slot mode="wrapped" name="providers">
                 <header>
+                    <WelcomeScreen footer={(<>Made with ❤️ by the <a href={HOME_URL} target="_blank" rel="noopener noreferrer">Flap.js Team</a>.</>)}>
+                        <Logo title="Flap.js" version={app.version} onClick={() => window.open(HOME_URL, '_blank')}/>
+                        <ModuleSelector/>
+                    </WelcomeScreen>
                     <Slot name="header"></Slot>
                     <AppBar>
-                        <Logo title="Flap.js" version={app.version}/>
                         <DebugToggle/>
+                        <img src={LogoImage} alt="Flap.js Logo" style={{ flex: 0, height: '70%', borderRadius: '0.5em' }} onClick={() => showWelcome()}/>
+                        <Logo title="Flap.js" version={app.version} onClick={() => showWelcome()}/>
+                        <Slot name="appbar"></Slot>
+                        <div style={{flex: 1}}></div>
                         <ModuleSelector/>
-                        <Slot name="appbar"></Slot>                    
-                        <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}> </IconButton>
+                        <LocaleSelector/>
+                        <IconButton iconClass= { BugIcon } onClick={() => window.open(BUGREPORT_URL, '_blank')}/>
                     </AppBar>
                 </header>
                 <main>

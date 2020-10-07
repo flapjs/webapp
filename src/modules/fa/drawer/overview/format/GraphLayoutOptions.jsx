@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 // import PropTypes from 'prop-types';
 
-import Button from '@flapjs/components/lib/Button.jsx';
-
 import Options from '@flapjs/components/options/Options.jsx';
 
 import CircleLayout from './CircleLayout.js';
@@ -22,9 +20,9 @@ export default function GraphLayoutOptions(props)
                     <option value={'circle'}>Circle</option>
                     <option value={'grid'} disabled={true}>Grid</option>
                 </select>
-                <Button onClick={e => applyLayout(layoutSelectorRef.current.value, graphType, graphState)}>
+                <button onClick={e => applyLayout(layoutSelectorRef.current.value, graphType, graphState)}>
                     Apply
-                </Button>
+                </button>
             </div>
             {/*             <div>
                 <FieldSwitch id="autolayout" disabled={true}>

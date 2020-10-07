@@ -9,12 +9,12 @@
     overflow: hidden;
 
     --side-margin: auto;
-    --side-background: #333641;
+    --side-background: var(--primary);
 }
 
 .sideBar {
     z-index: 20;
-    background: var(--side-background);
+    background-color: var(--side-background);
     overflow: auto;
     flex-shrink: 0;
 

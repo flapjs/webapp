@@ -1,35 +1,18 @@
 /**
  * A wrapper for a more intuitive use of LocalStorage.
  */
-class LocalStorage
+export class LocalStorage
 {
-    clear()
+    static setItem(key, value)
     {
+        if (typeof value !== 'string')
+        {
+            throw new Error('LocalStorage item value must be a string.');
+        }
         if (!this.isSupported()) return;
-        localStorage.clear();
-    }
-
-    setData(key, value)
-    {
-        if (!this.isSupported()) return;
-
-        // Opera 12.10 and Firefox 18 and later support
-        let hidden;
-        if (typeof document.hidden !== 'undefined')
-        {
-            hidden = 'hidden';
-        }
-        else if (typeof document.msHidden !== 'undefined')
-        {
-            hidden = 'msHidden';
-        }
-        else if (typeof document.webkitHidden !== 'undefined')
-        {
-            hidden = 'webkitHidden';
-        }
-
+        
         // Don't save anything if hidden...
-        if (document[hidden]) return;
+        if (document.hidden) return;
 
         if (value)
         {
@@ -41,59 +24,20 @@ class LocalStorage
         }
     }
 
-    getData(key, defaultValue = null)
+    static getItem(key, defaultValue = null)
     {
         if (!this.isSupported()) return defaultValue;
         return localStorage.getItem(key) || defaultValue;
     }
 
-    setDataAsObject(key, objectValue)
+    static clear()
     {
-        try
-        {
-            if (objectValue && Object.keys(objectValue).length > 0)
-            {
-                this.setData(key, JSON.stringify(objectValue));
-            }
-            else
-            {
-                this.setData(key, null);
-            }
-        }
-        catch (e)
-        {
-            // eslint-disable-next-line no-console
-            console.error(e);
-        }
+        if (!this.isSupported()) return;
+        localStorage.clear();
     }
 
-    getDataAsObject(key, defaultValue = null)
-    {
-        const result = this.getData(key, null);
-        if (result)
-        {
-            try
-            {
-                return JSON.parse(result);
-            }
-            catch (e)
-            {
-                // eslint-disable-next-line no-console
-                console.error(e);
-                return defaultValue;
-            }
-        }
-        else
-        {
-            return defaultValue;
-        }
-    }
-
-    isSupported()
+    static isSupported()
     {
         return typeof localStorage !== 'undefined';
     }
 }
-
-const INSTANCE = new LocalStorage();
-export default INSTANCE;

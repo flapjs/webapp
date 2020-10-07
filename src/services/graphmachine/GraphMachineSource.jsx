@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useGraphForMachine } from './GraphMachineHooks.jsx';
 
+/** Helps GraphMachineBuilder to identify the source of the graph to use for machine transformations. */
 export default function GraphMachineSource(props)
 {
     const { machineBuilderType } = props;

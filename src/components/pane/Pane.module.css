@@ -5,21 +5,22 @@
     /** This is so people have space to scroll OUTSIDE. */
     padding-right: 1rem;
 
-    --pane-content: var(--content-main, #FFFFFF);
-    --pane-outline: var(--accent-dark, #FFD70088);
-    --pane-outline-important: var(--accent, #FFD700);
+    --pane-layout-content: var(--primary-text);
+    --pane-layout-outline: var(--secondary-dark);
+    --pane-layout-outline-important: var(--secondary);
+    --pane-layout-focus: var(--primary-focus);
 }
 
 .container fieldset {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--pane-layout-focus);
 }
 
 .innerContainer {
-    border-bottom: 4px solid var(--pane-outline);
+    border-bottom: 4px solid var(--pane-layout-outline);
 }
 
 .container:global(.open) > .innerContainer {
-    border-color: var(--pane-outline-important);
+    border-color: var(--pane-layout-outline-important);
     padding-bottom: 1rem;
 }
 
@@ -33,7 +34,7 @@
     width: 100%;
     height: 100%;
     max-width: 60vw;
-    color: var(--pane-content);
+    color: var(--pane-layout-content);
 
     /* border-bottom: 4px solid var(--pane-outline-important); */
 }
@@ -44,7 +45,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    color: var(--pane-content);
+    color: var(--pane-layout-content);
 
     /** Get rid of button default styles. */
     padding: 0.2rem;
@@ -55,7 +56,7 @@
 }
 
 .dropdown:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: var(--pane-layout-focus);
 }
 
 .dropdown > .title {

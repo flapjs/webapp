@@ -1,3 +1,5 @@
+/* global __NODE_ENV__ */
+
 import React, { useContext, useState } from 'react';
 import Style from './ModuleSelector.module.css';
 import { ModuleContext } from '@flapjs/modules/ModuleContext.jsx';
@@ -21,7 +23,7 @@ export default function ModuleSelector(props)
                 onBlur={e => setNextModuleId(e.target.value)}>
                 {moduleIds.map(moduleId => (
                     // eslint-disable-next-line import/namespace
-                    <option key={moduleId} value={moduleId} disabled={ModuleRegistry[moduleId].disabled}>{ModuleRegistry[moduleId].name}</option>
+                    <option key={moduleId} value={moduleId} disabled={__NODE_ENV__ !== 'development' && ModuleRegistry[moduleId].disabled}>{ModuleRegistry[moduleId].name}</option>
                 ))}
             </select>
             <button className={Style.launcher}

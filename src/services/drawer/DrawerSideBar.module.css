@@ -1,6 +1,6 @@
 .sidetab {
     display: flex;
-    color: white;
+    color: var(--primary-text);
     text-align: center;
 }
 
@@ -12,11 +12,7 @@
     outline: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    color: white;
-}
-
-.sidetab > *:focus {
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-text);
 }
 
 .sidetab:global(.horizontal) {

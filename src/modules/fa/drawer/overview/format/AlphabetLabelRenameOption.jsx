@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 
-import Button from '@flapjs/components/lib/Button.jsx';
-
 import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
 
 import { useGraphElements } from '@flapjs/services/graph/elements/GraphElementHooks.jsx';
@@ -53,7 +51,7 @@ export default function AlphabetLabelRenameOption(props)
                 onChange={e => setToSymbol(e.target.value)}>
                 Rename Character
             </FieldInput>
-            <Button
+            <button
                 onClick={e =>
                 {
                     applyRename(fromSymbolSelectorRef.current.value, toSymbol, edges);
@@ -62,7 +60,7 @@ export default function AlphabetLabelRenameOption(props)
                 title={'Apply rename alphabet'}
                 disabled={!toSymbol}>
                 Apply
-            </Button>
+            </button>
         </div>
     );
 }

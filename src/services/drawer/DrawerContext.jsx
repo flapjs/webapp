@@ -1,5 +1,16 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+
+/**
+ * @typedef DrawerContextAPI
+ * @property {Function} openDrawer
+ * @property {Function} closeDrawer
+ * @property {Function} toggleDrawer
+ * @property {Function} changeDrawerTab
+ * @property {Number} drawerTabIndex
+ * @property {Boolean} drawerOpen
+ * @property {import('react').MutableRefObject} drawerRef
+ */
 
 const DrawerContext = React.createContext(null);
 
@@ -8,57 +19,98 @@ export const DrawerConsumer = DrawerContext.Consumer;
 export function DrawerProvider(props)
 {
     const { children } = props;
-    const [state, setState] = useState({ open: false, tabIndex: 0 });
+    const [state, setState] = useState({ open: true, tabIndex: 0 });
+    const drawerRef = useRef();
 
     const drawerTabIndex = state.tabIndex;
     const drawerOpen = state.open;
 
-    const openDrawer = useCallback(function openDrawer()
-    {
-        state.open = true;
-        setState({ ...state });
-    },
-    [state]);
-
-    const closeDrawer = useCallback(function closeDrawer()
-    {
-        state.open = false;
-        setState({ ...state });
-    },
-    [state]);
-
-    const toggleDrawer = useCallback(function toggleDrawer(force = !state.open)
-    {
-        state.open = force;
-        setState({ ...state });
-    },
-    [state]);
-
-    const changeDrawerTab = useCallback(function changeDrawerTab(tabIndex)
-    {
-        if (state.open && state.tabIndex === tabIndex)
+    /**
+     * Opens the drawer and keeps it opened. That's pretty much it.
+     */
+    const openDrawer = useCallback(
+        function openDrawer()
         {
-            state.open = false;
-        }
-        else
-        {
-            state.open = true;
-            state.tabIndex = tabIndex;
-        }
-        setState({ ...state });
-    },
-    [state]);
+            setState(state =>
+            {
+                state.open = true;
+                return { ...state };
+            });
+        },
+        []);
 
-    const drawerProviderValues = {
+    /**
+     * Closes the drawer and keeps it closed. That's pretty much it.
+     */
+    const closeDrawer = useCallback(
+        function closeDrawer()
+        {
+            setState(state =>
+            {
+                state.open = false;
+                return { ...state };
+            });
+        },
+        []);
+
+    /**
+     * Toggles the drawer to open if closed and vice versa.
+     * 
+     * @param {Boolean} [force] Whether to force it to open/close, instead of toggle.
+     */
+    const toggleDrawer = useCallback(
+        function toggleDrawer(force = undefined)
+        {
+            setState(state =>
+            {
+                if (typeof force === 'undefined')
+                {
+                    state.open = !state.open;
+                }
+                else
+                {
+                    state.open = Boolean(force);
+                }
+                return { ...state };
+            });
+        },
+        []);
+
+    /**
+     * Changes the tab index for the drawer.
+     * 
+     * @param {Number} tabIndex The new tab index to change to.
+     */
+    const changeDrawerTab = useCallback(
+        function changeDrawerTab(tabIndex)
+        {
+            setState(state =>
+            {
+                if (state.open && state.tabIndex === tabIndex)
+                {
+                    state.open = false;
+                }
+                else
+                {
+                    state.open = true;
+                    state.tabIndex = tabIndex;
+                }
+                return { ...state };
+            });
+        },
+        []);
+
+    const drawerContextAPI = {
         openDrawer,
         closeDrawer,
         toggleDrawer,
         changeDrawerTab,
         drawerTabIndex,
         drawerOpen,
+        drawerRef,
     };
     return (
-        <DrawerContext.Provider value={drawerProviderValues}>
+        <DrawerContext.Provider value={drawerContextAPI}>
             {children}
         </DrawerContext.Provider>
     );
@@ -67,14 +119,13 @@ DrawerProvider.propTypes = {
     children: PropTypes.node,
 };
 
+/** @returns {DrawerContextAPI} The provided drawer context. */
 export function useDrawer()
 {
     const ctx = useContext(DrawerContext);
-
     if (!ctx)
     {
         throw Error('useDrawer() must be called from a descendent of "DrawerProvider"');
     }
-
     return ctx;
 }

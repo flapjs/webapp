@@ -7,8 +7,17 @@
     border-radius: 0.5rem;
     cursor: pointer;
 
-    /** DEBUG: This should inherit from its parent instead */
-    color: white;
+    /* Should be inherited from parent. */
+    color: var(--primary-text, white);
+}
+
+.container:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.container:focus {
+    background-color: var(--primary-focus, rgba(255, 255, 255, 0.1));
 }
 
 .icon {
@@ -19,9 +28,4 @@
 
     /** Inherits the color from the container */
     color: currentColor;
-}
-
-.container:disabled {
-    opacity: 0.5;
-    pointer-events: none;
 }

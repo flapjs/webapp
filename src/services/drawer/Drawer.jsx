@@ -11,13 +11,29 @@ import { BoxEmptyIcon } from '@flapjs/components/icons/Icons.js';
 
 import { useDrawer } from './DrawerService.js';
 
+/**
+ * @typedef {Function|Object} PanelOption
+ * @property {Function} component The panel component.
+ * @property {Object} props The props for the panel component.
+ * @property {String} name The name of the panel.
+ * 
+ * @typedef {Function|Object} TabOption
+ * @property {Function} component The tab component.
+ * @property {Object} props The props for the tab component.
+ * @property {String} name The name of the tab.
+ */
+
+/** A component to format and hold the drawer content. */
 export function Drawer(props)
 {
     const { children, side, direction, panels } = props;
+
+    // A list of all panel components
     const panelEntries = panels.map(panel => transformPanelToDrawerPanel(panel));
+    // A list of all tab components
     const tabEntries = panels.map(panel => transformPanelToDrawerTab(panel));
 
-    const { changeDrawerTab, drawerTabIndex, drawerOpen } = useDrawer();
+    const { changeDrawerTab, drawerTabIndex, drawerOpen, drawerRef } = useDrawer();
 
     return (
         <SideBarLayout
@@ -28,6 +44,7 @@ export function Drawer(props)
                 </DrawerSideBar>
             )}>
             <DrawerLayout
+                ref={drawerRef}
                 side={side}
                 open={drawerOpen}
                 drawer = {() => renderPanels(panelEntries, drawerTabIndex)}>
@@ -59,9 +76,18 @@ Drawer.defaultProps = {
     side: 'right',
     direction: 'horizontal',
     orientation: 'row',
+    // This is like this to complement the viewport's default content (which fills the empty space).
     renderViewport: () => '==View.______==',
 };
 
+/**
+ * Renders the panels for the drawer. Only the panel that matches
+ * the current tab index will be visible.
+ * 
+ * @param {Array<PanelOption>} panels 
+ * @param {Number} [tabIndex=0]
+ * @returns {import('react').ReactNode} The rendered content.
+ */
 function renderPanels(panels, tabIndex = 0)
 {
     return panels.map((panel, index) =>
@@ -103,6 +129,14 @@ function renderPanels(panels, tabIndex = 0)
     });
 }
 
+/**
+ * Renders the tabs for the drawer.
+ * 
+ * @param {Array<TabOption>} tabs The list of tabs.
+ * @param {Function} tabCallback The callback to handle tab selection.
+ * @param {Number} tabIndex The current tab index.
+ * @returns {import('react').ReactNode} The rendered content.
+ */
 function renderTabs(tabs, tabCallback, tabIndex = 0)
 {
     return tabs.map((tab, index) =>

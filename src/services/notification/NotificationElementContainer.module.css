@@ -4,7 +4,7 @@
     max-width: 20rem;
     max-height: 80%;
     overflow-y: auto;
-    border-top: 0.5rem solid black;
+    border-top: 0.5rem solid var(--primary-dark);
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -24,21 +24,21 @@
 }
 
 .container:global(.info) {
-    border-color: black;
-    background-color: dodgerblue;
+    border-color: var(--info-dark);
+    background-color: var(--info);
 }
 
 .container:global(.error) {
-    border-color: darkred;
-    background-color: salmon;
+    border-color: var(--danger-dark);
+    background-color: var(--danger);
 }
 
 .container:global(.warning) {
-    border-color: gold;
-    background-color: yellow;
+    border-color: var(--warning-dark);
+    background-color: var(--warning);
 }
 
 .container:global(.success) {
-    border-color: darkgreen;
-    background-color: olivedrab;
+    border-color: var(--success-dark);
+    background-color: var(--success);
 }

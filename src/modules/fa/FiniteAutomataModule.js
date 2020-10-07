@@ -3,7 +3,7 @@ import GraphService from '@flapjs/services/graph/GraphService.js';
 import MachineService from '@flapjs/services/machine/MachineService.js';
 
 import * as NotificationService from '@flapjs/services/notification/NotificationService.js';
-import * as HistoryService from '@flapjs/services/history/HistoryService.js';
+import * as HistoryService from '@flapjs/services2/history/HistoryService.js';
 
 import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './graph/FiniteAutomataGraph.js';
