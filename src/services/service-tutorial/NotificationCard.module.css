@@ -1,0 +1,11 @@
+.container {
+    position: relative;
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-width: 1px;
+    border-style: dotted;
+    border-color: gold;
+    max-width: 10rem;
+    max-height: 10rem;
+}

@@ -4,6 +4,7 @@ import MachineService from '@flapjs/services/machine/MachineService.js';
 
 import * as NotificationService from '@flapjs/services/notification/NotificationService.js';
 import * as HistoryService from '@flapjs/services2/history/HistoryService.js';
+import * as ServiceTutorialService from '@flapjs/services/service-tutorial/ServiceTutorialService.js';
 
 import FiniteAutomataToolbar from './FiniteAutomataToolbar.jsx';
 import FiniteAutomataGraph from './graph/FiniteAutomataGraph.js';
@@ -32,6 +33,7 @@ export default class FiniteAutomataModule extends BaseModule
         return [
             NotificationService.NotificationProvider,
             HistoryService.HistoryProvider,
+            ServiceTutorialService.NotificationProvider,
         ];
     }
 
@@ -46,6 +48,7 @@ export default class FiniteAutomataModule extends BaseModule
                 [GraphMachineNotifier, { machineBuilderType: FiniteAutomataBuilder }]
             ],
             foreground: [
+                [ServiceTutorialService.NotificationCard, { message: 'Hello world' }],
                 NotificationService.NotificationList,
             ],
             viewarea: [],

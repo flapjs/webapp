@@ -12,6 +12,8 @@ import DeterminismSwitch from './definition/DeterminismSwitch.jsx';
 import TransitionTable from './analysis/TransitionTable.jsx';
 import GraphLayoutOptions from './format/GraphLayoutOptions.jsx';
 import AlphabetLabelOptions from './format/AlphabetLabelOptions.jsx';
+import { useNotification } from '@flapjs/services/service-tutorial/ServiceTutorialService.js';
+
 /* import NodeLabelOptions from './format/NodeLabelOptions.jsx';
 import EdgeCurveOptions from './format/EdgeCurveOptions.jsx'; */
 
@@ -22,13 +24,17 @@ export default function OverviewPanel(props)
     const TABLE_MENU = 'Table definition of δ';
 
     const [activeMenu, setMenu] = useState(TABLE_MENU);
-
+    const { open, setOpen } = useNotification();
+    
     return (
         <>
             <header>
                 <h2 style={{ margin: '1rem' }}>Overview</h2>
             </header>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
+                <button onClick={() => setOpen(open ? false : true)}>
+                    Say hello
+                </button>
                 <Pane title="Definition">
                     <DeterminismSwitch machineName={machineName} />
                     <StateList machineName={machineName} />
@@ -38,8 +44,6 @@ export default function OverviewPanel(props)
                         {activeMenu === FUNCTION_MENU ? TABLE_MENU : FUNCTION_MENU}
                     </button>
                     {activeMenu === FUNCTION_MENU ? <TransitionTable machineName={machineName} /> : <TransitionChart machineName={machineName} />}
-
-
                 </Pane>
                 <Pane title="Format">
                     <GraphLayoutOptions />
