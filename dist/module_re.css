@@ -5,20 +5,3 @@
     font-size: 15vmin;
 }
 
-.src-components-lib-__Button-module__element--2Wp44 {
-    background-color: transparent;
-    border-radius: 1rem;
-    border: 0.2rem solid currentColor;
-    padding: 0.1rem 0.5rem;
-    margin: 0.1rem 0.3rem;
-    color: currentColor;
-}
-
-.src-components-lib-__Button-module__element--2Wp44:disabled {
-    opacity: 0.3;
-}
-
-.src-components-lib-__Button-module__element--2Wp44:hover:not(:disabled) {
-    border-color: rgba(255, 255, 255, 0.5);
-}
-

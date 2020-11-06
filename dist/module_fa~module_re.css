@@ -5,21 +5,22 @@
     /** This is so people have space to scroll OUTSIDE. */
     padding-right: 1rem;
 
-    --pane-content: var(--content-main, #FFFFFF);
-    --pane-outline: var(--accent-dark, #FFD70088);
-    --pane-outline-important: var(--accent, #FFD700);
+    --pane-layout-content: var(--primary-text);
+    --pane-layout-outline: var(--secondary-dark);
+    --pane-layout-outline-important: var(--secondary);
+    --pane-layout-focus: var(--primary-focus);
 }
 
 .src-components-pane-__Pane-module__container--20rTp fieldset {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--pane-layout-focus);
 }
 
 .src-components-pane-__Pane-module__innerContainer--12Wb8 {
-    border-bottom: 4px solid var(--pane-outline);
+    border-bottom: 4px solid var(--pane-layout-outline);
 }
 
 .src-components-pane-__Pane-module__container--20rTp.open > .src-components-pane-__Pane-module__innerContainer--12Wb8 {
-    border-color: var(--pane-outline-important);
+    border-color: var(--pane-layout-outline-important);
     padding-bottom: 1rem;
 }
 
@@ -33,7 +34,7 @@
     width: 100%;
     height: 100%;
     max-width: 60vw;
-    color: var(--pane-content);
+    color: var(--pane-layout-content);
 
     /* border-bottom: 4px solid var(--pane-outline-important); */
 }
@@ -44,7 +45,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    color: var(--pane-content);
+    color: var(--pane-layout-content);
 
     /** Get rid of button default styles. */
     padding: 0.2rem;
@@ -55,7 +56,7 @@
 }
 
 .src-components-pane-__Pane-module__dropdown--_V-fr:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: var(--pane-layout-focus);
 }
 
 .src-components-pane-__Pane-module__dropdown--_V-fr > .src-components-pane-__Pane-module__title--3gKmL {
@@ -89,6 +90,7 @@
     display: flex;
     padding: 0.2rem 0;
     margin: 0.2rem;
+    color: var(--primary-text);
 }
 
 .src-components-lib-__FieldInput-module__element--3_Hpw > label {
@@ -103,7 +105,12 @@
     margin: 0.1rem 0.3rem;
     color: currentColor;
     border: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid var(--primary-focus);
+}
+
+.src-components-lib-__FieldInput-module__element--3_Hpw input::placeholder {
+    color: var(--primary-text);
+    opacity: 0.2;
 }
 
 .src-components-lib-__FieldInput-module__element--3_Hpw > span {
@@ -115,9 +122,10 @@
     opacity: 0.3;
 }
 
+.src-components-lib-__FieldInput-module__element--3_Hpw input:focus,
 .src-components-lib-__FieldInput-module__element--3_Hpw input:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 0.1);
-    outline: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: var(--primary-focus);
+    outline: 1px solid var(--primary-focus);
 }
 
 .src-components-lib-__FieldButton-module__element--1gnw1 {

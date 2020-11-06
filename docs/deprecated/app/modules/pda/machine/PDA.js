@@ -1,5 +1,11 @@
-import GraphElement from 'graph2/element/GraphElement.js';
+import GraphElement from 'graph2/element/GraphElement.js';  //Should be '\services\graph\elements\GraphElement.js'
 import { guid, stringHash } from 'util/MathHelper.js';
+
+//Questions: should we change it to non deprecated version of GraphElement
+// Whats the custom symbols and stack symbols?
+// are there unique symbols we could use (like $ for start of stack)
+// 
+//
 
 // const FROM_STATE_INDEX = 0;
 const READ_SYMBOL_INDEX = 1;
@@ -16,6 +22,8 @@ export class State
         this._label = label;
 
         this._src = src;
+        
+        //TODO: use current version of graphElement
         this._id = src instanceof GraphElement ? src.getGraphElementID() : guid();
     }
 

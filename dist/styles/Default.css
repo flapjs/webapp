@@ -10,6 +10,11 @@ body {
     overscroll-behavior-y: contain;
 }
 
+body {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
 ._center {
     position: fixed;
     top: 0;
