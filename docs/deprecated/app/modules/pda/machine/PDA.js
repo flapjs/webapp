@@ -152,6 +152,8 @@ class PDA
         this._states = new Map();
         //symbol -> symbol use counter
         this._alphabet = new Map();
+
+        // Key: Symbol, Value: Count TODO: Feel like this is a weird way of doing this, why??
         this._stackAlphabet = new Map();
         //transition key (from + to) -> transition object
         this._transitions = new Map();
@@ -685,6 +687,7 @@ class PDA
     isFinalState(state) { return this._finalStates.has(state); }
     getFinalStates() { return this._finalStates; }
 
+    // TODO: What is dst???
     doTransition(state, readSymbol, stack, dst=[])
     {
         if (!state) return dst;
