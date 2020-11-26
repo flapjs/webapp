@@ -1,6 +1,7 @@
-import { State } from '../PDA';
+import { State, Symbol} from '../PDA';
 
 export const EMPTY_SYMBOL = '&empty'; // Why do we need to export here?
+const FROM_STATE_INDEX = 0;
 const READ_SYMBOL_INDEX = 1;
 const TO_STATE_INDEX = 2;
 const POP_SYMBOL_INDEX = 3;
@@ -82,23 +83,77 @@ pdaCopy.addTransition(
 
 // So now we need to loop through all transitions
 
-inter = new State('Inter'); // So for all these custom states, we have to make sure that one doesn't already exist.
+// So for all these custom states, we have to make sure that one doesn't already exist.
 
 // Instead we're going to loop through all the outgoing transitions of a state
 for(const [stateId, state] of pdaCopy._states.entries()) {
-    const dst = state.getOutgoingTransitions(state); // dst = [state, readSymbol, destState, popSymbol, pushSymbol]
+    const dst = state.getOutgoingTransitions(state); // dst = [startState, readSymbol, destState, popSymbol, pushSymbol]
     for(const tran of dst) {
         inter = new State('Inter' + /*Some unique string dependent on count or something */); // 
         // Case that both are push
         if(tran[POP_SYMBOL_INDEX] === EMPTY_SYMBOL && tran[PUSH_SYMBOL_INDEX] === EMPTY_SYMBOL) {
             // We want to create a new transition from state to inter that pushes an arbitrary stack symbol
-            
-            // Then from inter to deststate we pop that symbol
+            pdaCopy.addState(inter);
 
+            // Remove the bad transition // Remove transition not implemented????
+            pdaCopy.removeTransition(
+                tran[FROM_STATE_INDEX], 
+                tran[TO_STATE_INDEX], 
+                new Symbol(
+                    tran[READ_SYMBOL_INDEX], 
+                    tran[POP_SYMBOL_INDEX], 
+                    tran[PUSH_SYMBOL_INDEX]
+                )
+            );
+
+            // Add transition to intermediate state with random stack character
+            pdaCopy.addTransition(
+                tran[FROM_STATE_INDEX],
+                inter,
+                tran[READ_SYMBOL_INDEX],
+                EMPTY_SYMBOL,
+                'OUR SPECIAL STACK STRING',
+            );
+
+            // Add transition from intermediate state popping that random stack character
+            pdaCopy.addTransition(
+                inter,
+                tran[TO_STATE_INDEX],
+                EMPTY_SYMBOL,
+                'OUR SPECIAL STACK STRING',
+                EMPTY_SYMBOL,
+            );
+        
+        // Same idea, except we don't need a random symbol
         } else if(tran[POP_SYMBOL_INDEX] !== EMPTY_SYMBOL && tran[PUSH_SYMBOL_INDEX] === EMPTY_SYMBOL) {
-            // We want to create a new transition from state to inter that pops the pop symbol
+            // Remove the bad transition // Remove transition not implemented????
+            pdaCopy.removeTransition(
+                tran[FROM_STATE_INDEX], 
+                tran[TO_STATE_INDEX], 
+                new Symbol(
+                    tran[READ_SYMBOL_INDEX], 
+                    tran[POP_SYMBOL_INDEX], 
+                    tran[PUSH_SYMBOL_INDEX]
+                )
+            );
 
-            // And a new transition from inter to deststate that pushes the push symbol
+            // Add transition to intermediate state with random stack character
+            pdaCopy.addTransition(
+                tran[FROM_STATE_INDEX],
+                inter,
+                tran[READ_SYMBOL_INDEX],
+                tran[POP_SYMBOL_INDEX],
+                EMPTY_SYMBOL,
+            );
+
+            // Add transition from intermediate state popping that random stack character
+            pdaCopy.addTransition(
+                inter,
+                tran[TO_STATE_INDEX],
+                EMPTY_SYMBOL,
+                EMPTY_SYMBOL,
+                tran[PUSH_SYMBOL_INDEX],
+            )
         }
     }
 }
