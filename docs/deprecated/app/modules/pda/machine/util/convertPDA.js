@@ -92,7 +92,7 @@ export function convertPDA(pda) {
     for (const [stateId, state] of pdaCopy._states.entries()) {
         const dst = state.getOutgoingTransitions(state); // dst = [startState, readSymbol, destState, popSymbol, pushSymbol]
         for (const tran of dst) {
-            inter = new State('Inter' + /*Some unique string dependent on count or something */); // 
+            inter = new State('Inter' /* + Some unique string dependent on count or something */); // 
             // Case that both are push
             if (tran[POP_SYMBOL_INDEX] === EMPTY_SYMBOL && tran[PUSH_SYMBOL_INDEX] === EMPTY_SYMBOL) {
                 // We want to create a new transition from state to inter that pushes an arbitrary stack symbol
