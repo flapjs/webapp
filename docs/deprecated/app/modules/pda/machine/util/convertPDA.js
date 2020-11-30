@@ -11,78 +11,58 @@ const PUSH_SYMBOL_INDEX = 4;
 export function convertPDA(pda) {
 
     //     Preprocessing
+    //     NOTE: think about not making same state name as the existing pda
 
     // 1. Make all accept states empty the stack (create loop)
     const pdaCopy = copy(pda);        //Copy pda is shallow, so this doesn't really do anything.
-    //If it's shallow, the existing PDA that the user has might change, 
-    //but we will fix that later.
-    // a. make a start state to add a stack symbol on stack with epsilon transition
-    //    for transition symbol just concatenate all string from alphabet
-    //add a epsilon transition to old start state
-    //make new state to the start state
+    //If it's shallow, the existing PDA that the user has might change, but we will fix that later.
+
+    // We create a new start state that has only one transition to the old start state. Pushes a special stack 
+    // symbol that will allow us to detect if stack is empty at the end of a computation.
     const oldStartState = pdaCopy.getStartState();
     const newStartState = new State('newStart');
     pdaCopy.addState(newStartState);
     pdaCopy.setStartState(newStartState);
-    pdaCopy.addTransition(newStartState, oldStartState, EMPTY_SYMBOL, EMPTY_SYMBOL, EMPTY_SYMBOL);
 
-    // Now, we need to look for a symbol that is not there (we're just going to make that the )
-    const clearState = new State('clear')
+    // 2. Make all accept states transition to a final accept state.
+    // Every old accept state will redirect to clearState, which will clear the stack.
+    // After stack is cleared, will redirect to newAcceptState.
+    const clearState = new State('clear');
     pdaCopy.addState(clearState);
+    const newAcceptState = new State('newAcc');
 
 
-
-    newSym = ''
-    // Generate special stack symbol and add transitions to clear state to clear stack
+    // We generate a special stack symbol through concatenation and add transitions to clear the stack.
+    // Note: Is there a more efficient way of doing this?
+    newSym = '';
     for (const [sym, count] of pdaCopy.stackAlphabet_.entries) {
         newSym.concat(sym)
         pdaCopy.addTransition(clearState, clearState, EMPTY_SYMBOL, sym, EMPTY_SYMBOL)
     }
 
-    const newAcceptState = new State('newAcc')
+    // Push special stack symbol to newStartState.
+    pdaCopy.addTransition(newStartState, oldStartState, EMPTY_SYMBOL, EMPTY_SYMBOL, newSym);
 
-    // Add transition from the clear state to the new accept state
-    pdaCopy.addTransition(clearState, newAcceptState, EMPTY_SYMBOL, sym, EMPTY_SYMBOL)
+    // Add transitions from the clear state to the new accept state.
+    pdaCopy.addTransition(clearState, newAcceptState, EMPTY_SYMBOL, newSym, EMPTY_SYMBOL)
+    pdaCopy.addTransition(clearState, newAcceptState, EMPTY_SYMBOL, EMPTY_SYMBOL, EMPTY_SYMBOL);
 
-    pdaCopy.addTransition(
-        oldStartState,
-        newStartState,
-        EMPTY_SYMBOL,
-        EMPTY_SYMBOL,
-        newSym // Added our special stack symbol
-    ); //need to change last field to be our special stack symbol
-
-
-
-    //make a state 'clear' that empties the stack. Transition to accept 
-    //NOTE: think about not making same state name as the existing pda
-
-
-    // //make a new accept state that only 'clear' points to
-    // pdaCopy.addState(new State('newAccept'));
-
-    //add a transition to state clear
-    //convert the state to non accept
-
-    // TODO: Not correct, would need to make sure that the computation would have stayed in this accept state
-    // when we ran out of character. Edit: I think we're good here actually, because the accept state will only accept
-    // with no characters left.
+    // Direct all accept states to clear and make them no longer accept states.
     for (const s of pda._finalStates.entries()) {
-        pdaCopy.addTransition(
-            s,
-            clear,
-            EMPTY_SYMBOL,
-            EMPTY_SYMBOL,
-            EMPTY_SYMBOL // Added our special stack symbol
-        );
+        pdaCopy.addTransition(s, clearState, EMPTY_SYMBOL, EMPTY_SYMBOL, EMPTY_SYMBOL);
+        pdaCopy.setFinalState(s, false);
     }
-    pdaCopy.addTransition(
-        clear,
-        newAcceptState,
-        EMPTY_SYMBOL,
-        EMPTY_SYMBOL,
-        EMPTY_SYMBOL // Added our special stack symbol
-    );
+
+    // Set newAcceptState to be an accept state. (Note: has to be after the above for loop).
+    pdaCopy.setFinalState(newAcceptState, true);
+
+    // THIS COMPLETES STEPS 1 AND 2.
+
+    // STEP 3 BEGINS HERE.
+
+    // 3. For t in transitions:
+    // if no_push_or_pop, then insert placeholder push then pop
+    // if both, divide into 2 separate transitions with a placeholder state
 
     // So now we need to loop through all transitions
 
@@ -160,6 +140,8 @@ export function convertPDA(pda) {
             }
         }
     }
+
+    // THIS COMPLETES STEP 3.
 
 
     //transition (state, alphabet symbol, push to stack) == (state, pop off stack)
