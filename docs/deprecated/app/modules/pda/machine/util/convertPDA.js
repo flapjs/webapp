@@ -1,4 +1,4 @@
-import { State, Symbol } from '../PDA';
+import { State, Symbol} from '../PDA';
 
 export const EMPTY_SYMBOL = '&empty'; // Why do we need to export here?
 const FROM_STATE_INDEX = 0;
@@ -12,10 +12,11 @@ export function convertPDA(pda) {
 
     //     Preprocessing
     //     NOTE: think about not making same state name as the existing pda
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // 1. Make all accept states empty the stack (create loop)
     const pdaCopy = copy(pda);        //Copy pda is shallow, so this doesn't really do anything.
-    //If it's shallow, the existing PDA that the user has might change, but we will fix that later.
+    //NOTE: If it's shallow, the existing PDA that the user has might change, but we will fix that later.
 
     // We create a new start state that has only one transition to the old start state. Pushes a special stack 
     // symbol that will allow us to detect if stack is empty at the end of a computation.
@@ -34,9 +35,10 @@ export function convertPDA(pda) {
 
     // We generate a special stack symbol through concatenation and add transitions to clear the stack.
     // Note: Is there a more efficient way of doing this?
-    newSym = '';
+    //Note: maybe change to a generic symbol for now
+    const newSym = '';
     for (const [sym, count] of pdaCopy.stackAlphabet_.entries) {
-        newSym.concat(sym)
+        newSym.concat(sym);
         pdaCopy.addTransition(clearState, clearState, EMPTY_SYMBOL, sym, EMPTY_SYMBOL)
     }
 
@@ -72,13 +74,14 @@ export function convertPDA(pda) {
     for (const [stateId, state] of pdaCopy._states.entries()) {
         const dst = state.getOutgoingTransitions(state); // dst = [startState, readSymbol, destState, popSymbol, pushSymbol]
         for (const tran of dst) {
-            inter = new State('Inter' /* + Some unique string dependent on count or something */); // 
-            // Case that both are push
+            let inter = new State('Inter' /* + Some unique string dependent on count or something */); // 
+            // Case that push and pop are both epsilon
             if (tran[POP_SYMBOL_INDEX] === EMPTY_SYMBOL && tran[PUSH_SYMBOL_INDEX] === EMPTY_SYMBOL) {
                 // We want to create a new transition from state to inter that pushes an arbitrary stack symbol
                 pdaCopy.addState(inter);
 
-                // Remove the bad transition // Remove transition not implemented????
+                // Remove the bad transition // Remove transition not implemented???? 
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 pdaCopy.removeTransition(
                     tran[FROM_STATE_INDEX],
                     tran[TO_STATE_INDEX],
@@ -95,7 +98,7 @@ export function convertPDA(pda) {
                     inter,
                     tran[READ_SYMBOL_INDEX],
                     EMPTY_SYMBOL,
-                    'OUR SPECIAL STACK STRING',
+                    newSym,
                 );
 
                 // Add transition from intermediate state popping that random stack character
@@ -103,12 +106,12 @@ export function convertPDA(pda) {
                     inter,
                     tran[TO_STATE_INDEX],
                     EMPTY_SYMBOL,
-                    'OUR SPECIAL STACK STRING',
+                    newSym,
                     EMPTY_SYMBOL,
                 );
 
                 // Same idea, except we don't need a random symbol
-            } else if (tran[POP_SYMBOL_INDEX] !== EMPTY_SYMBOL && tran[PUSH_SYMBOL_INDEX] === EMPTY_SYMBOL) {
+            } else if (tran[POP_SYMBOL_INDEX] !== EMPTY_SYMBOL && tran[PUSH_SYMBOL_INDEX] !== EMPTY_SYMBOL) {
                 // Remove the bad transition // Remove transition not implemented????
                 pdaCopy.removeTransition(
                     tran[FROM_STATE_INDEX],
@@ -147,9 +150,6 @@ export function convertPDA(pda) {
     //transition (state, alphabet symbol, push to stack) == (state, pop off stack)
     // if transistion(p, a, \epsilon == (r, u) and transition(s, b, u) == (q, \epsilon)
     // add rule (p, q) → a (r,s) b to G
-
-
-
 }
 
 

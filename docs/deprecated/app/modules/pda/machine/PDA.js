@@ -368,6 +368,7 @@ class PDA
     }
 
     //FIXME: not yet implemented
+    //Note: not tested yet
     removeTransition(from, to, symbol=null)
     {
         const transitionKey = from.getStateID() + '->' + to.getStateID();
