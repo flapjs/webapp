@@ -1,3 +1,8 @@
+.src-modules-fa-__FiniteAutomataToolbar-module__container--WMumK {
+    display: flex;
+    flex-direction: row;
+}
+
 .src-modules-fa-drawer-overview-definition-__ItemList-module__itemList--K9CG9 {
     list-style: none;
     margin: 0;
@@ -62,7 +67,6 @@
     padding: 0.1rem;
     margin: 0.1rem 0.3rem;
     color: currentColor;
-    text-shadow: 1px 1px 3px black;
 }
 
 .src-components-lib-__FieldSwitch-module__element--zNm6L button span {
@@ -72,7 +76,7 @@
 
 .src-components-lib-__FieldSwitch-module__element--zNm6L button span.src-components-lib-__FieldSwitch-module__checked--1VpI- {
     opacity: 1;
-    background-color: gray;
+    background-color: var(--primary-active);
     border-radius: 1rem;
 }
 
@@ -93,16 +97,12 @@
     padding: 0;
 }
 
-.src-components-lib-__FieldSwitch-module__element--zNm6L button:hover:not(:disabled) {
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
 .src-modules-fa-drawer-overview-analysis-__TransitionTable-module__tableEntry--3QuZ9 {
     text-align: center;
 }
 
 .src-modules-fa-drawer-overview-analysis-__TransitionTable-module__tableEntry--3QuZ9.error {
-    color: red;
+    color: var(--danger);
 }
 
 .src-modules-fa-drawer-overview-analysis-__TransitionTable-module__tableEntry--3QuZ9:not(.error).disabled,
@@ -112,6 +112,7 @@
 
 .src-components-lib-__TextArea-module__element--1j1JQ {
     display: flex;
+    color: var(--primary-text);
 }
 
 .src-components-lib-__TextArea-module__element--1j1JQ textarea {
@@ -120,7 +121,7 @@
     margin: 0.1rem 0.3rem;
     color: currentColor;
     border: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid var(--primary-focus);
     text-align: center;
     resize: vertical;
 }
@@ -134,8 +135,9 @@
     opacity: 0.3;
 }
 
+.src-components-lib-__TextArea-module__element--1j1JQ textarea:focus,
 .src-components-lib-__TextArea-module__element--1j1JQ textarea:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 0.1);
-    outline: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: var(--primary-focus);
+    outline: 1px solid var(--primary-focus);
 }
 

@@ -7,6 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --config=webpack.config.js --env=development",
     "build": "webpack --config=webpack.config.js --env=production",
+    "start_p": "webpack-dev-server --config=webpack.config.js --env=production",
     "build-storybook": "build-storybook -c .storybook -o \"docs/storybook\"",
     "test": "jest --config \".jest/config.js\" --runInBand",
     "test-precommit": "lint-staged",
