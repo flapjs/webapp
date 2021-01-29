@@ -3,6 +3,6 @@
 ### Table of Contents
 
 ### Iconography
-| Icon Name | Image  |
-| --------- | ------ |
-| New       | ![new](new_icon.png) |
+| New                  | Image  |
+| -------------------- | ------ |
+| ![new](new_icon.png) | ![undo](undo_icon.png)  |
