@@ -7,8 +7,12 @@
 | --- | ---- | ---- | ---- | ------ | ---------- |
 | ![new](new_icon.png) | ![undo](undo_icon.png) | ![redo](undo_icon.png) | ![save](save_icon.png) | ![upload](upload_icon.png) | ![bug](bug_icon.png) |
 
+---
+
 #### Undo & Redo
 Intuitive and follows the design of Google's undo/redo arrows. Follows a natural mapping of undo as left/the past and redo as right/future.
+
+- **References**: [Legacy of Undo/Redo](https://ux.stackexchange.com/questions/83723/why-are-the-undo-and-redo-arrow-icons-commonly-round)
 
 
 #### Save & Upload
@@ -19,6 +23,7 @@ The 'Upload' is correct in that it's moving from a local drive to a remote serve
 - **Suggestion**: Change sidebar wording to be 'Download' not 'Export' for 'save' and use the correct Download icon (bar with arrow). <br/>
 - **References**: [Download, Upload, Export, Import](https://graphicdesign.stackexchange.com/questions/119273/import-export-vs-upload-download-icons-arrow-direction)
 
+---
 
 | Expand | Format | Test | Transform | Export |
 | ------ | ------ | ---- | --------- | ------ | 
