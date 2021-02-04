@@ -55,6 +55,11 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 | ------ | ------ | ---- | --------- | ------ | 
 | ![expand](images/expand_icon.png) | ![format](images/format_icon.png) | ![test](images/test_icon.png) | ![transform](images/transform_icon.png) | ![export](images/save_icon.png) |
 
+#### Format
+This icon pulls out the side bar for both "Format" and "Definition". Format consists of "Layout" and "Alphabet Label Editor". Currently, the user can only apply the 'Circle' layout and not 'Grid' not the alphabet/renaming features. I think this icon is truly a 'Format' icon as the majority of the ones on the web are a page (usually with a corner folded). It also has horizontal lines in the middle which can relate to text which is what we associate formatting with: justifying text, modifying number of columns, changing margins, etc. Overall, this icon is perfectly usable and intuitive. However, it is weird that the 'Format' feature brings out both the 'Definition' and 'Format' rather than just the 'Format' section. We may also want to include other types of text/stylistic formatting here since that would make the section more obvious. As mentioned in a later section, we may want to have the option to reduce/increase the text size of the node or edge labels. We could easy have those modifications also live in the formatting section.
+
+- **Suggestion**: change the sidebar section for 'Format' tp be *just* formatting features.
+
 #### Transform
 The purpose of this option is to convert DFA :left_right_arrow: NFA, flip accept :left_right_arrow: nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. A pencil icon usually means modify/edit/create on the user's behalf. However, the program is doing all the transforming so another icon is better suited.
 
