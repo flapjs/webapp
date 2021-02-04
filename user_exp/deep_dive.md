@@ -28,6 +28,8 @@
 - Memorability: do people remember the icon’s meaning after being told what it represented a couple weeks earlier
 - Use as many universal icons are possible: magnifying glass, user profile, link, (eventually Hamburger menu)
 
+- **References**: [Norman Group](https://www.nngroup.com/articles/icon-usability/)
+
 | New | Undo | Redo | Save | Upload | Bug Report |
 | --- | ---- | ---- | ---- | ------ | ---------- |
 | ![new](images/new_icon.png) | ![undo](images/undo_icon.png) | ![redo](images/redo_icon.png) | ![save](images/save_icon.png) | ![upload](images/upload_icon.png) | ![bug](images/bug_icon.png) |
