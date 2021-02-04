@@ -32,6 +32,8 @@ They require obvious iconography; they want to know what features there are at a
 
 ---
 
+### Top Bar Icons
+
 | New | Undo | Redo | Save | Upload | Bug Report |
 | --- | ---- | ---- | ---- | ------ | ---------- |
 | ![new](images/new_icon.png) | ![undo](images/undo_icon.png) | ![redo](images/redo_icon.png) | ![save](images/save_icon.png) | ![upload](images/upload_icon.png) | ![bug](images/bug_icon.png) |
@@ -79,6 +81,8 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 - **Notes**: after doing a bit more research, I [found our icon](https://material.io/resources/icons/?style=baseline) and it is in fact labeled a 'bug report' so we may not change it.
 
 ---
+
+### Side Bar Icons
 
 | Expand | Format | Test | Transform | Export |
 | ------ | ------ | ---- | --------- | ------ | 
