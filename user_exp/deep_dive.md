@@ -170,6 +170,24 @@ This is a ghost button (has an outline but no fill color). This has some good fe
 
 ---
 
+### Norman Usability Heuristics
+**1. Visibility of System Status**
+  - *The design should always keep users informed about what is going on, through appropriate feedback within a reasonable amount of time.*
+**2. Match Between System and the Real World**
+  - *The design should speak the users' language. Use words, phrases, and concepts familiar to the user, rather than internal jargon. Follow real-world conventions, making information appear in a natural and logical order.*
+**3. User Control and Freedom**
+  - *Users often perform actions by mistake. They need a clearly marked "emergency exit" to leave the unwanted action without having to go through an extended process.*
+**4. Consistency and Standards**
+  - *Users should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions.*
+**5. Error Prevention**
+  - *Good error messages are important, but the best designs carefully prevent problems from occurring in the first place. Either eliminate error-prone conditions, or check for them and present users with a confirmation option before they commit to the action. There are two types of errors: **slips** and **mistakes**. Slips are unconscious errors caused by inattention. Mistakes are conscious errors based on a mismatch between the user’s mental model and the design.*
+**6. Recognition Rather than Recall**
+  - *Minimize the user's memory load by making elements, actions, and options visible. The user should not have to remember information from one part of the interface to another. Information required to use the design (e.g. field labels or menu items) should be visible or easily retrievable when needed.*
+**7.  Flexibility and Efficiency of Use**
+  - *Shortcuts — hidden from novice users — may speed up the interaction for the expert user such that the design can cater to both inexperienced and experienced users. Allow users to tailor frequent actions.*
+
+___
+
 ### Whiteboard
 1. When right-clicking on the object, it should pull up the options to: 
 - (a) make it an accept state (if not)
