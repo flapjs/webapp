@@ -14,7 +14,7 @@ export function UnreachableNodeErrorNotification(props)
 
     return (
         <NotificationElementContainer id={id}
-            message={`Warning: Found ${nodeIds.length} unreachable states labeled: \n ${labels.join(', ')}`}
+            message={`Warning: Found ${nodeIds.length} unreachable states labeled: test test test \n ${labels.join(', ')}`}
             controls={dismiss => (
                 <div>
                     <button onClick={() =>
@@ -22,7 +22,7 @@ export function UnreachableNodeErrorNotification(props)
                         doGraphDeleteNodes(graphDispatch, nodeIds);
                         dismiss();
                     }}>
-                        Delete all unreachable.lmao
+                        Delete all unreachable
                     </button>
                 </div>
             )}>
