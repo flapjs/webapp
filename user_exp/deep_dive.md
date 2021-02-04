@@ -179,12 +179,18 @@ This is a ghost button (has an outline but no fill color). This has some good fe
   - *Users often perform actions by mistake. They need a clearly marked "emergency exit" to leave the unwanted action without having to go through an extended process.*
 - **4. Consistency and Standards**
   - *Users should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions.*
-**5. Error Prevention**
+- **5. Error Prevention**
   - *Good error messages are important, but the best designs carefully prevent problems from occurring in the first place. Either eliminate error-prone conditions, or check for them and present users with a confirmation option before they commit to the action. There are two types of errors: **slips** and **mistakes**. Slips are unconscious errors caused by inattention. Mistakes are conscious errors based on a mismatch between the user’s mental model and the design.*
-**6. Recognition Rather than Recall**
+- **6. Recognition Rather than Recall**
   - *Minimize the user's memory load by making elements, actions, and options visible. The user should not have to remember information from one part of the interface to another. Information required to use the design (e.g. field labels or menu items) should be visible or easily retrievable when needed.*
-**7.  Flexibility and Efficiency of Use**
+- **7.  Flexibility and Efficiency of Use**
   - *Shortcuts — hidden from novice users — may speed up the interaction for the expert user such that the design can cater to both inexperienced and experienced users. Allow users to tailor frequent actions.*
+- **8. Aesthetic and Minimalist Design**
+  - *Interfaces should not contain information which is irrelevant or rarely needed. Every extra unit of information in an interface competes with the relevant units of information and diminishes their relative visibility.*
+- **9. Help users Recognize, Diagnose, and Recover from Errors**
+  - *Error messages should be expressed in plain language (no error codes), precisely indicate the problem, and constructively suggest a solution.*
+- **10. Help and Documentation**
+  - *It’s best if the system doesn’t need any additional explanation. However, it may be necessary to provide documentation to help users understand how to complete their tasks.*
 
 ___
 
