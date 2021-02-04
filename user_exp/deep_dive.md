@@ -191,6 +191,8 @@ This is a ghost button (has an outline but no fill color). This has some good fe
   - *Error messages should be expressed in plain language (no error codes), precisely indicate the problem, and constructively suggest a solution.*
 - **10. Help and Documentation**
   - *It’s best if the system doesn’t need any additional explanation. However, it may be necessary to provide documentation to help users understand how to complete their tasks.*
+  
+- **Reference**: [Norman Group](https://www.nngroup.com/articles/ten-usability-heuristics/)
 
 ___
 
