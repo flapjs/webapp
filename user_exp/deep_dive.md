@@ -21,9 +21,9 @@ I think we can have both a clear and remove option. This can take the form of th
 - NOTE: we may want to have a notification of "Are you sure you want to clear" to confirm they understand that a clear removes ALL work
   - we can also log whether they're a new user or not so we only give them this warning the first time they use the site so it doesn't get annoying
 
-![old_del1](images/old_delete)
+![old_del1](images/old_delete.png)
 
-![old_del2](images/old_delete2)
+![old_del2](images/old_delete2.png)
 
 - **References**: [Remove vs Delete](https://medium.com/swlh/ui-copy-remove-vs-delete-33c58ce16d9b)
 
