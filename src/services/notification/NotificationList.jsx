@@ -8,7 +8,7 @@ import { ExpandDownIcon } from '@flapjs/components/icons/Icons';
 export function NotificationList()
 {
     const { notificationList } = useNotifications();
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false); // hiding the issue notifications
 
     const notifications = formatNotificationList(notificationList);
     const notificationCount = notifications.length;
