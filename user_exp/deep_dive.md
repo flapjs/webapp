@@ -156,7 +156,9 @@ This should just be text, however, when the user hovers over it, it changes the 
 ---
 
 #### Definition Button
-This is also text and the
+This is a ghost button (has an outline but no fill color). This has some good feedback. When clicked, it shifts (depresses) which indicates a nice tactile touch (very good feedback). However, it has no change upon a hover. Therefore, it has good feedback (on click) but bad discoverability (hover).
+
+- **Suggestion**: add a hover change
 
 ---
 
