@@ -71,6 +71,7 @@ The 'Upload' is correct in that it's moving from a local drive to a remote serve
 - **Suggestion**: Change sidebar wording to be 'Download' not 'Export' for 'save' and use the correct Download icon (bar with arrow). <br/>
 - **References**: [Download, Upload, Export, Import](https://graphicdesign.stackexchange.com/questions/119273/import-export-vs-upload-download-icons-arrow-direction)
 
+---
 
 #### Bug Report
 The bug logo is explicit and does fit its name. It may be fine to keep it, however, users may also assume it is for "debugging" rather than filing a bug report/feedback. Sometimes feedback icons consist of a thumbs up and thumbs down together as that indicates an approval or disapproval. Many websites also use a circle with a question mark inside to indicate a section where more information/feedback can be given externally. We could also use a circle with an exclamation point as they usually have a negative connotation of "something is wrong" that would align more with the purpose of a bug report.
@@ -89,13 +90,19 @@ The expand icon lets the user pull out the sidebar. This is actually a version o
 - **Suggestion**: remove this icon
 - **References**: [Hamburger menu icon](https://smallbiztrends.com/2015/01/3-line-menu-icon-hamburger-menu.html) and [Explicit sidebar features](https://lmjabreu.com/post/why-and-how-to-avoid-hamburger-menus/)
 
+---
+
 #### Format
 This icon pulls out the side bar for both "Format" and "Definition". Format consists of "Layout" and "Alphabet Label Editor". Currently, the user can only apply the 'Circle' layout and not 'Grid' not the alphabet/renaming features. I think this icon is truly a 'Format' icon as the majority of the ones on the web are a page (usually with a corner folded). It also has horizontal lines in the middle which can relate to text which is what we associate formatting with: justifying text, modifying number of columns, changing margins, etc. Overall, this icon is perfectly usable and intuitive. However, it is weird that the 'Format' feature brings out both the 'Definition' and 'Format' rather than just the 'Format' section. We may also want to include other types of text/stylistic formatting here since that would make the section more obvious. As mentioned in a later section, we may want to have the option to reduce/increase the text size of the node or edge labels. We could easy have those modifications also live in the formatting section.
 
 - **Suggestion**: change the sidebar section for 'Format' to be *just* formatting features.
 
+---
+
 #### Test
 This running man icon is supposed to indicate testing. However, it's not intuitive other than the fact that we have to *"run"* a test. It makes it very hard for users to discover the testing section which is, arguably, the most important section. This is not a good signifier and, likely, users wouldn't even click on it until they had given up other options and would be surprised that this was, in fact, testing.
+
+---
 
 #### Transform
 The purpose of this option is to convert DFA :left_right_arrow: NFA, flip accept :left_right_arrow: nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. In a survey, it was shown that most people found the icon ambiguous and the majority labeled it as modify/edit/create. However, the program is doing all the transforming so another icon is better suited.
@@ -104,6 +111,7 @@ The purpose of this option is to convert DFA :left_right_arrow: NFA, flip accept
 
 - **References**: [Pencil Icon](https://ux.stackexchange.com/questions/117143/pencil-icon-for-create-vs-edit-is-there-a-correct-answer) and [Pencil Icon is Ambiguous](https://medium.com/@annakop/lean-ux-icon-testing-7f7fb78412e)
 
+---
 
 #### Export
 This has the same icon as the 'Save' in the top/app bar. Both of these options pull out the sidebar and give options on how to download the work as different file types. This is NOT an export as we are not sharing but downloading the file locally. It is redundant to have 2 icons doing the same thing but labelled differently. This icon obviously goes against the traditional 'Export' icon (arrow pointing up, outside of box) as our arrow points inward. We need to remove one of these icons and make it represent the download one.
