@@ -23,10 +23,27 @@ The 'Upload' is correct in that it's moving from a local drive to a remote serve
 - **Suggestion**: Change sidebar wording to be 'Download' not 'Export' for 'save' and use the correct Download icon (bar with arrow). <br/>
 - **References**: [Download, Upload, Export, Import](https://graphicdesign.stackexchange.com/questions/119273/import-export-vs-upload-download-icons-arrow-direction)
 
+
+#### Bug Report
+The bug logo is explicit and does fit its name. It may be fine to keep it, however, users may also assume it is for "debugging" rather than filing a bug report/feedback. Sometimes feedback icons consist of a thumbs up and thumbs down together as that indicates an approval or disapproval. Many websites also use a circle with a question mark inside to indicate a section where more information/feedback can be given externally. We could also use a circle with an exclamation point as they usually have a negative connotation of "something is wrong" that would align more with the purpose of a bug report.
+
 ---
 
 | Expand | Format | Test | Transform | Export |
 | ------ | ------ | ---- | --------- | ------ | 
 | ![expand](expand_icon.png) | ![format](format_icon.png) | ![test](test_icon.png) | ![transform](transform_icon.png) | ![export](save_icon.png) |
 
+---
 
+### Whiteboard
+1. When right-clicking on the object, it should pull up the options to: 
+- (a) make it an accept state (if not)
+- (b) make it a non-accept state (if not)
+- (c) delete that node
+- (d) make it the initial state.
+2. When clicking/hovering or doing any engagement with a node, it should change color slightly (lighter/darker) to indicate which node the user is interacting with and help them confirm their behavior
+3. Arrows auto-conform to fit the distance/angle which is great
+4. Nodes and arrows could be more distinct
+5. For a large alphabet, the arrow gets filled with a lot of text that can fill up the space
+  - text resizing should be an option (like a bar with +/- to change arrow text)
+  - node text isn't a problem because it's typically only 2 characters (e.g. q2)
