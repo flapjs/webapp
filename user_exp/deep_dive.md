@@ -5,7 +5,7 @@
 ### Iconography
 | New | Undo | Redo | Save | Upload | Bug Report |
 | --- | ---- | ---- | ---- | ------ | ---------- |
-| ![new](new_icon.png) | ![undo](undo_icon.png) | ![redo](undo_icon.png) | ![save](save_icon.png) | ![upload](upload_icon.png) | ![bug](bug_icon.png) |
+| ![new](new_icon.png) | ![undo](undo_icon.png) | ![redo](redo_icon.png) | ![save](save_icon.png) | ![upload](upload_icon.png) | ![bug](bug_icon.png) |
 
 ---
 
