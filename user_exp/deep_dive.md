@@ -130,6 +130,9 @@ This has the same icon as the 'Save' in the top/app bar. Both of these options p
 ---
 
 ### Feedback
+| Definition Label | Determinism Button | States Content | Alphabet Content | Definition Button |
+| ---------------- | ------------------ | -------------- | ---------------- | ----------------- |
+| ![def_lab](images/def_label.png) | ![det_btn](images/determinism_btn.png) | ![states](images/states.png) | ![alphabet](images/alphabet.png) | ![def_btn](images/definition_btn.png) |
 
 
 ---
