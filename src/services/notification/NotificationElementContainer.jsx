@@ -22,7 +22,7 @@ export function NotificationElementContainer(props)
             {renderMessage(message)}
             {children}
             <fieldset>
-                <legend>How Do You Want To Do This?</legend>
+                <legend>How Do You Want To Do This? How How</legend>
                 {controls(onMessageDismiss)}
                 <button onClick={onMessageDismiss}>
                     Dismiss
