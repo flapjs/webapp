@@ -56,7 +56,7 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 | ![expand](images/expand_icon.png) | ![format](images/format_icon.png) | ![test](images/test_icon.png) | ![transform](images/transform_icon.png) | ![export](images/save_icon.png) |
 
 #### Transform
-The purpose of this option is to convert DFA <--> NFA, flip accept <--> nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. A pencil icon usually means modify/edit/create on the user's behalf. However, the program is doing all the transforming so another icon is better suited.
+The purpose of this option is to convert DFA :left_right_arrow: NFA, flip accept :left_right_arrow: nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. A pencil icon usually means modify/edit/create on the user's behalf. However, the program is doing all the transforming so another icon is better suited.
 
 ![new_transform](images/new_transform.png)
 
