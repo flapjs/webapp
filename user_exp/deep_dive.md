@@ -55,6 +55,13 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 | ------ | ------ | ---- | --------- | ------ | 
 | ![expand](images/expand_icon.png) | ![format](images/format_icon.png) | ![test](images/test_icon.png) | ![transform](images/transform_icon.png) | ![export](images/save_icon.png) |
 
+
+#### Export
+This has the same icon as the 'Save' in the top/app bar. Both of these options pull out the sidebar and give options on how to download the work as different file types. This is NOT an export as we are not sharing but downloading the file locally. It is redundant to have 2 icons doing the same thing but labelled differently. This icon obviously goes against the traditional 'Export' icon (arrow pointing up, outside of box) as our arrow points inward. We need to remove one of these icons and make it represent the download one.
+
+- **Suggestion**: Choose whether icon should live in top bar or side bar and use the correct Download icon (bar with arrow). <br/>
+- **References**: [Download, Upload, Export, Import](https://graphicdesign.stackexchange.com/questions/119273/import-export-vs-upload-download-icons-arrow-direction)
+
 ---
 
 ### Whiteboard
