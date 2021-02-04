@@ -22,7 +22,7 @@ export function UnreachableNodeErrorNotification(props)
                         doGraphDeleteNodes(graphDispatch, nodeIds);
                         dismiss();
                     }}>
-                        Delete all unreachable.
+                        Delete all unreachable.lmao
                     </button>
                 </div>
             )}>
