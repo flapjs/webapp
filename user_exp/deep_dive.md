@@ -3,15 +3,23 @@
 ### Table of Contents
 
 ### Iconography
+Initial Note: most icons going forward should have a small text description/title to make it more accessible and obvious. It won't detract from the UI but help to clarify features. We need to prepare not for the ideal user but the one that may click the "new" icon and remove all their work by accident. 
+
 | New | Undo | Redo | Save | Upload | Bug Report |
 | --- | ---- | ---- | ---- | ------ | ---------- |
-| ![new](new_icon.png) | ![undo](undo_icon.png) | ![redo](redo_icon.png) | ![save](save_icon.png) | ![upload](upload_icon.png) | ![bug](bug_icon.png) |
+| ![new](images/new_icon.png) | ![undo](images/undo_icon.png) | ![redo](images/redo_icon.png) | ![save](images/save_icon.png) | ![upload](images/upload_icon.png) | ![bug](images/bug_icon.png) |
 
-#### New
-The purpose of this icon is to create a fresh, new page. It basically clears all work. I think that a clearing option can be useful to completely start over. However, there is no delete option on this website which is the most obvious feature users will use. A new page icon (like the one we're using) usually represents creating a new external doc. If we want to keep the icon, it might be smart to make the page reload. 
+#### New & Remove (new addition)
+The purpose of this icon is to create a fresh, new page. It basically clears all work. I think that a clearing option can be useful to completely start over. However, there is no delete option on this website which is the most obvious feature users will use. A new page icon (like the one we're using) usually represents creating a new external doc or a new tab. This is currently our only "delete" method meaning users must start completely from scratch. Once this button has been clicked, it is a blank slate with no undo.
 
-#### Remove (new addition)
-In the webapp, we had a giant trash can at the bottom of the screen. Users could either (a) drag a node towards the trash can, the lines around the screen would go red, and the node would disappear OR (b) they could double-click on the trash can to delete the whole whiteboard. The trash can is an icon everyone is familiar with. However, it was incorrectly labeled 'Delete' when it was actually a 'Remove' because, upon clicking the 'Undo' option, the node(s) reappeared in their previous position. Deletes are final (a destruction of data); removals are temporary (old data still accessible). While deletes are commonly associated with a trash can rather than removals, the visible trash can is so intuitive and obvious that users would be more likely to engage the feature. I think we need to have a remove option (could be a back/right click) and the icon could be a trash can.
+In the webapp, we had a giant trash can at the bottom of the screen. Users could either (a) drag a node towards the trash can, the lines around the screen would go red, and the node would disappear OR (b) they could double-click on the trash can to delete the whole whiteboard. The trash can is an icon everyone is familiar with. However, it was incorrectly labeled 'Delete' when it was actually a 'Remove' because, upon clicking the 'Undo' option, the node(s) reappeared in their previous position. Deletes are final (a destruction of data); removals are temporary (old data still accessible). While deletes are commonly associated with a trash can rather than removals, the visible trash can is so intuitive and obvious that users would be more likely to engage the feature. 
+
+I think we can have both a clear and remove option. This can take the form of the following:
+- (a) clear and remove are both icons at the top; both are trash cans with one having an 'x' for a more permanent deletion (aka clear)
+- (b) users can back/right click on the whiteboard and choose clear
+- (c) users can back/right click on a node and choose remove
+- NOTE: we may want to have a notification of "Are you sure you want to clear" to confirm they understand that a clear removes ALL work
+  - we can also log whether they're a new user or not so we only give them this warning the first time they use the site so it doesn't get annoying
 
 ![old_del1](images/old_delete)
 
@@ -45,7 +53,7 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 
 | Expand | Format | Test | Transform | Export |
 | ------ | ------ | ---- | --------- | ------ | 
-| ![expand](expand_icon.png) | ![format](format_icon.png) | ![test](test_icon.png) | ![transform](transform_icon.png) | ![export](save_icon.png) |
+| ![expand](images/expand_icon.png) | ![format](images/format_icon.png) | ![test](images/test_icon.png) | ![transform](images/transform_icon.png) | ![export](images/save_icon.png) |
 
 ---
 
