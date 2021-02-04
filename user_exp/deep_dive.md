@@ -104,7 +104,7 @@ This icon pulls out the side bar for both "Format" and "Definition". Format cons
 ---
 
 #### Test
-This running man icon is supposed to indicate testing. However, it's not intuitive other than the fact that we have to *"run"* a test. It makes it very hard for users to discover the testing section which is, arguably, the most important section. This is not a good signifier and, likely, users wouldn't even click on it until they had given up other options and would be surprised that this was, in fact, testing.
+This running man icon is supposed to indicate testing. However, it's not intuitive other than the fact that we have to *"run"* a test. It makes it very hard for users to discover the testing section which is, arguably, the most important section. This is not a good signifier and, likely, users wouldn't even click on it until they had given up other options and would be surprised that this was, in fact, testing. Many tests icons either use a gear or a shape with a check mark. The check mark typically indicates a check/evaluation to determine good functionality. Since the individual tests use 
 
 ---
 
@@ -142,3 +142,10 @@ This has the same icon as the 'Save' in the top/app bar. Both of these options p
 5. For a large alphabet, the arrow gets filled with a lot of text that can fill up the space
   - text resizing should be an option (like a bar with +/- to change arrow text)
   - node text isn't a problem because it's typically only 2 characters (e.g. q2)
+
+### Issues
+1. It's not clear how to add labels to the edges.
+2. It's not clear how to change which is the start state (right-click and drag the triangle)
+3. It's not clear whether the tests ran well.
+4. The issues bar, when collapsed, has a weird expansion thing that will shift it down.
+- ![issues_bar](images/issues_bar.png)
