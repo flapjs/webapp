@@ -104,7 +104,7 @@ This icon pulls out the side bar for both "Format" and "Definition". Format cons
 ---
 
 #### Test
-This running man icon is supposed to indicate testing. However, it's not intuitive other than the fact that we have to *"run"* a test. It makes it very hard for users to discover the testing section which is, arguably, the most important section. This is not a good signifier and, likely, users wouldn't even click on it until they had given up other options and would be surprised that this was, in fact, testing. Many tests icons either use a gear or a shape with a check mark. The check mark typically indicates a check/evaluation to determine good functionality. Since the individual tests use 
+This running man icon is supposed to indicate testing. However, it's not intuitive other than the fact that we have to *"run"* a test. It makes it very hard for users to discover the testing section which is, arguably, the most important section. This is not a good signifier and, likely, users wouldn't even click on it until they had given up other options and would be surprised that this was, in fact, testing. Many tests icons either use a gear or a shape with a check mark. The check mark typically indicates a check/evaluation to determine good functionality. Similarly, the individual tests should either have an icon (like in the old version) of a green check or red 'x' to indicate success or failure or the test boxes should be outlined in those colors. There is almost no feedback. However, it is good that the trash can icon is used to 'delete' the test. (For future reference, we might use the 'clear' trash can as the test deletion is final).
 
 ---
 
