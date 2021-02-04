@@ -58,7 +58,7 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 #### Transform
 The purpose of this option is to convert DFA <--> NFA, flip accept <--> nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. A pencil icon usually means modify/edit/create on the user's behalf. However, the program is doing all the transforming so another icon is better suited.
 
-![new_transform](imaages/new_transform.png)
+![new_transform](images/new_transform.png)
 
 - **References**: [Pencil Icon](https://ux.stackexchange.com/questions/117143/pencil-icon-for-create-vs-edit-is-there-a-correct-answer)
 
