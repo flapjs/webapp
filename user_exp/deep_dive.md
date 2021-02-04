@@ -30,6 +30,8 @@ They require obvious iconography; they want to know what features there are at a
 
 - **References**: [Norman Group](https://www.nngroup.com/articles/icon-usability/)
 
+---
+
 | New | Undo | Redo | Save | Upload | Bug Report |
 | --- | ---- | ---- | ---- | ------ | ---------- |
 | ![new](images/new_icon.png) | ![undo](images/undo_icon.png) | ![redo](images/redo_icon.png) | ![save](images/save_icon.png) | ![upload](images/upload_icon.png) | ![bug](images/bug_icon.png) |
