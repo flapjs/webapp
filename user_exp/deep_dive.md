@@ -2,6 +2,15 @@
 
 ### Table of Contents
 
+### User Persona
+#### Who
+
+#### What are their constraints?
+
+#### What are their needs?
+
+---
+
 ### Iconography
 **Initial Note**: *most icons going forward should have a small text description/title to make it more accessible and obvious. It won't detract from the UI but help to clarify features. We need to prepare not for the ideal user but the one that may click the "new" icon and remove all their work by accident.*
 
@@ -12,7 +21,7 @@
 #### New & Remove (new addition)
 The purpose of this icon is to create a fresh, new page. It basically clears all work. I think that a clearing option can be useful to completely start over. However, there is no delete option on this website which is the most obvious feature users will use. A new page icon (like the one we're using) usually represents creating a new external doc or a new tab. This is currently our only "delete" method meaning users must start completely from scratch. Once this button has been clicked, it is a blank slate with no undo.
 
-In the webapp, we had a giant trash can at the bottom of the screen. Users could either (a) drag a node towards the trash can, the lines around the screen would go red, and the node would disappear OR (b) they could double-click on the trash can to delete the whole whiteboard. The trash can is an icon everyone is familiar with. However, it was incorrectly labeled 'Delete' when it was actually a 'Remove' because, upon clicking the 'Undo' option, the node(s) reappeared in their previous position. Deletes are final (a destruction of data); removals are temporary (old data still accessible). While deletes are commonly associated with a trash can rather than removals, the visible trash can is so intuitive and obvious that users would be more likely to engage the feature. 
+In the webapp, we had a giant trash can at the bottom of the screen. Users could either (a) drag a node towards the trash can, the lines around the screen would go red, and the node would disappear OR (b) they could double-click on the trash can to delete the whole whiteboard. The trash can is an icon everyone is familiar with. In a survey, it was found to be one of the *least ambiguous* icons. However, it was incorrectly labeled 'Delete' when it was actually a 'Remove' because, upon clicking the 'Undo' option, the node(s) reappeared in their previous position. Deletes are final (a destruction of data); removals are temporary (old data still accessible). While deletes are commonly associated with a trash can rather than removals, the visible trash can is so intuitive and obvious that users would be more likely to engage the feature. 
 
 ![old_del2](images/old_delete2.png)
 
@@ -25,7 +34,7 @@ I think we can have both a clear and remove option. This can take the form of th
 
 ![del/rem](images/delete-remove.png)
 
-- **References**: [Remove vs Delete](https://medium.com/swlh/ui-copy-remove-vs-delete-33c58ce16d9b)
+- **References**: [Remove vs Delete](https://medium.com/swlh/ui-copy-remove-vs-delete-33c58ce16d9b) and [Trash can unambiguous](https://medium.com/@annakop/lean-ux-icon-testing-7f7fb78412e)
 
 ---
 
@@ -66,7 +75,8 @@ This icon pulls out the side bar for both "Format" and "Definition". Format cons
 
 - **Suggestion**: change the sidebar section for 'Format' to be *just* formatting features.
 
-#### Text
+#### Test
+This running man icon is supposed to indicate testing. However, it's not intuitive other than the fact that we have to *"run"* a test. It makes it very hard for users to discover the testing section which is, arguably, the most important section. This is not a good signifier and, likely, users wouldn't even click on it until they had given up other options and would be surprised that this was, in fact, testing.
 
 #### Transform
 The purpose of this option is to convert DFA :left_right_arrow: NFA, flip accept :left_right_arrow: nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. A pencil icon usually means modify/edit/create on the user's behalf. However, the program is doing all the transforming so another icon is better suited.
@@ -81,6 +91,11 @@ This has the same icon as the 'Save' in the top/app bar. Both of these options p
 
 - **Suggestion**: Choose whether icon should live in top bar or side bar and use the correct Download icon (bar with arrow). <br/>
 - **References**: [Download, Upload, Export, Import](https://graphicdesign.stackexchange.com/questions/119273/import-export-vs-upload-download-icons-arrow-direction)
+
+---
+
+### Feedback
+
 
 ---
 
