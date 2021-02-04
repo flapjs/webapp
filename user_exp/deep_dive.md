@@ -14,6 +14,20 @@
 ### Iconography
 **Initial Note**: *most icons going forward should have a small text description/title to make it more accessible and obvious. It won't detract from the UI but help to clarify features. We need to prepare not for the ideal user but the one that may click the "new" icon and remove all their work by accident.*
 
+**Importance of Iconography**:
+- Good targets: they are typically sized large enough to be easily touched in a finger-operated UI, but also work well with a mouse cursor (in contrast to words, which can suffer from read–tap asymmetry on touch screens)
+- Save space: icons can be compact enough to allow toolbars, palettes, and so on to display many icons in a relatively small space
+- Fast recognition — particularly true for standard icons that people have seen and used before
+- Works internationally no no translation issues
+- Visual appeal which enhances the aesthetic appeal of a design.
+
+**Good Iconography**:
+- Design is simple and schematic. Use basic characteristics of the object rather than creating a highly realistic image in order to speed up recognition. (Intricate details are difficult to distinguish at smaller sizes.)
+- Use the 5-second rule: if it takes you more than 5 seconds to think of an appropriate icon for something, it doesn't communicate its meaning well
+- Recognizability: ask people what they expect the icons to stand for
+- Memorability: do people remember the icon’s meaning after being told what it represented a couple weeks earlier
+- Use as many universal icons are possible: magnifying glass, user profile, link, (eventually Hamburger menu)
+
 | New | Undo | Redo | Save | Upload | Bug Report |
 | --- | ---- | ---- | ---- | ------ | ---------- |
 | ![new](images/new_icon.png) | ![undo](images/undo_icon.png) | ![redo](images/redo_icon.png) | ![save](images/save_icon.png) | ![upload](images/upload_icon.png) | ![bug](images/bug_icon.png) |
