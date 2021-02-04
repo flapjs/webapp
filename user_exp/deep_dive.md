@@ -134,6 +134,37 @@ This has the same icon as the 'Save' in the top/app bar. Both of these options p
 | ---------------- | ------------------ | -------------- | ---------------- | ----------------- |
 | ![def_lab](images/def_label.png) | ![det_btn](images/determinism_btn.png) | ![states](images/states.png) | ![alphabet](images/alphabet.png) | ![def_btn](images/definition_btn.png) |
 
+#### Definition Label
+The user can click this label to expand or contract the section on definitions. There is good feedback in that, when the user hovers over the label, it turns grey (from black) indicating it can be clicked. There is also instant feedback with the section being hid or revealed upon a button press. Without the changing color, users wouldn't know it was a button rather than just text. For exand/contract sections, they are usually paired with a disclosure triangle to signify that the section can be condensed. Note: I don't know if we really need to expand/contract so we should determine that need.
+
+- **Suggestion**: add disclosure triangle to make it even more obvious
+
+---
+
+#### Determinism Button
+This button isn't in a tradition style. Most buttons are a solid color with text over it; when a mouse hovers, they change color slightly (darker/lighter) to indicate clickability; when a mouse clicks, they change color or depress to indicate that the action was successfully taken (bridging the Gap of Evaluation). However, this button has no change on a hover nor does it look like a traditional button so there may not be enough discoverability. This button is a conditional button which has a binary option of A or B which is chosen by clicking one side and making that chosen one stand out (brighter).
+
+- **Suggestion**: redesign this as a more traditional conditional button
+
+---
+
+#### States Content & Alphabet Content
+This should just be text, however, when the user hovers over it, it changes the background color to grey (from black) which indicates clickability. This is counter-intuitive in that the user cannot actually change the text. They may try to change the text and find that nothing happens and fall into the blame game; they may even feel dejected and be less likely to use this section in the future.
+
+- **Suggestion**: should not have any change upon a hover (no feedback!)
+
+---
+
+#### Definition Button
+This is also text and the
+
+---
+
+### Buttons
+
+- **References**:
+  - [How to Design Good Buttons](https://uxdesign.cc/ui-cheat-sheets-buttons-7329ed9d6112)
+  - [Types of Buttons](https://semantic-ui.com/elements/button.html) 
 
 ---
 
