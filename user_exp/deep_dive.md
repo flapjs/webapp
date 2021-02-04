@@ -14,6 +14,10 @@ The purpose of this icon is to create a fresh, new page. It basically clears all
 
 In the webapp, we had a giant trash can at the bottom of the screen. Users could either (a) drag a node towards the trash can, the lines around the screen would go red, and the node would disappear OR (b) they could double-click on the trash can to delete the whole whiteboard. The trash can is an icon everyone is familiar with. However, it was incorrectly labeled 'Delete' when it was actually a 'Remove' because, upon clicking the 'Undo' option, the node(s) reappeared in their previous position. Deletes are final (a destruction of data); removals are temporary (old data still accessible). While deletes are commonly associated with a trash can rather than removals, the visible trash can is so intuitive and obvious that users would be more likely to engage the feature. 
 
+![old_del1](images/old_delete.png)
+
+![old_del2](images/old_delete2.png)
+
 I think we can have both a clear and remove option. This can take the form of the following:
 - (a) clear and remove are both icons at the top; both are trash cans with one having an 'x' for a more permanent deletion (aka clear)
 - (b) users can back/right click on the whiteboard and choose clear
@@ -21,9 +25,7 @@ I think we can have both a clear and remove option. This can take the form of th
 - NOTE: we may want to have a notification of "Are you sure you want to clear" to confirm they understand that a clear removes ALL work
   - we can also log whether they're a new user or not so we only give them this warning the first time they use the site so it doesn't get annoying
 
-![old_del1](images/old_delete.png)
-
-![old_del2](images/old_delete2.png)
+![del/rem](images/delete-remove.png)
 
 - **References**: [Remove vs Delete](https://medium.com/swlh/ui-copy-remove-vs-delete-33c58ce16d9b)
 
