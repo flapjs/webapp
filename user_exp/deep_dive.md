@@ -55,6 +55,13 @@ The bug logo is explicit and does fit its name. It may be fine to keep it, howev
 | ------ | ------ | ---- | --------- | ------ | 
 | ![expand](images/expand_icon.png) | ![format](images/format_icon.png) | ![test](images/test_icon.png) | ![transform](images/transform_icon.png) | ![export](images/save_icon.png) |
 
+#### Transform
+The purpose of this option is to convert DFA <--> NFA, flip accept <--> nonaccept states, or delete unreachable states. All of these are more 'conversions' or 'swaps' than transformations. I think we should use 2 circular arrows to indicate we are alternating between states to be more indicative. A pencil icon usually means modify/edit/create on the user's behalf. However, the program is doing all the transforming so another icon is better suited.
+
+![new_transform](imaages/new_transform.png)
+
+- **References**: [Pencil Icon](https://ux.stackexchange.com/questions/117143/pencil-icon-for-create-vs-edit-is-there-a-correct-answer)
+
 
 #### Export
 This has the same icon as the 'Save' in the top/app bar. Both of these options pull out the sidebar and give options on how to download the work as different file types. This is NOT an export as we are not sharing but downloading the file locally. It is redundant to have 2 icons doing the same thing but labelled differently. This icon obviously goes against the traditional 'Export' icon (arrow pointing up, outside of box) as our arrow points inward. We need to remove one of these icons and make it represent the download one.
