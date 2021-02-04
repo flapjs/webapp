@@ -3,11 +3,11 @@
 ### Table of Contents
 
 ### User Persona
-#### Who
-
-#### What are their constraints?
+#### Who + Constraints
+Undergraduate student enrolled in Computer Science or CSE-adjacent fields. They have lots of large projects, programming assignments, and do not have much time daily. Many also suffer from procrastination or limited work time. They are likely taking an Automata class along with other challenging courses creating a heavy course load. They also may use forms of social media and have been primed for specific UI/UX choices surrounding icons, feedback, flows, etc. If they code, they may be using APIs like VSCode that allow more control over the style; some might prefer Dark Modes. They are accustomized to customization in UI and a streamlined experience. They are used to instant loading, feedback, and gratification. If something isn't obvious, they may leave the site immediately.
 
 #### What are their needs?
+They require obvious iconography; they want to know what features there are at a glance and are unlikely to read lots of text (it must be very pictoral). They want a very clean UI. Many prefer customization (like text sizing, dark mode, etc.). They are likely to use this tool for Automata assignments which would primarilly include creating, editing, and deleting. Therefore, the most obvious features of the UI must be around creating nodes and edges, deleting, clearing, redo-ing and undo-ing. Users may be more likely to screenshot than export their work. A portion of students would use our site over another drawing tool because of the **Testing** feature. Therefore, the testing experience must be efficient, obvious, and easy to use.
 
 ---
 
