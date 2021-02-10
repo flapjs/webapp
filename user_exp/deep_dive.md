@@ -215,3 +215,4 @@ ___
 3. It's not clear whether the tests ran well.
 4. The issues bar, when collapsed, has a weird expansion thing that will shift it down.
 - ![issues_bar](images/issues_bar.png)
+5. On Safari, random clickable 'X' is next to side bar and doesn't do anything. Doesn't show up on Firefox.
