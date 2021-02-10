@@ -20,12 +20,6 @@
     display: none;
 }
 
-.src-components-__App-module__theme--2efFc {
-    --theme-color-primary: #333641;
-    --theme-color-text: white;
-    --theme-color-surface: gray;
-}
-
 .src-components-sidebar-__SideBarLayout-module__container--1RGMP {
     position: relative;
     display: flex;
@@ -37,12 +31,12 @@
     overflow: hidden;
 
     --side-margin: auto;
-    --side-background: #333641;
+    --side-background: var(--primary);
 }
 
 .src-components-sidebar-__SideBarLayout-module__sideBar--2BFCH {
     z-index: 20;
-    background: var(--side-background);
+    background-color: var(--side-background);
     overflow: auto;
     flex-shrink: 0;
 
@@ -100,9 +94,9 @@
     width: 100%;
     height: 100%;
 
-    --drawer-layout-handle: var(--primary, #333641);
-    --drawer-layout-background: var(--primary-dark, #1D1E22);
-    --drawer-layout-text: var(--primary-text, #FFFFFF);
+    --drawer-layout-handle: var(--primary);
+    --drawer-layout-background: var(--primary-dark);
+    --drawer-layout-text: var(--primary-text);
 }
 
 .src-services-drawer-layout-__DrawerLayout-module__viewport--2umQ- {
@@ -193,6 +187,22 @@
     transform: translateY(100%);
 }
 
+/** TODO: Fix this. There's a random space between drawer and sidebar when tabbing. */
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY:not(.open).left:focus-within,
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY:not(.open).right:focus-within {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+    right: 20rem;
+}
+
+/** TODO: Fix this. There's a random space between drawer and sidebar when tabbing. */
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY:not(.open).top:focus-within,
+.src-services-drawer-layout-__DrawerLayout-module__drawer--1CeuY:not(.open).bottom:focus-within {
+    /** Forces drawer to exit the flow. */
+    position: absolute;
+    bottom: 20rem;
+}
+
 .src-services-drawer-layout-__DrawerLayout-module__handle--3PWEy {
     position: absolute;
     width: 100%;
@@ -239,7 +249,7 @@
 
 .src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5 {
     display: flex;
-    color: white;
+    color: var(--primary-text);
     text-align: center;
 }
 
@@ -251,11 +261,7 @@
     outline: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    color: white;
-}
-
-.src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5 > *:focus {
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-text);
 }
 
 .src-services-drawer-__DrawerSideBar-module__sidetab--2vIq5.horizontal {
@@ -285,8 +291,17 @@
     border-radius: 0.5rem;
     cursor: pointer;
 
-    /** DEBUG: This should inherit from its parent instead */
-    color: white;
+    /* Should be inherited from parent. */
+    color: var(--primary-text, white);
+}
+
+.src-components-icons-__IconButton-module__container--3AYpC:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.src-components-icons-__IconButton-module__container--3AYpC:focus {
+    background-color: var(--primary-focus, rgba(255, 255, 255, 0.1));
 }
 
 .src-components-icons-__IconButton-module__icon--3yNRJ {
@@ -299,25 +314,17 @@
     color: currentColor;
 }
 
-.src-components-icons-__IconButton-module__container--3AYpC:disabled {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
 .src-components-appbar-__AppBar-module__container--2jfDY {
     display: flex;
     flex-direction: row;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
-    width: 100%;
+    padding: 0 0.4rem;
+    width: calc(100% - 0.8rem);
     height: 100%;
-    background: #333641;
-    color: #FFFFFF;
-}
-
-.src-components-appbar-__AppBar-module__container--2jfDY > * {
-    margin-right: 1rem;
+    background-color: var(--primary);
+    color: var(--primary-text);
 }
 
 .src-components-appbar-__AppBar-module__container--2jfDY::-webkit-scrollbar {
@@ -390,20 +397,22 @@
 
 .src-components-logo-__Logo-module__container--33Xrv {
     display: inline-block;
-    margin-left: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0 0.3em;
+    font-size: 1.2em;
 }
 
 .src-components-logo-__Logo-module__logo--2e8Bt {
-    padding: 0 0.3rem;
-    border-radius: 0.5rem;
+    padding: 0 0.3em;
+    border-radius: 0.5em;
     transition: background-color 0.3s ease;
     -webkit-user-select: none;
             user-select: none;
+    background-color: var(--primary-focus);
 }
 
 .src-components-logo-__Logo-module__logo--2e8Bt:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--primary-active);
+    cursor: pointer;
 }
 
 .src-components-logo-__Logo-module__title--37GKA {
@@ -416,10 +425,10 @@
     display: inline;
     margin: 0;
     padding: 0;
-    margin-left: 0.2rem;
-    margin-top: 1rem;
-    font-size: 0.6rem;
+    margin-left: 0.2em;
+    font-size: 0.5em;
     bottom: 0;
+    opacity: 0.6;
 }
 
 .src-components-__ModuleSelector-module__container--3STXK {
@@ -454,6 +463,98 @@
 }
 
 .src-components-__ModuleSelector-module__selector--3uGBw {
-    margin: 0 0.5rem;
+    font-size: 1em;
+    width: 80%;
+}
+
+.src-components-welcome-__WelcomeScreen-module__container--2hbpR {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    opacity: 1;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    --welcome-layout-background: var(--primary);
+    --welcome-layout-text: var(--primary-text);
+    --welcome-layout-focus: var(--primary-focus);
+}
+
+.src-components-welcome-__WelcomeScreen-module__container--2hbpR.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.src-components-welcome-__WelcomeScreen-module__content--2OKt0 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: var(--welcome-layout-text);
+}
+
+.src-components-welcome-__WelcomeScreen-module__content--2OKt0 > * {
+    flex: 1;
+}
+
+.src-components-welcome-__WelcomeScreen-module__button--ebQns {
+    flex: 0;
+    margin: 1rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    border: 4px solid var(--welcome-layout-text);
+    border-radius: 2rem;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    color: var(--welcome-layout-text);
+}
+
+.src-components-welcome-__WelcomeScreen-module__button--ebQns:hover {
+    background-color: var(--welcome-layout-focus);
+}
+
+.src-components-welcome-__WelcomeScreen-module__button--ebQns:active {
+    border: 4px solid var(--welcome-layout-text);
+}
+
+.src-components-welcome-__WelcomeScreen-module__dialog--2Cpug {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 80vmin;
+    height: 60vmin;
+    padding: 0.5rem;
+    border-top: 1rem solid;
+    border-color: black;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+    background-color: var(--welcome-layout-background);
+}
+
+.src-components-welcome-__WelcomeScreen-module__close--53q3j {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+}
+
+.src-components-welcome-__WelcomeScreen-module__footer--s5PAg {
+    color: gray;
+    flex: 0;
+    font-size: 0.5em;
+    padding: 0;
+    margin: 0;
+}
+
+.src-components-welcome-__WelcomeScreen-module__footer--s5PAg a {
+    color: silver;
+}
+
+.src-components-welcome-__WelcomeScreen-module__footer--s5PAg a:visited {
+    color: gold;
 }
 
