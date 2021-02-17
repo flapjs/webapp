@@ -26,20 +26,20 @@ export default function ExportPanel(props)
     return (
         <>
             <header>
-                <h2 style={{ margin: '1rem' }}>Export</h2>
+                <h2 style={{ margin: '1rem' }}>Save</h2>
             </header>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
-                <Pane title="Export">
+                <Pane title="Save">
                     <FieldInput id="fileName"
                         value={fileName}
                         onChange={e => setFileName(e.target.value)}>
                         Enter filename
                     </FieldInput>
                     <ul style={{ padding: 0, listStyle: 'none' }}>
-                        <li><FieldButton id="exportGraph" onClick={() => exportTo(fileName, 'graph', { graphType, graphState })}>Save to File</FieldButton></li>
-                        <li><FieldButton id="exportJFLAP" onClick={() => exportTo(fileName, 'jflap', { graphType, graphState })}>Export to JFF</FieldButton></li>
-                        <li><FieldButton id="exportToImage" onClick={() => exportTo(fileName, 'image', { svgRef })}>Export to Image</FieldButton></li>
-                        <li><FieldButton id="exportToSVG" onClick={() => exportTo(fileName, 'svg', { svgRef })}>Export to SVG</FieldButton></li>
+                        <li><FieldButton id="exportGraph" onClick={() => exportTo(fileName, 'graph', { graphType, graphState })}>Save as JSON</FieldButton></li>
+                        <li><FieldButton id="exportJFLAP" onClick={() => exportTo(fileName, 'jflap', { graphType, graphState })}>Save as JFF</FieldButton></li>
+                        <li><FieldButton id="exportToImage" onClick={() => exportTo(fileName, 'image', { svgRef })}>Save as PNG</FieldButton></li>
+                        <li><FieldButton id="exportToSVG" onClick={() => exportTo(fileName, 'svg', { svgRef })}>Save as SVG</FieldButton></li>
                     </ul>
                 </Pane>
             </div>
