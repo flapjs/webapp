@@ -2,11 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Style from './DrawerSideBar.module.css';
 
-import { DrawerExpander } from './DrawerExpander.jsx';
-
-import IconButton from '@flapjs/components/icons/IconButton.jsx';
-import { TinyDownIcon } from '@flapjs/components/icons/Icons.js';
-
 /** A component that contains the tabs for the drawer layout. */
 export default function DrawerSideBar(props)
 {
@@ -14,9 +9,6 @@ export default function DrawerSideBar(props)
 
     return (
         <div className={Style.sidetab + ' ' + direction}>
-            <DrawerExpander>
-                { callback => <IconButton onClick={callback} iconClass={TinyDownIcon}/> }
-            </DrawerExpander>
             {props.children}
         </div>
     );

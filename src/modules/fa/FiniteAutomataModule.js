@@ -12,7 +12,6 @@ import FiniteAutomataGraphPlayground from './graph/FiniteAutomataGraphPlayground
 import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
 import ComputePanel from './drawer/compute/ComputePanel.jsx';
 import TestingPanel from './drawer/testing/TestingPanel.jsx';
-import ExportPanel from './drawer/export/ExportPanel.jsx';
 
 import GraphMachineSource from '@flapjs/services/graphmachine/GraphMachineSource.jsx';
 import GraphMachineNotifier from '@flapjs/services/graphmachine/GraphMachineNotifier.jsx';
@@ -49,7 +48,7 @@ export default class FiniteAutomataModule extends BaseModule
                 NotificationService.NotificationList,
             ],
             viewarea: [],
-            drawer: [OverviewPanel, TestingPanel, ComputePanel, ExportPanel],
+            drawer: [OverviewPanel, TestingPanel, ComputePanel],
         };
     }
 

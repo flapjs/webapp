@@ -48,11 +48,11 @@ class Pane extends React.Component
                             <span className={Style.title}>
                                 {props.title}
                             </span>
-                            <TinyDownIcon className="icon" />
+                            <TinyDownIcon className="icon" height="50"/>
                         </button>
                     </header>
                     <main>
-                        {props.children}
+                        {props.children}        
                     </main>
                 </div>
             </section>
