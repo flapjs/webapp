@@ -2,9 +2,11 @@ import React from 'react';
 
 import { PageContentIcon } from '@flapjs/components/icons/Icons.js';
 
-import { UNION, CONCAT, KLEENE, PLUS, EMPTY, SIGMA, EMPTY_SET } from '@flapjs/modules/re/machine/RegularExpression.js';
+// import { UNION, CONCAT, KLEENE, PLUS, EMPTY, SIGMA, EMPTY_SET } from '@flapjs/modules/re/machine/RegularExpression.js';
 
 import Pane from '@flapjs/components/pane/Pane.jsx';
+
+import TerminalList from './definition/TerminalList.jsx';
 
 export default function OverviewPanel(props)
 {
@@ -15,7 +17,8 @@ export default function OverviewPanel(props)
             </header>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
                 <Pane title="Definition">
-                    <ul>
+                    <TerminalList />
+                    {/* <ul>
                         <li>Terminals</li>
                         <li>a</li>
                         <li>b</li>
@@ -32,7 +35,7 @@ export default function OverviewPanel(props)
                         <li>{CONCAT}</li>
                         <li>{KLEENE}</li>
                         <li>{PLUS}</li>
-                    </ul>
+                    </ul> */}
                 </Pane>
             </div>
         </>
