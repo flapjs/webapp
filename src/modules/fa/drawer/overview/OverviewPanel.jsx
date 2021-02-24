@@ -12,6 +12,7 @@ import DeterminismSwitch from './definition/DeterminismSwitch.jsx';
 import TransitionTable from './analysis/TransitionTable.jsx';
 import GraphLayoutOptions from './format/GraphLayoutOptions.jsx';
 import AlphabetLabelOptions from './format/AlphabetLabelOptions.jsx';
+import FieldSwitch from '@flapjs/components/lib/FieldSwitch.jsx';
 /* import NodeLabelOptions from './format/NodeLabelOptions.jsx';
 import EdgeCurveOptions from './format/EdgeCurveOptions.jsx'; */
 
@@ -33,10 +34,17 @@ export default function OverviewPanel(props)
                     <DeterminismSwitch machineName={machineName} />
                     <StateList machineName={machineName} />
                     <AlphabetList machineName={machineName} />
-                    <button id={'toggle'}
-                        onClick={() => setMenu(activeMenu === FUNCTION_MENU ? TABLE_MENU : FUNCTION_MENU)}>
-                        {activeMenu === FUNCTION_MENU ? TABLE_MENU : FUNCTION_MENU}
-                    </button>
+                    <fieldset>
+                    <legend>Transition Type</legend>
+                        <FieldSwitch
+                            //id={inputId}
+                            //checked={machine.isDeterministic()}
+                            checked={activeMenu !== FUNCTION_MENU}
+                            on={'Piece-wise definition of δ'}
+                            off={'Table definition of δ'}
+                            onChange={() => setMenu(activeMenu === FUNCTION_MENU ? TABLE_MENU : FUNCTION_MENU)}
+                        />
+                    </fieldset>
                     {activeMenu === FUNCTION_MENU ? <TransitionTable machineName={machineName} /> : <TransitionChart machineName={machineName} />}
 
 

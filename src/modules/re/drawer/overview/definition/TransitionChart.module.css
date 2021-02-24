@@ -1,0 +1,16 @@
+.chartKey {
+    text-align: center;
+}
+
+.chartValue {
+    text-align: center;
+}
+
+.chartKey:global(.error),
+.chartValue:global(.error) {
+    color: red;
+}
+
+.forAllOtherInputs .chartKey {
+    font-size: 0.8rem;
+}

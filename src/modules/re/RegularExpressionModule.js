@@ -2,7 +2,7 @@ import BaseModule from '../base/BaseModule.js';
 
 import RegularExpressionWorkspace from './RegularExpressionWorkspace.jsx';
 import { MachineProvider } from './machinebuilder/RegularExpressionContext.jsx';
-import ExamplePanel from './drawer/ExamplePanel.jsx';
+// import ExamplePanel from './drawer/ExamplePanel.jsx';
 
 import OverviewPanel from './drawer/overview/OverviewPanel.jsx';
 import ComputePanel from './drawer/compute/ComputePanel.jsx';
@@ -29,7 +29,7 @@ export default class RegularExpressionModule extends BaseModule
     {
         return {
             drawer: [
-                ExamplePanel,
+                // ExamplePanel,
                 OverviewPanel,
                 TestingPanel,
                 ComputePanel,

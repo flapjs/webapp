@@ -308,6 +308,8 @@ export class RegularExpression
         this.errors = [];
         this.warnings = [];
     }
+    getTerminals() {return this.terminals;}
+    
 }
 
 function stripWhitespace(string)

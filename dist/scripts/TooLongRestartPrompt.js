@@ -8,6 +8,7 @@ function onTooLongRestartIntervalUpdate()
     if (nonEmptyRoot)
     {
         showPrompt(false);
+        localStorage.removeItem('__restarted');
     }
     else
     {
@@ -25,5 +26,14 @@ function showPrompt(value)
 
 function onRestartButtonClick()
 {
+    if (localStorage.getItem('__restarted'))
+    {
+        // If this is the second restart, clear everything.
+        localStorage.clear();
+    }
+    else
+    {
+        localStorage.setItem('__restarted', 'true');
+    }
     window.location.reload();
 }
