@@ -75,16 +75,18 @@ export default function RegularExpressionPlayArea(props)
     );
 
     return (
-        <div className={StyleV.view_widget + ' ' + ExpressionViewStyle.expression_tray + ' ' + ExpressionViewStyle.tray_important}>
-        <input className={StyleV.workspace} value={machine.string} onChange={onInputChange}></input>
-        
-            <button title="Epsilon"       onClick={onEpsilonPress}>{EMPTY}</button>
-            <button title="Union"       onClick={onUnionPress}>{UNION}</button>
-            <button title="Concat"       onClick={onConcatPress}>{CONCAT}</button>
-            <button title="Kleene"       onClick={onKleenePress}>{KLEENE}</button>
-            <button title="PLUS"       onClick={onPLUSPress}>{PLUS}</button>
-            <button title="SIGMA"       onClick={onSIGMAPress}>{SIGMA}</button>
-            <button title="EMPTY_SET"       onClick={onEMPTY_SETPress}>{EMPTY_SET}</button>
+        <div>
+            
+            <input className={Style.workspace} value={machine.string} onChange={onInputChange}></input>
+            <div className={Style.view_widget + ' ' + ExpressionViewStyle.expression_tray + ' ' + ExpressionViewStyle.tray_important}>            
+                <button title="Epsilon"       onClick={onEpsilonPress}>{EMPTY}</button>
+                <button title="Union"       onClick={onUnionPress}>{UNION}</button>
+                <button title="Concat"       onClick={onConcatPress}>{CONCAT}</button>
+                <button title="Kleene"       onClick={onKleenePress}>{KLEENE}</button>
+                <button title="PLUS"       onClick={onPLUSPress}>{PLUS}</button>
+                <button title="SIGMA"       onClick={onSIGMAPress}>{SIGMA}</button>
+                <button title="EMPTY_SET"       onClick={onEMPTY_SETPress}>{EMPTY_SET}</button>
+            </div>
         </div>
     );
 }
