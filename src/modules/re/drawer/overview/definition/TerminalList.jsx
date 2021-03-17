@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import ItemListStyle from './ItemList.module.css';
 
 import { useMachine } from '../../../machinebuilder/RegularExpressionContext.jsx';
@@ -9,14 +9,15 @@ import { EMPTY_SET } from '@flapjs/modules/fa/machine/Symbols.js';
 export default function TerminalList(props)
 {
     const machine = useMachine();
-    const terminals = machine.getTerminals();
+    let terminals = new Set(Array.from(machine.getTerminals()));
+    //console.log(terminals);
 
     return (
         <fieldset>
             <legend>
                 Terminals
             </legend>
-            {terminals.length <= 0
+            {terminals.size <= 0
                 ? (
                     <ul className={ItemListStyle.itemList}>
 
@@ -39,10 +40,10 @@ export default function TerminalList(props)
                         </li>
 
 
-                        {terminals.map((e, index) => (
+                        {Array.from(terminals).map((e, index) => (
                             <li key={e}>
                                 <label className={ItemListStyle.itemLabel}>
-                                    {index < terminals.length - 1 ? e + ',' : e}
+                                    {index < terminals.size - 1 ? e + ',' : e}
                                 </label>
                             </li>
                         ))}
@@ -61,5 +62,4 @@ export default function TerminalList(props)
     );
 }
 TerminalList.propTypes = {
-    machineName: PropTypes.string.isRequired,
 };

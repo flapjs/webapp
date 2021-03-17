@@ -7,27 +7,30 @@ import { DownloadIcon } from '@flapjs/components/icons/Icons.js';
 
 import FieldButton from '@flapjs/components/lib/FieldButton.jsx';
 import FieldInput from '@flapjs/components/lib/FieldInput.jsx';
+import { useMachine } from '../../machinebuilder/RegularExpressionContext.jsx';
+
 
 const UNTITLED_FILENAME = 'Untitled';
 
 export default function ExportPanel(props)
 {
     const [fileName, setFileName] = useState(UNTITLED_FILENAME);
+    const re = useMachine();
 
     return (
         <>
             <header>
-                <h2 style={{ margin: '1rem' }}>Export</h2>
+                <h2 style={{ margin: '1rem' }}>Save</h2>
             </header>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}>
-                <Pane title="Export">
+                <Pane title="Save">
                     <FieldInput id="fileName"
                         value={fileName}
                         onChange={e => setFileName(e.target.value)}>
                         Enter filename
                     </FieldInput>
                     <ul style={{ padding: 0, listStyle: 'none' }}>
-                        <li><FieldButton id="exportMachine" onClick={() => exportTo(fileName, 'machine', { /* PUT MACHINE STATE HERE */})}>Save to File</FieldButton></li>
+                        <li><FieldButton id="exportMachine" onClick={() => exportTo(fileName, 'txt', re.string)}>Save as TXT</FieldButton></li>
                     </ul>
                 </Pane>
             </div>
@@ -36,7 +39,7 @@ export default function ExportPanel(props)
 }
 ExportPanel.tabIcon = DownloadIcon;
 
-function exportTo(fileName, exportType, opts)
+function exportTo(fileName, exportType, str)
 {
     if (!fileName)
     {
@@ -45,8 +48,8 @@ function exportTo(fileName, exportType, opts)
 
     switch (exportType)
     {
-        case 'machine':
-            Downloader.downloadText(fileName + '.re.json', ''/*RegularExpressionMachineExporter(opts)*/);
+        case 'txt':
+            Downloader.downloadText(fileName + '.txt', str);
             break;
     }
 }

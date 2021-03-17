@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Style from './RegularExpressionWorkspace.module.css';
-import StyleV from './ViewportView.css';
+//import StyleV from './ViewportView.css';
 import ExpressionViewStyle from './ExpressionView.css';
 
 const EMPTY = '\u03B5';
@@ -25,31 +25,31 @@ export default function RegularExpressionPlayArea(props)
     [machineBuilder]);
 
     const onEpsilonPress = useCallback(() =>
-        {
-            machineBuilder.update({ expressionString: machine.string + EMPTY});
-        },
-        [machineBuilder]
+    {
+        machineBuilder.update({ expressionString: machine.string + EMPTY});
+    },
+    [machineBuilder, machine.string]
     );
 
     const onUnionPress = useCallback(() =>
     {
         machineBuilder.update({ expressionString: machine.string + UNION});
     },
-    [machineBuilder]
+    [machineBuilder, machine.string]
     );
 
     const onConcatPress = useCallback(() =>
     {
         machineBuilder.update({ expressionString: machine.string + CONCAT});
     },
-    [machineBuilder]
+    [machineBuilder, machine.string]
     );
     
     const onKleenePress = useCallback(() =>
     {
         machineBuilder.update({ expressionString: machine.string + KLEENE});
     },
-    [machineBuilder]
+    [machineBuilder, machine.string]
     );
 
     
@@ -57,25 +57,25 @@ export default function RegularExpressionPlayArea(props)
     {
         machineBuilder.update({ expressionString: machine.string + PLUS});
     },
-    [machineBuilder]
+    [machineBuilder, machine.string]
     );
 
     const onSIGMAPress = useCallback(() =>
     {
         machineBuilder.update({ expressionString: machine.string + SIGMA});
     },
-    [machineBuilder]
+    [machineBuilder, machine.string]
     );
 
     const onEMPTY_SETPress = useCallback(() =>
     {
         machineBuilder.update({ expressionString: machine.string + EMPTY_SET});
     },
-    [machineBuilder]
+    [machineBuilder, machine.string]
     );
 
     return (
-        <div>
+        <div className = {Style.center}>
             
             <input className={Style.workspace} value={machine.string} onChange={onInputChange}></input>
             <div className={Style.view_widget + ' ' + ExpressionViewStyle.expression_tray + ' ' + ExpressionViewStyle.tray_important}>            

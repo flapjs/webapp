@@ -36,7 +36,11 @@ export default function TestString(props)
                 value={value}
                 placeholder={EMPTY_SYMBOL}
                 onChange={onChange} />
-            <label style={{ fontSize: '1.5rem' }}>
+            <label style={
+                { fontSize: '1.5rem',
+                    color: (renderedStatus == '\u2611')? 'green' : 'red'
+                }
+            }>
                 {renderedStatus}
             </label>
             <IconButton
