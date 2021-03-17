@@ -149,15 +149,18 @@ function createTerminalNode(node, symbol, index)
 
 export class RegularExpression
 {
-    static parse(expressionString)
+    static parse(expressionString) 
     {
         let validationResult = this.validate(expressionString);
         let expression = injectConcatSymbols(expressionString);
+
+
 
         if (validationResult.errors.length <= 0 && validationResult.warnings.length <= 0)
         {
             let nodes = [];
             let terminals = [];
+            //let terminals = new Set();
 
             let openScopeStack = [];
             let current = null;
@@ -228,7 +231,7 @@ export class RegularExpression
         return result;
     }
 
-    static validate(expressionString)
+    static validate(expressionString) 
     {
         let errors = [];
         let warnings = [];
