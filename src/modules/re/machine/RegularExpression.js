@@ -154,8 +154,6 @@ export class RegularExpression
         let validationResult = this.validate(expressionString);
         let expression = injectConcatSymbols(expressionString);
 
-
-
         if (validationResult.errors.length <= 0 && validationResult.warnings.length <= 0)
         {
             let nodes = [];

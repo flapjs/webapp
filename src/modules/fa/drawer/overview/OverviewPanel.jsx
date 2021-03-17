@@ -35,7 +35,7 @@ export default function OverviewPanel(props)
                     <StateList machineName={machineName} />
                     <AlphabetList machineName={machineName} />
                     <fieldset>
-                    <legend>Transition Type</legend>
+                        <legend>Transition Type</legend>
                         <FieldSwitch
                             //id={inputId}
                             //checked={machine.isDeterministic()}

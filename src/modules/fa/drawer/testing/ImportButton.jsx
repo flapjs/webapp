@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Upload from '@flapjs/components/upload/Upload.jsx';
-import { UploadIcon } from '@flapjs/components/icons/Icons.js';
+//import { UploadIcon } from '@flapjs/components/icons/Icons.js';
 
 const ACCEPTED_FILE_TYPES = '.txt'; // '.txt, .jpg, .png, etc.' for accepting multiple file types
 

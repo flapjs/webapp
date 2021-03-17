@@ -104,7 +104,7 @@ export default function StringTester(props)
     );
 }
 StringTester.propTypes = {
-    machineBuilderType: PropTypes.elementType.isRequired,
+    machineBuilderType: PropTypes.elementType,
     machineName: PropTypes.string,
 };
 StringTester.defaultProps = {
