@@ -83,7 +83,7 @@ export default function RegularExpressionPlayArea(props)
     return (
         <div className = {Style.center}>
             
-            <input className={Style.workspace} value={machine.terminals} onChange={onTerminalChange}></input>
+            <input className={Style.workspace} value={SIGMA+' '+machine.terminals} onChange={onTerminalChange}></input>
             <input className={Style.workspace} value={machine.string} onChange={onInputChange}></input>
             <div className={Style.view_widget + ' ' + ExpressionViewStyle.expression_tray + ' ' + ExpressionViewStyle.tray_important}>            
                 <button title="Epsilon"   onClick={onEpsilonPress}  >{EMPTY}</button>

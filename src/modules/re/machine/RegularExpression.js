@@ -9,6 +9,7 @@ export const EMPTY = '\u03B5';
 export const SIGMA = '\u03A3';
 export const EMPTY_SET = '\u2205';
 export const COMMA = ',';
+export const SPACE = ' ';
 
 const SCOPE_SYMBOLS = new Set([
     OPEN,
@@ -25,6 +26,7 @@ const TERMINAL_SYMBOLS = new Set([
     SIGMA,
     EMPTY_SET,
     COMMA,
+    SPACE
 ]);
 
 function isValidTerminal(symbol)
@@ -173,7 +175,7 @@ export class RegularExpression
         // error
         if (validationResult.errors.length > 0 || validationResult.warnings.length > 0) 
         {
-            let result = new RegularExpression(terminalString, expressionString, null, [], []);
+            let result = new RegularExpression(terminalString, expressionString, null, [], terminals);
             result.errors = validationResult.errors;
             result.warnings = validationResult.warnings;
             return result;
