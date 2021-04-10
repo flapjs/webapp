@@ -8,7 +8,7 @@ export const RegularExpressionContext = React.createContext(null);
 export function MachineProvider(props)
 {
     const state = useState({
-        machine: RegularExpression.parse('')
+        machine: RegularExpression.parse('','')
     });
 
     return (
@@ -37,7 +37,7 @@ export function useMachineBuilder()
         update(e)
         {
             dispatch({
-                machine: RegularExpression.parse(e.expressionString)
+                machine: RegularExpression.parse(e.terminalString, e.expressionString),
             });
         }
     };
