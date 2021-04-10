@@ -21,7 +21,7 @@ const OPERATOR_SYMBOLS = new Set([
     KLEENE,
     PLUS,
 ]);
-const TERMINAL_SYMBOLS = new Set([
+const IGNORE_SYMBOLS = new Set([
     EMPTY,
     SIGMA,
     EMPTY_SET,
@@ -158,9 +158,11 @@ export class RegularExpression
         let terminals = new Set();
         [...terminalString].forEach(c => 
         {
-            if (!TERMINAL_SYMBOLS.has(c)) 
+            if (!IGNORE_SYMBOLS.has(c) && 
+                !OPERATOR_SYMBOLS.has(c) && 
+                !SCOPE_SYMBOLS.has(c))
             {
-                terminals.add(c);
+                terminals.add(c); // not on any bad lists
             }
         });
         return Array.from(terminals);
@@ -275,6 +277,15 @@ export class RegularExpression
         for(let i = 1; i < expressionString.length; ++i)
         {
             let current = expressionString.charAt(i);
+            // check if recognized
+            if (!terminals.includes(current) &&
+                !OPERATOR_SYMBOLS.has(current) &&
+                !IGNORE_SYMBOLS.has(current) && 
+                !SCOPE_SYMBOLS.has(current)) 
+            {
+                errors.push('Please fill in your alphabet first.');
+            }
+
             switch(current)
             {
                 case UNION:
@@ -299,13 +310,6 @@ export class RegularExpression
                         errors.push('Empty set can only be part of a union or concatenation');
                     }
                     break;
-                default: {
-                    if (!terminals.includes(current)) 
-                    {
-                        // console.log("error")
-                        errors.push('Please fill in your alphabet first.');
-                    }
-                }
             }
             previous = current; // prev = curr for nxt iteration
         }
