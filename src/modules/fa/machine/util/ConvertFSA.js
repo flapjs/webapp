@@ -14,7 +14,7 @@ export function convertToNFA(fsa, dst = new FSA(false))
 
 export function convertToDFA(fsa, dst = new FSA(true))
 {
-    if (fsa.isDeterministic())
+    if (fsa.isDeterministic()) // if alreayd deterministic then return a copy
     {
         dst.copy(fsa);
         return dst;
