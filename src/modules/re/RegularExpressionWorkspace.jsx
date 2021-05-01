@@ -18,81 +18,74 @@ export default function RegularExpressionPlayArea(props)
     const machine = useMachine();
     const machineBuilder = useMachineBuilder();
 
-    const onTerminalChange = useCallback(e => 
-    {
-        machineBuilder.update({ terminalString: e.target.value, expressionString: machine.string });
-    },
-    [machineBuilder, machine.string]);
-
     const onInputChange = useCallback(e =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: e.target.value });
+        machineBuilder.update({ expressionString: e.target.value });
     },
-    [machineBuilder, machine.terminalString]);
+    [machineBuilder]);
 
     const onEpsilonPress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + EMPTY });
+        machineBuilder.update({ expressionString: machine.string + EMPTY});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
 
     const onUnionPress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + UNION });
+        machineBuilder.update({ expressionString: machine.string + UNION});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
 
     const onConcatPress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + CONCAT });
+        machineBuilder.update({ expressionString: machine.string + CONCAT});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
     
     const onKleenePress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + KLEENE });
+        machineBuilder.update({ expressionString: machine.string + KLEENE});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
 
     
     const onPLUSPress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + PLUS});
+        machineBuilder.update({ expressionString: machine.string + PLUS});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
 
     const onSIGMAPress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + SIGMA});
+        machineBuilder.update({ expressionString: machine.string + SIGMA});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
 
     const onEMPTY_SETPress = useCallback(() =>
     {
-        machineBuilder.update({ terminalString: machine.terminalString, expressionString: machine.string + EMPTY_SET});
+        machineBuilder.update({ expressionString: machine.string + EMPTY_SET});
     },
-    [machineBuilder, machine.string, machine.terminalString]
+    [machineBuilder, machine.string]
     );
 
     return (
         <div className = {Style.center}>
             
-            <input className={Style.workspace} value={SIGMA+' '+machine.terminals} onChange={onTerminalChange}></input>
             <input className={Style.workspace} value={machine.string} onChange={onInputChange}></input>
             <div className={Style.view_widget + ' ' + ExpressionViewStyle.expression_tray + ' ' + ExpressionViewStyle.tray_important}>            
-                <button title="Epsilon"   onClick={onEpsilonPress}  >{EMPTY}</button>
-                <button title="Union"     onClick={onUnionPress}    >{UNION}</button>
-                <button title="Concat"    onClick={onConcatPress}   >{CONCAT}</button>
-                <button title="Kleene"    onClick={onKleenePress}   >{KLEENE}</button>
-                <button title="PLUS"      onClick={onPLUSPress}     >{PLUS}</button>
-                <button title="SIGMA"     onClick={onSIGMAPress}    >{SIGMA}</button>
-                <button title="EMPTY_SET" onClick={onEMPTY_SETPress}>{EMPTY_SET}</button>
+                <button title="Epsilon"       onClick={onEpsilonPress}>{EMPTY}</button>
+                <button title="Union"       onClick={onUnionPress}>{UNION}</button>
+                <button title="Concat"       onClick={onConcatPress}>{CONCAT}</button>
+                <button title="Kleene"       onClick={onKleenePress}>{KLEENE}</button>
+                <button title="PLUS"       onClick={onPLUSPress}>{PLUS}</button>
+                <button title="SIGMA"       onClick={onSIGMAPress}>{SIGMA}</button>
+                <button title="EMPTY_SET"       onClick={onEMPTY_SETPress}>{EMPTY_SET}</button>
             </div>
         </div>
     );

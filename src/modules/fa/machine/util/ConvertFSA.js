@@ -24,6 +24,13 @@ function bfs(nfa, dst)
     let dfaState = getDFAStateFromNFAStates(states);
     dst.addState(dfaState);
     dst.setStartState(dfaState);
+    for (const state of states) // check for end
+    {
+        if (nfa.isFinalState(state))
+        {
+            dst.setFinalState(dfaState);
+        }
+    }
 
     const seen = new Map(); // store seen states
     let statesLabel = states.map(state => state.getStateLabel()).toString();
@@ -91,9 +98,12 @@ function bfs(nfa, dst)
                 q.push(newStates); // add to explore queue
             }
         }
+
     }
     // now we are done building the regular transitions, we finish all the trap states
-    const trapState = new State('trap');
+    if (sendToTrap.length == 0) return;
+
+    const trapState = new State('{}');
     dst.addState(trapState);
     for (const letter of alphabet)
     {
@@ -112,10 +122,15 @@ export function convertToDFA(fsa, dst = new FSA(true))
         dst.copy(fsa);
         return dst;
     }
-
+    
     const tmpFSA = new FSA(false);
     tmpFSA.copy(fsa);
+
+    dst.clear(); // remove everything now
+    dst.setDeterministic(true);
+
     bfs(tmpFSA, dst); // build dfa
+
     return dst;
 }
 

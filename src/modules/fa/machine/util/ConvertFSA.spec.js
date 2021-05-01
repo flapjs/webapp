@@ -30,11 +30,18 @@ describe('Trying to convert a simple state machine', () =>
     nfa.addTransition(state0, state0, '1');
     const dfa = convertToDFA(nfa, nfa);
 
-    test('trap state exists', () =>
+    test('full transitions', () =>
     {
-        const trapStates = nfa.getStatesByLabel('{}');
-        expect(trapStates).toBeDefined();
-        expect(trapStates).toHaveLength(1);
+        // @ts-ignore
+        for (const state of dfa.getStates())
+        {
+            for (const letter of dfa.getAlphabet())
+            {
+                const nxtStates = dfa.doTransition(state, letter);
+                expect(nxtStates).toBeDefined();
+                expect(nxtStates).toHaveLength(1);       
+            }
+        }
     });
 
     test('is valid DFA machine', () =>
@@ -47,7 +54,7 @@ describe('Trying to convert a simple state machine', () =>
     test('has the expected generated states', () =>
     {
         const states = Array.from(dfa.getStates());
-        expect(states).toHaveLength(2);
+        expect(states).toHaveLength(1);
         expect(dfa.hasStateWithLabel('{q0}')).toBe(true);
     });
 

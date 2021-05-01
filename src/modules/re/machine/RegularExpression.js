@@ -8,8 +8,6 @@ export const PLUS = '\u207A';
 export const EMPTY = '\u03B5';
 export const SIGMA = '\u03A3';
 export const EMPTY_SET = '\u2205';
-export const COMMA = ',';
-export const SPACE = ' ';
 
 const SCOPE_SYMBOLS = new Set([
     OPEN,
@@ -21,12 +19,10 @@ const OPERATOR_SYMBOLS = new Set([
     KLEENE,
     PLUS,
 ]);
-const IGNORE_SYMBOLS = new Set([
+const TERMINAL_SYMBOLS = new Set([
     EMPTY,
     SIGMA,
     EMPTY_SET,
-    COMMA,
-    SPACE
 ]);
 
 function isValidTerminal(symbol)
@@ -153,100 +149,87 @@ function createTerminalNode(node, symbol, index)
 
 export class RegularExpression
 {
-    static parseAlphabet(terminalString) 
+    static parse(expressionString) 
     {
-        let terminals = new Set();
-        [...terminalString].forEach(c => 
-        {
-            if (!IGNORE_SYMBOLS.has(c) && 
-                !OPERATOR_SYMBOLS.has(c) && 
-                !SCOPE_SYMBOLS.has(c))
-            {
-                terminals.add(c); // not on any bad lists
-            }
-        });
-        return Array.from(terminals);
-    }
-
-    static parse(terminalString, expressionString) 
-    {
-        let terminals = this.parseAlphabet(terminalString);
-        let validationResult = this.validate(terminals, expressionString);
+        let validationResult = this.validate(expressionString);
         let expression = injectConcatSymbols(expressionString);
 
-        // error
-        if (validationResult.errors.length > 0 || validationResult.warnings.length > 0) 
+        if (validationResult.errors.length <= 0 && validationResult.warnings.length <= 0)
         {
-            let result = new RegularExpression(terminalString, expressionString, null, [], terminals);
-            result.errors = validationResult.errors;
-            result.warnings = validationResult.warnings;
-            return result;
-        }
-        
-        // otherwise
+            let nodes = [];
+            let terminals = [];
+            //let terminals = new Set();
 
-        let nodes = [];
-        // let terminals = [];
-
-        let openScopeStack = [];
-        let current = null;
-        let index = -1;
-        for(let symbol of expression)
-        {
-            ++index;
-
-            switch(symbol)
+            let openScopeStack = [];
+            let current = null;
+            let index = -1;
+            for(let symbol of expression)
             {
-                case OPEN:
-                    current = createScopeNode(current, OPEN, index);
-                    openScopeStack.push(current);
-                    break;
-                case CLOSE:
-                    current = openScopeStack.pop();
-                    // @ts-ignore
-                    current.endIndex = index;
-                    break;
-                case KLEENE:
-                    current = createUnaryOpNode(current, KLEENE, index);
-                    break;
-                case PLUS:
-                    current = createUnaryOpNode(current, PLUS, index);
-                    break;
-                case CONCAT:
-                    current = createBinaryOpNode(current, CONCAT, index);
-                    break;
-                case UNION:
-                    current = createBinaryOpNode(current, UNION, index);
-                    break;
-                case ' ':
-                    // Ignore spaces
-                    break;
-                default:
+                ++index;
+
+                switch(symbol)
                 {
-                    // For terminals
-                    current = createTerminalNode(current, symbol, index);
+                    case OPEN:
+                        current = createScopeNode(current, OPEN, index);
+                        openScopeStack.push(current);
+                        break;
+                    case CLOSE:
+                        current = openScopeStack.pop();
+                        // @ts-ignore
+                        current.endIndex = index;
+                        break;
+                    case KLEENE:
+                        current = createUnaryOpNode(current, KLEENE, index);
+                        break;
+                    case PLUS:
+                        current = createUnaryOpNode(current, PLUS, index);
+                        break;
+                    case CONCAT:
+                        current = createBinaryOpNode(current, CONCAT, index);
+                        break;
+                    case UNION:
+                        current = createBinaryOpNode(current, UNION, index);
+                        break;
+                    case ' ':
+                        // Ignore spaces
+                        break;
+                    default:
+                    {
+                        // For terminals
+                        current = createTerminalNode(current, symbol, index);
+
+                        // Add only NON-RESERVED TERMINALS to the regex's terminal set
+                        if (!TERMINAL_SYMBOLS.has(symbol))
+                        {
+                            terminals.push(symbol);
+                        }
+                    }
+                }
+
+                nodes.push(current);
+            }
+
+            // Find the root node.
+            let root = null;
+            for(let node of nodes)
+            {
+                if (!node.parent)
+                {
+                    root = node;
+                    break;
                 }
             }
-
-            nodes.push(current);
+            
+            return new RegularExpression(expressionString, root, nodes, terminals);
         }
 
-        // Find the root node.
-        let root = null;
-        for(let node of nodes)
-        {
-            if (!node.parent)
-            {
-                root = node;
-                break;
-            }
-        }
-        
-        // return new RegularExpression(expressionString, root, nodes, terminals);
-        return new RegularExpression(terminalString, expressionString, root, nodes, terminals);
+        let result = new RegularExpression(expressionString, null, [], []);
+        result.errors = validationResult.errors;
+        result.warnings = validationResult.warnings;
+        return result;
     }
 
-    static validate(terminals, expressionString) 
+    static validate(expressionString) 
     {
         let errors = [];
         let warnings = [];
@@ -273,18 +256,12 @@ export class RegularExpression
         // Wrap expression in scope (for out-of-bounds reasons).
         expressionString = `(${expressionString})`;
 
-        let previous = firstSymbol;
+        let current = firstSymbol;
+        let previous;
         for(let i = 1; i < expressionString.length; ++i)
         {
-            let current = expressionString.charAt(i);
-            // check if recognized
-            if (!terminals.includes(current) &&
-                !OPERATOR_SYMBOLS.has(current) &&
-                !IGNORE_SYMBOLS.has(current) && 
-                !SCOPE_SYMBOLS.has(current)) 
-            {
-                errors.push('Please fill in your alphabet first.');
-            }
+            previous = current;
+            current = expressionString.charAt(i);
 
             switch(current)
             {
@@ -311,7 +288,6 @@ export class RegularExpression
                     }
                     break;
             }
-            previous = current; // prev = curr for nxt iteration
         }
 
         // We validated everything :)
@@ -323,9 +299,8 @@ export class RegularExpression
         return re.string;
     }
 
-    constructor(terminalString, expressionString, root, nodes, terminals)
+    constructor(expressionString, root, nodes, terminals)
     {
-        this.terminalString = terminalString;
         this.string = expressionString;
         this.root = root;
         this.nodes = nodes;
