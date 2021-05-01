@@ -16,8 +16,7 @@ function bfs(nfa, dst)
 {
     const alphabet = nfa.getAlphabet(); // these will be all transitions
 
-    const trapState = new State();
-    dst.addState(trapState);
+    const sendToTrap = [];
 
     let states = nfa.doClosureTransition(nfa.getStartState());
     states.sort((a, b) => a.getStateLabel() < b.getStateLabel() ? -1 : 1);
@@ -56,9 +55,9 @@ function bfs(nfa, dst)
             }
 
             const newStates = Array.from(newStatesSet);
-            if (newStates.length == 0) // trap state
+            if (newStates.length == 0) // send that transition to trap
             { 
-                // dst.addTransition(dfaState, trapState);
+                sendToTrap.push([dfaState, letter]); // this combo results in trapped state
                 continue;
             }
             
@@ -93,6 +92,17 @@ function bfs(nfa, dst)
             }
         }
     }
+    // now we are done building the regular transitions, we finish all the trap states
+    const trapState = new State('trap');
+    dst.addState(trapState);
+    for (const letter of alphabet)
+    {
+        sendToTrap.push([trapState, letter]);
+    }
+    for (const transition of sendToTrap) 
+    {
+        dst.addTransition(transition[0], trapState, transition[1]);
+    }
 }
 
 export function convertToDFA(fsa, dst = new FSA(true))
@@ -107,109 +117,7 @@ export function convertToDFA(fsa, dst = new FSA(true))
     tmpFSA.copy(fsa);
     bfs(tmpFSA, dst); // build dfa
     return dst;
-
-    // const startState = fsa.getStartState();
-
-    // const dfaData = {
-    //     nfaSource: fsa,
-    //     //To keep track of dfa states in terms of nfa sets
-    //     dfaStateMap: new Map(),
-    //     //Array of final dfa states
-    //     dfaFinalStates: [],
-    //     //To keep track of dfa transitions in terms of dfa states
-    //     dfaTransitionMap: new Map(),
-    //     //The resultant dfa start state
-    //     dfaStartState: null,
-    //     //The trap state for all missing transitions
-    //     dfaTrapState: null
-    // };
-
-    //Make new DFA start state
-    // const startStatesByClosure = fsa.doClosureTransition(startState);
-    // console.log(startState); // remove later
-    // dfaData.dfaStartState = getDFAStateFromNFAStates(startStatesByClosure, dfaData);
-    // dfaData.dfaTrapState = getDFAStateFromNFAStates([], dfaData);
-
-    //For every state from the NFA's powerset, add it to DFA with correct transitions
-    // const statePowerSet = getPowerSetOfStates(fsa.getStates());
-    // for (const nfaStates of statePowerSet)
-    // {
-    //     //As long as it is not the empty set...
-    //     if (nfaStates.length > 0)
-    //     {
-    //         expandNFAStatesToDFA(nfaStates, dfaData);
-    //     }
-    // }
-
-    // //Make sure any unused symbols are added as transitions for every state...
-    // for (const dfaState of dfaData.dfaStateMap.values())
-    // {
-    //     for (const symbol of fsa.getAlphabet())
-    //     {
-    //         //If transition for symbol does not exist...
-    //         const dfaTransitionKey = getDFATransitionKeyFromDFAStateAndSymbol(dfaState, symbol, dfaData);
-    //         if (!dfaData.dfaTransitionMap.has(dfaTransitionKey))
-    //         {
-    //             dfaData.dfaTransitionMap.set(dfaTransitionKey, [dfaState, symbol, dfaData.dfaTrapState]);
-    //         }
-    //     }
-    // }
-
-    // //Compiled dfa data to dst
-    // dst.clear();
-    // //Add states
-    // for (const dfaState of dfaData.dfaStateMap.values())
-    // {
-    //     dst.addState(dfaState);
-    // }
-
-    // //Set start state
-    // dst.setStartState(dfaData.dfaStartState);
-    // //Set final states
-    // for (const finalState of dfaData.dfaFinalStates)
-    // {
-    //     dst.setFinalState(finalState);
-    // }
-    // //Add transitions (will also add any symbols used to alphabet)
-    // for (const transition of dfaData.dfaTransitionMap.values())
-    // {
-    //     dst.addTransition(transition[0], transition[2], transition[1]);
-    // }
-    // return dst;
 }
-
-// function expandNFAStatesToDFA(nfaStates, dfaData)
-// {
-//     let fromDFAState = getDFAStateFromNFAStates(nfaStates, dfaData);
-//     let dfaState = null;
-
-//     let nfaTerminals = [];
-
-//     for (const symbol of dfaData.nfaSource.getAlphabet())
-//     {
-//         //Get all closed reachable states...
-//         for (const fromNFAState of nfaStates)
-//         {
-//             dfaData.nfaSource.doTerminalTransition(fromNFAState, symbol, nfaTerminals);
-//         }
-
-//         //If has reachable states...
-//         if (nfaTerminals.length > 0)
-//         {
-//             dfaState = getDFAStateFromNFAStates(nfaTerminals, dfaData);
-
-//             //Create transition for reachable state
-//             //Should guarantee to be unique for state and symbol pair
-//             const dfaTransitionKey = getDFATransitionKeyFromDFAStateAndSymbol(fromDFAState, symbol, dfaData);
-//             dfaData.dfaTransitionMap.set(dfaTransitionKey, [fromDFAState, symbol, dfaState]);
-//         }
-
-//         //Reset list
-//         nfaTerminals.length = 0;
-//     }
-// }
-
-// s
 
 function getDFAStateFromNFAStates(nfaStates)
 {
@@ -228,17 +136,3 @@ function getDFAStateFromNFAStates(nfaStates)
     // return the state
     return new State(dfaStateLabel);
 }
-
-// function getPowerSetOfStates(states)
-// {
-//     var result = [[]];
-
-//     for (const state of states)
-//     {
-//         for (let i = 0, len = result.length; i < len; ++i)
-//         {
-//             result.push(result[i].concat(state));
-//         }
-//     }
-//     return result;
-// }
