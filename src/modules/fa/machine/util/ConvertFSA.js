@@ -122,7 +122,6 @@ export function convertToDFA(fsa, dst = new FSA(true))
         dst.copy(fsa);
         return dst;
     }
-    
     const tmpFSA = new FSA(false);
     tmpFSA.copy(fsa);
 

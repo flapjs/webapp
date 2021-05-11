@@ -9,16 +9,46 @@ function testSolveFSA(machine, testString, expectedResult = true)
     });
 }
 
+function testIsDFA(dfa) 
+{
+    test('is a valid DFA', () => 
+    {
+        expect(dfa).toBeDefined();
+        expect(dfa.isDeterministic()).toBe(true);
+        expect(dfa.validate()).toBe(true);
+        expect(dfa.isValid()).toBe(true);
+    });
+}
+
+function testSizes(dfa, expectedAlphabetSize, expectedStateSize)
+{
+    test('To have correct number of states and trans', () => 
+    {
+        const alphabetSize = dfa.getAlphabet().length;
+        const stateSize = Array.from(dfa.getStates()).length;
+        expect(alphabetSize).toBe(expectedAlphabetSize);
+        expect(stateSize).toBe(expectedStateSize);
+
+        let transitionCount = 0;
+        for (const tran of Array.from(dfa.getTransitions()))
+        {
+            transitionCount += tran.getSymbols().length;
+        }
+        expect(transitionCount).toBe(alphabetSize*stateSize);
+    });
+}
+
 describe('Trying to convert an empty NFA machine', () =>
 {
     const nfa = new FSA(false);
     const dfa = convertToDFA(nfa, nfa);
 
-    test('is a valid empty DFA', () =>
+    testIsDFA(dfa);
+
+    test('is sorta empty', () => 
     {
-        expect(dfa).toBeDefined();
-        expect(dfa.validate()).toBe(true);
-        expect(dfa.isValid()).toBe(true);
+        expect(Array.from(dfa.getStates()).length).toBe(1); // should create start state
+        expect(Array.from(dfa.getTransitions).length).toBe(0);
     });
 });
 
@@ -44,12 +74,7 @@ describe('Trying to convert a simple state machine', () =>
         }
     });
 
-    test('is valid DFA machine', () =>
-    {
-        expect(dfa).toBeDefined();
-        expect(dfa.validate()).toBe(true);
-        expect(dfa.isValid()).toBe(true);
-    });
+    testIsDFA(dfa);    
 
     test('has the expected generated states', () =>
     {
@@ -93,13 +118,9 @@ describe('Trying recursive test', () =>
     machine.setStartState(state0);
     machine.setFinalState(state0);
 
-    const result = convertToDFA(machine, machine);
-    test('is a valid DFA machine', () =>
-    {
-        expect(result).toBeDefined();
-        expect(result.validate()).toBe(true);
-        expect(result.isValid()).toBe(true);
-    });
+    const dfa = convertToDFA(machine, machine);
+    
+    testIsDFA(dfa);
 });
 
 describe('Trying another machine', () =>
@@ -112,28 +133,24 @@ describe('Trying another machine', () =>
     nfa.addTransition(state0, state1, '1');
     nfa.setFinalState(state1);
 
-    const result = convertToDFA(nfa, nfa);
-    test('is a valid DFA', () =>
-    {
-        expect(result).toBeDefined();
-        expect(result.validate()).toBe(true);
-        expect(result.isValid()).toBe(true);
-    });
+    const dfa = convertToDFA(nfa, nfa);
+    
+    testIsDFA(dfa);
 
-    // const states = result.getStates();
-    //console.log(states, result.getStartState(), result.getFinalStates());
-    // const alphabet = result.getAlphabet();
+    // const states = dfa.getStates();
+    //console.log(states, dfa.getStartState(), dfa.getFinalStates());
+    // const alphabet = dfa.getAlphabet();
     //console.log(alphabet);
-    // const transitions = result.getTransitions();
+    // const transitions = dfa.getTransitions();
     //console.log(transitions);
 
-    testSolveFSA(result, '', false);
-    testSolveFSA(result, '0', false);
-    testSolveFSA(result, '1', true);
-    testSolveFSA(result, '111111111111', true);
-    testSolveFSA(result, '10000000001', true);
-    testSolveFSA(result, '0000000001', true);
-    testSolveFSA(result, '101010010010100101', true);
+    testSolveFSA(dfa, '', false);
+    testSolveFSA(dfa, '0', false);
+    testSolveFSA(dfa, '1', true);
+    testSolveFSA(dfa, '111111111111', true);
+    testSolveFSA(dfa, '10000000001', true);
+    testSolveFSA(dfa, '0000000001', true);
+    testSolveFSA(dfa, '101010010010100101', true);
 });
 
 describe('Trying a machine with immediate moves', () =>
@@ -147,29 +164,97 @@ describe('Trying a machine with immediate moves', () =>
     nfa.addTransition(state0, state1, EMPTY_SYMBOL);
     nfa.setFinalState(state1);
 
-    const result = convertToDFA(nfa, nfa);
+    const dfa = convertToDFA(nfa, nfa);
 
-    test('is a valid DFA', () =>
-    {
-        expect(result).toBeDefined();
-        expect(result.validate()).toBe(true);
-        expect(result.isValid()).toBe(true);
-    });
+    testIsDFA(dfa);
 
     /*
-    const states = result.getStates();
-    //console.log(states, result.getStartState(), result.getFinalStates());
-    const alphabet = result.getAlphabet();
+    const states = dfa.getStates();
+    //console.log(states, dfa.getStartState(), dfa.getFinalStates());
+    const alphabet = dfa.getAlphabet();
     //console.log(alphabet);
-    const transitions = result.getTransitions();
+    const transitions = dfa.getTransitions();
     //console.log(transitions);
     */
 
-    testSolveFSA(result, '', true);
-    testSolveFSA(result, '0', true);
-    testSolveFSA(result, '1', true);
-    testSolveFSA(result, '111111111111', true);
-    testSolveFSA(result, '10000000001', true);
-    testSolveFSA(result, '0000000001', true);
-    testSolveFSA(result, '101010010010100101', true);
+    testSolveFSA(dfa, '', true);
+    testSolveFSA(dfa, '0', true);
+    testSolveFSA(dfa, '1', true);
+    testSolveFSA(dfa, '111111111111', true);
+    testSolveFSA(dfa, '10000000001', true);
+    testSolveFSA(dfa, '0000000001', true);
+    testSolveFSA(dfa, '101010010010100101', true);
 });
+
+describe('Trying a machine with 5 states', () =>
+{
+    const nfa = new FSA(false);
+    const states = [];
+    for (let i = 0; i < 5; i++)
+    { // 5-state machine
+        states.push(nfa.createState(i.toString()));
+    }
+    nfa.addTransition(states[0], states[1], EMPTY_SYMBOL);
+    nfa.addTransition(states[0], states[2], 'a');
+    nfa.addTransition(states[1], states[3], 'a');
+    nfa.addTransition(states[1], states[4], 'a');
+    nfa.addTransition(states[2], states[3], 'b');
+    nfa.addTransition(states[3], states[4], 'a');
+    nfa.addTransition(states[3], states[4], 'b');
+    nfa.setFinalState(states[4]);
+
+    const dfa = convertToDFA(nfa);
+    
+    testIsDFA(dfa);
+
+    testSizes(dfa, 2, 5);
+
+    testSolveFSA(dfa, '', false);
+    testSolveFSA(dfa, 'a', true);
+    testSolveFSA(dfa, 'aa', true);
+    testSolveFSA(dfa, 'ab', true);
+    testSolveFSA(dfa, 'b', false);
+    testSolveFSA(dfa, 'abbb', false);
+});
+
+describe('Trying a machine with 5 states but more transitions', () =>
+{
+    const nfa = new FSA(false);
+    const states = [];
+    for (let i = 0; i < 5; i++)
+    { // 5-state machine
+        states.push(nfa.createState(i.toString()));
+    }
+    nfa.addTransition(states[0], states[1], 'a');
+    nfa.addTransition(states[0], states[2], 'a');
+    nfa.addTransition(states[0], states[2], 'b');
+    nfa.addTransition(states[0], states[3], 'a');
+    nfa.addTransition(states[0], states[3], 'b');
+
+    nfa.addTransition(states[1], states[1], 'a');
+    nfa.addTransition(states[1], states[2], 'a');
+    nfa.addTransition(states[1], states[2], 'b');
+    nfa.addTransition(states[1], states[3], 'b');
+
+    nfa.addTransition(states[2], states[2], 'b');
+    nfa.addTransition(states[2], states[4], 'b');
+
+    nfa.addTransition(states[3], states[3], 'b');
+    nfa.addTransition(states[3], states[4], 'a');
+    nfa.addTransition(states[3], states[4], 'b');
+
+    nfa.setFinalState(states[1]);
+
+    const dfa = convertToDFA(nfa);
+    
+    testIsDFA(dfa);
+
+    testSizes(dfa, 2, 8);
+
+    testSolveFSA(dfa, '', false);
+    testSolveFSA(dfa, 'aa', true);
+    testSolveFSA(dfa, 'aaaaa', true);
+    testSolveFSA(dfa, 'aaab', false);
+    testSolveFSA(dfa, 'abbb', false);
+});
+
