@@ -17,10 +17,11 @@ import { DuplicateTransitionErrorNotification } from '../notifications/Duplicate
 export function validate(nodes, edges, determinism)
 {
     const startNodeIds = getStartNodeIds(nodes);
+
     const unreachableNodeIds = getUnreachableNodeIds(startNodeIds[0], nodes, edges);
 
     return [
-        ...validateStartNodes(startNodeIds),
+        ...validateStartNodes(startNodeIds, nodes),
         ...validateIncompleteEdges(edges),
         ...validateDuplicateNodeLabels(nodes),
         ...validateUnreachableNodes(unreachableNodeIds, nodes),
@@ -29,12 +30,17 @@ export function validate(nodes, edges, determinism)
     ];
 }
 
-export function validateStartNodes(startNodeIds)
+export function validateStartNodes(startNodeIds, nodes)
 {
-    if (startNodeIds.length < 1)
+    if (startNodeIds.length == 0 && Object.keys(nodes).length > 0)
     {
+        const nodeId = Object.keys(nodes)[0]; // just take the first one
+        const node = nodes[nodeId];
+        node.initial = true;
+        node.markDirty(); // mark dirty so will be updated next cycle
+
         return [{
-            message: 'Error: Missing start node.',
+            message: 'Warning: Missing start node, so we added one for you. Drag the arrow to reassign',
             opts: {},
         }];
     }
