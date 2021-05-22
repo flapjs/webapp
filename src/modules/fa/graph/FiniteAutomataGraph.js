@@ -7,7 +7,8 @@ export default class FiniteAutomataGraph extends NodeGraph
     /** @override */
     static get version() { return '1.0.0'; }
     
-    static findName(nextElements) 
+    // this makes sure that newly created nodes don't name clash
+    static findName(nextElements)
     {
         const labels = [];
         for (const nodeId in nextElements)
