@@ -5,7 +5,6 @@ import { useDragBehavior } from '@flapjs/behaviors/DragBehavior.jsx';
 
 /**
  * @param {Function} renderConnector A function to render the connector. It takes a from, to, and current cursor position objects.
- * @returns {React.ReactNode} The rendered node.
  */
 export function createConnector(renderConnector)
 {
