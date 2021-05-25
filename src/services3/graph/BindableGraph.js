@@ -1,6 +1,51 @@
 import { Graph } from './Graph.js';
 
 /**
+ * @typedef {import('./Graph.js').NodeKey} NodeKey
+ * @typedef {import('./Graph.js').EdgeKey} EdgeKey
+ * @typedef {import('./Graph.js').AttributeKey} AttributeKey
+ * @typedef {import('./Graph.js').Node} Node
+ * @typedef {import('./Graph.js').Edge} Edge
+ * @typedef {'node'|'edge'} TargetType
+ * @typedef {NodeKey|EdgeKey} TargetKey
+ * 
+ * @typedef GraphAddEvent
+ * @property {'add'} type
+ * @property {TargetType} targetType
+ * @property {TargetKey} targetKey
+ * 
+ * @typedef GraphDeleteEvent
+ * @property {'delete'} type
+ * @property {TargetType} targetType
+ * @property {TargetKey} targetKey
+ * @property {Node|Edge} target
+ * 
+ * @typedef GraphEdgeMoveEvent
+ * @property {'edgemove'} type
+ * @property {TargetType} targetType
+ * @property {TargetKey} targetKey
+ * @property {NodeKey} from
+ * @property {NodeKey} to
+ * @property {NodeKey} previousFrom
+ * @property {NodeKey} previousTo
+ * 
+ * @typedef GraphValueEvent
+ * @property {'value'} type
+ * @property {TargetType} targetType
+ * @property {TargetKey} targetKey
+ * @property {any} value
+ * @property {any} previous
+ * 
+ * @typedef GraphAttributeEvent
+ * @property {'attribute'} type
+ * @property {TargetType} targetType
+ * @property {TargetKey} targetKey
+ * @property {AttributeKey} attributeKey
+ * @property {any} value
+ * @property {any} previous
+ */
+
+/**
  * @fires add
  * @fires delete
  * @fires value
@@ -57,22 +102,26 @@ export class BindableGraph extends Graph
     addNode(nodeKey, value, attributes)
     {
         super.addNode(nodeKey, value, attributes);
-        this.dispatchEvent({
+        /** @type {GraphAddEvent} */
+        let event = {
             type: 'add',
             targetType: 'node',
             targetKey: nodeKey,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
     addEdge(edgeKey, from, to, value, attributes)
     {
         super.addEdge(edgeKey, from, to, value, attributes);
-        this.dispatchEvent({
+        /** @type {GraphAddEvent} */
+        let event = {
             type: 'add',
             targetType: 'edge',
             targetKey: edgeKey,
-        });
+        };
+        this.dispatchEvent(event);
     }
     
     /** @override */
@@ -82,7 +131,8 @@ export class BindableGraph extends Graph
         const previousFrom = edge.from;
         const previousTo = edge.to;
         super.moveEdge(edgeKey, fromNodeKey, toNodeKey);
-        this.dispatchEvent({
+        /** @type {GraphEdgeMoveEvent} */
+        let event = {
             type: 'edgemove',
             targetType: 'edge',
             targetKey: edgeKey,
@@ -90,7 +140,8 @@ export class BindableGraph extends Graph
             to: toNodeKey,
             previousFrom,
             previousTo,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -98,12 +149,14 @@ export class BindableGraph extends Graph
     {
         const node = this.nodes[nodeKey];
         super.deleteNode(nodeKey);
-        this.dispatchEvent({
+        /** @type {GraphDeleteEvent} */
+        let event = {
             type: 'delete',
             targetType: 'node',
             targetKey: nodeKey,
             target: node,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -111,12 +164,14 @@ export class BindableGraph extends Graph
     {
         const edge = this.edges[edgeKey];
         super.deleteEdge(edgeKey);
-        this.dispatchEvent({
+        /** @type {GraphDeleteEvent} */
+        let event = {
             type: 'delete',
             targetType: 'edge',
             targetKey: edgeKey,
             target: edge,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -125,13 +180,15 @@ export class BindableGraph extends Graph
         const node = this.nodes[nodeKey];
         const previous = node.value;
         super.setNodeValue(nodeKey, value);
-        this.dispatchEvent({
+        /** @type {GraphValueEvent} */
+        let event = {
             type: 'value',
             targetType: 'node',
             targetKey: nodeKey,
             value,
             previous,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -140,13 +197,15 @@ export class BindableGraph extends Graph
         const edge = this.edges[edgeKey];
         const previous = edge.value;
         super.setEdgeValue(edgeKey, value);
-        this.dispatchEvent({
+        /** @type {GraphValueEvent} */
+        let event = {
             type: 'value',
             targetType: 'edge',
             targetKey: edgeKey,
             value,
             previous,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -155,14 +214,16 @@ export class BindableGraph extends Graph
         const node = this.nodes[nodeKey];
         const previous = node.attributes[attributeKey];
         super.setNodeAttribute(nodeKey, attributeKey, attributeValue);
-        this.dispatchEvent({
+        /** @type {GraphAttributeEvent} */
+        let event = {
             type: 'attribute',
             targetType: 'node',
             targetKey: nodeKey,
             attributeKey,
             value: attributeValue,
             previous,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -171,14 +232,16 @@ export class BindableGraph extends Graph
         const edge = this.edges[edgeKey];
         const previous = edge.attributes[attributeKey];
         super.setEdgeAttribute(edgeKey, attributeKey, attributeValue);
-        this.dispatchEvent({
+        /** @type {GraphAttributeEvent} */
+        let event = {
             type: 'attribute',
             targetType: 'edge',
             targetKey: edgeKey,
             attributeKey,
             value: attributeValue,
             previous,
-        });
+        };
+        this.dispatchEvent(event);
     }
 
     /** @override */
@@ -187,14 +250,16 @@ export class BindableGraph extends Graph
         const node = this.nodes[nodeKey];
         const previous = node.attributes[attributeKey];
         super.deleteNodeAttribute(nodeKey, attributeKey);
-        this.dispatchEvent({
+        /** @type {GraphAttributeEvent} */
+        let event = {
             type: 'attribute',
             targetType: 'node',
             targetKey: nodeKey,
             attributeKey,
             value: undefined,
             previous,
-        });
+        };
+        this.dispatchEvent(event);
     }
     
     /** @override */
@@ -203,13 +268,15 @@ export class BindableGraph extends Graph
         const edge = this.edges[edgeKey];
         const previous = edge.attributes[attributeKey];
         super.deleteEdgeAttribute(edgeKey, attributeKey);
-        this.dispatchEvent({
+        /** @type {GraphAttributeEvent} */
+        let event = {
             type: 'attribute',
             targetType: 'edge',
             targetKey: edgeKey,
             attributeKey,
             value: undefined,
             previous,
-        });
+        };
+        this.dispatchEvent(event);
     }
 }
