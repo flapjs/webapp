@@ -16,25 +16,29 @@ import { DuplicateTransitionErrorNotification } from '../notifications/Duplicate
  */
 export function validate(nodes, edges, determinism)
 {
-    const startNodeIds = getStartNodeIds(nodes);
-    const unreachableNodeIds = getUnreachableNodeIds(startNodeIds[0], nodes, edges);
+    fixDuplicateLabels(nodes);
+    fixMissingStartNode(nodes);
 
     return [
-        ...validateStartNodes(startNodeIds),
         ...validateIncompleteEdges(edges),
-        ...validateDuplicateNodeLabels(nodes),
-        ...validateUnreachableNodes(unreachableNodeIds, nodes),
+        ...validateUnreachableNodes(nodes, edges),
         ...validateDeterminismForEmptyTransitions(determinism, edges),
         ...validateDeterminismForDuplicateOrMissingEdgeLabels(determinism, nodes, edges),
     ];
 }
 
-export function validateStartNodes(startNodeIds)
+export function fixMissingStartNode(nodes)
 {
-    if (startNodeIds.length < 1)
+    const startNodeIds = getStartNodeIds(nodes);
+    if (startNodeIds.length == 0 && Object.keys(nodes).length > 0)
     {
+        const nodeId = Object.keys(nodes)[0]; // just take the first one
+        const node = nodes[nodeId];
+        node.initial = true;
+        node.markDirty(); // mark dirty so will be updated next cycle
+
         return [{
-            message: 'Error: Missing start node.',
+            message: 'Warning: Missing start node, so we added one for you. Drag the arrow to reassign',
             opts: {},
         }];
     }
@@ -76,19 +80,19 @@ export function validateIncompleteEdges(edges)
     return result;
 }
 
-export function validateDuplicateNodeLabels(nodes)
+export function fixDuplicateLabels(nodes)
 {
     let result = [];
 
     let dupeLabels = [];
     let sharedNodes = {};
-    for(const nodeId in nodes)
+    for(const nodeId in nodes) // hashId of nodes
     {
-        const { label } = nodes[nodeId];
+        const { label } = nodes[nodeId]; // destructure label
         if (label in sharedNodes)
         {
             dupeLabels.push(label);
-            sharedNodes[label].push(nodeId);
+            sharedNodes[label].push(nodeId); // nodes sharing label
         }
         else
         {
@@ -98,7 +102,7 @@ export function validateDuplicateNodeLabels(nodes)
 
     if (dupeLabels.length > 0)
     {
-        for(const label of dupeLabels)
+        for(const label of dupeLabels) // for each duplicate label
         {
             result.push({
                 message: DuplicateNodeErrorNotification,
@@ -106,6 +110,14 @@ export function validateDuplicateNodeLabels(nodes)
                     label,
                     nodeIds: sharedNodes[label],
                 }
+            }); // notify user
+
+            let i = 1;
+            sharedNodes[label].forEach(nodeId => 
+            {
+                const node = nodes[nodeId];
+                node.label += '_'+(i++).toString();
+                node.markDirty();
             });
         }
     }
@@ -113,8 +125,11 @@ export function validateDuplicateNodeLabels(nodes)
     return result;
 }
 
-export function validateUnreachableNodes(unreachableNodeIds, nodes)
+export function validateUnreachableNodes(nodes, edges)
 {
+    const startNodeIds = getStartNodeIds(nodes);
+    const unreachableNodeIds = getUnreachableNodeIds(startNodeIds[0], nodes, edges);
+
     if (unreachableNodeIds.length > 0)
     {
         return [{

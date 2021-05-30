@@ -10,7 +10,7 @@ export function DuplicateNodeErrorNotification(props)
     return (
         <NotificationElementContainer
             id={id}
-            message={`Error: Found ${nodeIds.length} duplicate states for ${label}.`}>
+            message={`Warning: Found ${nodeIds.length} duplicate states for ${label}. So we labeled them sequentially.`}>
         </NotificationElementContainer>
     );
 }

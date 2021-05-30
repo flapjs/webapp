@@ -17,7 +17,7 @@ export function hashString(graphState)
     for(let nodeId of nodeIds)
     {
         const node = graphState[nodeTypeKey][nodeId];
-        nodeHashes.push(`${node.id} ${node.label} ${node.final}`);
+        nodeHashes.push(`${node.id} ${node.label} ${node.final} ${node.initial}`);
     }
 
     let edgeHashes = [];
