@@ -17,7 +17,7 @@ export default function NodeElementComponent(props)
     useNodeBehaviors(elementRef, node);
 
     // Allows you to select it.
-    const selected = useSelectableBehavior(elementRef, node.id, { useButton: 0 });
+    const selected = useSelectableBehavior(elementRef, node.id, { useCombos: [{button:0, ctrl:false, shift:false, alt:false}] });
 
     return (
         <>

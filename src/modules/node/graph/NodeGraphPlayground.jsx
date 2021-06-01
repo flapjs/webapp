@@ -22,7 +22,7 @@ export default function NodeGraphPlayground(props)
 {
     const { createNode, createEdge } = useNodeGraphActions();
 
-    useViewNavigationBehavior({ useButton: 0 });
+    useViewNavigationBehavior({ useCombos: [{button:0, ctrl:false, shift:false, alt:false}] });
     useViewDoubleTapBehavior((x, y) => createNode({ x, y }));
 
     return (
