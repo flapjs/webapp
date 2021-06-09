@@ -117,6 +117,7 @@ function bfs(nfa, dst)
 
 export function convertToDFA(fsa, dst = new FSA(true))
 {
+    var t0 = performance.now();
     if (fsa.isDeterministic()) // if alreayd deterministic then return a copy
     {
         dst.copy(fsa);
@@ -129,6 +130,9 @@ export function convertToDFA(fsa, dst = new FSA(true))
     dst.setDeterministic(true);
 
     bfs(tmpFSA, dst); // build dfa
+
+    var t1 = performance.now();
+    console.log('Call to new convert FSA took ' + (t1 - t0) + ' milliseconds.');
 
     return dst;
 }
