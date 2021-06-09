@@ -10,6 +10,8 @@ const DEFAULT_OPTS = {
     preserveOffset: false,
     /** undefined for any button; 0 for left button; 2 for right button; 1 for middle click. */
     useButton: undefined,
+    /** [useButton, useCtrl] */
+    useCombos: [{button:0, ctrl:false, shift:false, alt:false}],
     /** Callbacks for when drag does something. */
     onDragBegin: null,
     onDragMove: null,
@@ -24,10 +26,25 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
 
     const [ dragging, setDragging ] = useState(false);
 
+    const acceptedInput = e => 
+    {
+        for (const combo of opts.useCombos)
+        {
+            if (e.button === combo.button 
+                && e.ctrlKey === combo.ctrl 
+                && e.shiftKey === combo.shift 
+                && e.altKey === combo.alt) 
+            {
+                return true;
+            }
+        }       
+        return false;
+    };
+
     const mouseDownCallback = useCallback(e =>
     {
         if (CURRENT_DRAG_TARGET) return;
-        if (typeof opts.useButton === 'undefined' || e.button === opts.useButton)
+        if (acceptedInput(e))
         {
             // e.preventDefault();
             // e.stopPropagation();
@@ -80,6 +97,7 @@ export function useDragBehavior(elementRef, pos, setPos, opts = {})
         opts.preserveOffset,
         opts.startBufferRadius,
         opts.useButton,
+        opts.useCombos,
         setPos,
         pos.x,
         pos.y

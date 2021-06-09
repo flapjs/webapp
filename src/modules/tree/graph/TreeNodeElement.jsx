@@ -28,10 +28,13 @@ export function TreeNodeElement(props)
     // useGraphElementEditorBehavior(elementRef, node, false, { useButton: 2 });
 
     // Left drag to move node...
-    useDragBehavior(elementRef, node, updatePosition, { useButton: 0 });
+    useDragBehavior(elementRef, node, updatePosition, { useCombos: [{button:0, ctrl:false, shift:false, alt:false}] });
     
     // Right drag to start proxy edge creation plan...
-    useProxyEdgeFromBehavior(elementRef, node, { useButton: 2 });
+    useProxyEdgeFromBehavior(elementRef, node, { useCombos: [
+        {button:0, ctrl:true, shift:false, alt:false}, 
+        {button:2, ctrl:false, shift:false, alt:false}
+    ] });
     // ... and also to end the creation plan... (and also moving plan)
     useProxyEdgeToBehavior(elementRef, node);
     

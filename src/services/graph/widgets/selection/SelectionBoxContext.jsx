@@ -47,7 +47,10 @@ function SelectionBoxStateProvider(props)
     const { svgRef, pos } = useView();
     const fromRef = useRef({ x: 0, y: 0 });
     useConnectorFromBehavior(svgRef, fromRef.current, {
-        useButton: 2,
+        useCombos: [
+            {button:0, ctrl:true, shift:false, alt:false}, 
+            {button:2, ctrl:false, shift:false, alt:false}
+        ], // ctrl+left OR no ctrl+right
         onDragBegin: (x, y) =>
         {
             fromRef.current.x = x - pos.x;

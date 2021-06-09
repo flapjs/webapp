@@ -18,7 +18,10 @@ export function useEdgeBehaviors(elementRef, labelRef, forwardEndpointRef, edge,
     }
 
     // Edge behaviors...
-    useGraphElementEditorBehavior(elementRef, edge, false, { useButton: 2 });
+    useGraphElementEditorBehavior(elementRef, edge, false, { useCombos: [
+        {button:0, ctrl:true, shift:false, alt:false}, 
+        {button:2, ctrl:false, shift:false, alt:false}
+    ] });
     useGraphElementEditorBehavior(labelRef, edge);
     
     const curving = useDragBehavior(elementRef, center,
