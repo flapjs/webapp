@@ -1,13 +1,15 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LocalStorage } from '@flapjs/util/storage/LocalStorage.js';
 
-import { GraphTypeContext, GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
+import { useGraph, useGraphDeserializer } from '@flapjs/services3/graph/GraphService.js';
 
 export default function AutoInit()
 {
-    const graphType = useContext(GraphTypeContext);
-    const graphDispatch = useContext(GraphDispatchContext);
+    const graphType = 'graph';
+    const graph = useGraph();
+    const deserializer = useGraphDeserializer();
+
     const [ init, setInit ] = useState(false);
 
     useEffect(() =>
@@ -15,15 +17,15 @@ export default function AutoInit()
         if (!init)
         {
             // Load from localStorage.
-            let graphData = JSON.parse(LocalStorage.getItem(graphType.name + '.graphData'));
-            let graphState = graphType.deserialize(graphData, {});
-            graphDispatch({ type: 'resetState', state: graphState });
+            let graphData = JSON.parse(LocalStorage.getItem(graphType + '.graphData'));
+            let other = deserializer(graphData);
+            graph.copyGraphFrom(other);
     
             // End init.
             setInit(true);
         }
     },
-    [ init, graphType, graphDispatch ]);
+    [ init, deserializer, graph ]);
 
     return (<></>);
 }

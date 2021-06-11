@@ -58,3 +58,11 @@ export const tree = {
     disabled: true,
     fetch: () => import(/* webpackChunkName: "module_tree" */ './tree/TreeModule.js'),
 };
+
+export const node2 = {
+    name: 'Node Graph 2',
+    version: '3.0.0',
+    description: 'A graph service.',
+    disabled: true,
+    fetch: () => import(/* webpackChunkName: "module_node2" */ './node2/NodeModule.js'),
+};

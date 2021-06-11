@@ -1,6 +1,8 @@
 import BaseModule from '../base/BaseModule.js';
-import GraphService from '@flapjs/services/graph/GraphService.js';
+// import GraphService from '@flapjs/services/graph/GraphService.js';
+import ViewService from '@flapjs/services/view/ViewService.js';
 
+import * as GraphService from '@flapjs/services3/graph/GraphService.js';
 import * as HistoryService from '@flapjs/services2/history/HistoryService.js';
 import * as NotificationService from '@flapjs/services/notification/NotificationService.js';
 
@@ -25,7 +27,8 @@ export default class NodeModule extends BaseModule
     static get services()
     {
         return [
-            GraphService.withGraphType(NodeGraph, NodeGraphPlayground, NodeGraphLabelEditor),
+            ViewService,
+            // GraphService.withGraphType(NodeGraph, NodeGraphPlayground, NodeGraphLabelEditor),
         ];
     }
 
@@ -37,6 +40,7 @@ export default class NodeModule extends BaseModule
             appbar: [ NodeToolbar ],
             drawer: [ ExportPanel ],
             foreground: [ NotificationService.NotificationList ],
+            playarea: [NodeGraphPlayground]
         };
     }
 
@@ -44,6 +48,7 @@ export default class NodeModule extends BaseModule
     static get providers()
     {
         return [
+            GraphService.GraphProvider,
             NotificationService.NotificationProvider,
             HistoryService.HistoryProvider,
         ];

@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GraphElementComponentLayer from '@flapjs/services/graph/components/GraphElementComponentLayer.jsx';
 import NodeGraphTooltip from './components/NodeGraphTooltip.jsx';
-
-import NodeElement from '@flapjs/modules/node/graph/elements/NodeElement.js';
-import EdgeElement from '@flapjs/modules/node/graph/elements/EdgeElement.js';
 
 import NodeElementComponent from '@flapjs/modules/node/graph/components/NodeElementComponent.jsx';
 import EdgeElementComponent from '@flapjs/modules/node/graph/components/EdgeElementComponent.jsx';
@@ -17,6 +13,7 @@ import { useViewNavigationBehavior, useViewDoubleTapBehavior } from '@flapjs/ser
 import { useNodeGraphActions } from './NodeGraphActionHooks.jsx';
 
 import * as QuadraticEdgeHelper from '@flapjs/modules/node/graph/elements/QuadraticEdgeHelper.js';
+import { useEdgeKeys, useNodeKeys } from '@flapjs/services3/graph/ReadableGraphHooks.jsx';
 
 export default function NodeGraphPlayground(props)
 {
@@ -24,6 +21,9 @@ export default function NodeGraphPlayground(props)
 
     useViewNavigationBehavior({ useButton: 0 });
     useViewDoubleTapBehavior((x, y) => createNode({ x, y }));
+
+    const nodeKeys = useNodeKeys();
+    const edgeKeys = useEdgeKeys();
 
     return (
         <>
@@ -56,13 +56,8 @@ export default function NodeGraphPlayground(props)
                             edge.markDirty();
                         }
                     }}>
-                    <NodeGraphTooltip/>
-                    <GraphElementComponentLayer elementType={NodeElement}>
-                        {element => <NodeElementComponent element={element}/>}
-                    </GraphElementComponentLayer>
-                    <GraphElementComponentLayer elementType={EdgeElement}>
-                        {element => <EdgeElementComponent element={element}/>}
-                    </GraphElementComponentLayer>
+                    {nodeKeys.map(nodeKey => <NodeElementComponent key={nodeKey} nodeKey={nodeKey}/>)}
+                    {edgeKeys.map(edgeKey => <EdgeElementComponent key={edgeKey} edgeKey={edgeKey}/>)}
                     {props.children}
                 </ProxyEdgeProvider>
             </SelectionBoxProvider>

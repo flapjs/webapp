@@ -1,21 +1,16 @@
 import React, { useContext, useRef, useState } from 'react';
 import Style from './NodeGraphLabelEditor.module.css';
 
-import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
 import { GraphElementEditorContext } from '@flapjs/services/graph/widgets/editor/GraphElementEditorContext.jsx';
 
-import { useGraphElement } from '@flapjs/services/graph/elements/GraphElementHooks.jsx';
-import { useForceUpdate } from '@flapjs/hooks/ForceUpdateHook.jsx';
-
 import GraphElementEditor from '@flapjs/services/graph/widgets/editor/GraphElementEditor.jsx';
+import { useGraphAPI, useNodeAttribute } from '@flapjs/services3/graph/GraphContext.jsx';
 
 export default function NodeGraphLabelEditor(props)
 {
-    const { elementType, elementId, closeEditor } = useContext(GraphElementEditorContext);
-    const graphDispatch = useContext(GraphDispatchContext);
-
-    const forceUpdate = useForceUpdate();
-    const element = useGraphElement(elementType, elementId, forceUpdate);
+    const { elementId, closeEditor } = useContext(GraphElementEditorContext);
+    const [label, setLabel] = useNodeAttribute(elementId, 'label');
+    const { deleteNode } = useGraphAPI();
 
     const inputRef = useRef(null);
     const [ input, setInput ] = useState('');
@@ -25,22 +20,21 @@ export default function NodeGraphLabelEditor(props)
             onOpen={() =>
             {
                 inputRef.current.focus();
-                setInput(element.label || '');
+                setInput(label || '');
             }}>
             <textarea ref={inputRef}
                 value={input}
                 onChange={e => setInput(e.target.value)}/>
             <button onClick={() =>
             {
-                element.label = input;
-                element.markDirty();
+                setLabel(input);
                 closeEditor();
             }}>
                 Submit
             </button>
             <button onClick={() =>
             {
-                graphDispatch({ type: 'delete', elementType, elementId });
+                deleteNode(elementId);
                 closeEditor();
             }}>
                 Delete This

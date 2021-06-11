@@ -7,14 +7,14 @@ import ControlledEdgeElementComponent from '../components/ControlledEdgeElementC
 const { ConnectorProvider, useConnectorFromBehavior, useConnectorToBehavior } = createConnector((from, to, cursor, opts) =>
     <>
         {from &&
-    <ControlledEdgeElementComponent
-        from={from}
-        to={to || cursor}
-        label={opts && opts.prevEdge && opts.prevEdge.label}
-        opts={{
-            forceLine: false,
-            placeholderLength: 15,
-        }}/>}
+        <ControlledEdgeElementComponent
+            from={from}
+            to={to || cursor}
+            label={opts && opts.prevEdge && opts.prevEdge.label}
+            opts={{
+                forceLine: false,
+                placeholderLength: 15,
+            }}/>}
     </>
 );
 

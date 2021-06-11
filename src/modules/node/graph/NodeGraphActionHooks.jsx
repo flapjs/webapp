@@ -1,9 +1,7 @@
-import { useContext, useCallback } from 'react';
+import { useCallback } from 'react';
 
-import { GraphDispatchContext } from '@flapjs/services/graph/GraphContext.jsx';
-
-import NodeElement from './elements/NodeElement.js';
-import EdgeElement from './elements/EdgeElement.js';
+import { useGraph } from '@flapjs/services3/graph/GraphService.js';
+import { uuid } from '@flapjs/util/MathHelper.js';
 
 /**
  * This is basically a wrapper for certain GraphReducer actions.
@@ -12,7 +10,7 @@ import EdgeElement from './elements/EdgeElement.js';
  */
 export function useNodeGraphActions()
 {
-    const graphDispatch = useContext(GraphDispatchContext);
+    const graph = useGraph();
 
     /**
      * Creates a node by dispatching to the node context.
@@ -23,11 +21,13 @@ export function useNodeGraphActions()
      */
     const createNode = useCallback(async function(opts)
     {
-        return await graphDispatch({ type: 'add', elementType: NodeElement, opts: {
-            x: opts.x, y: opts.y
-        }});
+        let id = uuid();
+        graph.addNode(id, null, {
+            x: opts.x,
+            y: opts.y,
+        });
     },
-    [ graphDispatch ]);
+    [graph]);
 
     /**
      * Creates an edge by dispatching to the graph context.
@@ -39,11 +39,10 @@ export function useNodeGraphActions()
      */
     const createEdge = useCallback(async function(from, to)
     {
-        return await graphDispatch({ type: 'add', elementType: EdgeElement, opts: {
-            fromId: from.id, toId: to.id
-        }});
+        let id = uuid();
+        graph.addEdge(id, from, to, null, {});
     },
-    [ graphDispatch ]);
+    [graph]);
 
     /**
      * Swaps the initial property between nodes.
@@ -53,9 +52,13 @@ export function useNodeGraphActions()
      */
     const swapInitial = useCallback(async function(from, to)
     {
-        return await graphDispatch({ type: 'swapProperty', elementType: NodeElement, elementId: from.id, targetId: to.id, property: 'initial' });
+        graph.setNodeAttribute(from, 'initial', (value) =>
+        {
+            graph.setNodeAttribute(to, 'initial', value);
+            return !value;
+        });
     },
-    [ graphDispatch ]);
+    [graph]);
 
     return {
         createNode,
